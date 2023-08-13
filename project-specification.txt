@@ -1,0 +1,67 @@
+{
+  prefix [com seanshubin]
+  name [code structure]
+  description 'Dependency Structure For Code'
+  version 0.1.0
+  language kotlin
+  developer {
+    name 'Sean Shubin'
+    githubName SeanShubin
+    mavenUserName SeanShubin
+    organization 'Sean Shubin'
+    url http://seanshubin.com/
+  }
+  dependencies {
+    stdlib {
+      group org.jetbrains.kotlin
+      artifact kotlin-stdlib-jdk8
+    }
+    coroutines {
+      group org.jetbrains.kotlinx
+      artifact kotlinx-coroutines-core
+    }
+    test {
+      group org.jetbrains.kotlin
+      artifact kotlin-test-junit
+      scope test
+    }
+    arrow {
+        group    io.arrow-kt
+        artifact arrow-core
+    }
+    jackson {
+        group com.fasterxml.jackson.module
+        artifact jackson-module-kotlin
+    }
+    jackson-time {
+        group com.fasterxml.jackson.datatype
+        artifact jackson-datatype-jsr310
+    }
+  }
+  global [ stdlib test ]
+  modules {
+    console         [ domain ]
+    domain          [ ]
+    contract        [ ]
+    contract-test   [ ]
+    json            [ ]
+    config          [ ]
+    untyped         [ ]
+    zip             [ ]
+    bytecodeformat  [ ]
+    jvmformat       [ ]
+    beamformat      [ ]
+    html            [ ]
+    io              [ ]
+    string          [ ]
+    collection      [ ]
+    dot             [ ]
+    log             [ ]
+  }
+  detangler [domain]
+  consoleEntryPoint {
+    console com.seanshubin.code.structure.console.EntryPoint
+  }
+  javaVersion 18
+  deployableToMavenCentral true
+}
