@@ -41,7 +41,7 @@
   global [ stdlib test ]
   modules {
     console         [ domain ]
-    domain          [ ]
+    domain          [ durationformat ]
     contract        [ ]
     contract-test   [ ]
     json            [ ]
@@ -57,6 +57,7 @@
     collection      [ ]
     dot             [ ]
     log             [ ]
+    durationformat  [ ]
   }
   detangler [domain]
   consoleEntryPoint {
