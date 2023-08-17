@@ -1,0 +1,8 @@
+{
+  "input":"../code-structure-sample-kotlin",
+  "output": "generated/kotlin",
+  "sourceFileRegexPatterns": {
+    "include": [".*\\.kt"],
+    "exclude": []
+  }
+}

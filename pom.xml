@@ -55,6 +55,7 @@
     <modules>
         <module>console</module>
         <module>domain</module>
+        <module>filefinder</module>
         <module>contract</module>
         <module>contract-test</module>
         <module>json</module>
