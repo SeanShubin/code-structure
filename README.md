@@ -13,10 +13,10 @@
     - Default locale: en_US, platform encoding: UTF-8
     - OS name: "mac os x", version: "12.6.8", arch: "x86_64", family: "mac"
 
-## Usage
-- test
-  - `mvn test`
-- build
-  - `mvn package`
-- run
-  - `java -jar console/target/code-structure-console.jar`
+## Scripts
+```shell
+./scripts/clean.sh
+./scripts/test.sh
+./scripts/build.sh
+./scripts/run.sh
+```
