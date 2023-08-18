@@ -10,6 +10,21 @@
             <artifactId>code-structure-untyped</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-contract</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-json</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-contract-test</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
     <parent>
         <groupId>com.seanshubin.code.structure</groupId>
