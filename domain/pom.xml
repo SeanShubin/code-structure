@@ -30,6 +30,11 @@
             <artifactId>code-structure-tree</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-html</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
     <parent>
         <groupId>com.seanshubin.code.structure</groupId>

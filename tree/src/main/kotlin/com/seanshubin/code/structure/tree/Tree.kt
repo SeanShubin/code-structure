@@ -3,10 +3,16 @@ package com.seanshubin.code.structure.tree
 sealed interface Tree<KeyType, ValueType> {
     fun setValue(path: List<KeyType>, value: ValueType): Tree<KeyType, ValueType>
     fun getValue(path: List<KeyType>): ValueType?
-    fun toLines(keyOrder:Comparator<KeyType>, keyToString:(KeyType)->String, valueToString:(ValueType)->String):List<String>
-    fun pathValues(path:List<KeyType>):List<Pair<List<KeyType>,ValueType>>
+    fun toLines(
+        keyOrder: Comparator<KeyType>,
+        keyToString: (KeyType) -> String,
+        valueToString: (ValueType) -> String
+    ): List<String>
 
-    data class Branch<KeyType, ValueType>(val parts: Map<KeyType, Tree<KeyType, ValueType>>) : Tree<KeyType, ValueType> {
+    fun pathValues(path: List<KeyType>): List<Pair<List<KeyType>, ValueType>>
+
+    data class Branch<KeyType, ValueType>(val parts: Map<KeyType, Tree<KeyType, ValueType>>) :
+        Tree<KeyType, ValueType> {
         override fun setValue(path: List<KeyType>, value: ValueType): Tree<KeyType, ValueType> {
             if (path.isEmpty()) return Leaf(value)
             val key = path[0]
@@ -33,19 +39,23 @@ sealed interface Tree<KeyType, ValueType> {
             return finalValue
         }
 
-        override fun toLines(keyOrder:Comparator<KeyType>, keyToString: (KeyType) -> String, valueToString: (ValueType) -> String): List<String> {
+        override fun toLines(
+            keyOrder: Comparator<KeyType>,
+            keyToString: (KeyType) -> String,
+            valueToString: (ValueType) -> String
+        ): List<String> {
             val keys = parts.keys.toList().sortedWith(keyOrder)
             val lines = keys.flatMap { key ->
                 val value = parts.getValue(key)
                 val thisLine = keyToString(key)
-                val subLines = value.toLines(keyOrder, keyToString, valueToString).map{"  $it"}
+                val subLines = value.toLines(keyOrder, keyToString, valueToString).map { "  $it" }
                 listOf(thisLine) + subLines
             }
             return lines
         }
 
         override fun pathValues(path: List<KeyType>): List<Pair<List<KeyType>, ValueType>> {
-            return parts.flatMap { (key, value )->
+            return parts.flatMap { (key, value) ->
                 val newPath = path + key
                 value.pathValues(newPath)
             }

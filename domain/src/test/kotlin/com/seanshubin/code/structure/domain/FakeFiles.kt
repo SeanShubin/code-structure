@@ -10,13 +10,14 @@ import java.nio.file.attribute.FileTime
 import java.util.function.BiPredicate
 import java.util.stream.Stream
 
-class FakeFiles:FilesNotImplemented() {
-    var root:Tree<String, String> = Tree.empty()
-    fun fakeAddFile(pathName:String, contents:String){
+class FakeFiles : FilesNotImplemented() {
+    var root: Tree<String, String> = Tree.empty()
+    fun fakeAddFile(pathName: String, contents: String) {
         val path = Paths.get(pathName)
-        val pathParts = path.toList().map{it.toString()}
+        val pathParts = path.toList().map { it.toString() }
         root = root.setValue(pathParts, contents)
     }
+
     override fun writeString(path: Path, csq: CharSequence, cs: Charset, vararg options: OpenOption): Path {
         throw UnsupportedOperationException("not implemented")
     }
@@ -35,15 +36,15 @@ class FakeFiles:FilesNotImplemented() {
         matcher: BiPredicate<Path, BasicFileAttributes>,
         vararg options: FileVisitOption
     ): Stream<Path> {
-        val result = root.pathValues(emptyList()).map{ (pathParts, _) ->
+        val result = root.pathValues(emptyList()).map { (pathParts, _) ->
             Paths.get(pathParts[0], *pathParts.drop(1).toTypedArray())
-        }.filter{ path ->
+        }.filter { path ->
             matcher.test(path, fileAttributesNotImplemented)
         }
         return result.stream()
     }
 
-    val fileAttributesNotImplemented = object:BasicFileAttributes{
+    val fileAttributesNotImplemented = object : BasicFileAttributes {
         override fun lastModifiedTime(): FileTime {
             throw UnsupportedOperationException("not implemented")
         }

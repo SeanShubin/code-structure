@@ -13,6 +13,7 @@ import com.seanshubin.code.structure.filefinder.RegexFileMatcher
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.time.Clock
+import java.time.Duration
 
 class Dependencies(args: Array<String>) {
     private val configFileName = args.getOrNull(0) ?: "code-structure-config.json"
@@ -21,6 +22,7 @@ class Dependencies(args: Array<String>) {
     private val config: Configuration = JsonFileConfiguration(files, configFile)
     private val clock: Clock = Clock.systemUTC()
     private val inputDir = config.load(listOf("inputDir"), ".").coerceToPath()
+    private val outputDir = config.load(listOf("outputDir"), "generated").coerceToPath()
     private val sourceFileIncludeRegexPatterns: List<String> =
         config.load(listOf("sourceFileRegexPatterns", "include"), emptyList<String>()).coerceToListOfString()
     private val sourceFileExcludeRegexPatterns: List<String> =
@@ -32,8 +34,13 @@ class Dependencies(args: Array<String>) {
     private val fileFinder: FileFinder = FileFinderImpl(files)
     private val observer: Observer = ObserverImpl(inputDir, isSourceFile, fileFinder)
     private val analyzer: Analyzer = AnalyzerImpl()
-    private val reportGenerator: ReportGenerator = ReportGeneratorImpl()
+    private val sourcesReport: Report = SourcesReport()
+    private val reports: List<Report> = listOf(sourcesReport)
+    private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, outputDir)
+    private val commandRunner: CommandRunner = CommandRunnerImpl()
+    private val notifications: Notifications = NotificationsImpl()
+    private val timeTakenEvent: (Duration) -> Unit = notifications::timeTakenEvent
     val runner: Runnable = Runner(
-        clock, observer, analyzer, reportGenerator
+        clock, observer, analyzer, reportGenerator, commandRunner, timeTakenEvent
     )
 }

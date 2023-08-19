@@ -8,7 +8,7 @@ import kotlin.test.assertEquals
 
 class ObserverTest {
     @Test
-    fun findSourceFiles(){
+    fun findSourceFiles() {
         // given
         val filesOnDisk = listOf(
             "base/dir/file-1.kt",
@@ -22,7 +22,7 @@ class ObserverTest {
             "base/dir/file-3.kt",
         )
 
-        val isSourceFile = { path: Path -> path.toString().endsWith(".kt")}
+        val isSourceFile = { path: Path -> path.toString().endsWith(".kt") }
         val tester = Tester(isSourceFile, filesOnDisk)
 
         // when
@@ -34,18 +34,20 @@ class ObserverTest {
     }
 
     class Tester(
-        isSourceFile:(Path)->Boolean,
-        filesOnDisk:List<String>
-    ){
+        isSourceFile: (Path) -> Boolean,
+        filesOnDisk: List<String>
+    ) {
         val files = FakeFiles()
         val fileFinder = FileFinderImpl(files)
         val inputDir = Paths.get(".")
         val observer = ObserverImpl(inputDir, isSourceFile, fileFinder)
+
         init {
             filesOnDisk.forEach {
                 files.fakeAddFile(it, "unused content")
             }
         }
-        fun sourceFilesFound(observations:Observations):List<String> = observations.sourceFiles.map{it.toString()}
+
+        fun sourceFilesFound(observations: Observations): List<String> = observations.sourceFiles.map { it.toString() }
     }
 }
