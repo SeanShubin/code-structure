@@ -1,7 +1,6 @@
 package com.seanshubin.code.structure.config
 
 import com.seanshubin.code.structure.contract.test.FilesNotImplemented
-import com.seanshubin.code.structure.json.JsonMappers
 import java.nio.charset.Charset
 import java.nio.file.LinkOption
 import java.nio.file.OpenOption
@@ -13,7 +12,7 @@ import kotlin.test.assertEquals
 
 class JsonFileConfigurationTest {
     @Test
-    fun loadString(){
+    fun loadString() {
         // given
         val text = """
             {
@@ -31,13 +30,13 @@ class JsonFileConfigurationTest {
 
         // when
         val actual = jsonFileConfiguration.load(listOf("a", "b", "c"), "the-default")
-        
+
         // then
         assertEquals(expected, actual)
     }
 
     @Test
-    fun loadListOfString(){
+    fun loadListOfString() {
         // given
         val text = """
             {
@@ -61,7 +60,7 @@ class JsonFileConfigurationTest {
     }
 
     @Test
-    fun missingFile(){
+    fun missingFile() {
         // given
         val text = """
             {
@@ -84,14 +83,16 @@ class JsonFileConfigurationTest {
         assertEquals(expected, actual)
     }
 
-    class FilesStub(val initialFileContents:Map<String, String>): FilesNotImplemented() {
+    class FilesStub(val initialFileContents: Map<String, String>) : FilesNotImplemented() {
         val fileContents = mutableMapOf<String, String>()
         val createdDirectories = mutableListOf<String>()
-        init{
+
+        init {
             initialFileContents.map { (key, value) ->
                 fileContents[key] = value
             }
         }
+
         override fun readString(path: Path, cs: Charset): String {
             val text = fileContents[path.toString()] ?: throw RuntimeException("no content defined for path $path")
             return text

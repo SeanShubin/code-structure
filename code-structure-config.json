@@ -1,0 +1,9 @@
+{
+  "inputDir": ".",
+  "sourceFileRegexPatterns": {
+    "include": [
+      ".*\\.kt$"
+    ],
+    "exclude": []
+  }
+}

@@ -76,7 +76,7 @@ interface FilesContract {
 
     @Throws(IOException::class)
     fun createSymbolicLink(
-        link: Path, 
+        link: Path,
         target: Path,
         vararg attrs: FileAttribute<*>
     ): Path

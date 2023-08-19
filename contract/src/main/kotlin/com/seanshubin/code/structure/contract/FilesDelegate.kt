@@ -11,7 +11,7 @@ import java.nio.file.attribute.*
 import java.util.function.BiPredicate
 import java.util.stream.Stream
 
-object FilesDelegate:FilesContract {
+object FilesDelegate : FilesContract {
     override fun newInputStream(path: Path, vararg options: OpenOption): InputStream =
         Files.newInputStream(path, *options)
 

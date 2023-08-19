@@ -12,11 +12,11 @@ class JsonFileConfiguration(
 ) : Configuration {
     override fun load(path: List<String>, default: Any?): Any? {
         ensureFileExists()
-        if(!exists(path)){
+        if (!exists(path)) {
             storeString(path, default)
         }
         val theObject = loadObject()
-        val value = if(DynamicUtil.pathExists(path, theObject)) {
+        val value = if (DynamicUtil.pathExists(path, theObject)) {
             DynamicUtil.getValueAtPath(path, theObject)
         } else {
             default

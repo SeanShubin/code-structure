@@ -12,7 +12,7 @@ import java.nio.file.attribute.*
 import java.util.function.BiPredicate
 import java.util.stream.Stream
 
-abstract class FilesNotImplemented: FilesContract {
+abstract class FilesNotImplemented : FilesContract {
     override fun newInputStream(path: Path, vararg options: OpenOption): InputStream {
         throw UnsupportedOperationException("not implemented")
     }
