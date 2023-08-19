@@ -72,6 +72,7 @@
         <module>dot</module>
         <module>log</module>
         <module>durationformat</module>
+        <module>tree</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

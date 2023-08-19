@@ -41,7 +41,7 @@
   global [ stdlib test ]
   modules {
     console         [ domain ]
-    domain          [ durationformat filefinder config contract-test ]
+    domain          [ durationformat filefinder config contract-test tree ]
     filefinder      [ contract ]
     contract        [ ]
     contract-test   [ contract ]
@@ -59,6 +59,7 @@
     dot             [ ]
     log             [ ]
     durationformat  [ ]
+    tree            [ ]
   }
   detangler [domain]
   consoleEntryPoint {
