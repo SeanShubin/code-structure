@@ -1,7 +1,9 @@
 package com.seanshubin.code.structure.domain
 
-class CommandRunnerImpl : CommandRunner {
+class CommandRunnerImpl(
+    private val environment: Environment
+) : CommandRunner {
     override fun execute(command: Command) {
-        throw UnsupportedOperationException("not implemented")
+        command.execute(environment)
     }
 }

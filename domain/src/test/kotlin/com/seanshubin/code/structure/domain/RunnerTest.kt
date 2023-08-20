@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.domain.TestUtil.exactlyOne
 import java.nio.file.Paths
 import java.time.Clock
 import java.time.Duration
@@ -47,11 +48,6 @@ class RunnerTest {
 
         val actualDuration = tester.durations().exactlyOne()
         assertEquals(Duration.ofMillis(2345), actualDuration)
-    }
-
-    private fun <T> List<T>.exactlyOne(): T {
-        assertEquals(1, this.size)
-        return get(0)
     }
 
     class Tester(

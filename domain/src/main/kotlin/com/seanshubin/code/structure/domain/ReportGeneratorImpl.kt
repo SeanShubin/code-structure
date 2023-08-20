@@ -5,6 +5,7 @@ import java.nio.file.Path
 class ReportGeneratorImpl(
     private val reports: List<Report>,
     private val outputDir: Path,
+    private val reportWrapper: ReportWrapper
 ) : ReportGenerator {
     private val reportDir = outputDir.resolve("reports")
     override fun generateReports(analysis: Analysis): List<CreateFileCommand> {
@@ -13,7 +14,8 @@ class ReportGeneratorImpl(
     }
 
     private fun generateReport(analysis: Analysis, report: Report): CreateFileCommand {
-        val html = report.generate(analysis)
+        val htmlInsideBody = report.generate(analysis)
+        val html = reportWrapper.wrapInTopLevelHtml(report.name, htmlInsideBody)
         val fileName = "${report.name}.html"
         val path = reportDir.resolve(fileName)
         val lines = html.toLines()

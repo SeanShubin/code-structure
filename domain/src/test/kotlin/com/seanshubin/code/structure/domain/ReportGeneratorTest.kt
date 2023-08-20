@@ -19,6 +19,11 @@ class ReportGeneratorTest {
         val tester = Tester(outputDirName, reportName, sourceFiles)
         val expectedLines = """
             <html>
+              <head>
+                <title>
+                  sources
+                </title>
+              </head>
               <body>
                 <p>
                   base/dir/file-1.kt
@@ -53,20 +58,30 @@ class ReportGeneratorTest {
         val files = FakeFiles()
         val report = ReportStub(reportName)
         val reports = listOf(report)
-        val reportGenerator = ReportGeneratorImpl(reports, outputDir)
+        val reportWrapper = ReportWrapperStub()
+        val reportGenerator = ReportGeneratorImpl(reports, outputDir, reportWrapper)
         val sourceFilePaths = sourceFiles.map { Paths.get(it) }
         val observations = Observations(sourceFilePaths)
         val analysis = Analysis(observations)
     }
 
     class ReportStub(override val name: String) : Report {
-        override fun generate(analysis: Analysis): HtmlElement {
+        override fun generate(analysis: Analysis): List<HtmlElement> {
             val sources = analysis.observations.sourceFiles.map {
                 val text = HtmlElement.Text(it.toString())
                 HtmlElement.Tag("p", text)
             }
-            val body = HtmlElement.Tag("body", sources)
-            val html = HtmlElement.Tag("html", body)
+            return sources
+        }
+    }
+
+    class ReportWrapperStub : ReportWrapper {
+        override fun wrapInTopLevelHtml(name: String, htmlInsideBody: List<HtmlElement>): HtmlElement {
+            val titleText = HtmlElement.Text(name)
+            val title = HtmlElement.Tag("title", titleText)
+            val head = HtmlElement.Tag("head", title)
+            val body = HtmlElement.Tag("body", htmlInsideBody)
+            val html = HtmlElement.Tag("html", head, body)
             return html
         }
     }

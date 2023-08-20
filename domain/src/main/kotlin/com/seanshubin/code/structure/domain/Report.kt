@@ -4,5 +4,5 @@ import com.seanshubin.code.structure.html.HtmlElement
 
 interface Report {
     val name: String
-    fun generate(analysis: Analysis): HtmlElement
+    fun generate(analysis: Analysis): List<HtmlElement>
 }
