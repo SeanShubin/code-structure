@@ -40,7 +40,8 @@ class ObserverTest {
         val files = FakeFiles()
         val fileFinder = FileFinderImpl(files)
         val inputDir = Paths.get(".")
-        val observer = ObserverImpl(inputDir, isSourceFile, fileFinder)
+        val sourcePrefix = ""
+        val observer = ObserverImpl(inputDir, sourcePrefix, isSourceFile, fileFinder)
 
         init {
             filesOnDisk.forEach {

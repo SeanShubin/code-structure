@@ -5,11 +5,12 @@ import java.nio.file.Path
 
 class ObserverImpl(
     private val inputDir: Path,
+    private val sourcePrefix: String,
     private val isSourceFile: (Path) -> Boolean,
     private val fileFinder: FileFinder,
 ) : Observer {
     override fun makeObservations(): Observations {
         val sourceFiles = fileFinder.findFiles(inputDir, isSourceFile)
-        return Observations(sourceFiles)
+        return Observations(inputDir, sourcePrefix, sourceFiles)
     }
 }

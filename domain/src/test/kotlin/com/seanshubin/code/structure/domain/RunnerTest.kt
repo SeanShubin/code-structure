@@ -20,12 +20,14 @@ class RunnerTest {
             "dir/file-b.txt",
             "dir/file-c.txt"
         )
+        val inputDirName = "input"
         val reportPathName = "generated/report.html"
         val reportLine = "the report contents"
         val tester = Tester(
             startTimeMillis,
             endTimeMillis,
             sourceFiles,
+            inputDirName,
             reportPathName,
             reportLine
         )
@@ -54,16 +56,20 @@ class RunnerTest {
         startTimeMillis: Int,
         endTimeMillis: Int,
         sourceFiles: List<String>,
+        inputDirName: String,
         reportPathName: String,
         reportLine: String
     ) {
+        val inputDir = Paths.get(inputDirName)
+        val sourcePrefix = ""
+
         val clock: Clock = ClockStub(startTimeMillis.toLong(), endTimeMillis.toLong())
         val reportPath = Paths.get(reportPathName)
         val reportLines = listOf(reportLine)
         val createFileCommand = CreateFileCommand(reportPath, reportLines)
         val reportGenerator: ReportGeneratorStub = ReportGeneratorStub(createFileCommand)
         val sourceFilePaths = sourceFiles.map { Paths.get(it) }
-        val observations = Observations(sourceFilePaths)
+        val observations = Observations(inputDir, sourcePrefix, sourceFilePaths)
         val observer: ObserverStub = ObserverStub(observations)
         val analyzer: AnalyzerStub = AnalyzerStub()
         val commandRunner = CommandRunnerStub()

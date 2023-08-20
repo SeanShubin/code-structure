@@ -9,6 +9,7 @@ class ReportGeneratorTest {
     @Test
     fun generateReports() {
         // given
+        val inputDirName = "input"
         val outputDirName = "generated"
         val sourceFiles = listOf(
             "base/dir/file-1.kt",
@@ -16,7 +17,7 @@ class ReportGeneratorTest {
             "base/dir/file-3.kt"
         )
         val reportName = "sources"
-        val tester = Tester(outputDirName, reportName, sourceFiles)
+        val tester = Tester(inputDirName, outputDirName, reportName, sourceFiles)
         val expectedLines = """
             base/dir/file-1.kt
             base/dir/file-2.kt
@@ -35,17 +36,20 @@ class ReportGeneratorTest {
     }
 
     class Tester(
+        inputDirName: String,
         outputDirName: String,
         reportName: String,
         sourceFiles: List<String>
     ) {
+        val inputDir = Paths.get(inputDirName)
         val outputDir = Paths.get(outputDirName)
+        val sourcePrefix = ""
         val files = FakeFiles()
         val report = ReportStub(reportName)
         val reports = listOf(report)
         val reportGenerator = ReportGeneratorImpl(reports, outputDir)
         val sourceFilePaths = sourceFiles.map { Paths.get(it) }
-        val observations = Observations(sourceFilePaths)
+        val observations = Observations(inputDir, sourcePrefix, sourceFilePaths)
         val analysis = Analysis(observations)
     }
 

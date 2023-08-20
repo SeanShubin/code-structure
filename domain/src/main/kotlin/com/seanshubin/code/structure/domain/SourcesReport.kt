@@ -21,11 +21,23 @@ class SourcesReport : HtmlReport() {
     }
 
     private fun tbody(analysis: Analysis): HtmlElement {
+        val inputDir = analysis.observations.inputDir
+        val sourcePrefix = analysis.observations.sourcePrefix
         val rows = analysis.observations.sourceFiles.map {
-            val text = Text(it.toString())
-            val td = Tag("td", text)
+            val relativePath = inputDir.relativize(it)
+            val sourceName = relativePath.toString()
+            val sourceLink = sourcePrefix + sourceName
+            val anchor = anchor(sourceName, sourceLink)
+            val td = Tag("td", anchor)
             Tag("tr", td)
         }
         return Tag("tbody", rows)
     }
+
+    private fun anchor(value: String, link: String): HtmlElement =
+        Tag(
+            "a", children = listOf(Text(value)), attributes = listOf(
+                "href" to link
+            )
+        )
 }

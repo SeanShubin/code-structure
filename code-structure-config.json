@@ -6,5 +6,6 @@
     ],
     "exclude": []
   },
-  "outputDir": "generated"
+  "outputDir": "generated",
+  "sourcePrefix": "https://github.com/SeanShubin/code-structure-2/blob/master/"
 }

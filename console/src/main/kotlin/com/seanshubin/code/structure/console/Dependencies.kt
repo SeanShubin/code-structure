@@ -4,6 +4,7 @@ import com.seanshubin.code.structure.config.Configuration
 import com.seanshubin.code.structure.config.JsonFileConfiguration
 import com.seanshubin.code.structure.config.TypeUtil.coerceToListOfString
 import com.seanshubin.code.structure.config.TypeUtil.coerceToPath
+import com.seanshubin.code.structure.config.TypeUtil.coerceToString
 import com.seanshubin.code.structure.contract.FilesContract
 import com.seanshubin.code.structure.contract.FilesDelegate
 import com.seanshubin.code.structure.domain.*
@@ -23,6 +24,7 @@ class Dependencies(args: Array<String>) {
     private val clock: Clock = Clock.systemUTC()
     private val inputDir = config.load(listOf("inputDir"), ".").coerceToPath()
     private val outputDir = config.load(listOf("outputDir"), "generated").coerceToPath()
+    private val sourcePrefix = config.load(listOf("sourcePrefix"), "prefix for link to source code").coerceToString()
     private val sourceFileIncludeRegexPatterns: List<String> =
         config.load(listOf("sourceFileRegexPatterns", "include"), emptyList<String>()).coerceToListOfString()
     private val sourceFileExcludeRegexPatterns: List<String> =
@@ -32,7 +34,7 @@ class Dependencies(args: Array<String>) {
         sourceFileExcludeRegexPatterns
     )
     private val fileFinder: FileFinder = FileFinderImpl(files)
-    private val observer: Observer = ObserverImpl(inputDir, isSourceFile, fileFinder)
+    private val observer: Observer = ObserverImpl(inputDir, sourcePrefix, isSourceFile, fileFinder)
     private val analyzer: Analyzer = AnalyzerImpl()
     private val sourcesReport: Report = SourcesReport()
     private val reports: List<Report> = listOf(sourcesReport)
