@@ -9,6 +9,6 @@ class ReportGeneratorImpl(
     private val reportDir = outputDir.resolve("reports")
     override fun generateReports(analysis: Analysis): List<CreateFileCommand> {
         val generateReportFunction = { report: Report -> report.generate(reportDir, analysis) }
-        return reports.map(generateReportFunction)
+        return reports.flatMap(generateReportFunction)
     }
 }

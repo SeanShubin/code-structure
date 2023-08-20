@@ -41,7 +41,7 @@
   global [ stdlib test ]
   modules {
     console         [ domain ]
-    domain          [ durationformat filefinder config contract-test tree html ]
+    domain          [ durationformat filefinder config contract-test tree html io ]
     filefinder      [ contract ]
     contract        [ ]
     contract-test   [ contract ]

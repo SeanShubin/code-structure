@@ -16,14 +16,13 @@ class ReportGeneratorTest {
             "base/dir/file-2.kt",
             "base/dir/file-3.kt"
         )
-        val reportName = "sources"
-        val tester = Tester(inputDirName, outputDirName, reportName, sourceFiles)
+        val tester = Tester(inputDirName, outputDirName, sourceFiles)
         val expectedLines = """
             base/dir/file-1.kt
             base/dir/file-2.kt
             base/dir/file-3.kt
         """.trimIndent()
-        val expectedPath = Paths.get("generated/reports/sources.txt")
+        val expectedPath = Paths.get("generated/reports/report.txt")
 
         // when
         val actual = tester.reportGenerator.generateReports(tester.analysis)
@@ -38,14 +37,13 @@ class ReportGeneratorTest {
     class Tester(
         inputDirName: String,
         outputDirName: String,
-        reportName: String,
         sourceFiles: List<String>
     ) {
         val inputDir = Paths.get(inputDirName)
         val outputDir = Paths.get(outputDirName)
         val sourcePrefix = ""
         val files = FakeFiles()
-        val report = ReportStub(reportName)
+        val report = ReportStub()
         val reports = listOf(report)
         val reportGenerator = ReportGeneratorImpl(reports, outputDir)
         val sourceFilePaths = sourceFiles.map { Paths.get(it) }
@@ -53,13 +51,13 @@ class ReportGeneratorTest {
         val analysis = Analysis(observations)
     }
 
-    class ReportStub(override val name: String) : Report {
-        override fun generate(reportDir: Path, analysis: Analysis): CreateFileCommand {
-            val path = reportDir.resolve("$name.txt")
+    class ReportStub() : Report {
+        override fun generate(reportDir: Path, analysis: Analysis): List<CreateFileCommand> {
+            val path = reportDir.resolve("report.txt")
             val lines = analysis.observations.sourceFiles.map {
                 it.toString()
             }
-            return CreateFileCommand(path, lines)
+            return listOf(CreateFileCommand(path, lines))
         }
     }
 }
