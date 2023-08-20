@@ -17,6 +17,16 @@ class SourcesReport : HtmlReport() {
     }
 
     private fun generateHtml(analysis: Analysis): List<HtmlElement> {
+        return summary(analysis) + table(analysis)
+    }
+
+    private fun summary(analysis: Analysis): List<HtmlElement> {
+        return listOf(
+            Tag("p", Text("source count: ${analysis.observations.sourceFiles.size}"))
+        )
+    }
+
+    private fun table(analysis: Analysis): List<HtmlElement> {
         val thead = thead()
         val tbody = tbody(analysis)
         val table = Tag("table", thead, tbody)
