@@ -36,8 +36,7 @@ class Dependencies(args: Array<String>) {
     private val analyzer: Analyzer = AnalyzerImpl()
     private val sourcesReport: Report = SourcesReport()
     private val reports: List<Report> = listOf(sourcesReport)
-    private val reportWrapper: ReportWrapper = ReportWrapperImpl()
-    private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, outputDir, reportWrapper)
+    private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, outputDir)
     private val environment: Environment = EnvironmentImpl(files)
     private val commandRunner: CommandRunner = CommandRunnerImpl(environment)
     private val emitLine: (String) -> Unit = ::println

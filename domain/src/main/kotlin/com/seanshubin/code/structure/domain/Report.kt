@@ -1,8 +1,8 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.html.HtmlElement
+import java.nio.file.Path
 
 interface Report {
     val name: String
-    fun generate(analysis: Analysis): List<HtmlElement>
+    fun generate(reportDir: Path, analysis: Analysis): CreateFileCommand
 }

@@ -4,21 +4,11 @@ import java.nio.file.Path
 
 class ReportGeneratorImpl(
     private val reports: List<Report>,
-    private val outputDir: Path,
-    private val reportWrapper: ReportWrapper
+    outputDir: Path
 ) : ReportGenerator {
     private val reportDir = outputDir.resolve("reports")
     override fun generateReports(analysis: Analysis): List<CreateFileCommand> {
-        val generateReportFunction = { report: Report -> generateReport(analysis, report) }
+        val generateReportFunction = { report: Report -> report.generate(reportDir, analysis) }
         return reports.map(generateReportFunction)
-    }
-
-    private fun generateReport(analysis: Analysis, report: Report): CreateFileCommand {
-        val htmlInsideBody = report.generate(analysis)
-        val html = reportWrapper.wrapInTopLevelHtml(report.name, htmlInsideBody)
-        val fileName = "${report.name}.html"
-        val path = reportDir.resolve(fileName)
-        val lines = html.toLines()
-        return CreateFileCommand(path, lines)
     }
 }

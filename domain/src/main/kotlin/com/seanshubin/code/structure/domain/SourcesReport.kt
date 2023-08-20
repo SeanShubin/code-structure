@@ -4,10 +4,9 @@ import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElement.Tag
 import com.seanshubin.code.structure.html.HtmlElement.Text
 
-class SourcesReport : Report {
+class SourcesReport : HtmlReport() {
     override val name: String = "sources"
-
-    override fun generate(analysis: Analysis): List<HtmlElement> {
+    override fun generateHtml(analysis: Analysis): List<HtmlElement> {
         val thead = thead()
         val tbody = tbody(analysis)
         val table = Tag("table", thead, tbody)
