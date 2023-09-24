@@ -7,5 +7,5 @@ data class Observations(
     val inputDir: Path,
     val sourcePrefix: String,
     val sourceFiles: List<Path>,
-    val sourceDetailByPath:Map<Path, SourceDetail>
+    val sourceDetailByPath: Map<Path, SourceDetail>
 )

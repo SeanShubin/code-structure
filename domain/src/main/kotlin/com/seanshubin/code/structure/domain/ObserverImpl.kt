@@ -12,7 +12,7 @@ class ObserverImpl(
     private val isSourceFile: (Path) -> Boolean,
     private val fileFinder: FileFinder,
     private val parser: Parser,
-    private val files:FilesContract
+    private val files: FilesContract
 ) : Observer {
     override fun makeObservations(): Observations {
         val sourceFiles = fileFinder.findFiles(inputDir, isSourceFile).sorted()

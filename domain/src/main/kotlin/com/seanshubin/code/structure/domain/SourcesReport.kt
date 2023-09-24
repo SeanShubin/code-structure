@@ -54,7 +54,7 @@ class SourcesReport : HtmlReport() {
         return Tag("tbody", rows)
     }
 
-    private fun tdLink(inputDir:Path, sourcePrefix:String, path:Path):HtmlElement{
+    private fun tdLink(inputDir: Path, sourcePrefix: String, path: Path): HtmlElement {
         val relativePath = inputDir.relativize(path)
         val sourceName = relativePath.toString()
         val sourceLink = sourcePrefix + sourceName
@@ -63,10 +63,10 @@ class SourcesReport : HtmlReport() {
         return td
     }
 
-    private fun tdSourceDetail(sourceDetail: SourceDetail):HtmlElement{
-        val names = if(sourceDetail.modules.size ==1) {
+    private fun tdSourceDetail(sourceDetail: SourceDetail): HtmlElement {
+        val names = if (sourceDetail.modules.size == 1) {
             sourceDetail.modules[0]
-        }else {
+        } else {
             sourceDetail.modules.joinToString(", ", "[", "]")
         }
         val text = Text(names)

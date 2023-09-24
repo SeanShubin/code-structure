@@ -62,7 +62,7 @@ class ObserverTest {
         fun sourceFilesFound(observations: Observations): List<String> = observations.sourceFiles.map { it.toString() }
     }
 
-    class ParserStub: Parser {
+    class ParserStub : Parser {
         override fun parseSource(path: Path, content: String): SourceDetail {
             throw UnsupportedOperationException("not implemented")
         }

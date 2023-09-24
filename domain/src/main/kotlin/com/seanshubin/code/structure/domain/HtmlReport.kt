@@ -28,7 +28,7 @@ abstract class HtmlReport : Report {
         return html
     }
 
-    private fun header(name:String):List<HtmlElement> = listOf(
+    private fun header(name: String): List<HtmlElement> = listOf(
         Tag("h1", listOf(Text(name))),
     )
 
