@@ -11,6 +11,10 @@ import com.seanshubin.code.structure.domain.*
 import com.seanshubin.code.structure.filefinder.FileFinder
 import com.seanshubin.code.structure.filefinder.FileFinderImpl
 import com.seanshubin.code.structure.filefinder.RegexFileMatcher
+import com.seanshubin.code.structure.parser.KotlinParser
+import com.seanshubin.code.structure.parser.Parser
+import com.seanshubin.code.structure.parser.ParserRepository
+import com.seanshubin.code.structure.parser.ParserRepositoryImpl
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.time.Clock
@@ -24,6 +28,7 @@ class Dependencies(args: Array<String>) {
     private val clock: Clock = Clock.systemUTC()
     private val inputDir = config.load(listOf("inputDir"), ".").coerceToPath()
     private val outputDir = config.load(listOf("outputDir"), "generated").coerceToPath()
+    private val language = config.load(listOf("language"), "source code language").coerceToString()
     private val sourcePrefix = config.load(listOf("sourcePrefix"), "prefix for link to source code").coerceToString()
     private val sourceFileIncludeRegexPatterns: List<String> =
         config.load(listOf("sourceFileRegexPatterns", "include"), emptyList<String>()).coerceToListOfString()
@@ -34,11 +39,26 @@ class Dependencies(args: Array<String>) {
         sourceFileExcludeRegexPatterns
     )
     private val fileFinder: FileFinder = FileFinderImpl(files)
-    private val observer: Observer = ObserverImpl(inputDir, sourcePrefix, isSourceFile, fileFinder)
+    private val kotlinParser: Parser = KotlinParser()
+    private val parserRepository: ParserRepository = ParserRepositoryImpl(kotlinParser)
+    private val parser: Parser = parserRepository.lookupByLanguage(language)
+    private val observer: Observer = ObserverImpl(
+        inputDir,
+        sourcePrefix,
+        isSourceFile,
+        fileFinder,
+        parser,
+        files
+    )
     private val analyzer: Analyzer = AnalyzerImpl()
     private val staticContentReport: Report = StaticContentReport()
     private val sourcesReport: Report = SourcesReport()
-    private val reports: List<Report> = listOf(staticContentReport, sourcesReport)
+    private val tableOfContentsReport: Report = TableOfContentsReport()
+    private val reports: List<Report> = listOf(
+        staticContentReport,
+        tableOfContentsReport,
+        sourcesReport
+    )
     private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, outputDir)
     private val environment: Environment = EnvironmentImpl(files)
     private val commandRunner: CommandRunner = CommandRunnerImpl(environment)

@@ -1,6 +1,8 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.domain.TestUtil.exactlyOne
+import com.seanshubin.code.structure.parser.SourceDetail
+import java.nio.file.Path
 import java.nio.file.Paths
 import java.time.Clock
 import java.time.Duration
@@ -69,7 +71,8 @@ class RunnerTest {
         val createFileCommand = CreateFileCommand(reportPath, reportLines)
         val reportGenerator: ReportGeneratorStub = ReportGeneratorStub(createFileCommand)
         val sourceFilePaths = sourceFiles.map { Paths.get(it) }
-        val observations = Observations(inputDir, sourcePrefix, sourceFilePaths)
+        val sourceDetailByPath = emptyMap<Path, SourceDetail>()
+        val observations = Observations(inputDir, sourcePrefix, sourceFilePaths, sourceDetailByPath)
         val observer: ObserverStub = ObserverStub(observations)
         val analyzer: AnalyzerStub = AnalyzerStub()
         val commandRunner = CommandRunnerStub()

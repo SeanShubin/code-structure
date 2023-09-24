@@ -8,9 +8,12 @@
 }
 
 body {
-    margin: 0.5rem;
     color: var(--inactive3);
     background-color: var(--inactive1);
+}
+
+body > * {
+    margin: 0.5rem;
 }
 
 h1 {

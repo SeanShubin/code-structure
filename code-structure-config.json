@@ -1,11 +1,12 @@
 {
-  "inputDir": ".",
-  "sourceFileRegexPatterns": {
-    "include": [
-      ".*\\.kt$"
-    ],
-    "exclude": []
+  "inputDir" : ".",
+  "sourceFileRegexPatterns" : {
+    "include" : [ ".*\\.kt$" ],
+    "exclude" : [ ]
   },
-  "outputDir": "generated",
-  "sourcePrefix": "https://github.com/SeanShubin/code-structure-2/blob/master/"
+  "outputDir" : "generated",
+  "githubSourcePrefix" : "https://github.com/SeanShubin/code-structure-2/blob/master/",
+  "localSourcePrefix" : "/Users/seashubi/github.com/SeanShubin/code-structure-2/",
+  "sourcePrefix" : "/Users/seashubi/github.com/SeanShubin/code-structure-2/",
+  "language" : "kotlin"
 }

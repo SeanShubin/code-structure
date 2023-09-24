@@ -62,6 +62,7 @@
         <module>config</module>
         <module>untyped</module>
         <module>zip</module>
+        <module>parser</module>
         <module>bytecodeformat</module>
         <module>jvmformat</module>
         <module>beamformat</module>

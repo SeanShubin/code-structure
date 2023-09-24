@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
-./scripts/_run.sh
+date
+time ./scripts/_run.sh
+date
+say "done with run"

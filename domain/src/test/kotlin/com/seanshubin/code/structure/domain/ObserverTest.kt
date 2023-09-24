@@ -1,6 +1,8 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.filefinder.FileFinderImpl
+import com.seanshubin.code.structure.parser.Parser
+import com.seanshubin.code.structure.parser.SourceDetail
 import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.test.Test
@@ -41,7 +43,15 @@ class ObserverTest {
         val fileFinder = FileFinderImpl(files)
         val inputDir = Paths.get(".")
         val sourcePrefix = ""
-        val observer = ObserverImpl(inputDir, sourcePrefix, isSourceFile, fileFinder)
+        val parser = ParserStub()
+        val observer = ObserverImpl(
+            inputDir,
+            sourcePrefix,
+            isSourceFile,
+            fileFinder,
+            parser,
+            files
+        )
 
         init {
             filesOnDisk.forEach {
@@ -50,5 +60,11 @@ class ObserverTest {
         }
 
         fun sourceFilesFound(observations: Observations): List<String> = observations.sourceFiles.map { it.toString() }
+    }
+
+    class ParserStub: Parser {
+        override fun parseSource(path: Path, content: String): SourceDetail {
+            throw UnsupportedOperationException("not implemented")
+        }
     }
 }

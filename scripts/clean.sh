@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
-./scripts/_clean.sh
+date
+time ./scripts/_clean.sh
+date
+say "done with clean"

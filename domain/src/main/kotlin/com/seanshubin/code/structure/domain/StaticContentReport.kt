@@ -10,7 +10,6 @@ class StaticContentReport : Report {
         return listOf(
             fromResource(reportDir, "reset.css"),
             fromResource(reportDir, "code-structure.css"),
-            fromResource(reportDir, "index.html"),
             fromResource(reportDir, "_index.html")
         )
     }

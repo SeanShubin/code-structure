@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
-./scripts/_test.sh
+date
+time ./scripts/_test.sh
+date
+say "done with test"

@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.parser.SourceDetail
 import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.test.Test
@@ -47,7 +48,13 @@ class ReportGeneratorTest {
         val reports = listOf(report)
         val reportGenerator = ReportGeneratorImpl(reports, outputDir)
         val sourceFilePaths = sourceFiles.map { Paths.get(it) }
-        val observations = Observations(inputDir, sourcePrefix, sourceFilePaths)
+        val sourceDetailsByPath = emptyMap<Path, SourceDetail>()
+        val observations = Observations(
+            inputDir,
+            sourcePrefix,
+            sourceFilePaths,
+            sourceDetailsByPath
+        )
         val analysis = Analysis(observations)
     }
 

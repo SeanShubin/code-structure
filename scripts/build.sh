@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
-./scripts/_build.sh
+date
+time ./scripts/_build.sh
+date
+say "done with build"
