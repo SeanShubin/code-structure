@@ -8,7 +8,7 @@ class KotlinParserTest {
     @Test
     fun simpleClass() {
         // given
-        val parser = KotlinParser()
+        val parser = KotlinParserImpl()
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
@@ -32,7 +32,7 @@ class KotlinParserTest {
     @Test
     fun abstractClass() {
         // given
-        val parser = KotlinParser()
+        val parser = KotlinParserImpl()
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
@@ -56,7 +56,7 @@ class KotlinParserTest {
     @Test
     fun simpleInterface() {
         // given
-        val parser = KotlinParser()
+        val parser = KotlinParserImpl()
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
@@ -81,7 +81,7 @@ class KotlinParserTest {
     @Test
     fun rootPackage() {
         // given
-        val parser = KotlinParser()
+        val parser = KotlinParserImpl()
         val path = Paths.get("Sample.kt")
         val content = """
             class Sample(val x:Int)
@@ -103,7 +103,7 @@ class KotlinParserTest {
     @Test
     fun dataClass() {
         // given
-        val parser = KotlinParser()
+        val parser = KotlinParserImpl()
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
@@ -127,7 +127,7 @@ class KotlinParserTest {
     @Test
     fun objectModule() {
         // given
-        val parser = KotlinParser()
+        val parser = KotlinParserImpl()
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
@@ -151,7 +151,7 @@ class KotlinParserTest {
     @Test
     fun multiple() {
         // given
-        val parser = KotlinParser()
+        val parser = KotlinParserImpl()
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar

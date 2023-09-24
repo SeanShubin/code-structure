@@ -1,6 +1,6 @@
 {
-  "inputDir": "../code-structure-sample-kotlin",
-  "outputDir": "generated/kotlin",
+  "inputDir": "../code-structure-sample-kotlin/",
+  "outputDir": "generated/kotlin/",
   "language": "kotlin",
   "sourcePrefix": "https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/",
   "sourceFileRegexPatterns": {

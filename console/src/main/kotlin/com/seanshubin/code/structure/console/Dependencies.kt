@@ -11,10 +11,7 @@ import com.seanshubin.code.structure.domain.*
 import com.seanshubin.code.structure.filefinder.FileFinder
 import com.seanshubin.code.structure.filefinder.FileFinderImpl
 import com.seanshubin.code.structure.filefinder.RegexFileMatcher
-import com.seanshubin.code.structure.parser.KotlinParser
-import com.seanshubin.code.structure.parser.Parser
-import com.seanshubin.code.structure.parser.ParserRepository
-import com.seanshubin.code.structure.parser.ParserRepositoryImpl
+import com.seanshubin.code.structure.parser.*
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.time.Clock
@@ -39,8 +36,12 @@ class Dependencies(args: Array<String>) {
         sourceFileExcludeRegexPatterns
     )
     private val fileFinder: FileFinder = FileFinderImpl(files)
-    private val kotlinParser: Parser = KotlinParser()
-    private val parserRepository: ParserRepository = ParserRepositoryImpl(kotlinParser)
+    private val kotlinParser: KotlinParser = KotlinParserImpl()
+    private val elixirParser: ElixirParser = ElixirParserImpl()
+    private val parserRepository: ParserRepository = ParserRepositoryImpl(
+        kotlinParser,
+        elixirParser
+    )
     private val parser: Parser = parserRepository.lookupByLanguage(language)
     private val observer: Observer = ObserverImpl(
         inputDir,
