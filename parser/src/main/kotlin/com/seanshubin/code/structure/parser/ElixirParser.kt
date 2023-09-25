@@ -1,3 +1,3 @@
 package com.seanshubin.code.structure.parser
 
-interface ElixirParser : Parser
+interface ElixirParser : SourceParser

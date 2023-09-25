@@ -2,6 +2,6 @@ package com.seanshubin.code.structure.parser
 
 import java.nio.file.Path
 
-interface Parser {
+interface SourceParser {
     fun parseSource(path: Path, content: String): SourceDetail
 }

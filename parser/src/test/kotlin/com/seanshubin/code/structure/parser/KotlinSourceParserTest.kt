@@ -4,7 +4,7 @@ import org.junit.Test
 import java.nio.file.Paths
 import kotlin.test.assertEquals
 
-class KotlinParserTest {
+class KotlinSourceParserTest {
     @Test
     fun simpleClass() {
         // given

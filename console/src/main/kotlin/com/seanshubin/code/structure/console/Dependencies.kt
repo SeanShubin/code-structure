@@ -38,11 +38,11 @@ class Dependencies(args: Array<String>) {
     private val fileFinder: FileFinder = FileFinderImpl(files)
     private val kotlinParser: KotlinParser = KotlinParserImpl()
     private val elixirParser: ElixirParser = ElixirParserImpl()
-    private val parserRepository: ParserRepository = ParserRepositoryImpl(
+    private val parserRepository: SourceParserRepository = SourceParserRepositoryImpl(
         kotlinParser,
         elixirParser
     )
-    private val parser: Parser = parserRepository.lookupByLanguage(language)
+    private val parser: SourceParser = parserRepository.lookupByLanguage(language)
     private val observer: Observer = ObserverImpl(
         inputDir,
         sourcePrefix,

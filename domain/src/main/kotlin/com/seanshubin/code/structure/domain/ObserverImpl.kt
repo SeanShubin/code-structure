@@ -2,7 +2,7 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.contract.FilesContract
 import com.seanshubin.code.structure.filefinder.FileFinder
-import com.seanshubin.code.structure.parser.Parser
+import com.seanshubin.code.structure.parser.SourceParser
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
 
@@ -11,7 +11,7 @@ class ObserverImpl(
     private val sourcePrefix: String,
     private val isSourceFile: (Path) -> Boolean,
     private val fileFinder: FileFinder,
-    private val parser: Parser,
+    private val parser: SourceParser,
     private val files: FilesContract
 ) : Observer {
     override fun makeObservations(): Observations {

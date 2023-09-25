@@ -1,3 +1,3 @@
 package com.seanshubin.code.structure.parser
 
-interface KotlinParser : Parser
+interface KotlinParser : SourceParser

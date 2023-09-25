@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.filefinder.FileFinderImpl
-import com.seanshubin.code.structure.parser.Parser
+import com.seanshubin.code.structure.parser.SourceParser
 import com.seanshubin.code.structure.parser.SourceDetail
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -62,7 +62,7 @@ class ObserverTest {
         fun sourceFilesFound(observations: Observations): List<String> = observations.sourceFiles.map { it.toString() }
     }
 
-    class ParserStub : Parser {
+    class ParserStub : SourceParser {
         override fun parseSource(path: Path, content: String): SourceDetail {
             throw UnsupportedOperationException("not implemented")
         }

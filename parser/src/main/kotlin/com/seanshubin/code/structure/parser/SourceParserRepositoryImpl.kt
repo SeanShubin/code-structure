@@ -1,15 +1,15 @@
 package com.seanshubin.code.structure.parser
 
-class ParserRepositoryImpl(
+class SourceParserRepositoryImpl(
     kotlinParser: KotlinParser,
     elixirParser: ElixirParser
-) : ParserRepository {
+) : SourceParserRepository {
     private val parserByLanguage = mapOf(
         "kotlin" to kotlinParser,
         "elixir" to elixirParser
     )
 
-    override fun lookupByLanguage(language: String): Parser {
+    override fun lookupByLanguage(language: String): SourceParser {
         return parserByLanguage[language] ?: throw RuntimeException("Unsupported source language '$language'")
     }
 }
