@@ -6,7 +6,6 @@ import java.nio.charset.Charset
 import java.nio.file.*
 import java.nio.file.attribute.BasicFileAttributes
 import java.nio.file.attribute.FileAttribute
-import java.nio.file.attribute.FileTime
 import java.util.function.BiPredicate
 import java.util.stream.Stream
 
@@ -20,6 +19,10 @@ class FakeFiles : FilesNotImplemented() {
 
     override fun writeString(path: Path, csq: CharSequence, cs: Charset, vararg options: OpenOption): Path {
         throw UnsupportedOperationException("not implemented")
+    }
+
+    override fun readString(path: Path, cs: Charset): String {
+        return root.getValue(path.toKey()) ?: throw RuntimeException("No value at $path")
     }
 
     override fun createDirectories(dir: Path, vararg attrs: FileAttribute<*>): Path {
@@ -44,41 +47,9 @@ class FakeFiles : FilesNotImplemented() {
         return result.stream()
     }
 
-    val fileAttributesNotImplemented = object : BasicFileAttributes {
-        override fun lastModifiedTime(): FileTime {
-            throw UnsupportedOperationException("not implemented")
-        }
-
-        override fun lastAccessTime(): FileTime {
-            throw UnsupportedOperationException("not implemented")
-        }
-
-        override fun creationTime(): FileTime {
-            throw UnsupportedOperationException("not implemented")
-        }
-
-        override fun isRegularFile(): Boolean {
-            throw UnsupportedOperationException("not implemented")
-        }
-
-        override fun isDirectory(): Boolean {
-            throw UnsupportedOperationException("not implemented")
-        }
-
-        override fun isSymbolicLink(): Boolean {
-            throw UnsupportedOperationException("not implemented")
-        }
-
-        override fun isOther(): Boolean {
-            throw UnsupportedOperationException("not implemented")
-        }
-
-        override fun size(): Long {
-            throw UnsupportedOperationException("not implemented")
-        }
-
-        override fun fileKey(): Any {
-            throw UnsupportedOperationException("not implemented")
-        }
+    private val fileAttributesNotImplemented = object : BasicFileAttributesNotImplemented() {
     }
+
+    private fun Path.toKey(): List<String> =
+        iterator().asSequence().map { it.toString() }.toList()
 }

@@ -62,10 +62,12 @@
         <module>config</module>
         <module>untyped</module>
         <module>zip</module>
-        <module>parser</module>
-        <module>bytecodeformat</module>
+        <module>binaryparser</module>
+        <module>sourceparser</module>
         <module>jvmformat</module>
         <module>beamformat</module>
+        <module>kotlinsyntax</module>
+        <module>elixirsyntax</module>
         <module>html</module>
         <module>io</module>
         <module>string</module>

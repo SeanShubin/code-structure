@@ -42,17 +42,22 @@
         </dependency>
         <dependency>
             <groupId>com.seanshubin.code.structure</groupId>
-            <artifactId>code-structure-parser</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.seanshubin.code.structure</groupId>
             <artifactId>code-structure-jvmformat</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.seanshubin.code.structure</groupId>
             <artifactId>code-structure-beamformat</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-kotlinsyntax</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-elixirsyntax</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

@@ -48,9 +48,10 @@
       contract-test
       tree html
       io
-      parser
       jvmformat
       beamformat
+      kotlinsyntax
+      elixirsyntax
     ]
     filefinder      [ contract ]
     contract        [ ]
@@ -59,10 +60,12 @@
     config          [ untyped contract json contract-test ]
     untyped         [ ]
     zip             [ ]
-    parser          [ ]
-    bytecodeformat  [ ]
-    jvmformat       [ bytecodeformat contract ]
-    beamformat      [ bytecodeformat contract ]
+    binaryparser    [ ]
+    sourceparser    [ ]
+    jvmformat       [ binaryparser contract ]
+    beamformat      [ binaryparser contract ]
+    kotlinsyntax    [ sourceparser ]
+    elixirsyntax    [ sourceparser ]
     html            [ ]
     io              [ ]
     string          [ ]

@@ -1,8 +1,8 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.bytecodeformat.BinaryDetail
+import com.seanshubin.code.structure.binaryparser.BinaryDetail
 import com.seanshubin.code.structure.domain.TestUtil.exactlyOne
-import com.seanshubin.code.structure.parser.SourceDetail
+import com.seanshubin.code.structure.sourceparser.SourceDetail
 import java.nio.file.Paths
 import java.time.Clock
 import java.time.Duration

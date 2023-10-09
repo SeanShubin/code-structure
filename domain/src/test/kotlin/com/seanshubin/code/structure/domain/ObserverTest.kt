@@ -1,10 +1,10 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.bytecodeformat.BinaryDetail
-import com.seanshubin.code.structure.bytecodeformat.BinaryParser
+import com.seanshubin.code.structure.binaryparser.BinaryDetail
+import com.seanshubin.code.structure.binaryparser.BinaryParser
 import com.seanshubin.code.structure.filefinder.FileFinderImpl
-import com.seanshubin.code.structure.parser.SourceDetail
-import com.seanshubin.code.structure.parser.SourceParser
+import com.seanshubin.code.structure.sourceparser.SourceDetail
+import com.seanshubin.code.structure.sourceparser.SourceParser
 import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.test.Test
@@ -14,21 +14,27 @@ class ObserverTest {
     @Test
     fun findSourceFiles() {
         // given
-        val filesOnDisk = listOf(
-            "base/dir/file-1.kt",
-            "base/dir/file-2.txt",
-            "base/dir/file-3.kt",
-            "base/dir/file-4.txt",
+        val file1 = "base/dir/file-1.kt"
+        val file2 = "base/dir/file-2.txt"
+        val file3 = "base/dir/file-3.kt"
+        val file4 = "base/dir/file-4.txt"
+
+
+        val filesOnDisk = listOf(file1, file2, file3, file4)
+
+        val sourceDetailMap = mapOf(
+            file1 to makeSourceDetail(file1),
+            file3 to makeSourceDetail(file3),
         )
 
         val expected = listOf(
-            "base/dir/file-1.kt",
-            "base/dir/file-3.kt",
+            file1,
+            file3,
         )
 
         val isSourceFile = { path: Path -> path.toString().endsWith(".kt") }
         val isBinaryFile = { _: Path -> false }
-        val tester = Tester(isSourceFile, isBinaryFile, filesOnDisk)
+        val tester = Tester(isSourceFile, isBinaryFile, filesOnDisk, sourceDetailMap)
 
         // when
         val observations = tester.observer.makeObservations()
@@ -38,16 +44,24 @@ class ObserverTest {
         assertEquals(expected, actual)
     }
 
+    private fun makeSourceDetail(name: String): SourceDetail = SourceDetail(
+        Paths.get(name),
+        "kotlin",
+        emptyList(),
+        emptyList()
+    )
+
     class Tester(
         isSourceFile: (Path) -> Boolean,
         isBinaryFile: (Path) -> Boolean,
-        filesOnDisk: List<String>
+        filesOnDisk: List<String>,
+        sourceDetailMap: Map<String, SourceDetail>
     ) {
         val files = FakeFiles()
         val fileFinder = FileFinderImpl(files)
         val inputDir = Paths.get(".")
         val sourcePrefix = ""
-        val sourceParser = SourceParserStub()
+        val sourceParser = SourceParserStub(sourceDetailMap)
         val binaryParser = BinaryParserStub()
         val observer = ObserverImpl(
             inputDir,
@@ -69,10 +83,8 @@ class ObserverTest {
         fun sourceFilesFound(observations: Observations): List<String> = observations.sourceFiles.map { it.toString() }
     }
 
-    class SourceParserStub : SourceParser {
-        override fun parseSource(path: Path, content: String): SourceDetail {
-            throw UnsupportedOperationException("not implemented")
-        }
+    class SourceParserStub(private val map: Map<String, SourceDetail>) : SourceParser {
+        override fun parseSource(path: Path, content: String): SourceDetail = map.getValue(path.toString())
     }
 
     class BinaryParserStub : BinaryParser {

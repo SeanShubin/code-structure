@@ -1,9 +1,9 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.bytecodeformat.BinaryParser
+import com.seanshubin.code.structure.binaryparser.BinaryParser
 import com.seanshubin.code.structure.contract.FilesContract
 import com.seanshubin.code.structure.filefinder.FileFinder
-import com.seanshubin.code.structure.parser.SourceParser
+import com.seanshubin.code.structure.sourceparser.SourceParser
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
 
