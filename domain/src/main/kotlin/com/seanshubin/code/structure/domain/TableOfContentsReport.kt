@@ -1,6 +1,7 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.html.HtmlElement
+import com.seanshubin.code.structure.html.HtmlElement.Tag
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import java.nio.file.Path
 
@@ -18,5 +19,11 @@ class TableOfContentsReport : HtmlReport() {
     override fun parentLink(): List<HtmlElement> = emptyList()
 
     private fun generateHtml(): List<HtmlElement> =
-        listOf(anchor("sources", "sources.html"))
+        listOf(
+            link("sources"),
+            link("binaries")
+        )
+
+    private fun link(name: String): HtmlElement =
+        Tag("p", anchor(name, "$name.html"))
 }

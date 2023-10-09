@@ -36,8 +36,8 @@ class SourcesReport : HtmlReport() {
     }
 
     private fun thead(): HtmlElement {
-        val name = Tag("th", Text("name"))
-        val modules = Tag("th", Text("modules"))
+        val name = Tag("th", Text("location"))
+        val modules = Tag("th", Text("name"))
         val row = Tag("tr", name, modules)
         return Tag("thead", row)
     }
@@ -45,9 +45,8 @@ class SourcesReport : HtmlReport() {
     private fun tbody(analysis: Analysis): HtmlElement {
         val inputDir = analysis.observations.inputDir
         val sourcePrefix = analysis.observations.sourcePrefix
-        val rows = analysis.observations.sourceFiles.map { path ->
-            val sourceDetail = analysis.observations.sourceDetailByPath.getValue(path)
-            val tdLink = tdLink(inputDir, sourcePrefix, path)
+        val rows = analysis.observations.sources.map { sourceDetail ->
+            val tdLink = tdLink(inputDir, sourcePrefix, sourceDetail.path)
             val tdSourceDetail = tdSourceDetail(sourceDetail)
             Tag("tr", tdLink, tdSourceDetail)
         }
@@ -55,8 +54,7 @@ class SourcesReport : HtmlReport() {
     }
 
     private fun tdLink(inputDir: Path, sourcePrefix: String, path: Path): HtmlElement {
-        val relativePath = inputDir.relativize(path)
-        val sourceName = relativePath.toString()
+        val sourceName = path.toString()
         val sourceLink = sourcePrefix + sourceName
         val anchor = anchor(sourceName, sourceLink)
         val td = Tag("td", anchor)

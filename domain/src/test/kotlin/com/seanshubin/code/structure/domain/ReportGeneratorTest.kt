@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.bytecodeformat.BinaryDetail
 import com.seanshubin.code.structure.parser.SourceDetail
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -48,12 +49,14 @@ class ReportGeneratorTest {
         val reports = listOf(report)
         val reportGenerator = ReportGeneratorImpl(reports, outputDir)
         val sourceFilePaths = sourceFiles.map { Paths.get(it) }
-        val sourceDetailsByPath = emptyMap<Path, SourceDetail>()
+        val sources = emptyList<SourceDetail>()
+        val binaries = emptyList<BinaryDetail>()
         val observations = Observations(
             inputDir,
             sourcePrefix,
             sourceFilePaths,
-            sourceDetailsByPath
+            sources,
+            binaries
         )
         val analysis = Analysis(observations)
     }

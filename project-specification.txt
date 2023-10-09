@@ -49,6 +49,8 @@
       tree html
       io
       parser
+      jvmformat
+      beamformat
     ]
     filefinder      [ contract ]
     contract        [ ]
@@ -59,8 +61,8 @@
     zip             [ ]
     parser          [ ]
     bytecodeformat  [ ]
-    jvmformat       [ ]
-    beamformat      [ ]
+    jvmformat       [ bytecodeformat contract ]
+    beamformat      [ bytecodeformat contract ]
     html            [ ]
     io              [ ]
     string          [ ]

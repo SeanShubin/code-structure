@@ -8,7 +8,8 @@ class KotlinSourceParserTest {
     @Test
     fun simpleClass() {
         // given
-        val parser = KotlinParserImpl()
+        val inputDir = Paths.get(".")
+        val parser = KotlinSourceParserImpl(inputDir)
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
@@ -32,7 +33,8 @@ class KotlinSourceParserTest {
     @Test
     fun abstractClass() {
         // given
-        val parser = KotlinParserImpl()
+        val inputDir = Paths.get(".")
+        val parser = KotlinSourceParserImpl(inputDir)
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
@@ -56,7 +58,8 @@ class KotlinSourceParserTest {
     @Test
     fun simpleInterface() {
         // given
-        val parser = KotlinParserImpl()
+        val inputDir = Paths.get(".")
+        val parser = KotlinSourceParserImpl(inputDir)
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
@@ -81,7 +84,8 @@ class KotlinSourceParserTest {
     @Test
     fun rootPackage() {
         // given
-        val parser = KotlinParserImpl()
+        val inputDir = Paths.get(".")
+        val parser = KotlinSourceParserImpl(inputDir)
         val path = Paths.get("Sample.kt")
         val content = """
             class Sample(val x:Int)
@@ -103,7 +107,8 @@ class KotlinSourceParserTest {
     @Test
     fun dataClass() {
         // given
-        val parser = KotlinParserImpl()
+        val inputDir = Paths.get(".")
+        val parser = KotlinSourceParserImpl(inputDir)
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
@@ -127,7 +132,8 @@ class KotlinSourceParserTest {
     @Test
     fun objectModule() {
         // given
-        val parser = KotlinParserImpl()
+        val inputDir = Paths.get(".")
+        val parser = KotlinSourceParserImpl(inputDir)
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
@@ -151,7 +157,8 @@ class KotlinSourceParserTest {
     @Test
     fun multiple() {
         // given
-        val parser = KotlinParserImpl()
+        val inputDir = Paths.get(".")
+        val parser = KotlinSourceParserImpl(inputDir)
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar

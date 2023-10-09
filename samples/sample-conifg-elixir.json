@@ -1,12 +1,15 @@
 {
-  "inputDir": "../code_structure_sample_elixir/",
-  "outputDir": "generated/elixir/",
-  "language": "elixir",
-  "sourcePrefix": "https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/",
-  "sourceFileRegexPatterns": {
-    "include": [
-      ".*\\.ex$"
-    ],
-    "exclude": []
+  "inputDir" : "../code_structure_sample_elixir/",
+  "outputDir" : "generated/elixir/",
+  "language" : "elixir",
+  "sourcePrefix" : "https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/",
+  "sourceFileRegexPatterns" : {
+    "include" : [ "lib/.*\\.ex$" ],
+    "exclude" : [ ]
+  },
+  "bytecodeFormat" : "beam",
+  "binaryFileRegexPatterns" : {
+    "include" : [ "_build/dev/lib/code_structure_sample_elixir/ebin/.*\\.beam$" ],
+    "exclude" : [ ]
   }
 }

@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.bytecodeformat.BinaryDetail
 import com.seanshubin.code.structure.domain.TestUtil.exactlyOne
 import com.seanshubin.code.structure.parser.SourceDetail
 import java.nio.file.Path
@@ -71,8 +72,15 @@ class RunnerTest {
         val createFileCommand = CreateFileCommand(reportPath, reportLines)
         val reportGenerator: ReportGeneratorStub = ReportGeneratorStub(createFileCommand)
         val sourceFilePaths = sourceFiles.map { Paths.get(it) }
-        val sourceDetailByPath = emptyMap<Path, SourceDetail>()
-        val observations = Observations(inputDir, sourcePrefix, sourceFilePaths, sourceDetailByPath)
+        val sources = emptyList<SourceDetail>()
+        val binaries = emptyList<BinaryDetail>()
+        val observations = Observations(
+            inputDir,
+            sourcePrefix,
+            sourceFilePaths,
+            sources,
+            binaries
+        )
         val observer: ObserverStub = ObserverStub(observations)
         val analyzer: AnalyzerStub = AnalyzerStub()
         val commandRunner = CommandRunnerStub()

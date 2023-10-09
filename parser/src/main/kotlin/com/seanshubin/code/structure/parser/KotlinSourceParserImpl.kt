@@ -3,22 +3,23 @@ package com.seanshubin.code.structure.parser
 import com.seanshubin.code.structure.parser.RegexUtil.findRegex
 import java.nio.file.Path
 
-class KotlinParserImpl : KotlinParser {
+class KotlinSourceParserImpl(private val relativeToDir:Path) : KotlinSourceParser {
     private val packageRegex = Regex("""^(?:[^\n ].*)?package +([.\w]*)""", RegexOption.MULTILINE)
     private val interfaceRegex = Regex("""^(?:[^\n ].*)?interface +([.\w]*)""", RegexOption.MULTILINE)
     private val classRegex = Regex("""^(?:[^\n ].*)?class +([.\w]*)""", RegexOption.MULTILINE)
     private val objectRegex = Regex("""^(?:[^\n ].*)?object +([.\w]*)""", RegexOption.MULTILINE)
     override fun parseSource(path: Path, content: String): SourceDetail {
+        val relativePath = relativeToDir.relativize(path)
         val language = "elixir"
         val packages = findRegex(packageRegex, content)
         val errorLines = mutableListOf<String>()
         if (packages.size > 1) {
-            errorLines.add("too many packages in $path, found ${packages.size}")
+            errorLines.add("too many packages in $relativePath, found ${packages.size}")
             packages.forEachIndexed { index, line ->
                 errorLines.add("  [$index] '$line'")
             }
             return SourceDetail(
-                path,
+                relativePath,
                 language,
                 emptyList(),
                 errorLines
@@ -33,7 +34,7 @@ class KotlinParserImpl : KotlinParser {
             "$prefix$it"
         }
         return SourceDetail(
-            path,
+            relativePath,
             language,
             qualifiedNames,
             errorLines

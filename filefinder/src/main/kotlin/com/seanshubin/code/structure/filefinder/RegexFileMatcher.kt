@@ -4,13 +4,15 @@ import java.nio.file.Path
 import java.util.regex.Pattern
 
 class RegexFileMatcher(
+    private val relativeToDir:Path,
     includeRegexPatterns: List<String>,
     excludeRegexPatterns: List<String>
 ) : (Path) -> Boolean {
     private val includeRegexList = includeRegexPatterns.map(Pattern::compile)
     private val excludeRegexList = excludeRegexPatterns.map(Pattern::compile)
     override fun invoke(path: Path): Boolean {
-        return isIncluded(path) && !isExcluded(path)
+        val relativePath = relativeToDir.relativize(path)
+        return isIncluded(relativePath) && !isExcluded(relativePath)
     }
 
     private fun isIncluded(file: Path): Boolean {

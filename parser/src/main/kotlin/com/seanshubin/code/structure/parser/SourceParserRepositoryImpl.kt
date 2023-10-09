@@ -1,11 +1,11 @@
 package com.seanshubin.code.structure.parser
 
 class SourceParserRepositoryImpl(
-    kotlinParser: KotlinParser,
+    kotlinSourceParser: KotlinSourceParser,
     elixirParser: ElixirParser
 ) : SourceParserRepository {
     private val parserByLanguage = mapOf(
-        "kotlin" to kotlinParser,
+        "kotlin" to kotlinSourceParser,
         "elixir" to elixirParser
     )
 
