@@ -3,7 +3,6 @@ package com.seanshubin.code.structure.domain
 import com.seanshubin.code.structure.bytecodeformat.BinaryParser
 import com.seanshubin.code.structure.contract.FilesContract
 import com.seanshubin.code.structure.filefinder.FileFinder
-import com.seanshubin.code.structure.parser.SourceDetail
 import com.seanshubin.code.structure.parser.SourceParser
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
@@ -12,7 +11,7 @@ class ObserverImpl(
     private val inputDir: Path,
     private val sourcePrefix: String,
     private val isSourceFile: (Path) -> Boolean,
-    private val isBinaryFile:(Path)->Boolean,
+    private val isBinaryFile: (Path) -> Boolean,
     private val fileFinder: FileFinder,
     private val sourceParser: SourceParser,
     private val binaryParser: BinaryParser,
@@ -27,7 +26,7 @@ class ObserverImpl(
         }
         val names = sourceDetailList.flatMap { it.modules }.distinct().sorted()
         val binaryFiles = fileFinder.findFiles(inputDir, isBinaryFile).sorted()
-        val binaryDetailList = binaryFiles.flatMap{binaryParser.parseBinary(it, names)}
+        val binaryDetailList = binaryFiles.flatMap { binaryParser.parseBinary(it, names) }
         return Observations(inputDir, sourcePrefix, sourceFiles, sourceDetailList, binaryDetailList)
     }
 }

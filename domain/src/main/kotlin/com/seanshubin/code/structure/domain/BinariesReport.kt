@@ -4,7 +4,6 @@ import com.seanshubin.code.structure.bytecodeformat.BinaryDetail
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElement.Tag
 import com.seanshubin.code.structure.html.HtmlElement.Text
-import org.w3c.dom.html.HTMLLIElement
 import java.nio.file.Path
 
 class BinariesReport : HtmlReport() {
@@ -19,13 +18,16 @@ class BinariesReport : HtmlReport() {
     }
 
     private fun generateHtml(analysis: Analysis): List<HtmlElement> {
-        return summary(analysis) + table(analysis, includeDependencies = false) + table(analysis, includeDependencies = true)
+        return summary(analysis) + table(analysis, includeDependencies = false) + table(
+            analysis,
+            includeDependencies = true
+        )
     }
 
-    private fun table(analysis: Analysis, includeDependencies:Boolean): List<HtmlElement> {
+    private fun table(analysis: Analysis, includeDependencies: Boolean): List<HtmlElement> {
         val thead = thead(includeDependencies)
         val tbody = tbody(analysis, includeDependencies)
-        val captionText = if(includeDependencies) "Dependencies" else "Binaries"
+        val captionText = if (includeDependencies) "Dependencies" else "Binaries"
         val caption = Tag("h2", Text(captionText))
         val table = Tag("table", thead, tbody)
         return listOf(caption, table)
@@ -39,7 +41,7 @@ class BinariesReport : HtmlReport() {
 
     private fun thead(includeDependencies: Boolean): HtmlElement {
         val name = Tag("th", Text("name"))
-        val elements = if(includeDependencies){
+        val elements = if (includeDependencies) {
             val dependency = Tag("th", Text("dependency"))
             listOf(name, dependency)
         } else {
@@ -51,7 +53,7 @@ class BinariesReport : HtmlReport() {
     }
 
     private fun tbody(analysis: Analysis, includeDependencies: Boolean): HtmlElement {
-        val rows = if(includeDependencies) {
+        val rows = if (includeDependencies) {
             analysis.observations.binaries.flatMap { binary ->
                 binaryRowsWithDependencies(binary)
             }
@@ -64,11 +66,11 @@ class BinariesReport : HtmlReport() {
     }
 
     private fun binaryRowsWithDependencies(binary: BinaryDetail): List<HtmlElement> =
-        binary.dependencyNames.map{
+        binary.dependencyNames.map {
             binaryRowWithDependencies(binary, it)
         }
 
-    private fun binaryRowWithDependencies(binary: BinaryDetail, dependencyName:String): HtmlElement {
+    private fun binaryRowWithDependencies(binary: BinaryDetail, dependencyName: String): HtmlElement {
         val binaryCells = binaryCellsWithDependencies(binary, dependencyName)
         val binaryRow = Tag("tr", binaryCells)
         return binaryRow
@@ -80,20 +82,20 @@ class BinariesReport : HtmlReport() {
         return binaryRow
     }
 
-    private fun binaryCellsWithoutDependencies(binary:BinaryDetail):List<HtmlElement>{
+    private fun binaryCellsWithoutDependencies(binary: BinaryDetail): List<HtmlElement> {
         return listOf(
             binaryCell(binary.name),
             binaryCell(binary.location),
         )
     }
 
-    private fun binaryCellsWithDependencies(binary:BinaryDetail, dependencyName:String):List<HtmlElement>{
+    private fun binaryCellsWithDependencies(binary: BinaryDetail, dependencyName: String): List<HtmlElement> {
         return listOf(
             binaryCell(binary.name),
             binaryCell(dependencyName)
         )
     }
 
-    private fun binaryCell(text:String):HtmlElement =
+    private fun binaryCell(text: String): HtmlElement =
         Tag("td", Text(text))
 }

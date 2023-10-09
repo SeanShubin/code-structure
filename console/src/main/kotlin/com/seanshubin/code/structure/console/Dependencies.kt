@@ -58,16 +58,17 @@ class Dependencies(args: Array<String>) {
         kotlinSourceParser,
         elixirParser
     )
-    private val zipByteSequenceLoader:ZipByteSequenceLoader = ZipByteSequenceLoaderImpl(
+    private val zipByteSequenceLoader: ZipByteSequenceLoader = ZipByteSequenceLoaderImpl(
         files
     )
-    private val fileByteSequenceLoader:FileByteSequenceLoader = FileByteSequenceLoaderImpl(
+    private val fileByteSequenceLoader: FileByteSequenceLoader = FileByteSequenceLoaderImpl(
         files
     )
     private val byteSequenceLoader: ByteSequenceLoader = ZipOrFileByteSequenceLoader(
         zipByteSequenceLoader,
-        fileByteSequenceLoader)
-    private val classInfoLoader:ClassInfoLoaderImpl = ClassInfoLoaderImpl()
+        fileByteSequenceLoader
+    )
+    private val classInfoLoader: ClassInfoLoaderImpl = ClassInfoLoaderImpl()
     private val classParser: ClassParser = ClassParserImpl(inputDir, byteSequenceLoader, classInfoLoader)
     private val beamParser: BeamParser = BeamParserImpl(files, inputDir)
     private val binaryParserRepository: BinaryParserRepository = BinaryParserRepositoryImpl(

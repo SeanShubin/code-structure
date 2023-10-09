@@ -4,7 +4,7 @@ import java.nio.file.Path
 import java.util.regex.Pattern
 
 class RegexFileMatcher(
-    private val relativeToDir:Path,
+    private val relativeToDir: Path,
     includeRegexPatterns: List<String>,
     excludeRegexPatterns: List<String>
 ) : (Path) -> Boolean {

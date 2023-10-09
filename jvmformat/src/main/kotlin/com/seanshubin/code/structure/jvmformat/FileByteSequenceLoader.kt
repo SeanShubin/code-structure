@@ -1,4 +1,4 @@
 package com.seanshubin.code.structure.jvmformat
 
-interface FileByteSequenceLoader:ByteSequenceLoader {
+interface FileByteSequenceLoader : ByteSequenceLoader {
 }

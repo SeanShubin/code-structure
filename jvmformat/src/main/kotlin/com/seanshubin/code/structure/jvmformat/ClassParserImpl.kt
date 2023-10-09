@@ -1,15 +1,14 @@
 package com.seanshubin.code.structure.jvmformat
 
 import com.seanshubin.code.structure.bytecodeformat.BinaryDetail
-import com.seanshubin.code.structure.contract.FilesContract
 import java.nio.file.Path
 
 class ClassParserImpl(
     private val relativeToDir: Path,
-    private val byteSequenceLoader:ByteSequenceLoader,
-    private val classInfoLoader:ClassInfoLoader
+    private val byteSequenceLoader: ByteSequenceLoader,
+    private val classInfoLoader: ClassInfoLoader
 ) : ClassParser {
-    override fun parseBinary(path: Path, names:List<String>): List<BinaryDetail> {
+    override fun parseBinary(path: Path, names: List<String>): List<BinaryDetail> {
         val relativeDir = relativeToDir.relativize(path)
         val byteSequences = byteSequenceLoader.loadByteSequences(path, names)
         val binaryDetailList = byteSequences.map { byteSequence ->
@@ -20,10 +19,10 @@ class ClassParserImpl(
         return binaryDetailList
     }
 
-    private fun toBinaryDetail(file:Path, pathInFile:String, jvmClass: JvmClass, names:List<String>):BinaryDetail {
+    private fun toBinaryDetail(file: Path, pathInFile: String, jvmClass: JvmClass, names: List<String>): BinaryDetail {
         val name = jvmClass.thisClassName.formatClassName()
-        val allDependencyNames = jvmClass.dependencyNames.map{it.formatClassName()}
-        val filteredDependencyNames = allDependencyNames.filter{ names.contains(it)}
+        val allDependencyNames = jvmClass.dependencyNames.map { it.formatClassName() }
+        val filteredDependencyNames = allDependencyNames.filter { names.contains(it) }
         return BinaryDetail(file, pathInFile, name, filteredDependencyNames)
     }
 

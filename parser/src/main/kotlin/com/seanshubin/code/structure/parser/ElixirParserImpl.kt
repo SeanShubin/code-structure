@@ -3,7 +3,7 @@ package com.seanshubin.code.structure.parser
 import com.seanshubin.code.structure.parser.RegexUtil.findRegex
 import java.nio.file.Path
 
-class ElixirParserImpl(private val relativeToDir:Path) : ElixirParser {
+class ElixirParserImpl(private val relativeToDir: Path) : ElixirParser {
     private val moduleRegex = Regex("""^(?:[^\n ].*)?defmodule +([.\w]*)""", RegexOption.MULTILINE)
     override fun parseSource(path: Path, content: String): SourceDetail {
         val relativePath = relativeToDir.relativize(path)

@@ -7,7 +7,7 @@ import java.util.zip.ZipEntry
 class ZipByteSequenceLoaderImpl(
     private val files: FilesContract
 ) : ZipByteSequenceLoader {
-    override fun loadByteSequences(file: Path, names:List<String>): Iterable<ByteSequence> {
+    override fun loadByteSequences(file: Path, names: List<String>): Iterable<ByteSequence> {
         fun acceptEntry(path: List<String>, entry: ZipEntry): Boolean {
             val className = zipEntryNameToClassName(entry.name)
             return names.contains(className)
@@ -29,14 +29,14 @@ class ZipByteSequenceLoaderImpl(
 
     private fun isCompressed(name: String): Boolean = FileTypes.isCompressed(name)
 
-    private fun zipEntryNameToClassName(zipEntryName:String):String? {
-        if(!zipEntryName.endsWith(classSuffix)) return null
+    private fun zipEntryNameToClassName(zipEntryName: String): String? {
+        if (!zipEntryName.endsWith(classSuffix)) return null
         val withoutClassSuffix = zipEntryName.substring(0, zipEntryName.length - classSuffix.length)
         val className = withoutClassSuffix.replace('/', '.')
         return className
     }
 
-    companion object{
+    companion object {
         private val classSuffix = ".class"
     }
 }

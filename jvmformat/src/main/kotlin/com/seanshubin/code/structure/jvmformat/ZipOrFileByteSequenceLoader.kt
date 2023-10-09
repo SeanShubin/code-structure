@@ -6,7 +6,7 @@ class ZipOrFileByteSequenceLoader(
     private val zipByteSequenceLoader: ZipByteSequenceLoader,
     private val fileByteSequenceLoader: FileByteSequenceLoader
 ) : ByteSequenceLoader {
-    override fun loadByteSequences(path: Path, names:List<String>): Iterable<ByteSequence> =
+    override fun loadByteSequences(path: Path, names: List<String>): Iterable<ByteSequence> =
         if (FileTypes.isCompressed(path.toString())) {
             zipByteSequenceLoader.loadByteSequences(path, names)
         } else {

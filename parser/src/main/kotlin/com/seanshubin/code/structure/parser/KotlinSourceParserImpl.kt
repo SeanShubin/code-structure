@@ -3,7 +3,7 @@ package com.seanshubin.code.structure.parser
 import com.seanshubin.code.structure.parser.RegexUtil.findRegex
 import java.nio.file.Path
 
-class KotlinSourceParserImpl(private val relativeToDir:Path) : KotlinSourceParser {
+class KotlinSourceParserImpl(private val relativeToDir: Path) : KotlinSourceParser {
     private val packageRegex = Regex("""^(?:[^\n ].*)?package +([.\w]*)""", RegexOption.MULTILINE)
     private val interfaceRegex = Regex("""^(?:[^\n ].*)?interface +([.\w]*)""", RegexOption.MULTILINE)
     private val classRegex = Regex("""^(?:[^\n ].*)?class +([.\w]*)""", RegexOption.MULTILINE)

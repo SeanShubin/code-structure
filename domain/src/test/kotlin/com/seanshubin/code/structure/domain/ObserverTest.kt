@@ -3,8 +3,8 @@ package com.seanshubin.code.structure.domain
 import com.seanshubin.code.structure.bytecodeformat.BinaryDetail
 import com.seanshubin.code.structure.bytecodeformat.BinaryParser
 import com.seanshubin.code.structure.filefinder.FileFinderImpl
-import com.seanshubin.code.structure.parser.SourceParser
 import com.seanshubin.code.structure.parser.SourceDetail
+import com.seanshubin.code.structure.parser.SourceParser
 import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.test.Test
@@ -27,7 +27,7 @@ class ObserverTest {
         )
 
         val isSourceFile = { path: Path -> path.toString().endsWith(".kt") }
-        val isBinaryFile = { _:Path -> false }
+        val isBinaryFile = { _: Path -> false }
         val tester = Tester(isSourceFile, isBinaryFile, filesOnDisk)
 
         // when
@@ -40,7 +40,7 @@ class ObserverTest {
 
     class Tester(
         isSourceFile: (Path) -> Boolean,
-        isBinaryFile:(Path)->Boolean,
+        isBinaryFile: (Path) -> Boolean,
         filesOnDisk: List<String>
     ) {
         val files = FakeFiles()
@@ -74,8 +74,9 @@ class ObserverTest {
             throw UnsupportedOperationException("not implemented")
         }
     }
+
     class BinaryParserStub : BinaryParser {
-        override fun parseBinary(path: Path, names:List<String>): List<BinaryDetail> {
+        override fun parseBinary(path: Path, names: List<String>): List<BinaryDetail> {
             throw UnsupportedOperationException("not implemented")
         }
     }

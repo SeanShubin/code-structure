@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.jvmformat
 
+
 import com.seanshubin.code.structure.jvmformat.ConstantPoolInfo.Companion.ClassInfo
-import com.seanshubin.code.structure.jvmformat.ConstantPoolInfo.Companion.Utf8Info
 import com.seanshubin.code.structure.jvmformat.ConstantPoolInfo.Companion.DoubleInfo
 import com.seanshubin.code.structure.jvmformat.ConstantPoolInfo.Companion.FieldRefInfo
 import com.seanshubin.code.structure.jvmformat.ConstantPoolInfo.Companion.FloatInfo
@@ -17,8 +17,7 @@ import com.seanshubin.code.structure.jvmformat.ConstantPoolInfo.Companion.NameAn
 import com.seanshubin.code.structure.jvmformat.ConstantPoolInfo.Companion.PackageInfo
 import com.seanshubin.code.structure.jvmformat.ConstantPoolInfo.Companion.StringInfo
 import com.seanshubin.code.structure.jvmformat.ConstantPoolInfo.Companion.Unusable
-
-
+import com.seanshubin.code.structure.jvmformat.ConstantPoolInfo.Companion.Utf8Info
 import java.io.DataInput
 
 data class JvmClass(

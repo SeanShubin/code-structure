@@ -15,6 +15,7 @@ class BinaryParserRepositoryImpl(
     )
 
     override fun lookupByBytecodeFormat(bytecodeFormat: String): BinaryParser {
-        return parserByBytecodeFormat[bytecodeFormat] ?: throw RuntimeException("Unsupported bytecode format '$bytecodeFormat'")
+        return parserByBytecodeFormat[bytecodeFormat]
+            ?: throw RuntimeException("Unsupported bytecode format '$bytecodeFormat'")
     }
 }

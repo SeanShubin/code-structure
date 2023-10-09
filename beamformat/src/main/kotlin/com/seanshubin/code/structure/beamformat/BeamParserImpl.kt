@@ -10,7 +10,7 @@ class BeamParserImpl(
     private val files: FilesContract,
     private val relativeToDir: Path
 ) : BeamParser {
-    override fun parseBinary(path: Path, names:List<String>): List<BinaryDetail> {
+    override fun parseBinary(path: Path, names: List<String>): List<BinaryDetail> {
         val relativeDir = relativeToDir.relativize(path)
         val binaryDetail = files.newInputStream(path).use { inputStream ->
             val beamFile = parseBeamFile(inputStream)
@@ -19,19 +19,20 @@ class BeamParserImpl(
         return listOf(binaryDetail).mapNotNull(::elixirOnly)
     }
 
-    private fun elixirOnly(binaryDetail:BinaryDetail):BinaryDetail? {
+    private fun elixirOnly(binaryDetail: BinaryDetail): BinaryDetail? {
         val elixirName = binaryDetail.name.toElixirName() ?: return null
-        val newDependencyNames = binaryDetail.dependencyNames.mapNotNull{ it.toElixirName() }
+        val newDependencyNames = binaryDetail.dependencyNames.mapNotNull { it.toElixirName() }
         return binaryDetail.copy(
             name = elixirName,
-            dependencyNames = newDependencyNames)
+            dependencyNames = newDependencyNames
+        )
     }
 
-    private fun String.toElixirName():String? =
-        if(startsWith(elixirPrefix)) {
-             substring(elixirPrefix.length)
+    private fun String.toElixirName(): String? =
+        if (startsWith(elixirPrefix)) {
+            substring(elixirPrefix.length)
         } else {
-             null
+            null
         }
 
     private fun parseBeamFile(inputStream: InputStream): BeamFile {
@@ -58,6 +59,7 @@ class BeamParserImpl(
         val pathInFile = ""
         return BinaryDetail(path, pathInFile, name, dependencyNames)
     }
+
     companion object {
         private const val elixirPrefix = "Elixir."
     }
