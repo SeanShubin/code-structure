@@ -14,6 +14,8 @@ import com.seanshubin.code.structure.contract.FilesDelegate
 import com.seanshubin.code.structure.domain.*
 import com.seanshubin.code.structure.elixirsyntax.ElixirParser
 import com.seanshubin.code.structure.elixirsyntax.ElixirParserImpl
+import com.seanshubin.code.structure.exec.Exec
+import com.seanshubin.code.structure.exec.ExecImpl
 import com.seanshubin.code.structure.filefinder.FileFinder
 import com.seanshubin.code.structure.filefinder.FileFinderImpl
 import com.seanshubin.code.structure.filefinder.RegexFileMatcher
@@ -97,16 +99,19 @@ class Dependencies(args: Array<String>) {
     private val sourcesReport: Report = SourcesReport()
     private val tableOfContentsReport: Report = TableOfContentsReport()
     private val binariesReport: Report = BinariesReport()
+    private val graphReport:Report = GraphReport()
     private val cycleReport: Report = CycleReport()
     private val reports: List<Report> = listOf(
         staticContentReport,
         tableOfContentsReport,
         sourcesReport,
         binariesReport,
+        graphReport,
         cycleReport
     )
     private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, outputDir)
-    private val environment: Environment = EnvironmentImpl(files)
+    private val exec: Exec = ExecImpl()
+    private val environment: Environment = EnvironmentImpl(files, outputDir, exec)
     private val commandRunner: CommandRunner = CommandRunnerImpl(environment)
     private val emitLine: (String) -> Unit = ::println
     private val notifications: Notifications = NotificationsImpl(emitLine)

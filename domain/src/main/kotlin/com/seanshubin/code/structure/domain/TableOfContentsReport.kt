@@ -22,6 +22,7 @@ class TableOfContentsReport : HtmlReport() {
         listOf(
             link("sources"),
             link("binaries"),
+            link("graph"),
             link("cycles")
         )
 

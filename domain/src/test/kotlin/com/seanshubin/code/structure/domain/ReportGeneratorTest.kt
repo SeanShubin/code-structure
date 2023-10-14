@@ -31,7 +31,7 @@ class ReportGeneratorTest {
 
         // then
         assertEquals(1, actual.size)
-        val command = actual[0]
+        val command = actual[0] as CreateFileCommand
         assertEquals(expectedPath, command.path)
         assertEquals(expectedLines, command.lines.joinToString("\n"))
     }
@@ -59,7 +59,9 @@ class ReportGeneratorTest {
             binaries
         )
         val cycles = emptyList<List<String>>()
-        val analysis = Analysis(observations, cycles)
+        val names = emptyList<String>()
+        val references = emptyList<Pair<String, String>>()
+        val analysis = Analysis(observations, cycles, names, references)
     }
 
     class ReportStub() : Report {

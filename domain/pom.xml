@@ -65,6 +65,21 @@
             <artifactId>code-structure-cycle</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-dot</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-utility-stateless</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-exec</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
     <parent>
         <groupId>com.seanshubin.code.structure</groupId>

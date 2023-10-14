@@ -2,5 +2,7 @@ package com.seanshubin.code.structure.domain
 
 data class Analysis(
     val observations: Observations,
-    val cycles: List<List<String>>
+    val cycles: List<List<String>>,
+    val names:List<String>,
+    val references:List<Pair<String, String>>
 )
