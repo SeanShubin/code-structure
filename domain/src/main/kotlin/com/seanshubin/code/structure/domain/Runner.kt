@@ -9,9 +9,12 @@ class Runner(
     private val analyzer: Analyzer,
     private val reportGenerator: ReportGenerator,
     private val commandRunner: CommandRunner,
-    private val timeTakenEvent: (Duration) -> Unit
+    private val timeTakenEvent: (Duration) -> Unit,
+    private val configFile: String,
+    private val configFileEvent: (String) -> Unit
 ) : Runnable {
     override fun run() {
+        configFileEvent(configFile)
         val startTime = clock.instant()
         val observations = observer.makeObservations()
         val analysis = analyzer.analyze(observations)

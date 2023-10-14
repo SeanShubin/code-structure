@@ -111,7 +111,15 @@ class Dependencies(args: Array<String>) {
     private val emitLine: (String) -> Unit = ::println
     private val notifications: Notifications = NotificationsImpl(emitLine)
     private val timeTakenEvent: (Duration) -> Unit = notifications::timeTakenEvent
+    private val configFileEvent:(String)->Unit = notifications::configFileEvent
     val runner: Runnable = Runner(
-        clock, observer, analyzer, reportGenerator, commandRunner, timeTakenEvent
+        clock,
+        observer,
+        analyzer,
+        reportGenerator,
+        commandRunner,
+        timeTakenEvent,
+        configFileName,
+        configFileEvent
     )
 }
