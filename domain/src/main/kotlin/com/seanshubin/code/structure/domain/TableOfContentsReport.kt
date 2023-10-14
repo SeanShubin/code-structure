@@ -21,7 +21,8 @@ class TableOfContentsReport : HtmlReport() {
     private fun generateHtml(): List<HtmlElement> =
         listOf(
             link("sources"),
-            link("binaries")
+            link("binaries"),
+            link("cycles")
         )
 
     private fun link(name: String): HtmlElement =

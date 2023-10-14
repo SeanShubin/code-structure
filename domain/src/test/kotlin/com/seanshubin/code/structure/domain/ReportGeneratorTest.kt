@@ -58,7 +58,8 @@ class ReportGeneratorTest {
             sources,
             binaries
         )
-        val analysis = Analysis(observations)
+        val cycles = emptyList<List<String>>()
+        val analysis = Analysis(observations, cycles)
     }
 
     class ReportStub() : Report {

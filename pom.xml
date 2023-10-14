@@ -76,6 +76,7 @@
         <module>log</module>
         <module>durationformat</module>
         <module>tree</module>
+        <module>cycle</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

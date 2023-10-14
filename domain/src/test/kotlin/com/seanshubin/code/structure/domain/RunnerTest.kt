@@ -100,7 +100,7 @@ class RunnerTest {
 
     class AnalyzerStub : Analyzer {
         override fun analyze(observations: Observations): Analysis {
-            return Analysis(observations)
+            return Analysis(observations, emptyList())
         }
     }
 

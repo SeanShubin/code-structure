@@ -97,11 +97,13 @@ class Dependencies(args: Array<String>) {
     private val sourcesReport: Report = SourcesReport()
     private val tableOfContentsReport: Report = TableOfContentsReport()
     private val binariesReport: Report = BinariesReport()
+    private val cycleReport: Report = CycleReport()
     private val reports: List<Report> = listOf(
         staticContentReport,
         tableOfContentsReport,
         sourcesReport,
-        binariesReport
+        binariesReport,
+        cycleReport
     )
     private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, outputDir)
     private val environment: Environment = EnvironmentImpl(files)
