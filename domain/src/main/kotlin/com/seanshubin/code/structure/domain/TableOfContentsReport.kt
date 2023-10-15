@@ -12,7 +12,8 @@ class TableOfContentsReport : Report {
             Pages.sources,
             Pages.binaries,
             Pages.graph,
-            Pages.cycles
+            Pages.cycles,
+            Pages.local
         )
         val links = children.map(::generateLink)
         val name = "Table Of Contents"

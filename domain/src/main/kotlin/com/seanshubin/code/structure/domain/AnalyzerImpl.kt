@@ -20,8 +20,20 @@ class AnalyzerImpl : Analyzer {
         val currentInCycle = cycles.flatten().distinct().toSet()
         val newInCycle = currentInCycle - oldInCycle
         val cycleDetails = composeAllCycleDetails(cycles, references)
+        val localDetails = composeLocalDetails(names, references)
         val errorDetail = if(newInCycle.isEmpty()) null else ErrorDetail(newInCycle.toList().sorted())
-        return Analysis(observations, cycles, names, references, cycleDetails, errorDetail)
+        return Analysis(observations, cycles, names, references, cycleDetails, localDetails, errorDetail)
+    }
+
+    private fun composeLocalDetails(names:List<String>, references:List<Pair<String, String>>):Map<String, LocalDetail> =
+        names.associate { composeLocalDetailPair(it, references) }
+
+    private fun composeLocalDetailPair(name:String, allReferences:List<Pair<String, String>>):Pair<String, LocalDetail> {
+        val references = allReferences.filter{ it.first == name || it.second == name}
+        val nameWithDuplicates = listOf(name) + references.flatMap { it.toList() }
+        val names = nameWithDuplicates.sorted().distinct()
+        val localDetail = LocalDetail(names, references)
+        return name to localDetail
     }
 
     private fun composeAllCycleDetails(cycles:List<List<String>>, references:List<Pair<String, String>>):List<CycleDetail> =

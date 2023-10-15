@@ -6,5 +6,6 @@ data class Analysis(
     val names:List<String>,
     val references:List<Pair<String, String>>,
     val cycleDetails:List<CycleDetail>,
+    val localDetail:Map<String, LocalDetail>,
     val errorDetail:ErrorDetail?
 )

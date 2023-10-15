@@ -107,13 +107,15 @@ class Dependencies(args: Array<String>) {
     private val binariesReport: Report = BinariesReport()
     private val graphReport: Report = GraphReport()
     private val cycleReport: Report = CycleReport()
+    private val localReport:Report = LocalReport()
     private val reports: List<Report> = listOf(
         staticContentReport,
         tableOfContentsReport,
         sourcesReport,
         binariesReport,
         graphReport,
-        cycleReport
+        cycleReport,
+        localReport
     )
     private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, outputDir)
     private val exec: Exec = ExecImpl()

@@ -6,4 +6,5 @@ object Pages {
     val binaries = Page("Binaries", "binaries")
     val graph = Page("Graph", "graph")
     val cycles = Page("Cycles", "cycles")
+    val local = Page("Local", "local")
 }
