@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import java.nio.file.Path
 import java.time.Clock
 import java.time.Duration
 
@@ -10,8 +11,10 @@ class Runner(
     private val reportGenerator: ReportGenerator,
     private val commandRunner: CommandRunner,
     private val timeTakenEvent: (Duration) -> Unit,
-    private val configFile: String,
-    private val configFileEvent: (String) -> Unit
+    private val configFile: Path,
+    private val configFileEvent: (Path) -> Unit,
+    private val errorEvent:(ErrorDetail)->Unit,
+    private val exit:(Int)->Unit
 ) : Runnable {
     override fun run() {
         configFileEvent(configFile)
@@ -23,5 +26,11 @@ class Runner(
         val endTime = clock.instant()
         val duration = Duration.between(startTime, endTime)
         timeTakenEvent(duration)
+        if(analysis.errorDetail == null){
+            exit(0)
+        } else {
+            errorEvent(analysis.errorDetail)
+            exit(1)
+        }
     }
 }

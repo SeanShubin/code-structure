@@ -9,6 +9,7 @@ import java.nio.file.Path
 
 class ObserverImpl(
     private val inputDir: Path,
+    private val oldInCycleFile:Path,
     private val sourcePrefix: String,
     private val isSourceFile: (Path) -> Boolean,
     private val isBinaryFile: (Path) -> Boolean,
@@ -18,6 +19,10 @@ class ObserverImpl(
     private val files: FilesContract
 ) : Observer {
     override fun makeObservations(): Observations {
+        if(!files.exists(oldInCycleFile)){
+            files.createFile(oldInCycleFile)
+        }
+        val oldInCycle = files.readAllLines(oldInCycleFile, StandardCharsets.UTF_8)
         val sourceFiles = fileFinder.findFiles(inputDir, isSourceFile).sorted()
         val sourceDetailList = sourceFiles.map { path ->
             val content = files.readString(path, StandardCharsets.UTF_8)
@@ -27,6 +32,6 @@ class ObserverImpl(
         val names = sourceDetailList.flatMap { it.modules }.distinct().sorted()
         val binaryFiles = fileFinder.findFiles(inputDir, isBinaryFile).sorted()
         val binaryDetailList = binaryFiles.flatMap { binaryParser.parseBinary(it, names) }
-        return Observations(inputDir, sourcePrefix, sourceFiles, sourceDetailList, binaryDetailList)
+        return Observations(inputDir, sourcePrefix, sourceFiles, sourceDetailList, binaryDetailList, oldInCycle)
     }
 }

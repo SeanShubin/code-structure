@@ -63,8 +63,10 @@ class ObserverTest {
         val sourcePrefix = ""
         val sourceParser = SourceParserStub(sourceDetailMap)
         val binaryParser = BinaryParserStub()
+        val existingCycleFile = Paths.get("")
         val observer = ObserverImpl(
             inputDir,
+            existingCycleFile,
             sourcePrefix,
             isSourceFile,
             isBinaryFile,

@@ -1,0 +1,8 @@
+com.seanshubin.code.structure.sample.kotlin.domain.packagec.ClassD
+com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassL
+com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassM
+com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassN
+com.seanshubin.code.structure.sample.kotlin.domain.packageg.ClassH
+com.seanshubin.code.structure.sample.kotlin.domain.packagei.ClassJ
+com.seanshubin.code.structure.sample.kotlin.domain.packagep.ClassQ
+com.seanshubin.code.structure.sample.kotlin.domain.packager.ClassS

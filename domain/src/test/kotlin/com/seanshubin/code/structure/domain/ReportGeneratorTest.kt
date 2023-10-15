@@ -51,17 +51,20 @@ class ReportGeneratorTest {
         val sourceFilePaths = sourceFiles.map { Paths.get(it) }
         val sources = emptyList<SourceDetail>()
         val binaries = emptyList<BinaryDetail>()
+        val oldInCycle = emptyList<String>()
         val observations = Observations(
             inputDir,
             sourcePrefix,
             sourceFilePaths,
             sources,
-            binaries
+            binaries,
+            oldInCycle
         )
         val cycles = emptyList<List<String>>()
         val names = emptyList<String>()
         val references = emptyList<Pair<String, String>>()
-        val analysis = Analysis(observations, cycles, names, references)
+        val errorDetail = null
+        val analysis = Analysis(observations, cycles, names, references, errorDetail)
     }
 
     class ReportStub() : Report {

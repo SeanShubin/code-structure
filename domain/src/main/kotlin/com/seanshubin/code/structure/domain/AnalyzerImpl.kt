@@ -16,7 +16,11 @@ class AnalyzerImpl : Analyzer {
                 binary.toName(commonPrefix) to it.toName(commonPrefix)
             }
         }.sortedWith(referenceComparator).distinct()
-        return Analysis(observations, cycles, names, references)
+        val oldInCycle = observations.oldInCycle.distinct().toSet()
+        val currentInCycle = cycles.flatten().distinct().toSet()
+        val newInCycle = currentInCycle - oldInCycle
+        val errorDetail = if(newInCycle.isEmpty()) null else ErrorDetail(newInCycle.toList().sorted())
+        return Analysis(observations, cycles, names, references, errorDetail)
     }
 
     private fun BinaryDetail.toName(commonPrefix:List<String>):String = this.name.toName(commonPrefix)

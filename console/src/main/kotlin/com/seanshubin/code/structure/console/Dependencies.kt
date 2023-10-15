@@ -30,12 +30,13 @@ import java.time.Clock
 import java.time.Duration
 
 class Dependencies(args: Array<String>) {
-    private val configFileName = if (args.isEmpty() || args[0].isBlank()) {
-        "code-structure-config.json"
+    private val configBaseName = if (args.isEmpty() || args[0].isBlank()) {
+        "code-structure"
     } else {
         args[0]
     }
-    private val configFile = Paths.get(configFileName)
+    private val configFile = Paths.get("$configBaseName-config.json")
+    private val existingCycleFile = Paths.get("$configBaseName-existing-cycles.txt")
     private val files: FilesContract = FilesDelegate
     private val config: Configuration = JsonFileConfiguration(files, configFile)
     private val clock: Clock = Clock.systemUTC()
@@ -90,6 +91,7 @@ class Dependencies(args: Array<String>) {
     private val binaryParser: BinaryParser = binaryParserRepository.lookupByBytecodeFormat(bytecodeFormat)
     private val observer: Observer = ObserverImpl(
         inputDir,
+        existingCycleFile,
         sourcePrefix,
         isSourceFile,
         isBinaryFile,
@@ -120,7 +122,9 @@ class Dependencies(args: Array<String>) {
     private val emitLine: (String) -> Unit = ::println
     private val notifications: Notifications = NotificationsImpl(emitLine)
     private val timeTakenEvent: (Duration) -> Unit = notifications::timeTakenEvent
-    private val configFileEvent: (String) -> Unit = notifications::configFileEvent
+    private val configFileEvent: (Path) -> Unit = notifications::configFileEvent
+    private val errorEvent:(ErrorDetail)->Unit = notifications::errorEvent
+    private val exit:(Int)->Unit = System::exit
     val runner: Runnable = Runner(
         clock,
         observer,
@@ -128,7 +132,9 @@ class Dependencies(args: Array<String>) {
         reportGenerator,
         commandRunner,
         timeTakenEvent,
-        configFileName,
-        configFileEvent
+        configFile,
+        configFileEvent,
+        errorEvent,
+        exit
     )
 }

@@ -9,5 +9,6 @@ data class Observations(
     val sourcePrefix: String,
     val sourceFiles: List<Path>,
     val sources: List<SourceDetail>,
-    val binaries: List<BinaryDetail>
+    val binaries: List<BinaryDetail>,
+    val oldInCycle: List<String>
 )
