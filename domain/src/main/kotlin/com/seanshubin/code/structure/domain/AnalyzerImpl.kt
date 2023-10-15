@@ -38,7 +38,7 @@ class AnalyzerImpl : Analyzer {
         val references = allReferences.filter { it.first == name || it.second == name }
         val nameWithDuplicates = listOf(name) + references.flatMap { it.toList() }
         val names = nameWithDuplicates.sorted().distinct()
-        val localDetail = LocalDetail(names, references)
+        val localDetail = LocalDetail(name, names, references)
         return name to localDetail
     }
 
