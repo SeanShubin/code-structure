@@ -7,11 +7,11 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.sourceparser.SourceDetail
 import java.nio.file.Path
 
-class SourcesReport : HtmlReport() {
+class SourcesReport : Report {
     override fun generate(reportDir: Path, analysis: Analysis): List<CreateFileCommand> {
         val name = "Sources"
         val htmlInsideBody = generateHtml(analysis)
-        val html = wrapInTopLevelHtml(name, htmlInsideBody)
+        val html = ReportHelper.wrapInTopLevelHtmlWithParent(name, htmlInsideBody)
         val fileName = "sources.html"
         val path = reportDir.resolve(fileName)
         val lines = html.toLines()

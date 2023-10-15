@@ -6,7 +6,6 @@ import com.seanshubin.code.structure.utility.stateless.ListUtil
 
 class AnalyzerImpl : Analyzer {
     override fun analyze(observations: Observations): Analysis {
-        val cycles = findCycles(observations)
         val rawNames = observations.binaries.map { it.name }
         val rawIds = rawNames.map{it.split('.')}
         val commonPrefix = ListUtil.commonPrefix(rawIds)
@@ -16,12 +15,23 @@ class AnalyzerImpl : Analyzer {
                 binary.toName(commonPrefix) to it.toName(commonPrefix)
             }
         }.sortedWith(referenceComparator).distinct()
+        val cycles = findCycles(references)
         val oldInCycle = observations.oldInCycle.distinct().toSet()
         val currentInCycle = cycles.flatten().distinct().toSet()
         val newInCycle = currentInCycle - oldInCycle
+        val cycleDetails = composeAllCycleDetails(cycles, references)
         val errorDetail = if(newInCycle.isEmpty()) null else ErrorDetail(newInCycle.toList().sorted())
-        return Analysis(observations, cycles, names, references, errorDetail)
+        return Analysis(observations, cycles, names, references, cycleDetails, errorDetail)
     }
+
+    private fun composeAllCycleDetails(cycles:List<List<String>>, references:List<Pair<String, String>>):List<CycleDetail> =
+        cycles.map { composeSingleCycleDetails(it, references)}
+
+    private fun composeSingleCycleDetails(cycle:List<String>, allReferences:List<Pair<String, String>>):CycleDetail {
+        val references = allReferences.filter{ cycle.contains(it.first) && cycle.contains(it.second)}
+        return CycleDetail(cycle, references)
+    }
+
 
     private fun BinaryDetail.toName(commonPrefix:List<String>):String = this.name.toName(commonPrefix)
 
@@ -41,12 +51,8 @@ class AnalyzerImpl : Analyzer {
             .comparing<Pair<String, String>, String> { it.first }
             .thenComparing(Comparator.comparing { it.second })
 
-        private fun findCycles(observations: Observations): List<List<String>> {
-            val edges = observations.binaries.flatMap { binary ->
-                binary.dependencyNames.map { dependency ->
-                    binary.name to dependency
-                }
-            }.toSet()
+        private fun findCycles(references: List<Pair<String, String>>): List<List<String>> {
+            val edges = references.toSet()
             return CycleUtil.findCycles(edges)
         }
     }

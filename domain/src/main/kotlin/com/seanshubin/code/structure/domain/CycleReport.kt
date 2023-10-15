@@ -1,17 +1,29 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.dot.DotReport
 import com.seanshubin.code.structure.html.HtmlElement
 import java.nio.file.Path
 
-class CycleReport : HtmlReport() {
-    override fun generate(reportDir: Path, analysis: Analysis): List<CreateFileCommand> {
+class CycleReport : Report {
+    override fun generate(reportDir: Path, analysis: Analysis): List<Command> {
         val name = "Cycles"
         val htmlInsideBody = generateHtml(analysis)
-        val html = wrapInTopLevelHtml(name, htmlInsideBody)
+        val html = ReportHelper.wrapInTopLevelHtmlWithParent(name, htmlInsideBody)
         val fileName = "cycles.html"
         val path = reportDir.resolve(fileName)
         val lines = html.toLines()
-        return listOf(CreateFileCommand(path, lines))
+        val topCommand = CreateFileCommand(path, lines)
+        val graphCommands = commandsForAllCycleGraphs(reportDir, analysis)
+        return listOf(topCommand) + graphCommands
+    }
+
+    private fun commandsForAllCycleGraphs(reportDir: Path, analysis: Analysis):List<Command> =
+        analysis.cycleDetails.flatMapIndexed{index, cycleDetail ->
+            commandsForCycleGraph(reportDir, index, cycleDetail)
+        }
+
+    private fun commandsForCycleGraph(reportDir:Path, index:Int, detail:CycleDetail):List<Command>{
+        return ReportHelper.graphCommands(reportDir, "cycle-$index", detail.names, detail.references)
     }
 
     private fun generateHtml(analysis: Analysis): List<HtmlElement> {
@@ -30,7 +42,8 @@ class CycleReport : HtmlReport() {
 
     private fun cycleListElement(listIndex: Int, cycleList: List<String>): List<HtmlElement> {
         val summaryText = HtmlElement.Text("cycle-$listIndex")
-        val summary = HtmlElement.Tag("h2", listOf(summaryText))
+        val summaryAnchor = HtmlElement.Tag("a", listOf(summaryText), listOf("href" to "cycle-$listIndex.html"))
+        val summary = HtmlElement.Tag("h2", listOf(summaryAnchor))
         val partCountText = HtmlElement.Text("part count: ${cycleList.size}")
         val partCountParagraph = HtmlElement.Tag("p", listOf(partCountText))
         val cycleElements = cycleList.mapIndexed { nameIndex, name -> cycleElement(listIndex, nameIndex, name) }

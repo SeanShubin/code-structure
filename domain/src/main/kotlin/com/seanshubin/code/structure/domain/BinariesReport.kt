@@ -6,11 +6,11 @@ import com.seanshubin.code.structure.html.HtmlElement.Tag
 import com.seanshubin.code.structure.html.HtmlElement.Text
 import java.nio.file.Path
 
-class BinariesReport : HtmlReport() {
+class BinariesReport : Report {
     override fun generate(reportDir: Path, analysis: Analysis): List<CreateFileCommand> {
         val name = "Binaries"
         val htmlInsideBody = generateHtml(analysis)
-        val html = wrapInTopLevelHtml(name, htmlInsideBody)
+        val html = ReportHelper.wrapInTopLevelHtmlWithParent(name, htmlInsideBody)
         val fileName = "binaries.html"
         val path = reportDir.resolve(fileName)
         val lines = html.toLines()

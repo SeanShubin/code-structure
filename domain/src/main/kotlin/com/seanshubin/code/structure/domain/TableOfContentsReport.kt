@@ -5,18 +5,16 @@ import com.seanshubin.code.structure.html.HtmlElement.Tag
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import java.nio.file.Path
 
-class TableOfContentsReport : HtmlReport() {
+class TableOfContentsReport : Report {
     override fun generate(reportDir: Path, analysis: Analysis): List<CreateFileCommand> {
         val name = "Table Of Contents"
         val htmlInsideBody = generateHtml()
-        val html = wrapInTopLevelHtml(name, htmlInsideBody)
+        val html = ReportHelper.wrapInTopLevelHtmlWithoutParent(name, htmlInsideBody)
         val fileName = "index.html"
         val path = reportDir.resolve(fileName)
         val lines = html.toLines()
         return listOf(CreateFileCommand(path, lines))
     }
-
-    override fun parentLink(): List<HtmlElement> = emptyList()
 
     private fun generateHtml(): List<HtmlElement> =
         listOf(
