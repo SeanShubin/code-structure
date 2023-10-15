@@ -1,14 +1,13 @@
 package com.seanshubin.code.structure.dot
 
 data class DotReport(
-    val names: List<String>,
-    val references: List<Pair<String, String>>,
-    val nameToUri: (String) -> String
+    val nodes: List<DotNode>,
+    val references: List<Pair<String, String>>
 ) {
     fun toLines(): List<String> {
-        val nameLines = names.map(::toNameLine)
+        val nodeLines = nodes.map(::toNodeLine)
         val referenceLines = references.map(::toReferenceLine)
-        val nameAndReferenceLines = nameLines + referenceLines
+        val nameAndReferenceLines = nodeLines + referenceLines
         val allLines = wrapInDigraph(nameAndReferenceLines)
         return allLines
     }
@@ -21,13 +20,12 @@ data class DotReport(
         return header + indentedBody + footer
     }
 
-    private fun toNameLine(name: String): String {
-        val uri = nameToUri(name)
-        val quoteName = name.quote()
-        val quoteColor = "blue".quote()
-        val quoteUri = uri.quote()
-        return "$quoteName [fontcolor=$quoteColor URL=$quoteUri]"
-    }
+    private fun toNodeLine(node: DotNode): String =
+        DotNodeModel(node.id, listOf(
+            "fontcolor" to node.color,
+            "URL" to node.link,
+            "label" to node.text
+        )).toDotLine()
 
     private fun toReferenceLine(reference: Pair<String, String>): String {
         val (first, second) = reference

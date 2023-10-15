@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
@@ -21,16 +22,24 @@ class LocalReport : Report {
         analysis.names.flatMap { baseName ->
             val localDetail = analysis.localDetail.getValue(baseName)
             val localParents = parents + listOf(Pages.local)
+            val nodes = localDetail.names.map{toDotNode(it, LinkCreator.local)}
             ReportHelper.graphCommands(
                 reportDir,
                 "local-$baseName",
-                localDetail.names,
+                nodes,
                 localDetail.references,
-                LinkCreator.local,
                 localParents
             )
         }
 
+    private fun toDotNode(name: String, createLink: (String) -> String): DotNode =
+        DotNode(
+            id = name,
+            text = name,
+            link = createLink(name),
+            color = "blue",
+            bold = false
+        )
     private fun generateIndex(analysis: Analysis): List<HtmlElement> {
         val children = analysis.names.map { localLink(it) }
         return listOf(bigList(children))

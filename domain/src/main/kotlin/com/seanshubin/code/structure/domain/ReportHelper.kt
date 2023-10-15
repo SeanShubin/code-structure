@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.dot.DotReport
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
@@ -9,16 +10,15 @@ object ReportHelper {
     fun graphCommands(
         reportDir: Path,
         baseName: String,
-        names: List<String>,
+        nodes: List<DotNode>,
         references: List<Pair<String, String>>,
-        createLink: (String) -> String,
         parents: List<Page>
     ): List<Command> {
         val dotSourcePath = reportDir.resolve("$baseName.txt")
         val svgPath = reportDir.resolve("$baseName.svg")
         val htmlTemplatePath = reportDir.resolve("$baseName--template.html")
         val htmlPath = reportDir.resolve("$baseName.html")
-        val lines = DotReport(names, references, createLink).toLines()
+        val lines = DotReport(nodes, references).toLines()
         val createDotSource = CreateFileCommand(dotSourcePath, lines)
         val generateSvg = GenerateSvgCommand(dotSourcePath, svgPath)
         val substitutionTag = "---replace--with--$baseName.svg---"

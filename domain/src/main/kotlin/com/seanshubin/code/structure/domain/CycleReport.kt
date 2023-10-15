@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
@@ -32,15 +33,24 @@ class CycleReport : Report {
         detail: CycleDetail,
         parents: List<Page>
     ): List<Command> {
+        val nodes = detail.names.map{toDotNode(it, LinkCreator.local)}
         return ReportHelper.graphCommands(
             reportDir,
             "cycle-$index",
-            detail.names,
+            nodes,
             detail.references,
-            LinkCreator.local,
             parents
         )
     }
+
+    private fun toDotNode(name: String, createLink: (String) -> String): DotNode =
+        DotNode(
+            id = name,
+            text = name,
+            link = createLink(name),
+            color = "blue",
+            bold = false
+        )
 
     private fun generateHtml(analysis: Analysis): List<HtmlElement> {
         return summaryElement(analysis) + cyclesElement(analysis)
