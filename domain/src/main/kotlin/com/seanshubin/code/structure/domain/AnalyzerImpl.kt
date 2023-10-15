@@ -10,12 +10,12 @@ class AnalyzerImpl : Analyzer {
         val rawNames = observations.binaries.map { it.name }
         val rawIds = rawNames.map{it.split('.')}
         val commonPrefix = ListUtil.commonPrefix(rawIds)
-        val names = observations.binaries.map { it.toName(commonPrefix) }.sorted()
+        val names = observations.binaries.map { it.toName(commonPrefix) }.sorted().distinct()
         val references = observations.binaries.flatMap { binary ->
             binary.dependencyNames.map {
                 binary.toName(commonPrefix) to it.toName(commonPrefix)
             }
-        }.sortedWith(referenceComparator)
+        }.sortedWith(referenceComparator).distinct()
         return Analysis(observations, cycles, names, references)
     }
 

@@ -71,7 +71,7 @@ class ZipContentsIterator(
 
     private fun pathNames(): List<String> = path.map(::extractName).reversed()
 
-    private fun moveCursorForward() {
+    private tailrec fun moveCursorForward() {
         if (!hasNext()) throw RuntimeException("Can't move past end of iterator")
         val entry = latestZipInputStream().nextEntry
         if (entry == null) {

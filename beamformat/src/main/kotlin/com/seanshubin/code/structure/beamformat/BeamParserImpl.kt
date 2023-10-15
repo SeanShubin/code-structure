@@ -55,7 +55,7 @@ class BeamParserImpl(
         val name = atoms[0]
         val dependencyNames = imports.map {
             atoms[it.moduleIndex - 1]
-        }.distinct()
+        }.distinct().filterNot{it == name}
         val pathInFile = ""
         return BinaryDetail(path, pathInFile, name, dependencyNames)
     }

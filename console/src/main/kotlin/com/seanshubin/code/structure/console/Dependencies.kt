@@ -30,7 +30,11 @@ import java.time.Clock
 import java.time.Duration
 
 class Dependencies(args: Array<String>) {
-    private val configFileName = args.getOrNull(0) ?: "code-structure-config.json"
+    private val configFileName = if (args.isEmpty() || args[0].isBlank()) {
+        "code-structure-config.json"
+    } else {
+        args[0]
+    }
     private val configFile = Paths.get(configFileName)
     private val files: FilesContract = FilesDelegate
     private val config: Configuration = JsonFileConfiguration(files, configFile)
@@ -99,7 +103,7 @@ class Dependencies(args: Array<String>) {
     private val sourcesReport: Report = SourcesReport()
     private val tableOfContentsReport: Report = TableOfContentsReport()
     private val binariesReport: Report = BinariesReport()
-    private val graphReport:Report = GraphReport()
+    private val graphReport: Report = GraphReport()
     private val cycleReport: Report = CycleReport()
     private val reports: List<Report> = listOf(
         staticContentReport,
@@ -116,7 +120,7 @@ class Dependencies(args: Array<String>) {
     private val emitLine: (String) -> Unit = ::println
     private val notifications: Notifications = NotificationsImpl(emitLine)
     private val timeTakenEvent: (Duration) -> Unit = notifications::timeTakenEvent
-    private val configFileEvent:(String)->Unit = notifications::configFileEvent
+    private val configFileEvent: (String) -> Unit = notifications::configFileEvent
     val runner: Runnable = Runner(
         clock,
         observer,
