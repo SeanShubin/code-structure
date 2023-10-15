@@ -7,23 +7,25 @@ import java.nio.file.Path
 
 class TableOfContentsReport : Report {
     override fun generate(reportDir: Path, analysis: Analysis): List<CreateFileCommand> {
+        val parents = emptyList<Page>()
+        val children = listOf(
+            Pages.sources,
+            Pages.binaries,
+            Pages.graph,
+            Pages.cycles
+        )
+        val links = children.map(::generateLink)
         val name = "Table Of Contents"
-        val htmlInsideBody = generateHtml()
-        val html = ReportHelper.wrapInTopLevelHtmlWithoutParent(name, htmlInsideBody)
+        val html = ReportHelper.wrapInTopLevelHtml(name, links, parents)
         val fileName = "index.html"
         val path = reportDir.resolve(fileName)
         val lines = html.toLines()
         return listOf(CreateFileCommand(path, lines))
     }
 
-    private fun generateHtml(): List<HtmlElement> =
-        listOf(
-            link("sources"),
-            link("binaries"),
-            link("graph"),
-            link("cycles")
-        )
-
-    private fun link(name: String): HtmlElement =
-        Tag("p", anchor(name, "$name.html"))
+    private fun generateLink(page:Page):HtmlElement {
+        val a = anchor(page.name, page.fileName)
+        val p = HtmlElement.Tag("p", listOf(a))
+        return p
+    }
 }

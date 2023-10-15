@@ -9,9 +9,10 @@ import java.nio.file.Path
 
 class SourcesReport : Report {
     override fun generate(reportDir: Path, analysis: Analysis): List<CreateFileCommand> {
+        val parents = listOf(Pages.tableOfContents)
         val name = "Sources"
         val htmlInsideBody = generateHtml(analysis)
-        val html = ReportHelper.wrapInTopLevelHtmlWithParent(name, htmlInsideBody)
+        val html = ReportHelper.wrapInTopLevelHtml(name, htmlInsideBody, parents)
         val fileName = "sources.html"
         val path = reportDir.resolve(fileName)
         val lines = html.toLines()
