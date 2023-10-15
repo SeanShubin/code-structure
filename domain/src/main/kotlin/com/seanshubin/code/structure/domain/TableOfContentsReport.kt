@@ -1,7 +1,6 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.html.HtmlElement
-import com.seanshubin.code.structure.html.HtmlElement.Tag
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import java.nio.file.Path
 
@@ -24,7 +23,7 @@ class TableOfContentsReport : Report {
         return listOf(CreateFileCommand(path, lines))
     }
 
-    private fun generateLink(page:Page):HtmlElement {
+    private fun generateLink(page: Page): HtmlElement {
         val a = anchor(page.name, page.fileName)
         val p = HtmlElement.Tag("p", listOf(a))
         return p

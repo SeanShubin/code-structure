@@ -4,7 +4,7 @@ import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import java.nio.file.Path
 
-class LocalReport:Report {
+class LocalReport : Report {
     override fun generate(reportDir: Path, analysis: Analysis): List<Command> {
         val parents = listOf(Pages.tableOfContents)
         val path = reportDir.resolve(Pages.local.fileName)
@@ -16,7 +16,7 @@ class LocalReport:Report {
         return commands
     }
 
-    private fun generateGraphs(reportDir:Path, analysis: Analysis, parents:List<Page>):List<Command> =
+    private fun generateGraphs(reportDir: Path, analysis: Analysis, parents: List<Page>): List<Command> =
         analysis.names.flatMap { baseName ->
             val localDetail = analysis.localDetail.getValue(baseName)
             val localParents = parents + listOf(Pages.local)
@@ -26,15 +26,16 @@ class LocalReport:Report {
                 localDetail.names,
                 localDetail.references,
                 LinkCreator.local,
-                localParents)
+                localParents
+            )
         }
 
-    private fun generateIndex(analysis: Analysis):List<HtmlElement>{
-        val children = analysis.names.map{ localLink(it)}
-        val div =  HtmlElement.Tag("div", children, listOf("class" to "big-list"))
+    private fun generateIndex(analysis: Analysis): List<HtmlElement> {
+        val children = analysis.names.map { localLink(it) }
+        val div = HtmlElement.Tag("div", children, listOf("class" to "big-list"))
         return listOf(div)
     }
 
-    private fun localLink(name:String):HtmlElement =
+    private fun localLink(name: String): HtmlElement =
         anchor(name, "local-$name.html")
 }

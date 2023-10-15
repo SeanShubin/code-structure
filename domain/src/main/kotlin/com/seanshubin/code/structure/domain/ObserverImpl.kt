@@ -9,7 +9,7 @@ import java.nio.file.Path
 
 class ObserverImpl(
     private val inputDir: Path,
-    private val oldInCycleFile:Path,
+    private val oldInCycleFile: Path,
     private val sourcePrefix: String,
     private val isSourceFile: (Path) -> Boolean,
     private val isBinaryFile: (Path) -> Boolean,
@@ -19,7 +19,7 @@ class ObserverImpl(
     private val files: FilesContract
 ) : Observer {
     override fun makeObservations(): Observations {
-        if(!files.exists(oldInCycleFile)){
+        if (!files.exists(oldInCycleFile)) {
             files.createFile(oldInCycleFile)
         }
         val oldInCycle = files.readAllLines(oldInCycleFile, StandardCharsets.UTF_8)

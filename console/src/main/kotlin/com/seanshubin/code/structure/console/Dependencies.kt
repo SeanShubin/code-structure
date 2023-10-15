@@ -107,7 +107,7 @@ class Dependencies(args: Array<String>) {
     private val binariesReport: Report = BinariesReport()
     private val graphReport: Report = GraphReport()
     private val cycleReport: Report = CycleReport()
-    private val localReport:Report = LocalReport()
+    private val localReport: Report = LocalReport()
     private val reports: List<Report> = listOf(
         staticContentReport,
         tableOfContentsReport,
@@ -125,8 +125,8 @@ class Dependencies(args: Array<String>) {
     private val notifications: Notifications = NotificationsImpl(emitLine)
     private val timeTakenEvent: (Duration) -> Unit = notifications::timeTakenEvent
     private val configFileEvent: (Path) -> Unit = notifications::configFileEvent
-    private val errorEvent:(ErrorDetail)->Unit = notifications::errorEvent
-    private val exit:(Int)->Unit = System::exit
+    private val errorEvent: (ErrorDetail) -> Unit = notifications::errorEvent
+    private val exit: (Int) -> Unit = System::exit
     val runner: Runnable = Runner(
         clock,
         observer,

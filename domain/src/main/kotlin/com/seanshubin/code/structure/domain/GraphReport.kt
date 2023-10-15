@@ -2,7 +2,7 @@ package com.seanshubin.code.structure.domain
 
 import java.nio.file.Path
 
-class GraphReport:Report {
+class GraphReport : Report {
     override fun generate(reportDir: Path, analysis: Analysis): List<Command> {
         val parents = listOf(Pages.tableOfContents)
         val name = Pages.graph.name
@@ -12,6 +12,7 @@ class GraphReport:Report {
             analysis.names,
             analysis.references,
             LinkCreator.local,
-            parents)
+            parents
+        )
     }
 }

@@ -11,8 +11,8 @@ object ReportHelper {
         baseName: String,
         names: List<String>,
         references: List<Pair<String, String>>,
-        createLink:(String)->String,
-        parents:List<Page>
+        createLink: (String) -> String,
+        parents: List<Page>
     ): List<Command> {
         val dotSourcePath = reportDir.resolve("$baseName.txt")
         val svgPath = reportDir.resolve("$baseName.svg")
@@ -36,8 +36,8 @@ object ReportHelper {
         return listOf(div)
     }
 
-    fun wrapInTopLevelHtml(name: String, innerContent: List<HtmlElement>, parents:List<Page>): HtmlElement {
-        val parentElements = parents.map{
+    fun wrapInTopLevelHtml(name: String, innerContent: List<HtmlElement>, parents: List<Page>): HtmlElement {
+        val parentElements = parents.map {
             val uri = "${it.id}.html"
             val a = anchor(it.name, uri)
             val p = HtmlElement.Tag("p", a)

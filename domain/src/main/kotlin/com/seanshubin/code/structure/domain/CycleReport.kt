@@ -1,6 +1,5 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.dot.DotReport
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import java.nio.file.Path
@@ -19,21 +18,27 @@ class CycleReport : Report {
         return listOf(topCommand) + graphCommands
     }
 
-    private fun commandsForAllCycleGraphs(reportDir: Path, analysis: Analysis, parents:List<Page>):List<Command> {
+    private fun commandsForAllCycleGraphs(reportDir: Path, analysis: Analysis, parents: List<Page>): List<Command> {
         val parentsForCycle = parents + listOf(Pages.cycles)
         return analysis.cycleDetails.flatMapIndexed { index, cycleDetail ->
             commandsForCycleGraph(reportDir, index, cycleDetail, parentsForCycle)
         }
     }
 
-    private fun commandsForCycleGraph(reportDir:Path, index:Int, detail:CycleDetail, parents:List<Page>):List<Command>{
+    private fun commandsForCycleGraph(
+        reportDir: Path,
+        index: Int,
+        detail: CycleDetail,
+        parents: List<Page>
+    ): List<Command> {
         return ReportHelper.graphCommands(
             reportDir,
             "cycle-$index",
             detail.names,
             detail.references,
             LinkCreator.local,
-            parents)
+            parents
+        )
     }
 
     private fun generateHtml(analysis: Analysis): List<HtmlElement> {
