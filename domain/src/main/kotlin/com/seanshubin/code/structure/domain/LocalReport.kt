@@ -20,7 +20,13 @@ class LocalReport:Report {
         analysis.names.flatMap { baseName ->
             val localDetail = analysis.localDetail.getValue(baseName)
             val localParents = parents + listOf(Pages.local)
-            ReportHelper.graphCommands(reportDir, "local-$baseName", localDetail.names, localDetail.references, localParents)
+            ReportHelper.graphCommands(
+                reportDir,
+                "local-$baseName",
+                localDetail.names,
+                localDetail.references,
+                LinkCreator.local,
+                localParents)
         }
 
     private fun generateIndex(analysis: Analysis):List<HtmlElement>{

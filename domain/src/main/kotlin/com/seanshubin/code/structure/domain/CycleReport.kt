@@ -27,7 +27,13 @@ class CycleReport : Report {
     }
 
     private fun commandsForCycleGraph(reportDir:Path, index:Int, detail:CycleDetail, parents:List<Page>):List<Command>{
-        return ReportHelper.graphCommands(reportDir, "cycle-$index", detail.names, detail.references, parents)
+        return ReportHelper.graphCommands(
+            reportDir,
+            "cycle-$index",
+            detail.names,
+            detail.references,
+            LinkCreator.local,
+            parents)
     }
 
     private fun generateHtml(analysis: Analysis): List<HtmlElement> {
@@ -55,7 +61,7 @@ class CycleReport : Report {
     }
 
     private fun cycleElement(listIndex: Int, nameIndex: Int, name: String): HtmlElement {
-        val link = "cycle-$listIndex-$nameIndex-$name"
+        val link = LinkCreator.local(name)
         return anchor(name, link)
     }
 

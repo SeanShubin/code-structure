@@ -11,13 +11,14 @@ object ReportHelper {
         baseName: String,
         names: List<String>,
         references: List<Pair<String, String>>,
+        createLink:(String)->String,
         parents:List<Page>
     ): List<Command> {
         val dotSourcePath = reportDir.resolve("$baseName.txt")
         val svgPath = reportDir.resolve("$baseName.svg")
         val htmlTemplatePath = reportDir.resolve("$baseName--template.html")
         val htmlPath = reportDir.resolve("$baseName.html")
-        val lines = DotReport(names, references).toLines()
+        val lines = DotReport(names, references, createLink).toLines()
         val createDotSource = CreateFileCommand(dotSourcePath, lines)
         val generateSvg = GenerateSvgCommand(dotSourcePath, svgPath)
         val substitutionTag = "---replace--with--$baseName.svg---"

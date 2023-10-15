@@ -6,6 +6,12 @@ class GraphReport:Report {
     override fun generate(reportDir: Path, analysis: Analysis): List<Command> {
         val parents = listOf(Pages.tableOfContents)
         val name = Pages.graph.name
-        return ReportHelper.graphCommands(reportDir, name, analysis.names, analysis.references, parents)
+        return ReportHelper.graphCommands(
+            reportDir,
+            name,
+            analysis.names,
+            analysis.references,
+            LinkCreator.local,
+            parents)
     }
 }
