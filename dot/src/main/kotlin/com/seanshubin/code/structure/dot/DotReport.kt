@@ -23,18 +23,18 @@ data class DotReport(
 
     private fun toNameLine(name: String): String {
         val uri = nameToUri(name)
-        val dquoteName = name.dquote()
-        val dquoteColor = "blue".dquote()
-        val dquoteUri = uri.dquote()
-        return "$dquoteName [fontcolor=$dquoteColor URL=$dquoteUri]"
+        val quoteName = name.quote()
+        val quoteColor = "blue".quote()
+        val quoteUri = uri.quote()
+        return "$quoteName [fontcolor=$quoteColor URL=$quoteUri]"
     }
 
     private fun toReferenceLine(reference: Pair<String, String>): String {
         val (first, second) = reference
-        val firstDQuote = first.dquote()
-        val secondDQuote = second.dquote()
+        val firstDQuote = first.quote()
+        val secondDQuote = second.quote()
         return "$firstDQuote -> $secondDQuote"
     }
 
-    private fun String.dquote(): String = "\"$this\""
+    private fun String.quote(): String = "\"$this\""
 }
