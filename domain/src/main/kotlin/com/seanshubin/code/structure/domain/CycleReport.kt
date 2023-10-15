@@ -2,6 +2,7 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
+import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
 class CycleReport : Report {
@@ -60,21 +61,13 @@ class CycleReport : Report {
         val summary = HtmlElement.Tag("h2", listOf(summaryAnchor))
         val partCountText = HtmlElement.Text("part count: ${cycleList.size}")
         val partCountParagraph = HtmlElement.Tag("p", listOf(partCountText))
-        val cycleElements = cycleList.mapIndexed { nameIndex, name -> cycleElement(listIndex, nameIndex, name) }
-        val inlineFlexCycleElements = inlineFlexDiv(cycleElements)
-        return listOf(summary, partCountParagraph) + inlineFlexCycleElements
+        val cycleElements = cycleList.map(::cycleElement)
+        val listElement = bigList(cycleElements)
+        return listOf(summary, partCountParagraph) + listElement
     }
 
-    private fun cycleElement(listIndex: Int, nameIndex: Int, name: String): HtmlElement {
+    private fun cycleElement(name: String): HtmlElement {
         val link = LinkCreator.local(name)
         return anchor(name, link)
-    }
-
-    private fun inlineFlexDiv(children: List<HtmlElement>): HtmlElement {
-        return HtmlElement.Tag(
-            "div", children, listOf(
-                "class" to "big-list"
-            )
-        )
     }
 }

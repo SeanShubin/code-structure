@@ -2,6 +2,7 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
+import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
 class LocalReport : Report {
@@ -32,8 +33,7 @@ class LocalReport : Report {
 
     private fun generateIndex(analysis: Analysis): List<HtmlElement> {
         val children = analysis.names.map { localLink(it) }
-        val div = HtmlElement.Tag("div", children, listOf("class" to "big-list"))
-        return listOf(div)
+        return listOf(bigList(children))
     }
 
     private fun localLink(name: String): HtmlElement =

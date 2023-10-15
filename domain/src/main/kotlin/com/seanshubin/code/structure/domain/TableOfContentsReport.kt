@@ -2,6 +2,7 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
+import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
 class TableOfContentsReport : Report {
@@ -14,18 +15,16 @@ class TableOfContentsReport : Report {
             Pages.cycles,
             Pages.local
         )
-        val links = children.map(::generateLink)
+        val listElements = children.map(::generateAnchor)
+        val listElement = bigList(listElements)
         val name = "Table Of Contents"
-        val html = ReportHelper.wrapInTopLevelHtml(name, links, parents)
+        val html = ReportHelper.wrapInTopLevelHtml(name, listOf(listElement), parents)
         val fileName = "index.html"
         val path = reportDir.resolve(fileName)
         val lines = html.toLines()
         return listOf(CreateFileCommand(path, lines))
     }
 
-    private fun generateLink(page: Page): HtmlElement {
-        val a = anchor(page.name, page.fileName)
-        val p = HtmlElement.Tag("p", listOf(a))
-        return p
-    }
+    private fun generateAnchor(page: Page): HtmlElement =
+        anchor(page.name, page.fileName)
 }
