@@ -6,11 +6,10 @@ import java.nio.file.Path
 class GraphReport : Report {
     override fun generate(reportDir: Path, analysis: Analysis): List<Command> {
         val parents = listOf(Pages.tableOfContents)
-        val name = Pages.graph.name
         val nodes = analysis.names.map{toDotNode(it, LinkCreator.local)}
         return ReportHelper.graphCommands(
             reportDir,
-            name,
+            Pages.graph.id,
             nodes,
             analysis.references,
             parents
