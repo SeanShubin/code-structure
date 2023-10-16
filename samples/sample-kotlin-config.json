@@ -10,7 +10,7 @@
   },
   "bytecodeFormat" : "class",
   "binaryFileRegexPatterns" : {
-    "include" : [ ".*/code-structure-sample-kotlin-console.jar$" ],
+    "include" : [ "console/target/code-structure-sample-kotlin-console.jar$" ],
     "exclude" : [ ]
   }
 }
