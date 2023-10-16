@@ -6,6 +6,7 @@ import com.seanshubin.code.structure.binaryparser.BinaryParser
 import com.seanshubin.code.structure.binaryparser.BinaryParserRepository
 import com.seanshubin.code.structure.config.Configuration
 import com.seanshubin.code.structure.config.JsonFileConfiguration
+import com.seanshubin.code.structure.config.TypeUtil.coerceToInt
 import com.seanshubin.code.structure.config.TypeUtil.coerceToListOfString
 import com.seanshubin.code.structure.config.TypeUtil.coerceToPath
 import com.seanshubin.code.structure.config.TypeUtil.coerceToString
@@ -43,6 +44,7 @@ class Dependencies(args: Array<String>) {
     private val inputDir = config.load(listOf("inputDir"), ".").coerceToPath()
     private val outputDir = config.load(listOf("outputDir"), "generated").coerceToPath()
     private val language = config.load(listOf("language"), "source code language").coerceToString()
+    private val localDepth = config.load(listOf("localDepth"), 2).coerceToInt()
     private val bytecodeFormat = config.load(listOf("bytecodeFormat"), "bytecode format").coerceToString()
     private val sourcePrefix = config.load(listOf("sourcePrefix"), "prefix for link to source code").coerceToString()
     private val sourceFileIncludeRegexPatterns: List<String> =
@@ -107,7 +109,7 @@ class Dependencies(args: Array<String>) {
     private val binariesReport: Report = BinariesReport()
     private val graphReport: Report = GraphReport()
     private val cycleReport: Report = CycleReport()
-    private val localReport: Report = LocalReport()
+    private val localReport: Report = LocalReport(localDepth)
     private val reports: List<Report> = listOf(
         staticContentReport,
         tableOfContentsReport,

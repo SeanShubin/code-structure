@@ -2,6 +2,7 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.binaryparser.BinaryDetail
 import com.seanshubin.code.structure.cycle.CycleUtil
+import com.seanshubin.code.structure.domain.Analysis.Companion.referenceComparator
 import com.seanshubin.code.structure.utility.stateless.ListUtil
 
 class AnalyzerImpl : Analyzer {
@@ -20,11 +21,10 @@ class AnalyzerImpl : Analyzer {
         val currentInCycle = cycles.flatten().distinct().toSet()
         val newInCycle = currentInCycle - oldInCycle
         val cycleDetails = composeAllCycleDetails(cycles, references)
-        val localDetails = composeLocalDetails(names, references)
         val detailsExceptTransitive = composeDetailsExceptTransitive(names, references, cycles)
         val details = composeDetails(names, detailsExceptTransitive)
         val errorDetail = if (newInCycle.isEmpty()) null else ErrorDetail(newInCycle.toList().sorted())
-        return Analysis(observations, cycles, names, references, cycleDetails, localDetails, details, errorDetail)
+        return Analysis(observations, cycles, names, references, cycleDetails, details, errorDetail)
     }
 
     private fun composeDetails(
@@ -116,23 +116,6 @@ class AnalyzerImpl : Analyzer {
         )
     }
 
-    private fun composeLocalDetails(
-        names: List<String>,
-        references: List<Pair<String, String>>
-    ): Map<String, LocalDetail> =
-        names.associate { composeLocalDetailPair(it, references) }
-
-    private fun composeLocalDetailPair(
-        name: String,
-        allReferences: List<Pair<String, String>>
-    ): Pair<String, LocalDetail> {
-        val references = allReferences.filter { it.first == name || it.second == name }
-        val nameWithDuplicates = listOf(name) + references.flatMap { it.toList() }
-        val names = nameWithDuplicates.sorted().distinct()
-        val localDetail = LocalDetail(name, names, references)
-        return name to localDetail
-    }
-
     private fun composeAllCycleDetails(
         cycles: List<List<String>>,
         references: List<Pair<String, String>>
@@ -159,10 +142,6 @@ class AnalyzerImpl : Analyzer {
     }
 
     companion object {
-        private val referenceComparator = Comparator
-            .comparing<Pair<String, String>, String> { it.first }
-            .thenComparing(Comparator.comparing { it.second })
-
         private fun findCycles(references: List<Pair<String, String>>): List<List<String>> {
             val edges = references.toSet()
             return CycleUtil.findCycles(edges)

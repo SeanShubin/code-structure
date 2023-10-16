@@ -6,7 +6,7 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
-class LocalReport : Report {
+class LocalReport(private val localDepth:Int) : Report {
     override fun generate(reportDir: Path, analysis: Analysis): List<Command> {
         val parents = listOf(Pages.tableOfContents)
         val path = reportDir.resolve(Pages.local.fileName)
@@ -20,38 +20,45 @@ class LocalReport : Report {
 
     private fun generateGraphs(reportDir: Path, analysis: Analysis, parents: List<Page>): List<Command> =
         analysis.names.flatMap { baseName ->
-            val localDetail = analysis.localDetail.getValue(baseName)
+            val localNamesSet = expand(setOf(baseName), analysis, localDepth)
+            val localNamesSorted = localNamesSet.toList().sorted()
             val localParents = parents + listOf(Pages.local)
-            val nodes = localDetail.names.map{toDotNode(baseName, it, analysis, LinkCreator.local)}
+            val nodes = localNamesSorted.map { toDotNode(baseName, it, analysis, LinkCreator.local) }
+            val referencesSet = analysis.referencesForScope(localNamesSet)
+            val referencesSorted = referencesSet.sortedWith(Analysis.referenceComparator)
             ReportHelper.graphCommands(
                 reportDir,
                 "local-$baseName",
                 nodes,
-                localDetail.references,
+                referencesSorted,
                 localParents
             )
         }
 
-    private fun toDotNode(baseName:String, name: String, analysis:Analysis, createLink: (String) -> String): DotNode {
-        val baseDetail = analysis.detail.getValue(baseName)
-        val detail = analysis.detail.getValue(name)
+    private tailrec fun expand(names: Set<String>, analysis: Analysis, times:Int): Set<String> {
+        if(times == 0) return names
+        val expandedNames = expandOnce(names, analysis)
+        return expand(expandedNames, analysis, times -1)
+    }
+
+    private fun expandOnce(names: Set<String>, analysis: Analysis): Set<String> {
+        val namesOut = outerShell(names, analysis, Detail.directionOut)
+        val namesIn = outerShell(names, analysis, Detail.directionIn)
+        return names + namesOut + namesIn
+    }
+
+    private fun outerShell(names: Set<String>, analysis: Analysis, direction:(Detail)->Arrows): Set<String> =
+        names.map{ analysis.detailByName.getValue(it) }.flatMap{ direction(it).all }.toSet()
+
+    private fun toDotNode(baseName: String, name: String, analysis: Analysis, createLink: (String) -> String): DotNode {
+        val baseDetail = analysis.detailByName.getValue(baseName)
         val bold = name == baseName
         val cycle = baseDetail.cycleIncludingThis
         val isCycle = cycle.contains(name)
-        val text = if(isCycle){
+        val text = if (isCycle) {
             "↻ $name ↻ (${cycle.size})"
         } else {
-            if(baseDetail.arrowsOut.notInCycle.contains(name)) {
-                val size = detail.transitiveOut.size+1
-                "$name ($size)"
-            } else if(baseDetail.arrowsIn.notInCycle.contains(name)){
-                val size = detail.transitiveIn.size+1
-                "$name ($size)"
-            } else if(baseName == name) {
-                name
-            } else {
-                throw RuntimeException("$name is not relevant to local report on $baseName")
-            }
+            name
         }
         return DotNode(
             id = name,
@@ -61,6 +68,7 @@ class LocalReport : Report {
             bold = bold
         )
     }
+
     private fun generateIndex(analysis: Analysis): List<HtmlElement> {
         val children = analysis.names.map { localLink(it) }
         return listOf(bigList(children))
