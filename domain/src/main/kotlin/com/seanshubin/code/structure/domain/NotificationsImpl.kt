@@ -9,7 +9,12 @@ class NotificationsImpl(private val emitLine: (String) -> Unit) : Notifications 
         emitLine(configFile.toString())
     }
 
-    override fun timeTakenEvent(timeTaken: Duration) {
+    override fun timeTakenEvent(caption: String, timeTaken: Duration) {
+//        val formattedTime = DurationFormat.milliseconds.format(timeTaken.toMillis())
+//        emitLine("$formattedTime: $caption")
+    }
+
+    override fun fullAppTimeTakenEvent(timeTaken: Duration) {
         val formattedTime = DurationFormat.milliseconds.format(timeTaken.toMillis())
         emitLine("Took $formattedTime")
     }

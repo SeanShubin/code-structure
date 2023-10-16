@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.durationformat.DurationFormat
 import java.nio.file.Path
 import java.time.Clock
 import java.time.Duration

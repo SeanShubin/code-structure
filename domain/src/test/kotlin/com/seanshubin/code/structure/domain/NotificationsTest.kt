@@ -12,10 +12,10 @@ class NotificationsTest {
         val emitLine = EmitLineStub()
         val notifications = NotificationsImpl(emitLine)
         val timeTaken = Duration.ofMillis(12345)
-        val expected = "Took 12 seconds 345 milliseconds"
+        val expected = "time taken: 12 seconds 345 milliseconds"
 
         // when
-        notifications.timeTakenEvent(timeTaken)
+        notifications.timeTakenEvent("time taken", timeTaken)
 
         // then
         val actual = emitLine.lines.exactlyOne()

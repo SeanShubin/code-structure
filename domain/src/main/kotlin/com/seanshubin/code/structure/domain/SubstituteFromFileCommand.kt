@@ -9,6 +9,13 @@ data class SubstituteFromFileCommand(
     val replaceFile: Path,
     val destinationFile: Path
 ) : Command {
+    override val id: String
+        get() = "SubstituteFromFileCommand(" +
+                "templateFile = $templateFile," +
+                " searchText = '$searchText'," +
+                " replaceFile = $replaceFile," +
+                " destinationFile = $destinationFile)"
+
     override fun execute(environment: Environment) {
         val templateText = environment.files.readString(templateFile, StandardCharsets.UTF_8)
         val replaceText = environment.files.readString(replaceFile, StandardCharsets.UTF_8)

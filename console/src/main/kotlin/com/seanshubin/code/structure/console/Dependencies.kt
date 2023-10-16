@@ -122,20 +122,22 @@ class Dependencies(args: Array<String>) {
     private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, outputDir)
     private val exec: Exec = ExecImpl()
     private val environment: Environment = EnvironmentImpl(files, outputDir, exec)
-    private val commandRunner: CommandRunner = CommandRunnerImpl(environment)
     private val emitLine: (String) -> Unit = ::println
     private val notifications: Notifications = NotificationsImpl(emitLine)
-    private val timeTakenEvent: (Duration) -> Unit = notifications::timeTakenEvent
+    private val timeTakenEvent: (String, Duration) -> Unit = notifications::timeTakenEvent
+    private val timer:Timer = EventTimer(timeTakenEvent, clock)
+    private val commandRunner: CommandRunner = CommandRunnerImpl(timer, environment)
     private val configFileEvent: (Path) -> Unit = notifications::configFileEvent
     private val errorEvent: (ErrorDetail) -> Unit = notifications::errorEvent
     private val exit: (Int) -> Unit = System::exit
+    private val fullAppTimeTakenEvent: (Duration) -> Unit = notifications::fullAppTimeTakenEvent
     val runner: Runnable = Runner(
         clock,
         observer,
         analyzer,
         reportGenerator,
         commandRunner,
-        timeTakenEvent,
+        fullAppTimeTakenEvent,
         configFile,
         configFileEvent,
         errorEvent,
