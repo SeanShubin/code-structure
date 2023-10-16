@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.dot.DotNode
-import com.seanshubin.code.structure.dot.DotReport
+import com.seanshubin.code.structure.dot.DotFormat
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import java.nio.file.Path
@@ -18,7 +18,7 @@ object ReportHelper {
         val svgPath = reportDir.resolve("$baseName.svg")
         val htmlTemplatePath = reportDir.resolve("$baseName--template.html")
         val htmlPath = reportDir.resolve("$baseName.html")
-        val lines = DotReport(nodes, references).toLines()
+        val lines = DotFormat(nodes, references).toLines()
         val createDotSource = CreateFileCommand(dotSourcePath, lines)
         val generateSvg = GenerateSvgCommand(dotSourcePath, svgPath)
         val substitutionTag = "---replace--with--$baseName.svg---"

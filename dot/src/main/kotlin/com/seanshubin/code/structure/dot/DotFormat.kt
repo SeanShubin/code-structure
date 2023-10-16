@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.dot
 
-data class DotReport(
+data class DotFormat(
     val nodes: List<DotNode>,
     val references: List<Pair<String, String>>
 ) {
@@ -20,12 +20,18 @@ data class DotReport(
         return header + indentedBody + footer
     }
 
-    private fun toNodeLine(node: DotNode): String =
-        DotNodeModel(node.id, listOf(
-            "fontcolor" to node.color,
-            "URL" to node.link,
-            "label" to node.text
-        )).toDotLine()
+    private fun toNodeLine(node: DotNode): String {
+        val colorAttribute:List<Pair<String, String>> = listOf("fontcolor" to node.color)
+        val urlAttribute:List<Pair<String, String>> = listOf("URL" to node.link)
+        val labelAttribute:List<Pair<String, String>> = listOf("label" to node.text)
+        val boldAttribute:List<Pair<String, String>> = if(node.bold) {
+            listOf("style" to "bold")
+        } else {
+            emptyList()
+        }
+        val attributes = colorAttribute + urlAttribute + labelAttribute + boldAttribute
+        return DotNodeModel(node.id, attributes).toDotLine()
+    }
 
     private fun toReferenceLine(reference: Pair<String, String>): String {
         val (first, second) = reference

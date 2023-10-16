@@ -7,4 +7,6 @@ data class Detail(
     val arrowsIn: Arrows,
     val transitiveOut:Set<String>,
     val transitiveIn:Set<String>
-)
+) {
+    val cycleIncludingThis:Set<String> get() = if(othersInSameCycle.isEmpty()) emptySet() else othersInSameCycle + name
+}
