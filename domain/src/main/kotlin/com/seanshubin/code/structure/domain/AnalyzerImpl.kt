@@ -144,7 +144,11 @@ class AnalyzerImpl : Analyzer {
     companion object {
         private fun findCycles(references: List<Pair<String, String>>): List<List<String>> {
             val edges = references.toSet()
-            return CycleUtil.findCycles(edges)
+            val cycles = CycleUtil.findCycles(edges)
+            return cycles.map{it.sorted()}.sortedWith(sizeThenFirstComparator)
         }
+        private val listSizeComparator = Comparator<List<String>> { o1, o2 -> o1.size.compareTo(o2.size) }
+        private val firstInListComparator = Comparator<List<String>> { o1, o2 -> o1[0].compareTo(o2[0]) }
+        private val sizeThenFirstComparator = listSizeComparator.reversed().then(firstInListComparator)
     }
 }
