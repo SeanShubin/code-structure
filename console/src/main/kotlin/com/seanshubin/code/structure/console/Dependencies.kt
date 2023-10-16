@@ -115,9 +115,9 @@ class Dependencies(args: Array<String>) {
         tableOfContentsReport,
         sourcesReport,
         binariesReport,
-        graphReport,
         cycleReport,
-        localReport
+        localReport,
+        graphReport
     )
     private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, outputDir)
     private val exec: Exec = ExecImpl()
