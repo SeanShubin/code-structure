@@ -21,7 +21,7 @@ class NotificationsImpl(private val emitLine: (String) -> Unit) : Notifications 
 
     override fun errorEvent(errorDetail: ErrorDetail) {
         val cycleCount = errorDetail.newCycles.size
-        emitLine("new cycles: $cycleCount")
+        emitLine("new in cycle: $cycleCount")
         errorDetail.newCycles.forEach(emitLine)
     }
 }
