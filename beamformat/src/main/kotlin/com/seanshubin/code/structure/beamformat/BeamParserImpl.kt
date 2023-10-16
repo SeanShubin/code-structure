@@ -16,7 +16,7 @@ class BeamParserImpl(
             val beamFile = parseBeamFile(inputStream)
             beamFile.toBinaryDetail(relativeDir)
         }
-        return listOf(binaryDetail).mapNotNull(::elixirOnly)
+        return listOf(binaryDetail).mapNotNull(::elixirOnly).map{dependenciesOnly(it, names)}
     }
 
     private fun elixirOnly(binaryDetail: BinaryDetail): BinaryDetail? {
@@ -24,6 +24,13 @@ class BeamParserImpl(
         val newDependencyNames = binaryDetail.dependencyNames.mapNotNull { it.toElixirName() }
         return binaryDetail.copy(
             name = elixirName,
+            dependencyNames = newDependencyNames
+        )
+    }
+
+    private fun dependenciesOnly(binaryDetail: BinaryDetail, names:List<String>): BinaryDetail {
+        val newDependencyNames = binaryDetail.dependencyNames.filter { names.contains(it) }
+        return binaryDetail.copy(
             dependencyNames = newDependencyNames
         )
     }
