@@ -17,8 +17,8 @@ class EntryPointsReport : Report {
 
     private fun createContent(analysis: Analysis): List<HtmlElement> {
         val entryPoints = analysis.entryPoints
-        val listElement = HtmlElementUtil.bigList(entryPoints, ::nameToElement)
-        return listOf(listElement)
+        val listElements = HtmlElementUtil.bigList(entryPoints, ::nameToElement, "entry point")
+        return listElements
     }
 
     private fun nameToElement(name: String): HtmlElement =

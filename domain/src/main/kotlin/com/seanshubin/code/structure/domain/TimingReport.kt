@@ -19,9 +19,9 @@ class TimingReport(private val timer: Timer) : Report {
     private fun createContent(): List<HtmlElement> {
         val events = timer.events()
         val summaries = timer.summaries().sortedByDescending { it.total }
-        val eventTable = HtmlElementUtil.createTable(events, timingEventCaptions, ::timingEventToRow)
-        val summaryTable = HtmlElementUtil.createTable(summaries, timingSummaryCaptions, ::timingSummaryToRow)
-        return listOf(summaryTable, eventTable)
+        val eventTable = HtmlElementUtil.createTable(events, timingEventCaptions, ::timingEventToRow, "event")
+        val summaryTable = HtmlElementUtil.createTable(summaries, timingSummaryCaptions, ::timingSummaryToRow, caption = null)
+        return summaryTable + eventTable
     }
 
     companion object {

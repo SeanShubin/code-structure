@@ -169,3 +169,8 @@ class AnalyzerImpl : Analyzer {
         private val sizeThenFirstComparator = listSizeComparator.reversed().then(firstInListComparator)
     }
 }
+/*
+domain/target/classes/com/seanshubin/code/structure/domain/AnalyzerImpl.class
+
+java -jar /Users/seashubi/github.com/SeanShubin/decompile/jd-cli-0.9.2-dist/jd-cli.jar -od /Users/seashubi/github.com/SeanShubin/decompile/output /Users/seashubi/github.com/SeanShubin/code-structure/domain/target/classes/com/seanshubin/code/structure/domain
+ */

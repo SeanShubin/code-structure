@@ -10,7 +10,7 @@ class LocalReport(private val localDepth: Int) : Report {
     override fun generate(reportDir: Path, analysis: Analysis): List<Command> {
         val parents = listOf(Pages.tableOfContents)
         val path = reportDir.resolve(Pages.local.fileName)
-        val content = generateIndex(analysis)
+        val content = bigList(analysis.names, ::localLink, "local")
         val graphs = generateGraphs(reportDir, analysis, parents)
         val lines = ReportHelper.wrapInTopLevelHtml(Pages.local.name, content, parents).toLines()
         val index = CreateFileCommand(path, lines)
@@ -67,12 +67,6 @@ class LocalReport(private val localDepth: Int) : Report {
             color = "blue",
             bold = bold
         )
-    }
-
-    private fun generateIndex(analysis: Analysis): List<HtmlElement> {
-        val summaryText = HtmlElement.Text("count: ${analysis.names.size}")
-        val summaryParagraph = HtmlElement.Tag("p", summaryText)
-        return listOf(summaryParagraph, bigList(analysis.names, ::localLink))
     }
 
     private fun localLink(name: String): HtmlElement =

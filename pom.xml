@@ -60,7 +60,6 @@
         <module>contract-test</module>
         <module>json</module>
         <module>config</module>
-        <module>untyped</module>
         <module>zip</module>
         <module>binaryparser</module>
         <module>sourceparser</module>

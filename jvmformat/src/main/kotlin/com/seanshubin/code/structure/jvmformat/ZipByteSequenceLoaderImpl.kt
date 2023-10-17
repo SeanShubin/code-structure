@@ -32,7 +32,13 @@ class ZipByteSequenceLoaderImpl(
     private fun zipEntryNameToClassName(zipEntryName: String): String? {
         if (!zipEntryName.endsWith(classSuffix)) return null
         val withoutClassSuffix = zipEntryName.substring(0, zipEntryName.length - classSuffix.length)
-        val className = withoutClassSuffix.replace('/', '.')
+        val longClassName = withoutClassSuffix.replace('/', '.')
+        val dollarIndex = longClassName.indexOf('$')
+        val className = if(dollarIndex == -1) {
+            longClassName
+        } else {
+            longClassName.substring(0, dollarIndex)
+        }
         return className
     }
 

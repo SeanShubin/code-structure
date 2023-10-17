@@ -17,9 +17,9 @@ class TableOfContentsReport : Report {
             Pages.local,
             Pages.timing
         )
-        val listElement = bigList(children, ::generateAnchor)
+        val listElements = bigList(children, ::generateAnchor, caption = null)
         val name = "Table Of Contents"
-        val html = ReportHelper.wrapInTopLevelHtml(name, listOf(listElement), parents)
+        val html = ReportHelper.wrapInTopLevelHtml(name, listElements, parents)
         val fileName = "index.html"
         val path = reportDir.resolve(fileName)
         val lines = html.toLines()

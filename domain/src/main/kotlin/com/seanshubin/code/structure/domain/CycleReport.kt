@@ -71,8 +71,8 @@ class CycleReport : Report {
         val summary = HtmlElement.Tag("h2", listOf(summaryAnchor))
         val partCountText = HtmlElement.Text("part count: ${cycleList.size}")
         val partCountParagraph = HtmlElement.Tag("p", listOf(partCountText))
-        val listElement = bigList(cycleList, ::cycleElement)
-        return listOf(summary, partCountParagraph) + listElement
+        val listElements = bigList(cycleList, ::cycleElement, "cycle")
+        return listOf(summary, partCountParagraph) + listElements
     }
 
     private fun cycleElement(name: String): HtmlElement {

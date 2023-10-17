@@ -11,16 +11,27 @@ object HtmlElementUtil {
             attributes = listOf("href" to link)
         )
 
-    fun <T> bigList(list: List<T>, toElement: (T) -> HtmlElement): HtmlElement {
+    fun <T> bigList(list: List<T>, toElement: (T) -> HtmlElement, caption:String?): List<HtmlElement> {
+        val sizeElement = if(caption == null) {
+            emptyList<HtmlElement>()
+        } else {
+            listOf(HtmlElement.Tag("p", listOf(HtmlElement.Text("$caption count: ${list.size}"))))
+        }
         val children = list.map(toElement)
-        return Tag(
+        val listElement = Tag(
             "div", children, listOf(
                 "class" to "big-list"
             )
         )
+        return sizeElement + listOf(listElement)
     }
 
-    fun <T> createTable(list: List<T>, captions: List<String>, elementToRow: (T) -> List<String>): HtmlElement {
+    fun <T> createTable(list: List<T>, captions: List<String>, elementToRow: (T) -> List<String>, caption:String?): List<HtmlElement> {
+        val sizeElement = if(caption == null){
+            emptyList<HtmlElement>()
+        } else {
+            listOf(HtmlElement.Tag("p", listOf(HtmlElement.Text("$caption count: ${list.size}"))))
+        }
         val theadCells = captions.map { caption ->
             val theadCell = Text(caption)
             Tag("th", theadCell)
@@ -38,6 +49,6 @@ object HtmlElementUtil {
         }
         val tbody = Tag("tbody", tbodyRows)
         val table = Tag("table", listOf(thead, tbody))
-        return table
+        return sizeElement + listOf(table)
     }
 }
