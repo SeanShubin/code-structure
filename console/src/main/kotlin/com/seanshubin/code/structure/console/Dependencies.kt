@@ -37,7 +37,7 @@ class Dependencies(args: Array<String>) {
         args[0]
     }
     private val configFile = Paths.get("$configBaseName-config.json")
-    private val existingCycleFile = Paths.get("$configBaseName-existing-cycles.txt")
+    private val existingCycleFile = Paths.get("$configBaseName-already-in-cycle.txt")
     private val files: FilesContract = FilesDelegate
     private val config: Configuration = JsonFileConfiguration(files, configFile)
     private val clock: Clock = Clock.systemUTC()
