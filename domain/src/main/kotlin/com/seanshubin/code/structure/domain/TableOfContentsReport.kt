@@ -11,13 +11,13 @@ class TableOfContentsReport : Report {
         val children = listOf(
             Pages.sources,
             Pages.binaries,
+            Pages.entryPoints,
             Pages.graph,
             Pages.cycles,
             Pages.local,
             Pages.timing
         )
-        val listElements = children.map(::generateAnchor)
-        val listElement = bigList(listElements)
+        val listElement = bigList(children, ::generateAnchor)
         val name = "Table Of Contents"
         val html = ReportHelper.wrapInTopLevelHtml(name, listOf(listElement), parents)
         val fileName = "index.html"

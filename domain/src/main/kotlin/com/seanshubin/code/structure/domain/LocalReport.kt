@@ -72,8 +72,7 @@ class LocalReport(private val localDepth: Int) : Report {
     private fun generateIndex(analysis: Analysis): List<HtmlElement> {
         val summaryText = HtmlElement.Text("count: ${analysis.names.size}")
         val summaryParagraph = HtmlElement.Tag("p", summaryText)
-        val children = analysis.names.map { localLink(it) }
-        return listOf(summaryParagraph, bigList(children))
+        return listOf(summaryParagraph, bigList(analysis.names, ::localLink))
     }
 
     private fun localLink(name: String): HtmlElement =

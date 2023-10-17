@@ -5,6 +5,7 @@ data class Analysis(
     val cycles: List<List<String>>,
     val names: List<String>,
     val references: List<Pair<String, String>>,
+    val entryPoints: List<String>,
     val cycleDetails: List<CycleDetail>,
     val detailByName: Map<String, Detail>,
     val errorDetail: ErrorDetail?

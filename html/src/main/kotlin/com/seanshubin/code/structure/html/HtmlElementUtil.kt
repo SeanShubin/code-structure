@@ -11,10 +11,33 @@ object HtmlElementUtil {
             attributes = listOf("href" to link)
         )
 
-    fun bigList(children: List<HtmlElement>): HtmlElement =
-        HtmlElement.Tag(
+    fun <T> bigList(list: List<T>, toElement: (T) -> HtmlElement): HtmlElement {
+        val children = list.map(toElement)
+        return Tag(
             "div", children, listOf(
                 "class" to "big-list"
             )
         )
+    }
+
+    fun <T> createTable(list: List<T>, captions: List<String>, elementToRow: (T) -> List<String>): HtmlElement {
+        val theadCells = captions.map { caption ->
+            val theadCell = Text(caption)
+            Tag("th", theadCell)
+        }
+        val theadRow = Tag("tr", theadCells)
+        val theadRows = listOf(theadRow)
+        val thead = Tag("thead", theadRows)
+        val valueRows = list.map(elementToRow)
+        val tbodyRows = valueRows.map { valueRow ->
+            val cells = valueRow.map { value ->
+                val text = Text(value)
+                Tag("td", text)
+            }
+            Tag("tr", cells)
+        }
+        val tbody = Tag("tbody", tbodyRows)
+        val table = Tag("table", listOf(thead, tbody))
+        return table
+    }
 }

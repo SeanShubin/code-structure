@@ -2,6 +2,7 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.durationformat.DurationFormat
 import com.seanshubin.code.structure.html.HtmlElement
+import com.seanshubin.code.structure.html.HtmlElementUtil
 import java.nio.file.Path
 import java.time.Duration
 
@@ -18,8 +19,8 @@ class TimingReport(private val timer: Timer) : Report {
     private fun createContent(): List<HtmlElement> {
         val events = timer.events()
         val summaries = timer.summaries().sortedByDescending { it.total }
-        val eventTable = ReportHelper.createTable(events, timingEventCaptions, ::timingEventToRow)
-        val summaryTable = ReportHelper.createTable(summaries, timingSummaryCaptions, ::timingSummaryToRow)
+        val eventTable = HtmlElementUtil.createTable(events, timingEventCaptions, ::timingEventToRow)
+        val summaryTable = HtmlElementUtil.createTable(summaries, timingSummaryCaptions, ::timingSummaryToRow)
         return listOf(summaryTable, eventTable)
     }
 

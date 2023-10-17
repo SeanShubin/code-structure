@@ -65,24 +65,4 @@ object ReportHelper {
         return html
     }
 
-    fun <T> createTable(list: List<T>, captions: List<String>, elementToRow: (T) -> List<String>): HtmlElement {
-        val theadCells = captions.map { caption ->
-            val theadCell = HtmlElement.Text(caption)
-            HtmlElement.Tag("th", theadCell)
-        }
-        val theadRow = HtmlElement.Tag("tr", theadCells)
-        val theadRows = listOf(theadRow)
-        val thead = HtmlElement.Tag("thead", theadRows)
-        val valueRows = list.map(elementToRow)
-        val tbodyRows = valueRows.map { valueRow ->
-            val cells = valueRow.map { value ->
-                val text = HtmlElement.Text(value)
-                HtmlElement.Tag("td", text)
-            }
-            HtmlElement.Tag("tr", cells)
-        }
-        val tbody = HtmlElement.Tag("tbody", tbodyRows)
-        val table = HtmlElement.Tag("table", listOf(thead, tbody))
-        return table
-    }
 }

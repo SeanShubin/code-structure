@@ -115,11 +115,13 @@ class Dependencies(args: Array<String>) {
     private val timeTakenEvent: (String, Duration) -> Unit = notifications::timeTakenEvent
     private val timer: Timer = EventTimer(timeTakenEvent, clock)
     private val timingReport: Report = TimingReport(timer)
+    private val entryPointsReport: Report = EntryPointsReport()
     private val reports: List<Report> = listOf(
         staticContentReport,
         tableOfContentsReport,
         sourcesReport,
         binariesReport,
+        entryPointsReport,
         cycleReport,
         localReport,
         graphReport

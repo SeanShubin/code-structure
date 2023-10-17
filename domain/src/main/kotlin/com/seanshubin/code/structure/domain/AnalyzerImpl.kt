@@ -23,8 +23,24 @@ class AnalyzerImpl : Analyzer {
         val cycleDetails = composeAllCycleDetails(cycles, references)
         val detailsExceptTransitive = composeDetailsExceptTransitive(names, references, cycles)
         val details = composeDetails(names, detailsExceptTransitive)
+        val entryPoints = findEntryPoints(names, references)
         val errorDetail = if (newInCycle.isEmpty()) null else ErrorDetail(newInCycle.toList().sorted())
-        return Analysis(observations, cycles, names, references, cycleDetails, details, errorDetail)
+        return Analysis(
+            observations,
+            cycles,
+            names,
+            references,
+            entryPoints,
+            cycleDetails,
+            details,
+            errorDetail
+        )
+    }
+
+    private fun findEntryPoints(names: List<String>, references: List<Pair<String, String>>): List<String> {
+        return names.filterNot { name ->
+            references.map { it.second }.contains(name)
+        }
     }
 
     private fun composeDetails(
