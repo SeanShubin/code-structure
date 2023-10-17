@@ -1,20 +1,17 @@
 {
-  "inputDir": "../code-structure-sample-kotlin/",
-  "outputDir": "generated/kotlin/",
-  "language": "kotlin",
-  "localDepth": 2,
-  "sourcePrefix": "https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/",
-  "sourceFileRegexPatterns": {
-    "include": [
-      ".*\\.kt$"
-    ],
-    "exclude": []
+  "inputDir" : "../code-structure-sample-kotlin/",
+  "outputDir" : "generated/kotlin/",
+  "language" : "kotlin",
+  "localDepth" : 2,
+  "sourcePrefix" : "https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/",
+  "sourceFileRegexPatterns" : {
+    "include" : [ ".*\\.kt$" ],
+    "exclude" : [ ]
   },
-  "bytecodeFormat": "class",
-  "binaryFileRegexPatterns": {
-    "include": [
-      "console/target/code-structure-sample-kotlin-console.jar$"
-    ],
-    "exclude": []
-  }
+  "bytecodeFormat" : "class",
+  "binaryFileRegexPatterns" : {
+    "include" : [ "console/target/code-structure-sample-kotlin-console.jar$" ],
+    "exclude" : [ ]
+  },
+  "nodeLimitMainGraph" : 100
 }

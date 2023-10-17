@@ -56,6 +56,7 @@ class Dependencies(args: Array<String>) {
         sourceFileIncludeRegexPatterns,
         sourceFileExcludeRegexPatterns
     )
+    private val nodeLimitMainGraph:Int = config.load(listOf("nodeLimitMainGraph"), 100).coerceToInt()
     private val binaryFileIncludeRegexPatterns: List<String> =
         config.load(listOf("binaryFileRegexPatterns", "include"), emptyList<String>()).coerceToListOfString()
     private val binaryFileExcludeRegexPatterns: List<String> =
@@ -107,7 +108,7 @@ class Dependencies(args: Array<String>) {
     private val sourcesReport: Report = SourcesReport()
     private val tableOfContentsReport: Report = TableOfContentsReport()
     private val binariesReport: Report = BinariesReport()
-    private val graphReport: Report = GraphReport()
+    private val graphReport: Report = GraphReport(nodeLimitMainGraph)
     private val cycleReport: Report = CycleReport()
     private val localReport: Report = LocalReport(localDepth)
     private val emitLine: (String) -> Unit = ::println
