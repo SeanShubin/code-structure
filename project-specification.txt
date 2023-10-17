@@ -85,6 +85,6 @@
   consoleEntryPoint {
     console com.seanshubin.code.structure.console.EntryPoint
   }
-  javaVersion 18
+  javaVersion 17
   deployableToMavenCentral true
 }
