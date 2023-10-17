@@ -21,10 +21,10 @@ data class DotFormat(
     }
 
     private fun toNodeLine(node: DotNode): String {
-        val colorAttribute:List<Pair<String, String>> = listOf("fontcolor" to node.color)
-        val urlAttribute:List<Pair<String, String>> = listOf("URL" to node.link)
-        val labelAttribute:List<Pair<String, String>> = listOf("label" to node.text)
-        val boldAttribute:List<Pair<String, String>> = if(node.bold) {
+        val colorAttribute: List<Pair<String, String>> = listOf("fontcolor" to node.color)
+        val urlAttribute: List<Pair<String, String>> = listOf("URL" to node.link)
+        val labelAttribute: List<Pair<String, String>> = listOf("label" to node.text)
+        val boldAttribute: List<Pair<String, String>> = if (node.bold) {
             listOf("style" to "bold")
         } else {
             emptyList()

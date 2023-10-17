@@ -6,7 +6,7 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
-class LocalReport(private val localDepth:Int) : Report {
+class LocalReport(private val localDepth: Int) : Report {
     override fun generate(reportDir: Path, analysis: Analysis): List<Command> {
         val parents = listOf(Pages.tableOfContents)
         val path = reportDir.resolve(Pages.local.fileName)
@@ -35,10 +35,10 @@ class LocalReport(private val localDepth:Int) : Report {
             )
         }
 
-    private tailrec fun expand(names: Set<String>, analysis: Analysis, times:Int): Set<String> {
-        if(times == 0) return names
+    private tailrec fun expand(names: Set<String>, analysis: Analysis, times: Int): Set<String> {
+        if (times == 0) return names
         val expandedNames = expandOnce(names, analysis)
-        return expand(expandedNames, analysis, times -1)
+        return expand(expandedNames, analysis, times - 1)
     }
 
     private fun expandOnce(names: Set<String>, analysis: Analysis): Set<String> {
@@ -47,8 +47,8 @@ class LocalReport(private val localDepth:Int) : Report {
         return names + namesOut + namesIn
     }
 
-    private fun outerShell(names: Set<String>, analysis: Analysis, direction:(Detail)->Arrows): Set<String> =
-        names.map{ analysis.detailByName.getValue(it) }.flatMap{ direction(it).all }.toSet()
+    private fun outerShell(names: Set<String>, analysis: Analysis, direction: (Detail) -> Arrows): Set<String> =
+        names.map { analysis.detailByName.getValue(it) }.flatMap { direction(it).all }.toSet()
 
     private fun toDotNode(baseName: String, name: String, analysis: Analysis, createLink: (String) -> String): DotNode {
         val baseDetail = analysis.detailByName.getValue(baseName)

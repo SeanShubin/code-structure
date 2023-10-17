@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.dot.DotFormat
+import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import java.nio.file.Path
@@ -63,5 +63,26 @@ object ReportHelper {
         val body = HtmlElement.Tag("body", htmlInsideBody)
         val html = HtmlElement.Tag("html", head, body)
         return html
+    }
+
+    fun <T> createTable(list: List<T>, captions: List<String>, elementToRow: (T) -> List<String>): HtmlElement {
+        val theadCells = captions.map { caption ->
+            val theadCell = HtmlElement.Text(caption)
+            HtmlElement.Tag("th", theadCell)
+        }
+        val theadRow = HtmlElement.Tag("tr", theadCells)
+        val theadRows = listOf(theadRow)
+        val thead = HtmlElement.Tag("thead", theadRows)
+        val valueRows = list.map(elementToRow)
+        val tbodyRows = valueRows.map { valueRow ->
+            val cells = valueRow.map { value ->
+                val text = HtmlElement.Text(value)
+                HtmlElement.Tag("td", text)
+            }
+            HtmlElement.Tag("tr", cells)
+        }
+        val tbody = HtmlElement.Tag("tbody", tbodyRows)
+        val table = HtmlElement.Tag("table", listOf(thead, tbody))
+        return table
     }
 }

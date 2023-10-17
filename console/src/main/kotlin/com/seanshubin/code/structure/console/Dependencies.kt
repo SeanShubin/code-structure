@@ -110,6 +110,11 @@ class Dependencies(args: Array<String>) {
     private val graphReport: Report = GraphReport()
     private val cycleReport: Report = CycleReport()
     private val localReport: Report = LocalReport(localDepth)
+    private val emitLine: (String) -> Unit = ::println
+    private val notifications: Notifications = NotificationsImpl(emitLine)
+    private val timeTakenEvent: (String, Duration) -> Unit = notifications::timeTakenEvent
+    private val timer: Timer = EventTimer(timeTakenEvent, clock)
+    private val timingReport: Report = TimingReport(timer)
     private val reports: List<Report> = listOf(
         staticContentReport,
         tableOfContentsReport,
@@ -119,13 +124,12 @@ class Dependencies(args: Array<String>) {
         localReport,
         graphReport
     )
-    private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, outputDir)
+    private val finalReports: List<Report> = listOf(
+        timingReport
+    )
+    private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, finalReports, outputDir)
     private val exec: Exec = ExecImpl()
     private val environment: Environment = EnvironmentImpl(files, outputDir, exec)
-    private val emitLine: (String) -> Unit = ::println
-    private val notifications: Notifications = NotificationsImpl(emitLine)
-    private val timeTakenEvent: (String, Duration) -> Unit = notifications::timeTakenEvent
-    private val timer:Timer = EventTimer(timeTakenEvent, clock)
     private val commandRunner: CommandRunner = CommandRunnerImpl(timer, environment)
     private val configFileEvent: (Path) -> Unit = notifications::configFileEvent
     private val errorEvent: (ErrorDetail) -> Unit = notifications::errorEvent
@@ -141,6 +145,7 @@ class Dependencies(args: Array<String>) {
         configFile,
         configFileEvent,
         errorEvent,
-        exit
+        exit,
+        timer
     )
 }

@@ -11,7 +11,7 @@ object HtmlElementUtil {
             attributes = listOf("href" to link)
         )
 
-    fun bigList(children:List<HtmlElement>):HtmlElement =
+    fun bigList(children: List<HtmlElement>): HtmlElement =
         HtmlElement.Tag(
             "div", children, listOf(
                 "class" to "big-list"

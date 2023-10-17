@@ -61,7 +61,7 @@ class AnalyzerImpl : Analyzer {
             val notInCycle = lookupArrows(currentDetail).notInCycle
             notInCycle
         }
-        val deep = immediate.flatMap{followArrows(it, partialDetails, lookupArrows)}.toSet()
+        val deep = immediate.flatMap { followArrows(it, partialDetails, lookupArrows) }.toSet()
         val transitive = otherCycle + immediate + deep
         return transitive
     }
@@ -145,8 +145,9 @@ class AnalyzerImpl : Analyzer {
         private fun findCycles(references: List<Pair<String, String>>): List<List<String>> {
             val edges = references.toSet()
             val cycles = CycleUtil.findCycles(edges)
-            return cycles.map{it.sorted()}.sortedWith(sizeThenFirstComparator)
+            return cycles.map { it.sorted() }.sortedWith(sizeThenFirstComparator)
         }
+
         private val listSizeComparator = Comparator<List<String>> { o1, o2 -> o1.size.compareTo(o2.size) }
         private val firstInListComparator = Comparator<List<String>> { o1, o2 -> o1[0].compareTo(o2[0]) }
         private val sizeThenFirstComparator = listSizeComparator.reversed().then(firstInListComparator)

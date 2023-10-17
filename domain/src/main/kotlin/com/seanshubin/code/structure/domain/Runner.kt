@@ -1,6 +1,5 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.durationformat.DurationFormat
 import java.nio.file.Path
 import java.time.Clock
 import java.time.Duration
@@ -15,15 +14,18 @@ class Runner(
     private val configFile: Path,
     private val configFileEvent: (Path) -> Unit,
     private val errorEvent: (ErrorDetail) -> Unit,
-    private val exit: (Int) -> Unit
+    private val exit: (Int) -> Unit,
+    private val timer: Timer
 ) : Runnable {
     override fun run() {
         configFileEvent(configFile)
         val startTime = clock.instant()
-        val observations = observer.makeObservations()
-        val analysis = analyzer.analyze(observations)
-        val commands = reportGenerator.generateReports(analysis)
-        commands.forEach { commandRunner.execute(it) }
+        val observations = timer.monitor("observations") { observer.makeObservations() }
+        val analysis = timer.monitor("analysis") { analyzer.analyze(observations) }
+        val commands = timer.monitor("reports") { reportGenerator.generateReports(analysis) }
+        timer.monitor("commands") { commands.forEach { commandRunner.execute(it) } }
+        val finalCommands = reportGenerator.generateFinalReports(analysis)
+        finalCommands.forEach { commandRunner.execute(it) }
         val endTime = clock.instant()
         val duration = Duration.between(startTime, endTime)
         timeTakenEvent(duration)

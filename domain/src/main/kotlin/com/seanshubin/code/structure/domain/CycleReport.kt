@@ -33,7 +33,7 @@ class CycleReport : Report {
         detail: CycleDetail,
         parents: List<Page>
     ): List<Command> {
-        val nodes = detail.names.map{toDotNode(it, LinkCreator.local)}
+        val nodes = detail.names.map { toDotNode(it, LinkCreator.local) }
         return ReportHelper.graphCommands(
             reportDir,
             "cycle-$index",

@@ -9,6 +9,7 @@ data class SubstituteFromFileCommand(
     val replaceFile: Path,
     val destinationFile: Path
 ) : Command {
+    override val category: String get() = "SubstituteFromFileCommand"
     override val id: String
         get() = "SubstituteFromFileCommand(" +
                 "templateFile = $templateFile," +

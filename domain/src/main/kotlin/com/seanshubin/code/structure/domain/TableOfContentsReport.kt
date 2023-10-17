@@ -13,7 +13,8 @@ class TableOfContentsReport : Report {
             Pages.binaries,
             Pages.graph,
             Pages.cycles,
-            Pages.local
+            Pages.local,
+            Pages.timing
         )
         val listElements = children.map(::generateAnchor)
         val listElement = bigList(listElements)

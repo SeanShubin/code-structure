@@ -7,4 +7,5 @@ object Pages {
     val graph = Page("Graph", "graph")
     val cycles = Page("Cycles", "cycles")
     val local = Page("Local", "local")
+    val timing = Page("Timing", "timing")
 }
