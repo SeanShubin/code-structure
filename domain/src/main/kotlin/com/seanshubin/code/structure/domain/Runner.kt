@@ -14,8 +14,8 @@ class Runner(
     private val configFile: Path,
     private val configFileEvent: (Path) -> Unit,
     private val errorEvent: (ErrorDetail) -> Unit,
-    private val exit: (Int) -> Unit,
-    private val timer: Timer
+    private val timer: Timer,
+    private val exitCodeHolder:ExitCodeHolder
 ) : Runnable {
     override fun run() {
         configFileEvent(configFile)
@@ -29,11 +29,9 @@ class Runner(
         val endTime = clock.instant()
         val duration = Duration.between(startTime, endTime)
         timeTakenEvent(duration)
-        if (analysis.errorDetail == null) {
-            exit(0)
-        } else {
+        if (analysis.errorDetail != null) {
             errorEvent(analysis.errorDetail)
-            exit(1)
+            exitCodeHolder.exitCode = 1
         }
     }
 }

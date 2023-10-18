@@ -1,0 +1,17 @@
+{
+  "inputDir" : "../../code_structure_sample_elixir",
+  "outputDir" : "target/regression-test-elixir",
+  "language" : "elixir",
+  "localDepth" : 2,
+  "sourcePrefix" : "https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/",
+  "sourceFileRegexPatterns" : {
+    "include" : [ "lib/.*\\.ex$" ],
+    "exclude" : [ ]
+  },
+  "bytecodeFormat" : "beam",
+  "binaryFileRegexPatterns" : {
+    "include" : [ "_build/dev/lib/code_structure_sample_elixir/ebin/.*\\.beam$" ],
+    "exclude" : [ ]
+  },
+  "nodeLimitMainGraph" : 100
+}

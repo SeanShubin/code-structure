@@ -30,7 +30,7 @@ import java.nio.file.Paths
 import java.time.Clock
 import java.time.Duration
 
-class Dependencies(args: Array<String>) {
+class Dependencies(integrations:Integrations, args: Array<String>) {
     private val configBaseName = if (args.isEmpty() || args[0].isBlank()) {
         "code-structure"
     } else {
@@ -40,7 +40,7 @@ class Dependencies(args: Array<String>) {
     private val existingCycleFile = Paths.get("$configBaseName-already-in-cycle.txt")
     private val files: FilesContract = FilesDelegate
     private val config: Configuration = JsonFileConfiguration(files, configFile)
-    private val clock: Clock = Clock.systemUTC()
+    private val clock: Clock = integrations.clock
     private val inputDir = config.load(listOf("inputDir"), ".").coerceToPath()
     private val outputDir = config.load(listOf("outputDir"), "generated").coerceToPath()
     private val language = config.load(listOf("language"), "source code language").coerceToString()
@@ -136,8 +136,8 @@ class Dependencies(args: Array<String>) {
     private val commandRunner: CommandRunner = CommandRunnerImpl(timer, environment)
     private val configFileEvent: (Path) -> Unit = notifications::configFileEvent
     private val errorEvent: (ErrorDetail) -> Unit = notifications::errorEvent
-    private val exit: (Int) -> Unit = System::exit
     private val fullAppTimeTakenEvent: (Duration) -> Unit = notifications::fullAppTimeTakenEvent
+    val exitCodeHolder:ExitCodeHolder = ExitCodeHolderImpl()
     val runner: Runnable = Runner(
         clock,
         observer,
@@ -148,7 +148,7 @@ class Dependencies(args: Array<String>) {
         configFile,
         configFileEvent,
         errorEvent,
-        exit,
-        timer
+        timer,
+        exitCodeHolder
     )
 }
