@@ -9,13 +9,13 @@ class TableOfContentsReport : Report {
     override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
         val parents = emptyList<Page>()
         val children = listOf(
-            Pages.sources,
-            Pages.binaries,
+            Pages.groups,
             Pages.entryPoints,
-            Pages.graph,
             Pages.cycles,
             Pages.local,
-            Pages.groups,
+            Pages.sources,
+            Pages.binaries,
+            Pages.graph,
             Pages.timing
         )
         val listElements = bigList(children, ::generateAnchor, caption = null)
