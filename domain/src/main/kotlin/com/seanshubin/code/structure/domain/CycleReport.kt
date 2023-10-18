@@ -10,17 +10,17 @@ class CycleReport : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Pages.tableOfContents)
         val name = Pages.cycles.name
-        val htmlInsideBody = generateHtml(validated.analysis)
+        val htmlInsideBody = generateHtml(validated.analysis.global)
         val html = ReportHelper.wrapInTopLevelHtml(name, htmlInsideBody, parents)
         val fileName = Pages.cycles.fileName
         val path = reportDir.resolve(fileName)
         val lines = html.toLines()
         val topCommand = CreateFileCommand(path, lines)
-        val graphCommands = commandsForAllCycleGraphs(reportDir, validated.analysis, parents)
+        val graphCommands = commandsForAllCycleGraphs(reportDir, validated.analysis.global, parents)
         return listOf(topCommand) + graphCommands
     }
 
-    private fun commandsForAllCycleGraphs(reportDir: Path, analysis: Analysis, parents: List<Page>): List<Command> {
+    private fun commandsForAllCycleGraphs(reportDir: Path, analysis: ScopedAnalysis, parents: List<Page>): List<Command> {
         val parentsForCycle = parents + listOf(Pages.cycles)
         return analysis.cycleDetails.flatMapIndexed { index, cycleDetail ->
             commandsForCycleGraph(reportDir, index, cycleDetail, parentsForCycle)
@@ -52,17 +52,17 @@ class CycleReport : Report {
             bold = false
         )
 
-    private fun generateHtml(analysis: Analysis): List<HtmlElement> {
+    private fun generateHtml(analysis: ScopedAnalysis): List<HtmlElement> {
         return summaryElement(analysis) + cyclesElement(analysis)
     }
 
-    private fun summaryElement(analysis: Analysis): List<HtmlElement> {
+    private fun summaryElement(analysis: ScopedAnalysis): List<HtmlElement> {
         return listOf(
             HtmlElement.Tag("p", HtmlElement.Text("cycle count: ${analysis.cycles.size}"))
         )
     }
 
-    private fun cyclesElement(analysis: Analysis): List<HtmlElement> {
+    private fun cyclesElement(analysis: ScopedAnalysis): List<HtmlElement> {
         return analysis.cycles.flatMapIndexed(::cycleListElement)
     }
 

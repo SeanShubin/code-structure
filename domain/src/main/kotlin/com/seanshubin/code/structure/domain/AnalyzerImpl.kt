@@ -2,7 +2,7 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.binaryparser.BinaryDetail
 import com.seanshubin.code.structure.cycle.CycleUtil
-import com.seanshubin.code.structure.domain.Analysis.Companion.referenceComparator
+import com.seanshubin.code.structure.domain.ScopedAnalysis.Companion.referenceComparator
 import com.seanshubin.code.structure.utility.stateless.ListUtil
 
 class AnalyzerImpl : Analyzer {
@@ -16,7 +16,9 @@ class AnalyzerImpl : Analyzer {
                 binary.toName(commonPrefix) to it.toName(commonPrefix)
             }
         }.sortedWith(referenceComparator).distinct()
-        return analyze(names, references)
+        val byGroup = composeGroups(emptyList(), NamesReferences(names, references))
+        val global = analyze(names, references)
+        return Analysis(global, byGroup)
     }
 
     companion object {
@@ -24,20 +26,18 @@ class AnalyzerImpl : Analyzer {
         private val firstInListComparator = Comparator<List<String>> { o1, o2 -> o1[0].compareTo(o2[0]) }
         private val sizeThenFirstComparator = listSizeComparator.reversed().then(firstInListComparator)
 
-        private fun analyze(names: List<String>, references: List<Pair<String, String>>): Analysis {
+        private fun analyze(names: List<String>, references: List<Pair<String, String>>): ScopedAnalysis {
             val cycles = findCycles(references)
             val entryPoints = findEntryPoints(names, references)
             val cycleDetails = composeAllCycleDetails(cycles, references)
             val details = composeDetails(names, references, cycles)
-            val groups = composeGroups(names, references)
-            return Analysis(
+            return ScopedAnalysis(
                 cycles,
                 names,
                 references,
                 entryPoints,
                 cycleDetails,
-                details,
-                groups
+                details
             )
         }
 
@@ -156,32 +156,21 @@ class AnalyzerImpl : Analyzer {
             return transitive
         }
 
-        private fun composeGroups(names: List<String>, references: List<Pair<String, String>>):Map<List<String>, Analysis>{
-//            val flatNames = flattenNames(names)
-//            val flatReferences = flattenReferences(references)
-//            val path = emptyList<String>()
-//            val analysis = analyze(flatNames, flatReferences)
-//            return mapOf(path to analysis)
-            return emptyMap()
-        }
-
-        private fun flattenNames(names:List<String>):List<String> =
-            names.map(::flattenName).distinct()
-
-        private fun flattenName(name:String):String {
-            val dotIndex = name.indexOf('.')
-            return if(dotIndex == -1){
-                name
-            } else {
-                name.substring(0, dotIndex)
+        private fun composeGroups(
+            path:List<String>,
+            namesReferences:NamesReferences
+        ): List<Pair<List<String>, ScopedAnalysis>> {
+            if(namesReferences.names.isEmpty()) return emptyList()
+            val top = namesReferences.head()
+            val topAnalysis = analyze(top.names, top.references)
+            val topEntry = path to topAnalysis
+            val descendantMap = top.names.flatMap {
+                val childPath = path + it
+                val childNamesReferences = namesReferences.tail(it)
+                composeGroups(childPath, childNamesReferences)
             }
+            return listOf(topEntry) + descendantMap
         }
-
-        private fun flattenReferences(references: List<Pair<String, String>>):List<Pair<String, String>> =
-            references.map(::flattenReference).distinct()
-
-        private fun flattenReference(reference:Pair<String, String>):Pair<String, String> =
-            flattenName(reference.first) to flattenName(reference.second)
 
     }
 }

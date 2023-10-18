@@ -2,7 +2,7 @@ package com.seanshubin.code.structure.domain
 
 class ValidatorImpl:Validator {
     override fun validate(observations: Observations, analysis: Analysis): Validated {
-        val errors = composeErrors(analysis.cycles, observations.oldInCycle)
+        val errors = composeErrors(analysis.global.cycles, observations.oldInCycle)
         return Validated(observations, analysis, errors)
     }
     private fun composeErrors(cycles: List<List<String>>, oldInCycle: List<String>): Errors? {

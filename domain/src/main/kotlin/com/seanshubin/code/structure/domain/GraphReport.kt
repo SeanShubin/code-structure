@@ -8,21 +8,21 @@ class GraphReport(private val nodeLimitMainGraph:Int) : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Pages.tableOfContents)
         val analysis = validated.analysis
-        return if(analysis.names.size > nodeLimitMainGraph){
-            exceedsNodeLimit(reportDir, analysis)
+        return if(analysis.global.names.size > nodeLimitMainGraph){
+            exceedsNodeLimit(reportDir, analysis.global)
         } else {
-            val nodes = analysis.names.map { toDotNode(it, LinkCreator.local) }
+            val nodes = analysis.global.names.map { toDotNode(it, LinkCreator.local) }
             ReportHelper.graphCommands(
                 reportDir,
                 Pages.graph.id,
                 nodes,
-                analysis.references,
+                analysis.global.references,
                 parents
             )
         }
     }
 
-    fun exceedsNodeLimit(reportDir: Path, analysis: Analysis):List<Command> {
+    fun exceedsNodeLimit(reportDir: Path, analysis: ScopedAnalysis):List<Command> {
         val path = reportDir.resolve(Pages.graph.fileName)
         val name = Pages.graph.name
         val parents = listOf(Pages.tableOfContents)

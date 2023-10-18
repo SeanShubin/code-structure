@@ -9,13 +9,13 @@ class EntryPointsReport : Report {
         val name = Pages.entryPoints.name
         val path = reportDir.resolve(Pages.entryPoints.fileName)
         val parents = listOf(Pages.tableOfContents)
-        val content = createContent(validated.analysis)
+        val content = createContent(validated.analysis.global)
         val lines = ReportHelper.wrapInTopLevelHtml(name, content, parents).toLines()
         val createFile = CreateFileCommand(path, lines)
         return listOf(createFile)
     }
 
-    private fun createContent(analysis: Analysis): List<HtmlElement> {
+    private fun createContent(analysis: ScopedAnalysis): List<HtmlElement> {
         val entryPoints = analysis.entryPoints
         val listElements = HtmlElementUtil.bigList(entryPoints, ::nameToElement, "entry point")
         return listElements
