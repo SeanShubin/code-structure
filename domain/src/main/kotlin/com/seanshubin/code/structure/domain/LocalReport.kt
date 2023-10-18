@@ -42,18 +42,18 @@ class LocalReport(private val localDepth: Int) : Report {
     }
 
     private fun expandOnce(names: Set<String>, analysis: Analysis): Set<String> {
-        val namesOut = outerShell(names, analysis, Detail.directionOut)
-        val namesIn = outerShell(names, analysis, Detail.directionIn)
+        val namesOut = outerShell(names, analysis, Arrows.directionOut)
+        val namesIn = outerShell(names, analysis, Arrows.directionIn)
         return names + namesOut + namesIn
     }
 
-    private fun outerShell(names: Set<String>, analysis: Analysis, direction: (Detail) -> Arrows): Set<String> =
-        names.map { analysis.detailByName.getValue(it) }.flatMap { direction(it).all }.toSet()
+    private fun outerShell(names: Set<String>, analysis: Analysis, direction: (Arrows) -> DirectionalArrow): Set<String> =
+        names.map { analysis.detailByName.getValue(it) }.flatMap { direction(it.arrows).all }.toSet()
 
     private fun toDotNode(baseName: String, name: String, analysis: Analysis, createLink: (String) -> String): DotNode {
         val baseDetail = analysis.detailByName.getValue(baseName)
         val bold = name == baseName
-        val cycle = baseDetail.cycleIncludingThis
+        val cycle = baseDetail.cycle ?: emptySet()
         val isCycle = cycle.contains(name)
         val text = if (isCycle) {
             "↻ $name ↻ (${cycle.size})"

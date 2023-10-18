@@ -13,7 +13,7 @@ class Runner(
     private val timeTakenEvent: (Duration) -> Unit,
     private val configFile: Path,
     private val configFileEvent: (Path) -> Unit,
-    private val errorEvent: (ErrorDetail) -> Unit,
+    private val errorEvent: (Errors) -> Unit,
     private val timer: Timer,
     private val exitCodeHolder:ExitCodeHolder
 ) : Runnable {
@@ -29,8 +29,8 @@ class Runner(
         val endTime = clock.instant()
         val duration = Duration.between(startTime, endTime)
         timeTakenEvent(duration)
-        if (analysis.errorDetail != null) {
-            errorEvent(analysis.errorDetail)
+        if (analysis.errors != null) {
+            errorEvent(analysis.errors)
             exitCodeHolder.exitCode = 1
         }
     }

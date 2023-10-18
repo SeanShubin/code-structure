@@ -19,7 +19,7 @@ class NotificationsImpl(private val emitLine: (String) -> Unit) : Notifications 
         emitLine("Took $formattedTime")
     }
 
-    override fun errorEvent(errorDetail: ErrorDetail) {
+    override fun errorEvent(errorDetail: Errors) {
         val cycleCount = errorDetail.newCycles.size
         emitLine("new in cycle: $cycleCount")
         errorDetail.newCycles.forEach(emitLine)

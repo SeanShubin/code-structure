@@ -135,7 +135,7 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
     private val environment: Environment = EnvironmentImpl(files, outputDir, exec)
     private val commandRunner: CommandRunner = CommandRunnerImpl(timer, environment)
     private val configFileEvent: (Path) -> Unit = notifications::configFileEvent
-    private val errorEvent: (ErrorDetail) -> Unit = notifications::errorEvent
+    private val errorEvent: (Errors) -> Unit = notifications::errorEvent
     private val fullAppTimeTakenEvent: (Duration) -> Unit = notifications::fullAppTimeTakenEvent
     val exitCodeHolder:ExitCodeHolder = ExitCodeHolderImpl()
     val runner: Runnable = Runner(

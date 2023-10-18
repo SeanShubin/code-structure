@@ -8,7 +8,7 @@ data class Analysis(
     val entryPoints: List<String>,
     val cycleDetails: List<CycleDetail>,
     val detailByName: Map<String, Detail>,
-    val errorDetail: ErrorDetail?
+    val errors: Errors?
 ) {
     fun referencesForScope(scope: Set<String>): Set<Pair<String, String>> {
         return scope.flatMap { referencesForScopeSingle(it, scope) }.toSet()
@@ -16,10 +16,10 @@ data class Analysis(
 
     fun referencesForScopeSingle(name: String, scope: Set<String>): Set<Pair<String, String>> {
         val detail = detailByName.getValue(name)
-        val referencesOut = detail.arrowsOut.all.filter { scope.contains(it) }.map {
+        val referencesOut = detail.arrows.directionOut.all.filter { scope.contains(it) }.map {
             name to it
         }.toSet()
-        val referencesIn = detail.arrowsIn.all.filter { scope.contains(it) }.map {
+        val referencesIn = detail.arrows.directionIn.all.filter { scope.contains(it) }.map {
             it to name
         }
         return referencesOut + referencesIn

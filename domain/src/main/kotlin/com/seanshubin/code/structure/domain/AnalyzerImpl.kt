@@ -17,14 +17,10 @@ class AnalyzerImpl : Analyzer {
             }
         }.sortedWith(referenceComparator).distinct()
         val cycles = findCycles(references)
-        val oldInCycle = observations.oldInCycle.distinct().toSet()
-        val currentInCycle = cycles.flatten().distinct().toSet()
-        val newInCycle = currentInCycle - oldInCycle
-        val cycleDetails = composeAllCycleDetails(cycles, references)
-        val detailsExceptTransitive = composeDetailsExceptTransitive(names, references, cycles)
-        val details = composeDetails(names, detailsExceptTransitive)
         val entryPoints = findEntryPoints(names, references)
-        val errorDetail = if (newInCycle.isEmpty()) null else ErrorDetail(newInCycle.toList().sorted())
+        val cycleDetails = composeAllCycleDetails(cycles, references)
+        val details = composeDetails(names, references, cycles)
+        val errors = composeErrors(cycles, observations.oldInCycle)
         return Analysis(
             observations,
             cycles,
@@ -33,144 +29,135 @@ class AnalyzerImpl : Analyzer {
             entryPoints,
             cycleDetails,
             details,
-            errorDetail
+            errors
         )
-    }
-
-    private fun findEntryPoints(names: List<String>, references: List<Pair<String, String>>): List<String> {
-        return names.filterNot { name ->
-            references.map { it.second }.contains(name)
-        }
-    }
-
-    private fun composeDetails(
-        names: List<String>,
-        detailsExceptTransitive: Map<String, DetailExceptTransitive>
-    ): Map<String, Detail> {
-        return names.associateWith { composeDetail(it, detailsExceptTransitive) }
-    }
-
-    private fun composeDetail(name: String, partialDetails: Map<String, DetailExceptTransitive>): Detail {
-        val partialDetail = partialDetails.getValue(name)
-        val transitiveOut = followArrows(name, partialDetails) { detail: DetailExceptTransitive -> detail.arrowsOut }
-        val transitiveIn = followArrows(name, partialDetails) { detail: DetailExceptTransitive -> detail.arrowsIn }
-        return Detail(
-            name = partialDetail.name,
-            othersInSameCycle = partialDetail.othersInSameCycle,
-            arrowsOut = partialDetail.arrowsOut,
-            arrowsIn = partialDetail.arrowsIn,
-            transitiveOut = transitiveOut,
-            transitiveIn = transitiveIn,
-        )
-    }
-
-    private fun followArrows(
-        name: String,
-        partialDetails: Map<String, DetailExceptTransitive>,
-        lookupArrows: (DetailExceptTransitive) -> Arrows
-    ): Set<String> {
-        val partialDetail = partialDetails.getValue(name)
-        val otherCycle = partialDetail.othersInSameCycle
-        val cycleIncludingThis = otherCycle + name
-        val immediate = cycleIncludingThis.flatMap { partOfCycle ->
-            val currentDetail = partialDetails.getValue(partOfCycle)
-            val notInCycle = lookupArrows(currentDetail).notInCycle
-            notInCycle
-        }
-        val deep = immediate.flatMap { followArrows(it, partialDetails, lookupArrows) }.toSet()
-        val transitive = otherCycle + immediate + deep
-        return transitive
-    }
-
-    private fun composeDetailsExceptTransitive(
-        names: List<String>,
-        references: List<Pair<String, String>>,
-        cycles: List<List<String>>
-    ): Map<String, DetailExceptTransitive> {
-        val referencesByFirst = references.groupBy { it.first }
-        val referencesBySecond = references.groupBy { it.second }
-        val allArrowsOut = names.associateWith { name ->
-            val arrowsOut: List<String> = referencesByFirst[name]?.map { it.second } ?: emptyList()
-            arrowsOut.toSet()
-        }
-        val allArrowsIn = names.associateWith { name ->
-            val arrowsIn: List<String> = referencesBySecond[name]?.map { it.first } ?: emptyList()
-            arrowsIn.toSet()
-        }
-        val existingCyclesByName = cycles.flatMap { cycle ->
-            cycle.map { name ->
-                name to cycle.toSet()
-            }
-        }.toMap()
-        val allCyclesByName = names.associateWith { name ->
-            existingCyclesByName[name] ?: emptySet()
-        }
-        return names.associateWith { name ->
-            composeDetailExceptTransitive(name, allArrowsOut, allArrowsIn, allCyclesByName)
-        }
-    }
-
-    private fun composeDetailExceptTransitive(
-        name: String,
-        allArrowsOut: Map<String, Set<String>>,
-        allArrowsIn: Map<String, Set<String>>,
-        allCyclesByName: Map<String, Set<String>>
-    ): DetailExceptTransitive {
-        val othersInSameCycle = (allCyclesByName[name]?.filterNot { it == name } ?: emptyList()).toSet()
-        val cycle = othersInSameCycle + name
-        val rawArrowsOut = allArrowsOut.getValue(name)
-        val rawArrowsIn = allArrowsIn.getValue(name)
-        val (arrowsOutCycle, arrowsOutNoCycle) = rawArrowsOut.partition { cycle.contains(it) }
-        val arrowsOut = Arrows(arrowsOutCycle.toSet(), arrowsOutNoCycle.toSet())
-        val (arrowsInCycle, arrowsInNoCycle) = rawArrowsIn.partition { cycle.contains(it) }
-        val arrowsIn = Arrows(arrowsInCycle.toSet(), arrowsInNoCycle.toSet())
-        return DetailExceptTransitive(
-            name,
-            othersInSameCycle,
-            arrowsOut,
-            arrowsIn
-        )
-    }
-
-    private fun composeAllCycleDetails(
-        cycles: List<List<String>>,
-        references: List<Pair<String, String>>
-    ): List<CycleDetail> =
-        cycles.map { composeSingleCycleDetails(it, references) }
-
-    private fun composeSingleCycleDetails(cycle: List<String>, allReferences: List<Pair<String, String>>): CycleDetail {
-        val references = allReferences.filter { cycle.contains(it.first) && cycle.contains(it.second) }
-        return CycleDetail(cycle, references)
-    }
-
-
-    private fun BinaryDetail.toName(commonPrefix: List<String>): String = this.name.toName(commonPrefix)
-
-    private fun String.toName(commonPrefix: List<String>): String {
-        val parts = this.split('.')
-        val commonPrefixSize = commonPrefix.size
-        val prefix = parts.take(commonPrefixSize)
-        if (prefix != commonPrefix) {
-            throw RuntimeException("Expected $this to start with $commonPrefix")
-        }
-        val remain = parts.drop(commonPrefixSize)
-        return remain.joinToString(".")
     }
 
     companion object {
+        private val listSizeComparator = Comparator<List<String>> { o1, o2 -> o1.size.compareTo(o2.size) }
+        private val firstInListComparator = Comparator<List<String>> { o1, o2 -> o1[0].compareTo(o2[0]) }
+        private val sizeThenFirstComparator = listSizeComparator.reversed().then(firstInListComparator)
+
+        private fun BinaryDetail.toName(commonPrefix: List<String>): String = this.name.toName(commonPrefix)
+
+        private fun String.toName(commonPrefix: List<String>): String {
+            val parts = this.split('.')
+            val commonPrefixSize = commonPrefix.size
+            val prefix = parts.take(commonPrefixSize)
+            if (prefix != commonPrefix) {
+                throw RuntimeException("Expected $this to start with $commonPrefix")
+            }
+            val remain = parts.drop(commonPrefixSize)
+            return remain.joinToString(".")
+        }
+
         private fun findCycles(references: List<Pair<String, String>>): List<List<String>> {
             val edges = references.toSet()
             val cycles = CycleUtil.findCycles(edges)
             return cycles.map { it.sorted() }.sortedWith(sizeThenFirstComparator)
         }
 
-        private val listSizeComparator = Comparator<List<String>> { o1, o2 -> o1.size.compareTo(o2.size) }
-        private val firstInListComparator = Comparator<List<String>> { o1, o2 -> o1[0].compareTo(o2[0]) }
-        private val sizeThenFirstComparator = listSizeComparator.reversed().then(firstInListComparator)
+        private fun findEntryPoints(names: List<String>, references: List<Pair<String, String>>): List<String> {
+            return names.filterNot { name ->
+                references.map { it.second }.contains(name)
+            }
+        }
+
+        private fun composeAllCycleDetails(
+            cycles: List<List<String>>,
+            references: List<Pair<String, String>>
+        ): List<CycleDetail> =
+            cycles.map { composeSingleCycleDetails(it, references) }
+
+        private fun composeSingleCycleDetails(
+            cycle: List<String>,
+            allReferences: List<Pair<String, String>>
+        ): CycleDetail {
+            val references = allReferences.filter { cycle.contains(it.first) && cycle.contains(it.second) }
+            return CycleDetail(cycle, references)
+        }
+
+        fun composeDetails(
+            names: List<String>,
+            references: List<Pair<String, String>>,
+            cycles: List<List<String>>
+        ): Map<String, Detail> {
+            val referencesByFirst = references.groupBy { it.first }
+            val referencesBySecond = references.groupBy { it.second }
+            val referencesOutByName = names.associateWith { name ->
+                val referencesOut: List<String> = referencesByFirst[name]?.map { it.second } ?: emptyList()
+                referencesOut.toSet()
+            }
+            val referencesInByName = names.associateWith { name ->
+                val referencesIn: List<String> = referencesBySecond[name]?.map { it.first } ?: emptyList()
+                referencesIn.toSet()
+            }
+            val cyclesByName = cycles.flatMap { cycle ->
+                cycle.map { name ->
+                    name to cycle.toSet()
+                }
+            }.toMap()
+            return names.associateWith { name ->
+                composeDetail(name, referencesOutByName, referencesInByName, cyclesByName)
+            }
+        }
+
+        private fun composeDetail(
+            name: String,
+            referencesOutByName: Map<String, Set<String>>,
+            referencesInByName: Map<String, Set<String>>,
+            cyclesByName: Map<String, Set<String>>
+        ): Detail {
+            val cycle = cyclesByName[name]
+            val directionOut = composeDirectionalArrow(name, referencesOutByName, cyclesByName)
+            val directionIn = composeDirectionalArrow(name, referencesInByName, cyclesByName)
+            val arrows = Arrows(directionOut, directionIn)
+            return Detail(
+                name,
+                cycle,
+                arrows
+            )
+        }
+
+        private fun composeDirectionalArrow(
+            name: String,
+            referencesByName: Map<String, Set<String>>,
+            cyclesByName: Map<String, Set<String>>
+        ): DirectionalArrow {
+            val references = referencesByName.getValue(name)
+            val cycle = cyclesByName[name] ?: emptySet()
+            val (inCycle, notInCycle) = references.partition { cycle.contains(it) }
+            val transitive = findTransitive(name, referencesByName, cyclesByName)
+            return DirectionalArrow(
+                inCycle.toSet(),
+                notInCycle.toSet(),
+                transitive
+            )
+        }
+
+        private fun findTransitive(
+            name: String,
+            referencesByName: Map<String, Set<String>>,
+            cyclesByName: Map<String, Set<String>>
+        ): Set<String> {
+            val thisOrCycle = cyclesByName[name] ?: setOf(name)
+            val immediate = thisOrCycle.flatMap { partOfCycle ->
+                referencesByName.getValue(partOfCycle)
+            }.filterNot {
+                thisOrCycle.contains(it)
+            }
+            val deep = immediate.flatMap {
+                findTransitive(it, referencesByName, cyclesByName)
+            }.toSet()
+            val transitive = (thisOrCycle + immediate + deep) - name
+            return transitive
+        }
+
+        private fun composeErrors(cycles: List<List<String>>, oldInCycle: List<String>): Errors? {
+            val currentInCycle = cycles.flatten().distinct().toSet()
+            val newInCycle = currentInCycle - oldInCycle.distinct().toSet()
+            val errors = if (newInCycle.isEmpty()) null else Errors(newInCycle.toList().sorted())
+            return errors
+        }
     }
 }
-/*
-domain/target/classes/com/seanshubin/code/structure/domain/AnalyzerImpl.class
-
-java -jar /Users/seashubi/github.com/SeanShubin/decompile/jd-cli-0.9.2-dist/jd-cli.jar -od /Users/seashubi/github.com/SeanShubin/decompile/output /Users/seashubi/github.com/SeanShubin/code-structure/domain/target/classes/com/seanshubin/code/structure/domain
- */
