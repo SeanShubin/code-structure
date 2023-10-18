@@ -111,7 +111,7 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
     private val graphReport: Report = GraphReport(nodeLimitMainGraph)
     private val cycleReport: Report = CycleReport()
     private val localReport: Report = LocalReport(localDepth)
-    private val emitLine: (String) -> Unit = ::println
+    private val emitLine: (String) -> Unit = integrations.emitLine
     private val notifications: Notifications = NotificationsImpl(emitLine)
     private val timeTakenEvent: (String, Duration) -> Unit = notifications::timeTakenEvent
     private val timer: Timer = EventTimer(timeTakenEvent, clock)

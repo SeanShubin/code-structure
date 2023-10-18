@@ -17,8 +17,13 @@ class RegressionTest {
         val actualDir = Paths.get("target", name)
         val args = arrayOf(name)
         val productionIntegrations = ProductionIntegrations()
-        val regressionIntegrations = RegressionIntegrations(productionIntegrations, memoryDir)
+        val emitLine = EmitLine()
+        val regressionIntegrations = RegressionIntegrations(productionIntegrations, memoryDir, emitLine)
         val dependencies = Dependencies(regressionIntegrations, args)
+        val expectedLines = listOf(
+            "regression-test-kotlin-config.json",
+            "Took 4 seconds 887 milliseconds"
+        )
 
         // when
         dependencies.runner.run()
@@ -26,6 +31,7 @@ class RegressionTest {
         // then
         seedExpectationIfNecessary(expectedDir, actualDir)
         assertDirectoriesEquals(expectedDir, actualDir)
+        assertEquals(expectedLines, emitLine.lines)
         assertEquals(0, dependencies.exitCodeHolder.exitCode)
     }
 
@@ -39,8 +45,13 @@ class RegressionTest {
         val actualDir = Paths.get("target", name)
         val args = arrayOf(name)
         val productionIntegrations = ProductionIntegrations()
-        val regressionIntegrations = RegressionIntegrations(productionIntegrations, memoryDir)
+        val emitLine = EmitLine()
+        val regressionIntegrations = RegressionIntegrations(productionIntegrations, memoryDir, emitLine)
         val dependencies = Dependencies(regressionIntegrations, args)
+        val expectedLines = listOf(
+            "regression-test-elixir-config.json",
+            "Took 4 seconds 822 milliseconds"
+        )
 
         // when
         dependencies.runner.run()
@@ -48,6 +59,7 @@ class RegressionTest {
         // then
         seedExpectationIfNecessary(expectedDir, actualDir)
         assertDirectoriesEquals(expectedDir, actualDir)
+        assertEquals(expectedLines, emitLine.lines)
         assertEquals(0, dependencies.exitCodeHolder.exitCode)
     }
 
@@ -88,6 +100,13 @@ class RegressionTest {
             val expectedContent = Files.readString(expectedDir.resolve(relativePath))
             val actualContent = Files.readString(actualDir.resolve(relativePath))
             assertEquals(expectedContent, actualContent, relativePath.toString())
+        }
+    }
+
+    class EmitLine : (String) -> Unit {
+        val lines = mutableListOf<String>()
+        override fun invoke(line: String) {
+            lines.add(line)
         }
     }
 }
