@@ -1,0 +1,28 @@
+digraph detangled {
+  bgcolor=lightgray
+  "PathA" [fontcolor="blue" URL="group-PathA.html" label="PathA (1)"]
+  "PathC" [fontcolor="blue" URL="group-PathC.html" label="PathC (1)"]
+  "PathE" [fontcolor="blue" URL="group-PathE.html" label="PathE (6)"]
+  "PathG" [fontcolor="blue" URL="group-PathG.html" label="PathG (1)"]
+  "PathI" [fontcolor="blue" URL="group-PathI.html" label="PathI (1)"]
+  "PathP" [fontcolor="blue" URL="group-PathP.html" label="PathP (1)"]
+  "PathR" [fontcolor="blue" URL="group-PathR.html" label="PathR (1)"]
+  "PathT" [fontcolor="blue" URL="group-PathT.html" label="PathT (1)"]
+  "PathA" -> "PathC"
+  "PathG" -> "PathI"
+  "PathR" -> "PathT"
+  subgraph cluster_0 {
+    penwidth=2
+    pencolor=Red
+    "PathC" -> "PathE"
+    "PathE" -> "PathG"
+    "PathG" -> "PathC"
+  }
+  subgraph cluster_1 {
+    penwidth=2
+    pencolor=Red
+    "PathI" -> "PathP"
+    "PathP" -> "PathR"
+    "PathR" -> "PathI"
+  }
+}

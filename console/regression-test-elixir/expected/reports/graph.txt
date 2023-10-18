@@ -13,17 +13,25 @@ digraph detangled {
   "PathR.ModuleS" [fontcolor="blue" URL="local-PathR.ModuleS.html" label="PathR.ModuleS"]
   "PathT.ModuleU" [fontcolor="blue" URL="local-PathT.ModuleU.html" label="PathT.ModuleU"]
   "PathA.ModuleB" -> "PathC.ModuleD"
-  "PathC.ModuleD" -> "PathE.PathF.ModuleL"
   "PathE.PathF.ModuleK" -> "PathE.PathF.ModuleL"
-  "PathE.PathF.ModuleL" -> "PathE.PathF.ModuleM"
-  "PathE.PathF.ModuleM" -> "PathE.PathF.ModuleN"
-  "PathE.PathF.ModuleN" -> "PathE.PathF.ModuleL"
   "PathE.PathF.ModuleN" -> "PathE.PathF.ModuleO"
-  "PathE.PathF.ModuleN" -> "PathG.ModuleH"
-  "PathG.ModuleH" -> "PathC.ModuleD"
   "PathG.ModuleH" -> "PathI.ModuleJ"
-  "PathI.ModuleJ" -> "PathP.ModuleQ"
-  "PathP.ModuleQ" -> "PathR.ModuleS"
-  "PathR.ModuleS" -> "PathI.ModuleJ"
   "PathR.ModuleS" -> "PathT.ModuleU"
+  subgraph cluster_0 {
+    penwidth=2
+    pencolor=Red
+    "PathC.ModuleD" -> "PathE.PathF.ModuleL"
+    "PathE.PathF.ModuleL" -> "PathE.PathF.ModuleM"
+    "PathE.PathF.ModuleM" -> "PathE.PathF.ModuleN"
+    "PathE.PathF.ModuleN" -> "PathE.PathF.ModuleL"
+    "PathE.PathF.ModuleN" -> "PathG.ModuleH"
+    "PathG.ModuleH" -> "PathC.ModuleD"
+  }
+  subgraph cluster_1 {
+    penwidth=2
+    pencolor=Red
+    "PathI.ModuleJ" -> "PathP.ModuleQ"
+    "PathP.ModuleQ" -> "PathR.ModuleS"
+    "PathR.ModuleS" -> "PathI.ModuleJ"
+  }
 }

@@ -9,4 +9,5 @@ object Pages {
     val cycles = Page("Cycles", "cycles")
     val local = Page("Local", "local")
     val timing = Page("Timing", "timing")
+    val groups = Page("Groups", "group")
 }

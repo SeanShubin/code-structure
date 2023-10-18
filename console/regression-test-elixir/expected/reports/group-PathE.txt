@@ -1,0 +1,4 @@
+digraph detangled {
+  bgcolor=lightgray
+  "PathF" [fontcolor="blue" URL="group-PathE-PathF.html" label="PathF (5)"]
+}

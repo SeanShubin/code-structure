@@ -91,8 +91,8 @@ class RegressionTest {
         recurseIntoFiles(expectedDir) { relativePath ->
             val expectedFile = expectedDir.resolve(relativePath)
             val actualFile = actualDir.resolve(relativePath)
-            val expectedContent = Files.readString(expectedFile)
             if(Files.exists(actualFile)) {
+                val expectedContent = Files.readString(expectedFile)
                 val actualContent = Files.readString(actualFile)
                 if(expectedContent != actualContent){
                     differenceA.add(relativePath)
@@ -104,8 +104,8 @@ class RegressionTest {
         recurseIntoFiles(actualDir) { relativePath ->
             val expectedFile = expectedDir.resolve(relativePath)
             val actualFile = actualDir.resolve(relativePath)
-            val expectedContent = Files.readString(expectedFile)
             if(Files.exists(expectedFile)){
+                val expectedContent = Files.readString(expectedFile)
                 val actualContent = Files.readString(actualFile)
                 if(expectedContent != actualContent){
                     differenceB.add(relativePath)

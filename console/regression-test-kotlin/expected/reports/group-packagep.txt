@@ -1,0 +1,4 @@
+digraph detangled {
+  bgcolor=lightgray
+  "ClassQ" [label="ClassQ"]
+}

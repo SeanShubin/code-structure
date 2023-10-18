@@ -8,7 +8,7 @@ data class NamesReferences(
         val newNames = names.map { topOnly(it)}.distinct()
         val newReferences = references.map {
             topOnly(it.first) to topOnly(it.second)
-        }.distinct()
+        }.distinct().filterNot{it.first == it.second}
         return NamesReferences(newNames, newReferences)
     }
 

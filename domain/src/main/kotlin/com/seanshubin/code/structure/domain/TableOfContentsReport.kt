@@ -15,6 +15,7 @@ class TableOfContentsReport : Report {
             Pages.graph,
             Pages.cycles,
             Pages.local,
+            Pages.groups,
             Pages.timing
         )
         val listElements = bigList(children, ::generateAnchor, caption = null)

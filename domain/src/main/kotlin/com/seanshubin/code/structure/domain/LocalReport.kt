@@ -32,6 +32,7 @@ class LocalReport(private val localDepth: Int) : Report {
                 "local-$baseName",
                 nodes,
                 referencesSorted,
+                emptyList(),
                 localParents
             )
         }

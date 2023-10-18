@@ -1,0 +1,17 @@
+digraph detangled {
+  bgcolor=lightgray
+  "ClassK" [label="ClassK"]
+  "ClassL" [label="ClassL"]
+  "ClassM" [label="ClassM"]
+  "ClassN" [label="ClassN"]
+  "ClassO" [label="ClassO"]
+  "ClassK" -> "ClassL"
+  "ClassN" -> "ClassO"
+  subgraph cluster_0 {
+    penwidth=2
+    pencolor=Red
+    "ClassL" -> "ClassM"
+    "ClassM" -> "ClassN"
+    "ClassN" -> "ClassL"
+  }
+}

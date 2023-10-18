@@ -13,17 +13,25 @@ digraph detangled {
   "packager.ClassS" [fontcolor="blue" URL="local-packager.ClassS.html" label="packager.ClassS"]
   "packaget.ClassU" [fontcolor="blue" URL="local-packaget.ClassU.html" label="packaget.ClassU"]
   "packagea.ClassB" -> "packagec.ClassD"
-  "packagec.ClassD" -> "packagee.packagef.ClassL"
   "packagee.packagef.ClassK" -> "packagee.packagef.ClassL"
-  "packagee.packagef.ClassL" -> "packagee.packagef.ClassM"
-  "packagee.packagef.ClassM" -> "packagee.packagef.ClassN"
-  "packagee.packagef.ClassN" -> "packagee.packagef.ClassL"
   "packagee.packagef.ClassN" -> "packagee.packagef.ClassO"
-  "packagee.packagef.ClassN" -> "packageg.ClassH"
-  "packageg.ClassH" -> "packagec.ClassD"
   "packageg.ClassH" -> "packagei.ClassJ"
-  "packagei.ClassJ" -> "packagep.ClassQ"
-  "packagep.ClassQ" -> "packager.ClassS"
-  "packager.ClassS" -> "packagei.ClassJ"
   "packager.ClassS" -> "packaget.ClassU"
+  subgraph cluster_0 {
+    penwidth=2
+    pencolor=Red
+    "packagec.ClassD" -> "packagee.packagef.ClassL"
+    "packagee.packagef.ClassL" -> "packagee.packagef.ClassM"
+    "packagee.packagef.ClassM" -> "packagee.packagef.ClassN"
+    "packagee.packagef.ClassN" -> "packagee.packagef.ClassL"
+    "packagee.packagef.ClassN" -> "packageg.ClassH"
+    "packageg.ClassH" -> "packagec.ClassD"
+  }
+  subgraph cluster_1 {
+    penwidth=2
+    pencolor=Red
+    "packagei.ClassJ" -> "packagep.ClassQ"
+    "packagep.ClassQ" -> "packager.ClassS"
+    "packager.ClassS" -> "packagei.ClassJ"
+  }
 }

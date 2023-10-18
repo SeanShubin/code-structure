@@ -12,13 +12,14 @@ object ReportHelper {
         baseName: String,
         nodes: List<DotNode>,
         references: List<Pair<String, String>>,
+        cycles: List<List<String>>,
         parents: List<Page>
     ): List<Command> {
         val dotSourcePath = reportDir.resolve("$baseName.txt")
         val svgPath = reportDir.resolve("$baseName.svg")
         val htmlTemplatePath = reportDir.resolve("$baseName--template.html")
         val htmlPath = reportDir.resolve("$baseName.html")
-        val lines = DotFormat(nodes, references).toLines()
+        val lines = DotFormat(nodes, references, cycles).toLines()
         val createDotSource = CreateFileCommand(dotSourcePath, lines)
         val generateSvg = GenerateSvgCommand(dotSourcePath, svgPath)
         val substitutionTag = "---replace--with--$baseName.svg---"
@@ -64,5 +65,4 @@ object ReportHelper {
         val html = HtmlElement.Tag("html", head, body)
         return html
     }
-
 }

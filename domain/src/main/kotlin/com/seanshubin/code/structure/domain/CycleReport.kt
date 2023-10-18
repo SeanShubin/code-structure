@@ -39,6 +39,7 @@ class CycleReport : Report {
             "cycle-$index",
             nodes,
             detail.references,
+            emptyList(),
             parents
         )
     }

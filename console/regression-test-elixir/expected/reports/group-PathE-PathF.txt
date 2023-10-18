@@ -1,0 +1,17 @@
+digraph detangled {
+  bgcolor=lightgray
+  "ModuleK" [label="ModuleK"]
+  "ModuleL" [label="ModuleL"]
+  "ModuleM" [label="ModuleM"]
+  "ModuleN" [label="ModuleN"]
+  "ModuleO" [label="ModuleO"]
+  "ModuleK" -> "ModuleL"
+  "ModuleN" -> "ModuleO"
+  subgraph cluster_0 {
+    penwidth=2
+    pencolor=Red
+    "ModuleL" -> "ModuleM"
+    "ModuleM" -> "ModuleN"
+    "ModuleN" -> "ModuleL"
+  }
+}

@@ -18,7 +18,7 @@ class AnalyzerImpl : Analyzer {
         }.sortedWith(referenceComparator).distinct()
         val byGroup = composeGroups(emptyList(), NamesReferences(names, references))
         val global = analyze(names, references)
-        return Analysis(global, byGroup)
+        return Analysis(global, byGroup.toMap())
     }
 
     companion object {

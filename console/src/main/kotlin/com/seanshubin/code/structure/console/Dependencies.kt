@@ -118,6 +118,7 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
     private val timer: Timer = EventTimer(timeTakenEvent, clock)
     private val timingReport: Report = TimingReport(timer)
     private val entryPointsReport: Report = EntryPointsReport()
+    private val groupReport:Report = GroupReport()
     private val reports: List<Report> = listOf(
         staticContentReport,
         tableOfContentsReport,
@@ -126,6 +127,7 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
         entryPointsReport,
         cycleReport,
         localReport,
+        groupReport,
         graphReport
     )
     private val finalReports: List<Report> = listOf(
