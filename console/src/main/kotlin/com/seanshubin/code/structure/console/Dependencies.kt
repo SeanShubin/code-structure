@@ -104,6 +104,7 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
         files
     )
     private val analyzer: Analyzer = AnalyzerImpl()
+    private val validator:Validator = ValidatorImpl()
     private val staticContentReport: Report = StaticContentReport()
     private val sourcesReport: Report = SourcesReport()
     private val tableOfContentsReport: Report = TableOfContentsReport()
@@ -142,6 +143,7 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
         clock,
         observer,
         analyzer,
+        validator,
         reportGenerator,
         commandRunner,
         fullAppTimeTakenEvent,

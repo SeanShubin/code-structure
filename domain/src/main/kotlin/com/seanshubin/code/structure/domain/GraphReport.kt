@@ -5,13 +5,14 @@ import com.seanshubin.code.structure.html.HtmlElement
 import java.nio.file.Path
 
 class GraphReport(private val nodeLimitMainGraph:Int) : Report {
-    override fun generate(reportDir: Path, analysis: Analysis): List<Command> {
+    override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Pages.tableOfContents)
-        if(analysis.names.size > nodeLimitMainGraph){
-            return exceedsNodeLimit(reportDir, analysis)
+        val analysis = validated.analysis
+        return if(analysis.names.size > nodeLimitMainGraph){
+            exceedsNodeLimit(reportDir, analysis)
         } else {
             val nodes = analysis.names.map { toDotNode(it, LinkCreator.local) }
-            return ReportHelper.graphCommands(
+            ReportHelper.graphCommands(
                 reportDir,
                 Pages.graph.id,
                 nodes,

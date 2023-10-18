@@ -7,10 +7,10 @@ import com.seanshubin.code.structure.html.HtmlElement.Text
 import java.nio.file.Path
 
 class BinariesReport : Report {
-    override fun generate(reportDir: Path, analysis: Analysis): List<CreateFileCommand> {
+    override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
         val parents = listOf(Pages.tableOfContents)
         val name = Pages.binaries.name
-        val htmlInsideBody = generateHtml(analysis)
+        val htmlInsideBody = generateHtml(validated.observations)
         val html = ReportHelper.wrapInTopLevelHtml(name, htmlInsideBody, parents)
         val fileName = Pages.binaries.fileName
         val path = reportDir.resolve(fileName)
@@ -18,25 +18,25 @@ class BinariesReport : Report {
         return listOf(CreateFileCommand(path, lines))
     }
 
-    private fun generateHtml(analysis: Analysis): List<HtmlElement> {
-        return summary(analysis) + table(analysis, includeDependencies = false) + table(
-            analysis,
+    private fun generateHtml(observations: Observations): List<HtmlElement> {
+        return summary(observations) + table(observations, includeDependencies = false) + table(
+            observations,
             includeDependencies = true
         )
     }
 
-    private fun table(analysis: Analysis, includeDependencies: Boolean): List<HtmlElement> {
+    private fun table(observations: Observations, includeDependencies: Boolean): List<HtmlElement> {
         val thead = thead(includeDependencies)
-        val tbody = tbody(analysis, includeDependencies)
+        val tbody = tbody(observations, includeDependencies)
         val captionText = if (includeDependencies) "Dependencies" else "Binaries"
         val caption = Tag("h2", Text(captionText))
         val table = Tag("table", thead, tbody)
         return listOf(caption, table)
     }
 
-    private fun summary(analysis: Analysis): List<HtmlElement> {
+    private fun summary(observations: Observations): List<HtmlElement> {
         return listOf(
-            Tag("p", Text("binary count: ${analysis.observations.binaries.size}"))
+            Tag("p", Text("binary count: ${observations.binaries.size}"))
         )
     }
 
@@ -53,13 +53,13 @@ class BinariesReport : Report {
         return Tag("thead", row)
     }
 
-    private fun tbody(analysis: Analysis, includeDependencies: Boolean): HtmlElement {
+    private fun tbody(observations: Observations, includeDependencies: Boolean): HtmlElement {
         val rows = if (includeDependencies) {
-            analysis.observations.binaries.flatMap { binary ->
+            observations.binaries.flatMap { binary ->
                 binaryRowsWithDependencies(binary)
             }
         } else {
-            analysis.observations.binaries.map { binary ->
+            observations.binaries.map { binary ->
                 binaryRowWithoutDependencies(binary)
             }
         }

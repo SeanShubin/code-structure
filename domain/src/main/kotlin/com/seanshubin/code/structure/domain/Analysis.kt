@@ -1,14 +1,13 @@
 package com.seanshubin.code.structure.domain
 
 data class Analysis(
-    val observations: Observations,
     val cycles: List<List<String>>,
     val names: List<String>,
     val references: List<Pair<String, String>>,
     val entryPoints: List<String>,
     val cycleDetails: List<CycleDetail>,
     val detailByName: Map<String, Detail>,
-    val errors: Errors?
+    val groupByPath:Map<List<String>, Analysis>
 ) {
     fun referencesForScope(scope: Set<String>): Set<Pair<String, String>> {
         return scope.flatMap { referencesForScopeSingle(it, scope) }.toSet()

@@ -7,16 +7,16 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
 class CycleReport : Report {
-    override fun generate(reportDir: Path, analysis: Analysis): List<Command> {
+    override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Pages.tableOfContents)
         val name = Pages.cycles.name
-        val htmlInsideBody = generateHtml(analysis)
+        val htmlInsideBody = generateHtml(validated.analysis)
         val html = ReportHelper.wrapInTopLevelHtml(name, htmlInsideBody, parents)
         val fileName = Pages.cycles.fileName
         val path = reportDir.resolve(fileName)
         val lines = html.toLines()
         val topCommand = CreateFileCommand(path, lines)
-        val graphCommands = commandsForAllCycleGraphs(reportDir, analysis, parents)
+        val graphCommands = commandsForAllCycleGraphs(reportDir, validated.analysis, parents)
         return listOf(topCommand) + graphCommands
     }
 

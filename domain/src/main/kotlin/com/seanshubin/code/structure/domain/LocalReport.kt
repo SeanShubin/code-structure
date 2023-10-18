@@ -7,9 +7,10 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
 class LocalReport(private val localDepth: Int) : Report {
-    override fun generate(reportDir: Path, analysis: Analysis): List<Command> {
+    override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Pages.tableOfContents)
         val path = reportDir.resolve(Pages.local.fileName)
+        val analysis = validated.analysis
         val content = bigList(analysis.names, ::localLink, "local")
         val graphs = generateGraphs(reportDir, analysis, parents)
         val lines = ReportHelper.wrapInTopLevelHtml(Pages.local.name, content, parents).toLines()

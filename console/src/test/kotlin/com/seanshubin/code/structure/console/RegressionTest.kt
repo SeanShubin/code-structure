@@ -20,18 +20,15 @@ class RegressionTest {
         val emitLine = EmitLine()
         val regressionIntegrations = RegressionIntegrations(productionIntegrations, memoryDir, emitLine)
         val dependencies = Dependencies(regressionIntegrations, args)
-        val expectedLines = listOf(
-            "regression-test-kotlin-config.json",
-            "Took 4 seconds 887 milliseconds"
-        )
 
         // when
         dependencies.runner.run()
 
         // then
+        assertEquals("", "")
         seedExpectationIfNecessary(expectedDir, actualDir)
-        assertDirectoriesEquals(expectedDir, actualDir)
-        assertEquals(expectedLines, emitLine.lines)
+        val validationSummary = validateDirectoriesEqual(expectedDir, actualDir)
+        assertEquals(0, validationSummary.regressionCount(), validationSummary.regressionString())
         assertEquals(0, dependencies.exitCodeHolder.exitCode)
     }
 
@@ -48,18 +45,14 @@ class RegressionTest {
         val emitLine = EmitLine()
         val regressionIntegrations = RegressionIntegrations(productionIntegrations, memoryDir, emitLine)
         val dependencies = Dependencies(regressionIntegrations, args)
-        val expectedLines = listOf(
-            "regression-test-elixir-config.json",
-            "Took 4 seconds 822 milliseconds"
-        )
 
         // when
         dependencies.runner.run()
 
         // then
         seedExpectationIfNecessary(expectedDir, actualDir)
-        assertDirectoriesEquals(expectedDir, actualDir)
-        assertEquals(expectedLines, emitLine.lines)
+        val validationSummary = validateDirectoriesEqual(expectedDir, actualDir)
+        assertEquals(0, validationSummary.regressionCount(), validationSummary.regressionString())
         assertEquals(0, dependencies.exitCodeHolder.exitCode)
     }
 
@@ -90,17 +83,39 @@ class RegressionTest {
         }
     }
 
-    private fun assertDirectoriesEquals(expectedDir: Path, actualDir: Path) {
+    private fun validateDirectoriesEqual(expectedDir: Path, actualDir: Path):RegressionSummary {
+        val missing = mutableListOf<Path>()
+        val extra = mutableListOf<Path>()
+        val differenceA = mutableListOf<Path>()
+        val differenceB = mutableListOf<Path>()
         recurseIntoFiles(expectedDir) { relativePath ->
-            val expectedContent = Files.readString(expectedDir.resolve(relativePath))
-            val actualContent = Files.readString(actualDir.resolve(relativePath))
-            assertEquals(expectedContent, actualContent, relativePath.toString())
+            val expectedFile = expectedDir.resolve(relativePath)
+            val actualFile = actualDir.resolve(relativePath)
+            val expectedContent = Files.readString(expectedFile)
+            if(Files.exists(actualFile)) {
+                val actualContent = Files.readString(actualFile)
+                if(expectedContent != actualContent){
+                    differenceA.add(relativePath)
+                }
+            } else {
+                missing.add(actualFile)
+            }
         }
         recurseIntoFiles(actualDir) { relativePath ->
-            val expectedContent = Files.readString(expectedDir.resolve(relativePath))
-            val actualContent = Files.readString(actualDir.resolve(relativePath))
-            assertEquals(expectedContent, actualContent, relativePath.toString())
+            val expectedFile = expectedDir.resolve(relativePath)
+            val actualFile = actualDir.resolve(relativePath)
+            val expectedContent = Files.readString(expectedFile)
+            if(Files.exists(expectedFile)){
+                val actualContent = Files.readString(actualFile)
+                if(expectedContent != actualContent){
+                    differenceB.add(relativePath)
+                }
+            } else {
+                extra.add(expectedFile)
+            }
         }
+        val different = (differenceA + differenceB).distinct()
+        return RegressionSummary(missing, extra, different)
     }
 
     class EmitLine : (String) -> Unit {

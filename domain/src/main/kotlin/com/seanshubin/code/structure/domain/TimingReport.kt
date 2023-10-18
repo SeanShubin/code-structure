@@ -7,7 +7,7 @@ import java.nio.file.Path
 import java.time.Duration
 
 class TimingReport(private val timer: Timer) : Report {
-    override fun generate(reportDir: Path, analysis: Analysis): List<Command> {
+    override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val content = createContent()
         val root = ReportHelper.wrapInTopLevelHtml(Pages.timing.name, content, listOf(Pages.tableOfContents))
         val path = reportDir.resolve(Pages.timing.fileName)

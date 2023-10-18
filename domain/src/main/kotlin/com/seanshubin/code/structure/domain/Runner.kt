@@ -8,6 +8,7 @@ class Runner(
     private val clock: Clock,
     private val observer: Observer,
     private val analyzer: Analyzer,
+    private val validator:Validator,
     private val reportGenerator: ReportGenerator,
     private val commandRunner: CommandRunner,
     private val timeTakenEvent: (Duration) -> Unit,
@@ -22,15 +23,16 @@ class Runner(
         val startTime = clock.instant()
         val observations = timer.monitor("observations") { observer.makeObservations() }
         val analysis = timer.monitor("analysis") { analyzer.analyze(observations) }
-        val commands = timer.monitor("reports") { reportGenerator.generateReports(analysis) }
+        val validated = timer.monitor("validation") { validator.validate(observations, analysis)}
+        val commands = timer.monitor("reports") { reportGenerator.generateReports(validated) }
         timer.monitor("commands") { commands.forEach { commandRunner.execute(it) } }
-        val finalCommands = reportGenerator.generateFinalReports(analysis)
+        val finalCommands = reportGenerator.generateFinalReports(validated)
         finalCommands.forEach { commandRunner.execute(it) }
         val endTime = clock.instant()
         val duration = Duration.between(startTime, endTime)
         timeTakenEvent(duration)
-        if (analysis.errors != null) {
-            errorEvent(analysis.errors)
+        if (validated.errors != null) {
+            errorEvent(validated.errors)
             exitCodeHolder.exitCode = 1
         }
     }

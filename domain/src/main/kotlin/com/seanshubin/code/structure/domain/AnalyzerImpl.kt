@@ -16,27 +16,30 @@ class AnalyzerImpl : Analyzer {
                 binary.toName(commonPrefix) to it.toName(commonPrefix)
             }
         }.sortedWith(referenceComparator).distinct()
-        val cycles = findCycles(references)
-        val entryPoints = findEntryPoints(names, references)
-        val cycleDetails = composeAllCycleDetails(cycles, references)
-        val details = composeDetails(names, references, cycles)
-        val errors = composeErrors(cycles, observations.oldInCycle)
-        return Analysis(
-            observations,
-            cycles,
-            names,
-            references,
-            entryPoints,
-            cycleDetails,
-            details,
-            errors
-        )
+        return analyze(names, references)
     }
 
     companion object {
         private val listSizeComparator = Comparator<List<String>> { o1, o2 -> o1.size.compareTo(o2.size) }
         private val firstInListComparator = Comparator<List<String>> { o1, o2 -> o1[0].compareTo(o2[0]) }
         private val sizeThenFirstComparator = listSizeComparator.reversed().then(firstInListComparator)
+
+        private fun analyze(names: List<String>, references: List<Pair<String, String>>): Analysis {
+            val cycles = findCycles(references)
+            val entryPoints = findEntryPoints(names, references)
+            val cycleDetails = composeAllCycleDetails(cycles, references)
+            val details = composeDetails(names, references, cycles)
+            val groups = composeGroups(names, references)
+            return Analysis(
+                cycles,
+                names,
+                references,
+                entryPoints,
+                cycleDetails,
+                details,
+                groups
+            )
+        }
 
         private fun BinaryDetail.toName(commonPrefix: List<String>): String = this.name.toName(commonPrefix)
 
@@ -153,11 +156,32 @@ class AnalyzerImpl : Analyzer {
             return transitive
         }
 
-        private fun composeErrors(cycles: List<List<String>>, oldInCycle: List<String>): Errors? {
-            val currentInCycle = cycles.flatten().distinct().toSet()
-            val newInCycle = currentInCycle - oldInCycle.distinct().toSet()
-            val errors = if (newInCycle.isEmpty()) null else Errors(newInCycle.toList().sorted())
-            return errors
+        private fun composeGroups(names: List<String>, references: List<Pair<String, String>>):Map<List<String>, Analysis>{
+//            val flatNames = flattenNames(names)
+//            val flatReferences = flattenReferences(references)
+//            val path = emptyList<String>()
+//            val analysis = analyze(flatNames, flatReferences)
+//            return mapOf(path to analysis)
+            return emptyMap()
         }
+
+        private fun flattenNames(names:List<String>):List<String> =
+            names.map(::flattenName).distinct()
+
+        private fun flattenName(name:String):String {
+            val dotIndex = name.indexOf('.')
+            return if(dotIndex == -1){
+                name
+            } else {
+                name.substring(0, dotIndex)
+            }
+        }
+
+        private fun flattenReferences(references: List<Pair<String, String>>):List<Pair<String, String>> =
+            references.map(::flattenReference).distinct()
+
+        private fun flattenReference(reference:Pair<String, String>):Pair<String, String> =
+            flattenName(reference.first) to flattenName(reference.second)
+
     }
 }

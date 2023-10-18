@@ -8,10 +8,11 @@ import com.seanshubin.code.structure.sourceparser.SourceDetail
 import java.nio.file.Path
 
 class SourcesReport : Report {
-    override fun generate(reportDir: Path, analysis: Analysis): List<CreateFileCommand> {
+    override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
         val parents = listOf(Pages.tableOfContents)
         val name = "Sources"
-        val htmlInsideBody = generateHtml(analysis)
+        val observations = validated.observations
+        val htmlInsideBody = generateHtml(observations)
         val html = ReportHelper.wrapInTopLevelHtml(name, htmlInsideBody, parents)
         val fileName = "sources.html"
         val path = reportDir.resolve(fileName)
@@ -19,19 +20,19 @@ class SourcesReport : Report {
         return listOf(CreateFileCommand(path, lines))
     }
 
-    private fun generateHtml(analysis: Analysis): List<HtmlElement> {
-        return summary(analysis) + table(analysis)
+    private fun generateHtml(observations: Observations): List<HtmlElement> {
+        return summary(observations) + table(observations)
     }
 
-    private fun summary(analysis: Analysis): List<HtmlElement> {
+    private fun summary(observations: Observations): List<HtmlElement> {
         return listOf(
-            Tag("p", Text("source count: ${analysis.observations.sourceFiles.size}"))
+            Tag("p", Text("source count: ${observations.sourceFiles.size}"))
         )
     }
 
-    private fun table(analysis: Analysis): List<HtmlElement> {
+    private fun table(observations: Observations): List<HtmlElement> {
         val thead = thead()
-        val tbody = tbody(analysis)
+        val tbody = tbody(observations)
         val table = Tag("table", thead, tbody)
         return listOf(table)
     }
@@ -43,18 +44,17 @@ class SourcesReport : Report {
         return Tag("thead", row)
     }
 
-    private fun tbody(analysis: Analysis): HtmlElement {
-        val inputDir = analysis.observations.inputDir
-        val sourcePrefix = analysis.observations.sourcePrefix
-        val rows = analysis.observations.sources.map { sourceDetail ->
-            val tdLink = tdLink(inputDir, sourcePrefix, sourceDetail.path)
+    private fun tbody(observations: Observations): HtmlElement {
+        val sourcePrefix = observations.sourcePrefix
+        val rows = observations.sources.map { sourceDetail ->
+            val tdLink = tdLink(sourcePrefix, sourceDetail.path)
             val tdSourceDetail = tdSourceDetail(sourceDetail)
             Tag("tr", tdLink, tdSourceDetail)
         }
         return Tag("tbody", rows)
     }
 
-    private fun tdLink(inputDir: Path, sourcePrefix: String, path: Path): HtmlElement {
+    private fun tdLink(sourcePrefix: String, path: Path): HtmlElement {
         val sourceName = path.toString()
         val sourceLink = sourcePrefix + sourceName
         val anchor = anchor(sourceName, sourceLink)

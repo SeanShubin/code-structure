@@ -6,7 +6,7 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
 class TableOfContentsReport : Report {
-    override fun generate(reportDir: Path, analysis: Analysis): List<CreateFileCommand> {
+    override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
         val parents = emptyList<Page>()
         val children = listOf(
             Pages.sources,

@@ -8,13 +8,13 @@ class ReportGeneratorImpl(
     outputDir: Path
 ) : ReportGenerator {
     private val reportDir = outputDir.resolve("reports")
-    override fun generateReports(analysis: Analysis): List<Command> {
-        val generateReportFunction = { report: Report -> report.generate(reportDir, analysis) }
+    override fun generateReports(validated: Validated): List<Command> {
+        val generateReportFunction = { report: Report -> report.generate(reportDir, validated) }
         return reports.flatMap(generateReportFunction)
     }
 
-    override fun generateFinalReports(analysis: Analysis): List<Command> {
-        val generateReportFunction = { report: Report -> report.generate(reportDir, analysis) }
+    override fun generateFinalReports(validated: Validated): List<Command> {
+        val generateReportFunction = { report: Report -> report.generate(reportDir, validated) }
         return finalReports.flatMap(generateReportFunction)
     }
 }
