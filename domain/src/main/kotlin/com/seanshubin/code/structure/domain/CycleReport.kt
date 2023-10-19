@@ -20,7 +20,11 @@ class CycleReport : Report {
         return listOf(topCommand) + graphCommands
     }
 
-    private fun commandsForAllCycleGraphs(reportDir: Path, analysis: ScopedAnalysis, parents: List<Page>): List<Command> {
+    private fun commandsForAllCycleGraphs(
+        reportDir: Path,
+        analysis: ScopedAnalysis,
+        parents: List<Page>
+    ): List<Command> {
         val parentsForCycle = parents + listOf(Pages.cycles)
         return analysis.cycleDetails.flatMapIndexed { index, cycleDetail ->
             commandsForCycleGraph(reportDir, index, cycleDetail, parentsForCycle)
@@ -58,9 +62,18 @@ class CycleReport : Report {
     }
 
     private fun summaryElement(analysis: ScopedAnalysis): List<HtmlElement> {
-        return listOf(
-            HtmlElement.Tag("p", HtmlElement.Text("cycle count: ${analysis.cycles.size}"))
-        )
+        val countParagraph = HtmlElement.Tag("p", HtmlElement.Text("cycle count: ${analysis.cycles.size}"))
+        val fragmentAnchors = composeFragmentAnchors(analysis)
+        return listOf(countParagraph) + fragmentAnchors
+    }
+
+    private fun composeFragmentAnchors(analysis: ScopedAnalysis):List<HtmlElement> =
+        analysis.cycles.mapIndexed(::composeFragmentAnchor)
+
+    private fun composeFragmentAnchor(index:Int, cycle:List<String>):HtmlElement{
+        val title = "cycle-$index"
+        val link = "#$title"
+        return anchor(title, link)
     }
 
     private fun cyclesElement(analysis: ScopedAnalysis): List<HtmlElement> {
@@ -68,8 +81,9 @@ class CycleReport : Report {
     }
 
     private fun cycleListElement(listIndex: Int, cycleList: List<String>): List<HtmlElement> {
-        val summaryAnchor = anchor("cycle-$listIndex", "cycle-$listIndex.html")
-        val summary = HtmlElement.Tag("h2", listOf(summaryAnchor))
+        val id = "cycle-$listIndex"
+        val summaryAnchor = anchor(id, "$id.html")
+        val summary = HtmlElement.Tag("h2", listOf(summaryAnchor), listOf("id" to id))
         val partCountText = HtmlElement.Text("part count: ${cycleList.size}")
         val partCountParagraph = HtmlElement.Tag("p", listOf(partCountText))
         val listElements = bigList(cycleList, ::cycleElement, "cycle")
