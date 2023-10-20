@@ -7,7 +7,7 @@ import java.nio.file.Path
 class EntryPointsReport : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val name = Pages.entryPoints.name
-        val path = reportDir.resolve(Pages.entryPoints.fileName)
+        val path = Pages.entryPoints.reportFilePath(reportDir)
         val parents = listOf(Pages.tableOfContents)
         val content = createContent(validated.analysis.global)
         val lines = ReportHelper.wrapInTopLevelHtml(name, content, parents).toLines()

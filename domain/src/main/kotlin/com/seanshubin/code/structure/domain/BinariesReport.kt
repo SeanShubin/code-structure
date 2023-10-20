@@ -12,8 +12,7 @@ class BinariesReport : Report {
         val name = Pages.binaries.name
         val htmlInsideBody = generateHtml(validated.observations)
         val html = ReportHelper.wrapInTopLevelHtml(name, htmlInsideBody, parents)
-        val fileName = Pages.binaries.fileName
-        val path = reportDir.resolve(fileName)
+        val path = Pages.binaries.reportFilePath(reportDir)
         val lines = html.toLines()
         return listOf(CreateFileCommand(path, lines))
     }

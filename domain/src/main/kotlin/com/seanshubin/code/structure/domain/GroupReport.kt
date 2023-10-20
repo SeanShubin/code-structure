@@ -21,7 +21,7 @@ class GroupReport : Report {
         val parents = composeParents(groupPath)
         val createLink: (String) -> String = { name ->
             val page = groupPage(groupPath + name)
-            page.fileName
+            page.reportFileName()
         }
         val nodes = groupAnalysis.names.map { name ->
             toDotNode(name, groupPath + name, analysis, createLink)

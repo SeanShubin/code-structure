@@ -12,8 +12,7 @@ class CycleReport : Report {
         val name = Pages.cycles.name
         val htmlInsideBody = generateHtml(validated.analysis.global)
         val html = ReportHelper.wrapInTopLevelHtml(name, htmlInsideBody, parents)
-        val fileName = Pages.cycles.fileName
-        val path = reportDir.resolve(fileName)
+        val path = Pages.cycles.reportFilePath(reportDir)
         val lines = html.toLines()
         val topCommand = CreateFileCommand(path, lines)
         val graphCommands = commandsForAllCycleGraphs(reportDir, validated.analysis.global, parents)

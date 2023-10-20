@@ -29,5 +29,5 @@ class TableOfContentsReport : Report {
     }
 
     private fun generateAnchor(page: Page): List<HtmlElement> =
-        listOf(anchor(page.name, page.fileName))
+        listOf(anchor(page.name, page.reportFileName()))
 }

@@ -24,7 +24,7 @@ class GraphReport(private val nodeLimitMainGraph:Int) : Report {
     }
 
     fun exceedsNodeLimit(reportDir: Path, analysis: ScopedAnalysis):List<Command> {
-        val path = reportDir.resolve(Pages.graph.fileName)
+        val path = Pages.graph.reportFilePath(reportDir)
         val name = Pages.graph.name
         val parents = listOf(Pages.tableOfContents)
         val paragraphText = HtmlElement.Text("Too many nodes for main graph, limit is $nodeLimitMainGraph, have ${analysis.names.size}")

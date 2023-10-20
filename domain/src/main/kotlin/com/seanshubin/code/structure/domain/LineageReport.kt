@@ -11,8 +11,7 @@ class LineageReport : Report {
         val name = Pages.lineage.name
         val htmlInsideBody = generateHtml(validated.analysis.lineage)
         val html = ReportHelper.wrapInTopLevelHtml(name, htmlInsideBody, parents)
-        val fileName = Pages.lineage.fileName
-        val path = reportDir.resolve(fileName)
+        val path = Pages.lineage.reportFilePath(reportDir)
         val lines = html.toLines()
         val topCommand = CreateFileCommand(path, lines)
         return listOf(topCommand)
