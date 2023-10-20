@@ -12,20 +12,20 @@ class LocalReport(private val localDepth: Int) : Report {
         val path = reportDir.resolve(Pages.local.fileName)
         val analysis = validated.analysis
         val content = bigList(analysis.global.names, ::localLink, "big-list","local")
-        val graphs = generateGraphs(reportDir, analysis.global, parents)
+        val graphs = generateGraphs(reportDir, analysis, parents)
         val lines = ReportHelper.wrapInTopLevelHtml(Pages.local.name, content, parents).toLines()
         val index = CreateFileCommand(path, lines)
         val commands = listOf(index) + graphs
         return commands
     }
 
-    private fun generateGraphs(reportDir: Path, analysis: ScopedAnalysis, parents: List<Page>): List<Command> =
-        analysis.names.flatMap { baseName ->
-            val localNamesSet = expand(setOf(baseName), analysis, localDepth)
+    private fun generateGraphs(reportDir: Path, analysis:Analysis, inheritedParents: List<Page>): List<Command> =
+        analysis.global.names.flatMap { baseName ->
+            val localNamesSet = expand(setOf(baseName), analysis.global, localDepth)
             val localNamesSorted = localNamesSet.toList().sorted()
-            val localParents = parents + listOf(Pages.local)
-            val nodes = localNamesSorted.map { toDotNode(baseName, it, analysis, LinkCreator.local) }
-            val referencesSet = analysis.referencesForScope(localNamesSet)
+            val localParents = appendSourceLink(inheritedParents + listOf(Pages.local), baseName, analysis)
+            val nodes = localNamesSorted.map { toDotNode(baseName, it, analysis.global, LinkCreator.local) }
+            val referencesSet = analysis.global.referencesForScope(localNamesSet)
             val referencesSorted = referencesSet.sortedWith(ScopedAnalysis.referenceComparator)
             ReportHelper.graphCommands(
                 reportDir,
@@ -36,6 +36,12 @@ class LocalReport(private val localDepth: Int) : Report {
                 localParents
             )
         }
+
+    private fun appendSourceLink(currentParents:List<Page>, name:String, analysis: Analysis):List<Page>{
+        val sourceLink = analysis.uriByName.getValue(name)
+//        println(sourceLink)
+        return currentParents
+    }
 
     private tailrec fun expand(names: Set<String>, analysis: ScopedAnalysis, times: Int): Set<String> {
         if (times == 0) return names

@@ -26,15 +26,26 @@ class AnalyzerImpl : Analyzer {
         val descendantToAncestor = references.filter {
             it.second.isAncestorOf(it.first)
         }
+        val uriByName = composeUriByName(observations, commonPrefix)
         val lineage = Lineage(ancestorToDescendant, descendantToAncestor)
         val byGroup = composeGroups(emptyList(), NamesReferences(names, references))
-        return Analysis(global, lineage, byGroup.toMap())
+        return Analysis(global, uriByName, lineage, byGroup.toMap())
     }
 
     companion object {
         private val listSizeComparator = Comparator<List<String>> { o1, o2 -> o1.size.compareTo(o2.size) }
         private val firstInListComparator = Comparator<List<String>> { o1, o2 -> o1[0].compareTo(o2[0]) }
         private val sizeThenFirstComparator = listSizeComparator.reversed().then(firstInListComparator)
+
+        private fun composeUriByName(observations: Observations, commonPrefix:List<String>):Map<String, String>{
+            return observations.sources.flatMap { sourceDetail ->
+                sourceDetail.modules.map { rawName ->
+                    val name = rawName.toName(commonPrefix)
+                    val link = observations.sourcePrefix + sourceDetail.path
+                    name to link
+                }
+            }.toMap()
+        }
 
         private fun analyze(names: List<String>, references: List<Pair<String, String>>): ScopedAnalysis {
             val cycles = findCycles(references)

@@ -4,6 +4,7 @@ import com.seanshubin.code.structure.collection.ListUtil.startsWith
 
 data class Analysis(
     val global: ScopedAnalysis,
+    val uriByName:Map<String, String>,
     val lineage: Lineage,
     val byGroup: Map<List<String>, ScopedAnalysis>
 ){

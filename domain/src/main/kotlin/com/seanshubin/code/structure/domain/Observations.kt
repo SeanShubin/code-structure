@@ -11,4 +11,11 @@ data class Observations(
     val sources: List<SourceDetail>,
     val binaries: List<BinaryDetail>,
     val oldInCycle: List<String>
-)
+) {
+    val sourceByName = sources.flatMap { sourceDetail ->
+        sourceDetail.modules.map { name ->
+            name to sourceDetail
+        }
+    }.toMap()
+}
+
