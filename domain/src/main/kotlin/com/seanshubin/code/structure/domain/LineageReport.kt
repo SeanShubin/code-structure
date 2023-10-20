@@ -1,8 +1,6 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
-import com.seanshubin.code.structure.html.HtmlElementUtil
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path

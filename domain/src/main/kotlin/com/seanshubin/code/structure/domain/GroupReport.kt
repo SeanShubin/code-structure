@@ -46,7 +46,7 @@ class GroupReport : Report {
     private fun groupPage(groupPath: List<String>): Page {
         val name = (listOf("Group") + groupPath).joinToString(".")
         val id = (listOf("group") + groupPath).joinToString("-")
-        return Page(name, id)
+        return Page(id, name)
     }
 
     private fun groupPages(groupPath: List<String>): List<Page> =

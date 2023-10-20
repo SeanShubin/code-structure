@@ -1,14 +1,14 @@
 package com.seanshubin.code.structure.domain
 
 object Pages {
-    val tableOfContents = Page("Table Of Contents", "index")
-    val sources = Page("Sources", "sources")
-    val binaries = Page("Binaries", "binaries")
-    val entryPoints = Page("Entry Points", "entry-points")
-    val graph = Page("Graph", "graph")
-    val cycles = Page("Cycles", "cycles")
-    val lineage = Page("Lineage", "lineage")
-    val local = Page("Local", "local")
-    val timing = Page("Timing", "timing")
-    val groups = Page("Groups", "group")
+    val tableOfContents = Page("index", "Table Of Contents")
+    val sources = Page("sources", "Sources")
+    val binaries = Page("binaries", "Binaries")
+    val entryPoints = Page("entry-points", "Entry Points")
+    val graph = Page("graph", "Graph")
+    val cycles = Page("cycles", "Cycles")
+    val lineage = Page("lineage", "Lineage")
+    val local = Page("local", "Local")
+    val timing = Page("timing", "Timing")
+    val groups = Page("group", "Groups")
 }
