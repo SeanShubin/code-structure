@@ -49,16 +49,16 @@
             1
           </td>
           <td>
-            15 hours 32 minutes 16 seconds 254 milliseconds
+            1 day 16 hours 41 minutes 13 seconds 504 milliseconds
           </td>
           <td>
-            15 hours 32 minutes 16 seconds 254 milliseconds
+            1 day 16 hours 41 minutes 13 seconds 504 milliseconds
           </td>
           <td>
-            15 hours 32 minutes 16 seconds 254 milliseconds
+            1 day 16 hours 41 minutes 13 seconds 504 milliseconds
           </td>
           <td>
-            15 hours 32 minutes 16 seconds 254 milliseconds
+            1 day 16 hours 41 minutes 13 seconds 504 milliseconds
           </td>
         </tr>
         <tr>
@@ -66,13 +66,13 @@
             GenerateSvgCommand
           </td>
           <td>
-            25
+            27
           </td>
           <td>
-            6 seconds 885 milliseconds
+            7 seconds 171 milliseconds
           </td>
           <td>
-            295 milliseconds
+            252 milliseconds
           </td>
           <td>
             0 milliseconds
@@ -103,6 +103,26 @@
         </tr>
         <tr>
           <td>
+            CreateFileCommand
+          </td>
+          <td>
+            63
+          </td>
+          <td>
+            93 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            19 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
             reports
           </td>
           <td>
@@ -123,36 +143,16 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
-          </td>
-          <td>
-            59
-          </td>
-          <td>
-            70 milliseconds
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            17 milliseconds
-          </td>
-        </tr>
-        <tr>
-          <td>
             SubstituteFromFileCommand
           </td>
           <td>
-            25
+            27
           </td>
           <td>
-            28 milliseconds
+            30 milliseconds
           </td>
           <td>
-            1 millisecond
+            0 milliseconds
           </td>
           <td>
             0 milliseconds
@@ -204,7 +204,7 @@
       </tbody>
     </table>
     <p>
-      event count: 114
+      event count: 122
     </p>
     <table>
       <thead>
@@ -317,7 +317,7 @@
             1 millisecond
           </td>
           <td>
-            CreateFileCommand(path = target/regression-test-elixir/reports/sources.html, line count = 158)
+            CreateFileCommand(path = target/regression-test-elixir/reports/sources.html, line count = 178)
           </td>
         </tr>
         <tr>
@@ -328,7 +328,7 @@
             1 millisecond
           </td>
           <td>
-            CreateFileCommand(path = target/regression-test-elixir/reports/binaries.html, line count = 266)
+            CreateFileCommand(path = target/regression-test-elixir/reports/binaries.html, line count = 298)
           </td>
         </tr>
         <tr>
@@ -339,7 +339,7 @@
             1 millisecond
           </td>
           <td>
-            CreateFileCommand(path = target/regression-test-elixir/reports/entry-points.html, line count = 32)
+            CreateFileCommand(path = target/regression-test-elixir/reports/entry-points.html, line count = 35)
           </td>
         </tr>
         <tr>
@@ -449,7 +449,7 @@
             0 milliseconds
           </td>
           <td>
-            CreateFileCommand(path = target/regression-test-elixir/reports/local.html, line count = 62)
+            CreateFileCommand(path = target/regression-test-elixir/reports/local.html, line count = 68)
           </td>
         </tr>
         <tr>
@@ -460,7 +460,7 @@
             1 millisecond
           </td>
           <td>
-            CreateFileCommand(path = target/regression-test-elixir/reports/local-PathA.ModuleB.txt, line count = 10)
+            CreateFileCommand(path = target/regression-test-elixir/reports/local-ModuleE.txt, line count = 11)
           </td>
         </tr>
         <tr>
@@ -469,6 +469,94 @@
           </td>
           <td>
             320 milliseconds
+          </td>
+          <td>
+            GenerateSvgCommand(input = target/regression-test-elixir/reports/local-ModuleE.txt, output = target/regression-test-elixir/reports/local-ModuleE.svg)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            CreateFileCommand
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            CreateFileCommand(path = target/regression-test-elixir/reports/local-ModuleE--template.html, line count = 29)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            SubstituteFromFileCommand
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            SubstituteFromFileCommand(templateFile = target/regression-test-elixir/reports/local-ModuleE--template.html, searchText = '---replace--with--local-ModuleE.svg---', replaceFile = target/regression-test-elixir/reports/local-ModuleE.svg, destinationFile = target/regression-test-elixir/reports/local-ModuleE.html)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            CreateFileCommand
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            CreateFileCommand(path = target/regression-test-elixir/reports/local-ModuleP.txt, line count = 11)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            GenerateSvgCommand
+          </td>
+          <td>
+            344 milliseconds
+          </td>
+          <td>
+            GenerateSvgCommand(input = target/regression-test-elixir/reports/local-ModuleP.txt, output = target/regression-test-elixir/reports/local-ModuleP.svg)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            CreateFileCommand
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            CreateFileCommand(path = target/regression-test-elixir/reports/local-ModuleP--template.html, line count = 29)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            SubstituteFromFileCommand
+          </td>
+          <td>
+            2 milliseconds
+          </td>
+          <td>
+            SubstituteFromFileCommand(templateFile = target/regression-test-elixir/reports/local-ModuleP--template.html, searchText = '---replace--with--local-ModuleP.svg---', replaceFile = target/regression-test-elixir/reports/local-ModuleP.svg, destinationFile = target/regression-test-elixir/reports/local-ModuleP.html)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            CreateFileCommand
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            CreateFileCommand(path = target/regression-test-elixir/reports/local-PathA.ModuleB.txt, line count = 10)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            GenerateSvgCommand
+          </td>
+          <td>
+            267 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/local-PathA.ModuleB.txt, output = target/regression-test-elixir/reports/local-PathA.ModuleB.svg)
@@ -490,7 +578,7 @@
             SubstituteFromFileCommand
           </td>
           <td>
-            0 milliseconds
+            1 millisecond
           </td>
           <td>
             SubstituteFromFileCommand(templateFile = target/regression-test-elixir/reports/local-PathA.ModuleB--template.html, searchText = '---replace--with--local-PathA.ModuleB.svg---', replaceFile = target/regression-test-elixir/reports/local-PathA.ModuleB.svg, destinationFile = target/regression-test-elixir/reports/local-PathA.ModuleB.html)
@@ -512,7 +600,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            344 milliseconds
+            293 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/local-PathC.ModuleD.txt, output = target/regression-test-elixir/reports/local-PathC.ModuleD.svg)
@@ -534,7 +622,7 @@
             SubstituteFromFileCommand
           </td>
           <td>
-            2 milliseconds
+            1 millisecond
           </td>
           <td>
             SubstituteFromFileCommand(templateFile = target/regression-test-elixir/reports/local-PathC.ModuleD--template.html, searchText = '---replace--with--local-PathC.ModuleD.svg---', replaceFile = target/regression-test-elixir/reports/local-PathC.ModuleD.svg, destinationFile = target/regression-test-elixir/reports/local-PathC.ModuleD.html)
@@ -556,7 +644,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            267 milliseconds
+            286 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/local-PathE.PathF.ModuleK.txt, output = target/regression-test-elixir/reports/local-PathE.PathF.ModuleK.svg)
@@ -592,7 +680,7 @@
             0 milliseconds
           </td>
           <td>
-            CreateFileCommand(path = target/regression-test-elixir/reports/local-PathE.PathF.ModuleL.txt, line count = 20)
+            CreateFileCommand(path = target/regression-test-elixir/reports/local-PathE.PathF.ModuleL.txt, line count = 22)
           </td>
         </tr>
         <tr>
@@ -600,7 +688,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            293 milliseconds
+            296 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/local-PathE.PathF.ModuleL.txt, output = target/regression-test-elixir/reports/local-PathE.PathF.ModuleL.svg)
@@ -636,7 +724,7 @@
             0 milliseconds
           </td>
           <td>
-            CreateFileCommand(path = target/regression-test-elixir/reports/local-PathE.PathF.ModuleM.txt, line count = 18)
+            CreateFileCommand(path = target/regression-test-elixir/reports/local-PathE.PathF.ModuleM.txt, line count = 20)
           </td>
         </tr>
         <tr>
@@ -644,7 +732,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            286 milliseconds
+            283 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/local-PathE.PathF.ModuleM.txt, output = target/regression-test-elixir/reports/local-PathE.PathF.ModuleM.svg)
@@ -666,7 +754,7 @@
             SubstituteFromFileCommand
           </td>
           <td>
-            1 millisecond
+            0 milliseconds
           </td>
           <td>
             SubstituteFromFileCommand(templateFile = target/regression-test-elixir/reports/local-PathE.PathF.ModuleM--template.html, searchText = '---replace--with--local-PathE.PathF.ModuleM.svg---', replaceFile = target/regression-test-elixir/reports/local-PathE.PathF.ModuleM.svg, destinationFile = target/regression-test-elixir/reports/local-PathE.PathF.ModuleM.html)
@@ -677,10 +765,10 @@
             CreateFileCommand
           </td>
           <td>
-            0 milliseconds
+            1 millisecond
           </td>
           <td>
-            CreateFileCommand(path = target/regression-test-elixir/reports/local-PathE.PathF.ModuleN.txt, line count = 20)
+            CreateFileCommand(path = target/regression-test-elixir/reports/local-PathE.PathF.ModuleN.txt, line count = 22)
           </td>
         </tr>
         <tr>
@@ -688,7 +776,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            296 milliseconds
+            297 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/local-PathE.PathF.ModuleN.txt, output = target/regression-test-elixir/reports/local-PathE.PathF.ModuleN.svg)
@@ -710,7 +798,7 @@
             SubstituteFromFileCommand
           </td>
           <td>
-            1 millisecond
+            2 milliseconds
           </td>
           <td>
             SubstituteFromFileCommand(templateFile = target/regression-test-elixir/reports/local-PathE.PathF.ModuleN--template.html, searchText = '---replace--with--local-PathE.PathF.ModuleN.svg---', replaceFile = target/regression-test-elixir/reports/local-PathE.PathF.ModuleN.svg, destinationFile = target/regression-test-elixir/reports/local-PathE.PathF.ModuleN.html)
@@ -732,7 +820,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            283 milliseconds
+            321 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/local-PathE.PathF.ModuleO.txt, output = target/regression-test-elixir/reports/local-PathE.PathF.ModuleO.svg)
@@ -754,7 +842,7 @@
             SubstituteFromFileCommand
           </td>
           <td>
-            0 milliseconds
+            1 millisecond
           </td>
           <td>
             SubstituteFromFileCommand(templateFile = target/regression-test-elixir/reports/local-PathE.PathF.ModuleO--template.html, searchText = '---replace--with--local-PathE.PathF.ModuleO.svg---', replaceFile = target/regression-test-elixir/reports/local-PathE.PathF.ModuleO.svg, destinationFile = target/regression-test-elixir/reports/local-PathE.PathF.ModuleO.html)
@@ -765,7 +853,7 @@
             CreateFileCommand
           </td>
           <td>
-            1 millisecond
+            0 milliseconds
           </td>
           <td>
             CreateFileCommand(path = target/regression-test-elixir/reports/local-PathG.ModuleH.txt, line count = 25)
@@ -798,7 +886,7 @@
             SubstituteFromFileCommand
           </td>
           <td>
-            2 milliseconds
+            1 millisecond
           </td>
           <td>
             SubstituteFromFileCommand(templateFile = target/regression-test-elixir/reports/local-PathG.ModuleH--template.html, searchText = '---replace--with--local-PathG.ModuleH.svg---', replaceFile = target/regression-test-elixir/reports/local-PathG.ModuleH.svg, destinationFile = target/regression-test-elixir/reports/local-PathG.ModuleH.html)
@@ -812,7 +900,7 @@
             0 milliseconds
           </td>
           <td>
-            CreateFileCommand(path = target/regression-test-elixir/reports/local-PathI.ModuleJ.txt, line count = 17)
+            CreateFileCommand(path = target/regression-test-elixir/reports/local-PathI.ModuleJ.txt, line count = 19)
           </td>
         </tr>
         <tr>
@@ -820,7 +908,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            321 milliseconds
+            295 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/local-PathI.ModuleJ.txt, output = target/regression-test-elixir/reports/local-PathI.ModuleJ.svg)
@@ -856,7 +944,7 @@
             0 milliseconds
           </td>
           <td>
-            CreateFileCommand(path = target/regression-test-elixir/reports/local-PathP.ModuleQ.txt, line count = 13)
+            CreateFileCommand(path = target/regression-test-elixir/reports/local-PathP.ModuleQ.txt, line count = 15)
           </td>
         </tr>
         <tr>
@@ -864,7 +952,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            297 milliseconds
+            252 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/local-PathP.ModuleQ.txt, output = target/regression-test-elixir/reports/local-PathP.ModuleQ.svg)
@@ -886,7 +974,7 @@
             SubstituteFromFileCommand
           </td>
           <td>
-            1 millisecond
+            0 milliseconds
           </td>
           <td>
             SubstituteFromFileCommand(templateFile = target/regression-test-elixir/reports/local-PathP.ModuleQ--template.html, searchText = '---replace--with--local-PathP.ModuleQ.svg---', replaceFile = target/regression-test-elixir/reports/local-PathP.ModuleQ.svg, destinationFile = target/regression-test-elixir/reports/local-PathP.ModuleQ.html)
@@ -900,7 +988,7 @@
             0 milliseconds
           </td>
           <td>
-            CreateFileCommand(path = target/regression-test-elixir/reports/local-PathR.ModuleS.txt, line count = 13)
+            CreateFileCommand(path = target/regression-test-elixir/reports/local-PathR.ModuleS.txt, line count = 15)
           </td>
         </tr>
         <tr>
@@ -908,7 +996,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            295 milliseconds
+            270 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/local-PathR.ModuleS.txt, output = target/regression-test-elixir/reports/local-PathR.ModuleS.svg)
@@ -941,7 +1029,7 @@
             CreateFileCommand
           </td>
           <td>
-            0 milliseconds
+            17 milliseconds
           </td>
           <td>
             CreateFileCommand(path = target/regression-test-elixir/reports/local-PathT.ModuleU.txt, line count = 11)
@@ -952,7 +1040,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            252 milliseconds
+            0 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/local-PathT.ModuleU.txt, output = target/regression-test-elixir/reports/local-PathT.ModuleU.svg)
@@ -988,7 +1076,7 @@
             0 milliseconds
           </td>
           <td>
-            CreateFileCommand(path = target/regression-test-elixir/reports/group.txt, line count = 28)
+            CreateFileCommand(path = target/regression-test-elixir/reports/group.txt, line count = 32)
           </td>
         </tr>
         <tr>
@@ -996,7 +1084,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            270 milliseconds
+            265 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/group.txt, output = target/regression-test-elixir/reports/group.svg)
@@ -1018,7 +1106,7 @@
             SubstituteFromFileCommand
           </td>
           <td>
-            1 millisecond
+            0 milliseconds
           </td>
           <td>
             SubstituteFromFileCommand(templateFile = target/regression-test-elixir/reports/group--template.html, searchText = '---replace--with--group.svg---', replaceFile = target/regression-test-elixir/reports/group.svg, destinationFile = target/regression-test-elixir/reports/group.html)
@@ -1029,7 +1117,7 @@
             CreateFileCommand
           </td>
           <td>
-            17 milliseconds
+            0 milliseconds
           </td>
           <td>
             CreateFileCommand(path = target/regression-test-elixir/reports/group-PathA.txt, line count = 4)
@@ -1040,7 +1128,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            0 milliseconds
+            257 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/group-PathA.txt, output = target/regression-test-elixir/reports/group-PathA.svg)
@@ -1084,7 +1172,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            265 milliseconds
+            270 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/group-PathC.txt, output = target/regression-test-elixir/reports/group-PathC.svg)
@@ -1128,7 +1216,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            257 milliseconds
+            266 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/group-PathE.txt, output = target/regression-test-elixir/reports/group-PathE.svg)
@@ -1172,7 +1260,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            270 milliseconds
+            263 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/group-PathE-PathF.txt, output = target/regression-test-elixir/reports/group-PathE-PathF.svg)
@@ -1216,7 +1304,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            266 milliseconds
+            262 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/group-PathG.txt, output = target/regression-test-elixir/reports/group-PathG.svg)
@@ -1260,7 +1348,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            263 milliseconds
+            258 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/group-PathI.txt, output = target/regression-test-elixir/reports/group-PathI.svg)
@@ -1304,7 +1392,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            262 milliseconds
+            266 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/group-PathP.txt, output = target/regression-test-elixir/reports/group-PathP.svg)
@@ -1348,7 +1436,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            258 milliseconds
+            262 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/group-PathR.txt, output = target/regression-test-elixir/reports/group-PathR.svg)
@@ -1370,7 +1458,7 @@
             SubstituteFromFileCommand
           </td>
           <td>
-            0 milliseconds
+            1 millisecond
           </td>
           <td>
             SubstituteFromFileCommand(templateFile = target/regression-test-elixir/reports/group-PathR--template.html, searchText = '---replace--with--group-PathR.svg---', replaceFile = target/regression-test-elixir/reports/group-PathR.svg, destinationFile = target/regression-test-elixir/reports/group-PathR.html)
@@ -1381,7 +1469,7 @@
             CreateFileCommand
           </td>
           <td>
-            0 milliseconds
+            19 milliseconds
           </td>
           <td>
             CreateFileCommand(path = target/regression-test-elixir/reports/group-PathT.txt, line count = 4)
@@ -1392,7 +1480,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            266 milliseconds
+            0 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/group-PathT.txt, output = target/regression-test-elixir/reports/group-PathT.svg)
@@ -1403,7 +1491,7 @@
             CreateFileCommand
           </td>
           <td>
-            0 milliseconds
+            1 millisecond
           </td>
           <td>
             CreateFileCommand(path = target/regression-test-elixir/reports/group-PathT--template.html, line count = 29)
@@ -1414,7 +1502,7 @@
             SubstituteFromFileCommand
           </td>
           <td>
-            0 milliseconds
+            1 millisecond
           </td>
           <td>
             SubstituteFromFileCommand(templateFile = target/regression-test-elixir/reports/group-PathT--template.html, searchText = '---replace--with--group-PathT.svg---', replaceFile = target/regression-test-elixir/reports/group-PathT.svg, destinationFile = target/regression-test-elixir/reports/group-PathT.html)
@@ -1425,10 +1513,10 @@
             CreateFileCommand
           </td>
           <td>
-            0 milliseconds
+            1 millisecond
           </td>
           <td>
-            CreateFileCommand(path = target/regression-test-elixir/reports/graph.txt, line count = 37)
+            CreateFileCommand(path = target/regression-test-elixir/reports/graph.txt, line count = 41)
           </td>
         </tr>
         <tr>
@@ -1436,7 +1524,7 @@
             GenerateSvgCommand
           </td>
           <td>
-            262 milliseconds
+            286 milliseconds
           </td>
           <td>
             GenerateSvgCommand(input = target/regression-test-elixir/reports/graph.txt, output = target/regression-test-elixir/reports/graph.svg)
@@ -1458,7 +1546,7 @@
             SubstituteFromFileCommand
           </td>
           <td>
-            1 millisecond
+            0 milliseconds
           </td>
           <td>
             SubstituteFromFileCommand(templateFile = target/regression-test-elixir/reports/graph--template.html, searchText = '---replace--with--graph.svg---', replaceFile = target/regression-test-elixir/reports/graph.svg, destinationFile = target/regression-test-elixir/reports/graph.html)
@@ -1469,7 +1557,7 @@
             commands
           </td>
           <td>
-            15 hours 32 minutes 16 seconds 254 milliseconds
+            1 day 16 hours 41 minutes 13 seconds 504 milliseconds
           </td>
           <td>
             commands

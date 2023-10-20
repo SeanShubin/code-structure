@@ -1,5 +1,7 @@
 digraph detangled {
   bgcolor=lightgray
+  "ClassE" [label="ClassE"]
+  "ClassP" [label="ClassP"]
   "packagea" [fontcolor="blue" URL="group-packagea.html" label="packagea (1)"]
   "packagec" [fontcolor="blue" URL="group-packagec.html" label="packagec (1)"]
   "packagee" [fontcolor="blue" URL="group-packagee.html" label="packagee (6)"]
@@ -8,7 +10,9 @@ digraph detangled {
   "packagep" [fontcolor="blue" URL="group-packagep.html" label="packagep (1)"]
   "packager" [fontcolor="blue" URL="group-packager.html" label="packager (1)"]
   "packaget" [fontcolor="blue" URL="group-packaget.html" label="packaget (1)"]
+  "ClassP" -> "packagep"
   "packagea" -> "packagec"
+  "packagee" -> "ClassE"
   "packageg" -> "packagei"
   "packager" -> "packaget"
   subgraph cluster_0 {

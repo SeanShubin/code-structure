@@ -1,5 +1,6 @@
 digraph detangled {
   bgcolor=lightgray
+  "ModuleE" [fontcolor="blue" URL="local-ModuleE.html" label="ModuleE"]
   "PathA.ModuleB" [fontcolor="blue" URL="local-PathA.ModuleB.html" label="PathA.ModuleB"]
   "PathC.ModuleD" [fontcolor="blue" URL="local-PathC.ModuleD.html" label="↻ PathC.ModuleD ↻ (5)"]
   "PathE.PathF.ModuleK" [fontcolor="blue" URL="local-PathE.PathF.ModuleK.html" label="PathE.PathF.ModuleK"]
@@ -12,6 +13,7 @@ digraph detangled {
   "PathC.ModuleD" -> "PathE.PathF.ModuleL"
   "PathE.PathF.ModuleK" -> "PathE.PathF.ModuleL"
   "PathE.PathF.ModuleL" -> "PathE.PathF.ModuleM"
+  "PathE.PathF.ModuleM" -> "ModuleE"
   "PathE.PathF.ModuleM" -> "PathE.PathF.ModuleN"
   "PathE.PathF.ModuleN" -> "PathE.PathF.ModuleL"
   "PathE.PathF.ModuleN" -> "PathE.PathF.ModuleO"

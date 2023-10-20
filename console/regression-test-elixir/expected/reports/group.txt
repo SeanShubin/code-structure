@@ -1,5 +1,7 @@
 digraph detangled {
   bgcolor=lightgray
+  "ModuleE" [label="ModuleE"]
+  "ModuleP" [label="ModuleP"]
   "PathA" [fontcolor="blue" URL="group-PathA.html" label="PathA (1)"]
   "PathC" [fontcolor="blue" URL="group-PathC.html" label="PathC (1)"]
   "PathE" [fontcolor="blue" URL="group-PathE.html" label="PathE (6)"]
@@ -8,7 +10,9 @@ digraph detangled {
   "PathP" [fontcolor="blue" URL="group-PathP.html" label="PathP (1)"]
   "PathR" [fontcolor="blue" URL="group-PathR.html" label="PathR (1)"]
   "PathT" [fontcolor="blue" URL="group-PathT.html" label="PathT (1)"]
+  "ModuleP" -> "PathP"
   "PathA" -> "PathC"
+  "PathE" -> "ModuleE"
   "PathG" -> "PathI"
   "PathR" -> "PathT"
   subgraph cluster_0 {
