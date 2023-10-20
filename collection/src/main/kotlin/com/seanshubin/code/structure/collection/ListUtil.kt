@@ -1,6 +1,11 @@
-package com.seanshubin.code.structure.utility.stateless
+package com.seanshubin.code.structure.collection
 
 object ListUtil {
+    fun <T> List<T>.startsWith(prefix:List<T>):Boolean {
+        if(prefix.size > size) return false
+        return take(prefix.size) == prefix
+    }
+
     fun commonPrefix(list: List<List<String>>): List<String> {
         if (list.isEmpty()) return emptyList()
         var candidate = list[0]

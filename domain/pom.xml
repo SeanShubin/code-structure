@@ -72,12 +72,12 @@
         </dependency>
         <dependency>
             <groupId>com.seanshubin.code.structure</groupId>
-            <artifactId>code-structure-utility-stateless</artifactId>
+            <artifactId>code-structure-exec</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.seanshubin.code.structure</groupId>
-            <artifactId>code-structure-exec</artifactId>
+            <artifactId>code-structure-collection</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

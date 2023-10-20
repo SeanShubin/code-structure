@@ -76,7 +76,6 @@
         <module>durationformat</module>
         <module>tree</module>
         <module>cycle</module>
-        <module>utility-stateless</module>
         <module>exec</module>
     </modules>
     <properties>

@@ -1,9 +1,9 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.binaryparser.BinaryDetail
+import com.seanshubin.code.structure.collection.ListUtil
 import com.seanshubin.code.structure.cycle.CycleUtil
 import com.seanshubin.code.structure.domain.ScopedAnalysis.Companion.referenceComparator
-import com.seanshubin.code.structure.utility.stateless.ListUtil
 
 class AnalyzerImpl : Analyzer {
     override fun analyze(observations: Observations): Analysis {
@@ -18,7 +18,13 @@ class AnalyzerImpl : Analyzer {
         }.sortedWith(referenceComparator).distinct()
         val byGroup = composeGroups(emptyList(), NamesReferences(names, references))
         val global = analyze(names, references)
-        return Analysis(global, byGroup.toMap())
+        val ancestorToDescendant = references.filter {
+            it.second.startsWith(it.first)
+        }
+        val descendantToAncestor = references.filter {
+            it.first.startsWith(it.second)
+        }
+        return Analysis(global, ancestorToDescendant, descendantToAncestor, byGroup.toMap())
     }
 
     companion object {

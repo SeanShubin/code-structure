@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.kotlinsyntax
 
 import com.seanshubin.code.structure.sourceparser.SourceDetail
-import org.junit.Test
+import kotlin.test.Test
 import java.nio.file.Paths
 import kotlin.test.assertEquals
 

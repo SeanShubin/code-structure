@@ -54,8 +54,8 @@
       elixirsyntax
       cycle
       dot
-      utility-stateless
       exec
+      collection
     ]
     filefinder        [ contract ]
     contract          [ ]
@@ -78,7 +78,6 @@
     durationformat    [ ]
     tree              [ ]
     cycle             [ ]
-    utility-stateless [ ]
     exec              [ ]
   }
   detangler [domain]
