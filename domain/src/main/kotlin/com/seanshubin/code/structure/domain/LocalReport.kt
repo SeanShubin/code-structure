@@ -8,12 +8,12 @@ import java.nio.file.Path
 
 class LocalReport(private val localDepth: Int) : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
-        val parents = listOf(Pages.tableOfContents)
-        val path = Pages.local.reportFilePath(reportDir)
+        val parents = listOf(Page.tableOfContents)
+        val path = reportDir.resolve(Page.local.file)
         val analysis = validated.analysis
         val content = bigList(analysis.global.names, ::localLink, "big-list","local")
         val graphs = generateGraphs(reportDir, analysis, parents)
-        val lines = ReportHelper.wrapInTopLevelHtml(Pages.local.name, content, parents).toLines()
+        val lines = ReportHelper.wrapInTopLevelHtml(Page.local.caption, content, parents).toLines()
         val index = CreateFileCommand(path, lines)
         val commands = listOf(index) + graphs
         return commands
@@ -23,7 +23,7 @@ class LocalReport(private val localDepth: Int) : Report {
         analysis.global.names.flatMap { baseName ->
             val localNamesSet = expand(setOf(baseName), analysis.global, localDepth)
             val localNamesSorted = localNamesSet.toList().sorted()
-            val localParents = appendSourceLink(inheritedParents + listOf(Pages.local), baseName, analysis)
+            val localParents = appendSourceLink(inheritedParents + listOf(Page.local), baseName, analysis)
             val nodes = localNamesSorted.map { toDotNode(baseName, it, analysis.global, LinkCreator.local) }
             val referencesSet = analysis.global.referencesForScope(localNamesSet)
             val referencesSorted = referencesSet.sortedWith(ScopedAnalysis.referenceComparator)

@@ -39,8 +39,8 @@ object ReportHelper {
 
     fun wrapInTopLevelHtml(name: String, innerContent: List<HtmlElement>, parents: List<Page>): HtmlElement {
         val parentElements = parents.map {
-            val uri = "${it.id}.html"
-            val a = anchor(it.name, uri)
+            val uri = it.link
+            val a = anchor(it.caption, uri)
             val p = HtmlElement.Tag("p", a)
             p
         }

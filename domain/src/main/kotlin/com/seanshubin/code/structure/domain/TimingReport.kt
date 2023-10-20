@@ -9,8 +9,8 @@ import java.time.Duration
 class TimingReport(private val timer: Timer) : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val content = createContent()
-        val root = ReportHelper.wrapInTopLevelHtml(Pages.timing.name, content, listOf(Pages.tableOfContents))
-        val path = Pages.timing.reportFilePath(reportDir)
+        val root = ReportHelper.wrapInTopLevelHtml(Page.timing.caption, content, listOf(Page.tableOfContents))
+        val path = reportDir.resolve(Page.timing.file)
         val lines = root.toLines()
         val createFileCommand = CreateFileCommand(path, lines)
         return listOf(createFileCommand)

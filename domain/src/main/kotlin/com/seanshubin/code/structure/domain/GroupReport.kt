@@ -21,7 +21,7 @@ class GroupReport : Report {
         val parents = composeParents(groupPath)
         val createLink: (String) -> String = { name ->
             val page = groupPage(groupPath + name)
-            page.reportFileName()
+            page.link
         }
         val nodes = groupAnalysis.names.map { name ->
             toDotNode(name, groupPath + name, analysis, createLink)
@@ -40,13 +40,13 @@ class GroupReport : Report {
         val groupPages =
             if (groupPath.isEmpty()) emptyList()
             else groupPages(groupPath.take(groupPath.size - 1))
-        return listOf(Pages.tableOfContents) + groupPages
+        return listOf(Page.tableOfContents) + groupPages
     }
 
     private fun groupPage(groupPath: List<String>): Page {
-        val name = (listOf("Group") + groupPath).joinToString(".")
+        val caption = (listOf("Group") + groupPath).joinToString(".")
         val id = (listOf("group") + groupPath).joinToString("-")
-        return Page(id, name)
+        return Page.createIdCaption(id, caption)
     }
 
     private fun groupPages(groupPath: List<String>): List<Page> =

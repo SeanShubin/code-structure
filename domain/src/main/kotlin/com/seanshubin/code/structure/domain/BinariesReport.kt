@@ -8,11 +8,10 @@ import java.nio.file.Path
 
 class BinariesReport : Report {
     override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
-        val parents = listOf(Pages.tableOfContents)
-        val name = Pages.binaries.name
+        val parents = listOf(Page.tableOfContents)
         val htmlInsideBody = generateHtml(validated.observations)
-        val html = ReportHelper.wrapInTopLevelHtml(name, htmlInsideBody, parents)
-        val path = Pages.binaries.reportFilePath(reportDir)
+        val html = ReportHelper.wrapInTopLevelHtml(Page.binaries.caption, htmlInsideBody, parents)
+        val path = reportDir.resolve(Page.binaries.file)
         val lines = html.toLines()
         return listOf(CreateFileCommand(path, lines))
     }

@@ -7,11 +7,10 @@ import java.nio.file.Path
 
 class LineageReport : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
-        val parents = listOf(Pages.tableOfContents)
-        val name = Pages.lineage.name
+        val parents = listOf(Page.tableOfContents)
         val htmlInsideBody = generateHtml(validated.analysis.lineage)
-        val html = ReportHelper.wrapInTopLevelHtml(name, htmlInsideBody, parents)
-        val path = Pages.lineage.reportFilePath(reportDir)
+        val html = ReportHelper.wrapInTopLevelHtml(Page.lineage.caption, htmlInsideBody, parents)
+        val path = reportDir.resolve(Page.lineage.file)
         val lines = html.toLines()
         val topCommand = CreateFileCommand(path, lines)
         return listOf(topCommand)

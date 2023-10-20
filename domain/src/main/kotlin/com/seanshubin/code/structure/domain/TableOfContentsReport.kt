@@ -9,15 +9,15 @@ class TableOfContentsReport : Report {
     override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
         val parents = emptyList<Page>()
         val children = listOf(
-            Pages.groups,
-            Pages.entryPoints,
-            Pages.cycles,
-            Pages.lineage,
-            Pages.local,
-            Pages.sources,
-            Pages.binaries,
-            Pages.graph,
-            Pages.timing
+            Page.groups,
+            Page.entryPoints,
+            Page.cycles,
+            Page.lineage,
+            Page.local,
+            Page.sources,
+            Page.binaries,
+            Page.graph,
+            Page.timing
         )
         val listElements = bigList(children, ::generateAnchor, "big-list",caption = null)
         val name = "Table Of Contents"
@@ -29,5 +29,5 @@ class TableOfContentsReport : Report {
     }
 
     private fun generateAnchor(page: Page): List<HtmlElement> =
-        listOf(anchor(page.name, page.reportFileName()))
+        listOf(anchor(page.caption, page.link))
 }

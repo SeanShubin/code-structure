@@ -8,11 +8,10 @@ import java.nio.file.Path
 
 class CycleReport : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
-        val parents = listOf(Pages.tableOfContents)
-        val name = Pages.cycles.name
+        val parents = listOf(Page.tableOfContents)
         val htmlInsideBody = generateHtml(validated.analysis.global)
-        val html = ReportHelper.wrapInTopLevelHtml(name, htmlInsideBody, parents)
-        val path = Pages.cycles.reportFilePath(reportDir)
+        val html = ReportHelper.wrapInTopLevelHtml(Page.cycles.caption, htmlInsideBody, parents)
+        val path = reportDir.resolve(Page.cycles.file)
         val lines = html.toLines()
         val topCommand = CreateFileCommand(path, lines)
         val graphCommands = commandsForAllCycleGraphs(reportDir, validated.analysis.global, parents)
@@ -24,7 +23,7 @@ class CycleReport : Report {
         analysis: ScopedAnalysis,
         parents: List<Page>
     ): List<Command> {
-        val parentsForCycle = parents + listOf(Pages.cycles)
+        val parentsForCycle = parents + listOf(Page.cycles)
         return analysis.cycleDetails.flatMapIndexed { index, cycleDetail ->
             commandsForCycleGraph(reportDir, index, cycleDetail, parentsForCycle)
         }
