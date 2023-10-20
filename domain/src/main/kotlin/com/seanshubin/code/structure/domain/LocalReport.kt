@@ -39,8 +39,8 @@ class LocalReport(private val localDepth: Int) : Report {
 
     private fun appendSourceLink(currentParents:List<Page>, name:String, analysis: Analysis):List<Page>{
         val sourceLink = analysis.uriByName.getValue(name)
-//        println(sourceLink)
-        return currentParents
+        val page = Page.createCaptionLink("Source", sourceLink)
+        return currentParents + page
     }
 
     private tailrec fun expand(names: Set<String>, analysis: ScopedAnalysis, times: Int): Set<String> {
