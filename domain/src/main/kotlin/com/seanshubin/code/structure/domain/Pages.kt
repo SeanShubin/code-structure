@@ -7,6 +7,7 @@ object Pages {
     val entryPoints = Page("Entry Points", "entry-points")
     val graph = Page("Graph", "graph")
     val cycles = Page("Cycles", "cycles")
+    val lineage = Page("Lineage", "lineage")
     val local = Page("Local", "local")
     val timing = Page("Timing", "timing")
     val groups = Page("Groups", "group")

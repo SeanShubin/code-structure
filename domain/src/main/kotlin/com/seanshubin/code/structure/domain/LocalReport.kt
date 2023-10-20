@@ -11,7 +11,7 @@ class LocalReport(private val localDepth: Int) : Report {
         val parents = listOf(Pages.tableOfContents)
         val path = reportDir.resolve(Pages.local.fileName)
         val analysis = validated.analysis
-        val content = bigList(analysis.global.names, ::localLink, "local")
+        val content = bigList(analysis.global.names, ::localLink, "big-list","local")
         val graphs = generateGraphs(reportDir, analysis.global, parents)
         val lines = ReportHelper.wrapInTopLevelHtml(Pages.local.name, content, parents).toLines()
         val index = CreateFileCommand(path, lines)
@@ -71,6 +71,6 @@ class LocalReport(private val localDepth: Int) : Report {
         )
     }
 
-    private fun localLink(name: String): HtmlElement =
-        anchor(name, "local-$name.html")
+    private fun localLink(name: String): List<HtmlElement> =
+        listOf(anchor(name, "local-$name.html"))
 }

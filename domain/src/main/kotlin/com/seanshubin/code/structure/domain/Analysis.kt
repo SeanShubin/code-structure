@@ -4,8 +4,7 @@ import com.seanshubin.code.structure.collection.ListUtil.startsWith
 
 data class Analysis(
     val global: ScopedAnalysis,
-    val ancestorToDescendant: List<Pair<String, String>>,
-    val descendantToAncestor: List<Pair<String, String>>,
+    val lineage: Lineage,
     val byGroup: Map<List<String>, ScopedAnalysis>
 ){
     fun descendantCount(group:List<String>):Int {

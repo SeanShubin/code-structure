@@ -12,13 +12,14 @@ class TableOfContentsReport : Report {
             Pages.groups,
             Pages.entryPoints,
             Pages.cycles,
+            Pages.lineage,
             Pages.local,
             Pages.sources,
             Pages.binaries,
             Pages.graph,
             Pages.timing
         )
-        val listElements = bigList(children, ::generateAnchor, caption = null)
+        val listElements = bigList(children, ::generateAnchor, "big-list",caption = null)
         val name = "Table Of Contents"
         val html = ReportHelper.wrapInTopLevelHtml(name, listElements, parents)
         val fileName = "index.html"
@@ -27,6 +28,6 @@ class TableOfContentsReport : Report {
         return listOf(CreateFileCommand(path, lines))
     }
 
-    private fun generateAnchor(page: Page): HtmlElement =
-        anchor(page.name, page.fileName)
+    private fun generateAnchor(page: Page): List<HtmlElement> =
+        listOf(anchor(page.name, page.fileName))
 }

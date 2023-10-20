@@ -66,9 +66,22 @@ table {
 
 .big-list {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: auto;
     grid-row-gap: 0.5rem;
+    grid-column-gap: 0.5rem;
+    justify-content: start;
+}
+
+.two-column {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-row-gap: 0.5rem;
+    grid-column-gap: 0.5rem;
+    justify-content: start;
 }
 
 .big-list > * {
+}
+
+.two-column > * {
 }

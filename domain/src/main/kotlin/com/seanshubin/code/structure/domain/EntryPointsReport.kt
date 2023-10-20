@@ -17,10 +17,10 @@ class EntryPointsReport : Report {
 
     private fun createContent(analysis: ScopedAnalysis): List<HtmlElement> {
         val entryPoints = analysis.entryPoints
-        val listElements = HtmlElementUtil.bigList(entryPoints, ::nameToElement, "entry point")
+        val listElements = HtmlElementUtil.bigList(entryPoints, ::nameToElement,"big-list", "entry point")
         return listElements
     }
 
-    private fun nameToElement(name: String): HtmlElement =
-        HtmlElementUtil.anchor(name, "local-$name.html")
+    private fun nameToElement(name: String): List<HtmlElement> =
+        listOf(HtmlElementUtil.anchor(name, "local-$name.html"))
 }

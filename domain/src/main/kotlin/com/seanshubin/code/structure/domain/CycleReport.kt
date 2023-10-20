@@ -86,12 +86,12 @@ class CycleReport : Report {
         val summary = HtmlElement.Tag("h2", listOf(summaryAnchor), listOf("id" to id))
         val partCountText = HtmlElement.Text("part count: ${cycleList.size}")
         val partCountParagraph = HtmlElement.Tag("p", listOf(partCountText))
-        val listElements = bigList(cycleList, ::cycleElement, "cycle")
+        val listElements = bigList(cycleList, ::cycleElement, "big-list", "cycle")
         return listOf(summary, partCountParagraph) + listElements
     }
 
-    private fun cycleElement(name: String): HtmlElement {
+    private fun cycleElement(name: String): List<HtmlElement> {
         val link = LinkCreator.local(name)
-        return anchor(name, link)
+        return listOf(anchor(name, link))
     }
 }

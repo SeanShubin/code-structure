@@ -2,7 +2,10 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.binaryparser.BinaryDetail
 import com.seanshubin.code.structure.collection.ListUtil
+import com.seanshubin.code.structure.collection.ListUtil.startsWith
 import com.seanshubin.code.structure.cycle.CycleUtil
+import com.seanshubin.code.structure.domain.Name.isAncestorOf
+import com.seanshubin.code.structure.domain.Name.toGroupPath
 import com.seanshubin.code.structure.domain.ScopedAnalysis.Companion.referenceComparator
 
 class AnalyzerImpl : Analyzer {
@@ -16,15 +19,16 @@ class AnalyzerImpl : Analyzer {
                 binary.toName(commonPrefix) to it.toName(commonPrefix)
             }
         }.sortedWith(referenceComparator).distinct()
-        val byGroup = composeGroups(emptyList(), NamesReferences(names, references))
         val global = analyze(names, references)
         val ancestorToDescendant = references.filter {
-            it.second.startsWith(it.first)
+            it.first.isAncestorOf(it.second)
         }
         val descendantToAncestor = references.filter {
-            it.first.startsWith(it.second)
+            it.second.isAncestorOf(it.first)
         }
-        return Analysis(global, ancestorToDescendant, descendantToAncestor, byGroup.toMap())
+        val lineage = Lineage(ancestorToDescendant, descendantToAncestor)
+        val byGroup = composeGroups(emptyList(), NamesReferences(names, references))
+        return Analysis(global, lineage, byGroup.toMap())
     }
 
     companion object {
