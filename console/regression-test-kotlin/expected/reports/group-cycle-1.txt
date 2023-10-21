@@ -1,0 +1,9 @@
+digraph detangled {
+  bgcolor=lightgray
+  "packagei" [label="packagei"]
+  "packagep" [label="packagep"]
+  "packager" [label="packager"]
+  "packagei" -> "packagep"
+  "packagep" -> "packager"
+  "packager" -> "packagei"
+}

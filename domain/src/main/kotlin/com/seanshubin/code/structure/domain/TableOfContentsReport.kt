@@ -11,7 +11,8 @@ class TableOfContentsReport : Report {
         val children = listOf(
             Page.groups,
             Page.entryPoints,
-            Page.cycles,
+            Page.directCycles,
+            Page.groupCycles,
             Page.lineage,
             Page.local,
             Page.sources,

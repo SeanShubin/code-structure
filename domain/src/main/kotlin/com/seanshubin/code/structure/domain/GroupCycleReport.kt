@@ -1,0 +1,115 @@
+package com.seanshubin.code.structure.domain
+
+import com.seanshubin.code.structure.dot.DotNode
+import com.seanshubin.code.structure.html.HtmlElement
+import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
+import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
+import java.nio.file.Path
+
+class GroupCycleReport : Report {
+    override fun generate(reportDir: Path, validated: Validated): List<Command> {
+        val parents = listOf(Page.tableOfContents)
+        val groupCycleList = groupCycleList(validated.analysis.byGroup)
+        val htmlInsideBody = generateHtml(groupCycleList)
+        val html = ReportHelper.wrapInTopLevelHtml(Page.groupCycles.caption, htmlInsideBody, parents)
+        val path = reportDir.resolve(Page.groupCycles.file)
+        val lines = html.toLines()
+        val topCommand = CreateFileCommand(path, lines)
+        val graphCommands = commandsForAllCycleGraphs(reportDir, groupCycleList, parents)
+        return listOf(topCommand) + graphCommands
+    }
+
+    private fun groupCycleList(analysisByGroup: Map<List<String>, ScopedAnalysis>): List<GroupCycle> {
+        return analysisByGroup.keys.flatMap { group ->
+            val cycleDetails = analysisByGroup.getValue(group).cycleDetails
+            cycleDetails.map {
+                GroupCycle(group, it.names, it.references)
+            }
+        }
+    }
+
+    private fun commandsForAllCycleGraphs(
+        reportDir: Path,
+        groupCycleList: List<GroupCycle>,
+        parents: List<Page>
+    ): List<Command> {
+        val parentsForCycle = parents + listOf(Page.groupCycles)
+        return groupCycleList.flatMapIndexed { index, groupCycle ->
+            commandsForCycleGraph(reportDir, index, groupCycle, parentsForCycle)
+        }
+    }
+
+    private fun commandsForCycleGraph(
+        reportDir: Path,
+        index: Int,
+        groupCycle: GroupCycle,
+        parents: List<Page>
+    ): List<Command> {
+        val nodes = groupCycle.names.map { toDotNode(it, LinkCreator.none) }
+        return ReportHelper.graphCommands(
+            reportDir,
+            cycleName(index),
+            nodes,
+            groupCycle.references,
+            emptyList(),
+            parents
+        )
+    }
+
+    private fun cycleName(index: Int): String {
+        val parts = listOf("group", "cycle") + listOf(index.toString())
+        return parts.joinToString("-")
+    }
+
+    private fun toDotNode(name: String, createLink: (String) -> String?): DotNode =
+        DotNode(
+            id = name,
+            text = name,
+            link = createLink(name),
+            color = "blue",
+            bold = false
+        )
+
+    private fun generateHtml(groupCycles: List<GroupCycle>): List<HtmlElement> {
+        return summaryElement(groupCycles) + cyclesElement(groupCycles)
+    }
+
+    private fun summaryElement(groupCycles: List<GroupCycle>): List<HtmlElement> {
+        val countParagraph = HtmlElement.Tag("p", HtmlElement.Text("cycle count: ${groupCycles.size}"))
+        val fragmentAnchors = composeFragmentAnchors(groupCycles)
+        return listOf(countParagraph) + fragmentAnchors
+    }
+
+    private fun composeFragmentAnchors(groupCycles: List<GroupCycle>): List<HtmlElement> =
+        groupCycles.indices.map(::composeFragmentAnchor)
+
+    private fun composeFragmentAnchor(index: Int): HtmlElement {
+        val title = cycleName(index)
+        val link = "#$title"
+        return anchor(title, link)
+    }
+
+    private fun cyclesElement(groupCycles: List<GroupCycle>): List<HtmlElement> {
+        return groupCycles.flatMapIndexed(::cycleListElement)
+    }
+
+    private fun cycleListElement(listIndex: Int, groupCycle: GroupCycle): List<HtmlElement> {
+        val id = cycleName(listIndex)
+        val summaryAnchor = anchor(id, "$id.html")
+        val summary = HtmlElement.Tag("h2", listOf(summaryAnchor), listOf("id" to id))
+        val listElements = bigList(groupCycle.names, ::cycleElement, "big-list", "part")
+        return listOf(summary) + listElements
+    }
+
+    private fun cycleElement(name: String): List<HtmlElement> {
+        val text = HtmlElement.Text(name)
+        val span = HtmlElement.Tag("span", listOf(text))
+        return listOf(span)
+    }
+
+    private data class GroupCycle(
+        val group: List<String>,
+        val names: List<String>,
+        val references: List<Pair<String, String>>
+    )
+}

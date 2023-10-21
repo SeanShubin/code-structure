@@ -1,0 +1,9 @@
+digraph detangled {
+  bgcolor=lightgray
+  "PathI" [label="PathI"]
+  "PathP" [label="PathP"]
+  "PathR" [label="PathR"]
+  "PathI" -> "PathP"
+  "PathP" -> "PathR"
+  "PathR" -> "PathI"
+}

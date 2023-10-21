@@ -110,7 +110,8 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
     private val tableOfContentsReport: Report = TableOfContentsReport()
     private val binariesReport: Report = BinariesReport()
     private val graphReport: Report = GraphReport(nodeLimitMainGraph)
-    private val cycleReport: Report = CycleReport()
+    private val directCycleReport: Report = DirectCycleReport()
+    private val groupCycleReport:Report = GroupCycleReport()
     private val lineageReport:Report = LineageReport()
     private val localReport: Report = LocalReport(localDepth)
     private val emitLine: (String) -> Unit = integrations.emitLine
@@ -126,7 +127,8 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
         sourcesReport,
         binariesReport,
         entryPointsReport,
-        cycleReport,
+        directCycleReport,
+        groupCycleReport,
         lineageReport,
         groupReport,
         localReport,

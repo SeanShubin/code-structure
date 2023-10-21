@@ -6,12 +6,12 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
-class CycleReport : Report {
+class DirectCycleReport : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
         val htmlInsideBody = generateHtml(validated.analysis.global)
-        val html = ReportHelper.wrapInTopLevelHtml(Page.cycles.caption, htmlInsideBody, parents)
-        val path = reportDir.resolve(Page.cycles.file)
+        val html = ReportHelper.wrapInTopLevelHtml(Page.directCycles.caption, htmlInsideBody, parents)
+        val path = reportDir.resolve(Page.directCycles.file)
         val lines = html.toLines()
         val topCommand = CreateFileCommand(path, lines)
         val graphCommands = commandsForAllCycleGraphs(reportDir, validated.analysis.global, parents)
@@ -23,7 +23,7 @@ class CycleReport : Report {
         analysis: ScopedAnalysis,
         parents: List<Page>
     ): List<Command> {
-        val parentsForCycle = parents + listOf(Page.cycles)
+        val parentsForCycle = parents + listOf(Page.directCycles)
         return analysis.cycleDetails.flatMapIndexed { index, cycleDetail ->
             commandsForCycleGraph(reportDir, index, cycleDetail, parentsForCycle)
         }
@@ -38,7 +38,7 @@ class CycleReport : Report {
         val nodes = detail.names.map { toDotNode(it, LinkCreator.local) }
         return ReportHelper.graphCommands(
             reportDir,
-            "cycle-$index",
+            cycleName(index),
             nodes,
             detail.references,
             emptyList(),
@@ -46,7 +46,12 @@ class CycleReport : Report {
         )
     }
 
-    private fun toDotNode(name: String, createLink: (String) -> String): DotNode =
+    private fun cycleName(index: Int): String {
+        val parts = listOf("direct", "cycle") + listOf(index.toString())
+        return parts.joinToString("-")
+    }
+
+    private fun toDotNode(name: String, createLink: (String) -> String?): DotNode =
         DotNode(
             id = name,
             text = name,
@@ -66,10 +71,10 @@ class CycleReport : Report {
     }
 
     private fun composeFragmentAnchors(analysis: ScopedAnalysis):List<HtmlElement> =
-        analysis.cycles.mapIndexed(::composeFragmentAnchor)
+        analysis.cycles.indices.map(::composeFragmentAnchor)
 
-    private fun composeFragmentAnchor(index:Int, cycle:List<String>):HtmlElement{
-        val title = "cycle-$index"
+    private fun composeFragmentAnchor(index:Int):HtmlElement{
+        val title = cycleName(index)
         val link = "#$title"
         return anchor(title, link)
     }
@@ -79,13 +84,11 @@ class CycleReport : Report {
     }
 
     private fun cycleListElement(listIndex: Int, cycleList: List<String>): List<HtmlElement> {
-        val id = "cycle-$listIndex"
+        val id = cycleName(listIndex)
         val summaryAnchor = anchor(id, "$id.html")
         val summary = HtmlElement.Tag("h2", listOf(summaryAnchor), listOf("id" to id))
-        val partCountText = HtmlElement.Text("part count: ${cycleList.size}")
-        val partCountParagraph = HtmlElement.Tag("p", listOf(partCountText))
-        val listElements = bigList(cycleList, ::cycleElement, "big-list", "cycle")
-        return listOf(summary, partCountParagraph) + listElements
+        val listElements = bigList(cycleList, ::cycleElement, "big-list", "part")
+        return listOf(summary) + listElements
     }
 
     private fun cycleElement(name: String): List<HtmlElement> {
