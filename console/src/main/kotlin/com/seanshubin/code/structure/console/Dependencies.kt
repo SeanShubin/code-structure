@@ -37,7 +37,7 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
         args[0]
     }
     private val configFile = Paths.get("$configBaseName-config.json")
-    private val configuredErrorsFile = Paths.get("$configBaseName-existing-errors.txt")
+    private val configuredErrorsFile = Paths.get("$configBaseName-existing-errors.json")
     private val files: FilesContract = FilesDelegate
     private val config: Configuration = JsonFileConfiguration(files, configFile)
     private val clock: Clock = integrations.clock
