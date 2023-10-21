@@ -112,7 +112,8 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
     private val graphReport: Report = GraphReport(nodeLimitMainGraph)
     private val directCycleReport: Report = DirectCycleReport()
     private val groupCycleReport:Report = GroupCycleReport()
-    private val lineageReport:Report = LineageReport()
+    private val lineageReportAncestorDescendant:Report = LineageReport(Page.lineageAncestorDescendant) { it.ancestorToDescendant }
+    private val lineageReportDescendantAncestor:Report = LineageReport(Page.lineageDescendantAncestor) { it.descendantToAncestor }
     private val localReport: Report = LocalReport(localDepth)
     private val emitLine: (String) -> Unit = integrations.emitLine
     private val notifications: Notifications = NotificationsImpl(emitLine)
@@ -129,7 +130,8 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
         entryPointsReport,
         directCycleReport,
         groupCycleReport,
-        lineageReport,
+        lineageReportAncestorDescendant,
+        lineageReportDescendantAncestor,
         groupReport,
         localReport,
         graphReport
