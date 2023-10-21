@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.domain
 
 data class Lineage(
-    val ancestorToDescendant: List<Pair<String, String>>,
-    val descendantToAncestor: List<Pair<String, String>>
+    val ancestorDependsOnDescendant: List<Pair<String, String>>,
+    val descendantDependsOnAncestor: List<Pair<String, String>>
 )

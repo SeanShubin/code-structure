@@ -37,7 +37,7 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
         args[0]
     }
     private val configFile = Paths.get("$configBaseName-config.json")
-    private val existingCycleFile = Paths.get("$configBaseName-already-in-cycle.txt")
+    private val configuredErrorsFile = Paths.get("$configBaseName-existing-errors.txt")
     private val files: FilesContract = FilesDelegate
     private val config: Configuration = JsonFileConfiguration(files, configFile)
     private val clock: Clock = integrations.clock
@@ -94,7 +94,7 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
     private val binaryParser: BinaryParser = binaryParserRepository.lookupByBytecodeFormat(bytecodeFormat)
     private val observer: Observer = ObserverImpl(
         inputDir,
-        existingCycleFile,
+        configuredErrorsFile,
         sourcePrefix,
         isSourceFile,
         isBinaryFile,
@@ -112,8 +112,8 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
     private val graphReport: Report = GraphReport(nodeLimitMainGraph)
     private val directCycleReport: Report = DirectCycleReport()
     private val groupCycleReport:Report = GroupCycleReport()
-    private val lineageReportAncestorDescendant:Report = LineageReport(Page.lineageAncestorDescendant) { it.ancestorToDescendant }
-    private val lineageReportDescendantAncestor:Report = LineageReport(Page.lineageDescendantAncestor) { it.descendantToAncestor }
+    private val lineageReportAncestorDescendant:Report = LineageReport(Page.lineageAncestorDescendant) { it.ancestorDependsOnDescendant }
+    private val lineageReportDescendantAncestor:Report = LineageReport(Page.lineageDescendantAncestor) { it.descendantDependsOnAncestor }
     private val localReport: Report = LocalReport(localDepth)
     private val emitLine: (String) -> Unit = integrations.emitLine
     private val notifications: Notifications = NotificationsImpl(emitLine)
@@ -144,8 +144,9 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
     private val environment: Environment = EnvironmentImpl(files, outputDir, exec)
     private val commandRunner: CommandRunner = CommandRunnerImpl(timer, environment)
     private val configFileEvent: (Path) -> Unit = notifications::configFileEvent
-    private val errorEvent: (Errors) -> Unit = notifications::errorEvent
+    private val errorReportEvent: (List<String>) -> Unit = notifications::errorReportEvent
     private val fullAppTimeTakenEvent: (Duration) -> Unit = notifications::fullAppTimeTakenEvent
+    private val errorHandler:ErrorHandler = ErrorHandlerImpl(files, configuredErrorsFile, errorReportEvent)
     val exitCodeHolder:ExitCodeHolder = ExitCodeHolderImpl()
     val runner: Runnable = Runner(
         clock,
@@ -157,8 +158,8 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
         fullAppTimeTakenEvent,
         configFile,
         configFileEvent,
-        errorEvent,
         timer,
-        exitCodeHolder
+        exitCodeHolder,
+        errorHandler
     )
 }

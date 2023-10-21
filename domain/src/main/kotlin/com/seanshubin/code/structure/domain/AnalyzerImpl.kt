@@ -2,10 +2,9 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.binaryparser.BinaryDetail
 import com.seanshubin.code.structure.collection.ListUtil
-import com.seanshubin.code.structure.collection.ListUtil.startsWith
 import com.seanshubin.code.structure.cycle.CycleUtil
+import com.seanshubin.code.structure.domain.Name.groupToName
 import com.seanshubin.code.structure.domain.Name.isAncestorOf
-import com.seanshubin.code.structure.domain.Name.toGroupPath
 import com.seanshubin.code.structure.domain.ScopedAnalysis.Companion.referenceComparator
 
 class AnalyzerImpl : Analyzer {
@@ -28,8 +27,9 @@ class AnalyzerImpl : Analyzer {
         }
         val uriByName = composeUriByName(observations, commonPrefix)
         val lineage = Lineage(ancestorToDescendant, descendantToAncestor)
-        val byGroup = composeGroups(emptyList(), NamesReferences(names, references))
-        return Analysis(global, uriByName, lineage, byGroup.toMap())
+        val byGroup = composeGroups(emptyList(), NamesReferences(names, references)).toMap()
+        val errors = composeErrors(global, byGroup, lineage)
+        return Analysis(global, uriByName, lineage, byGroup, errors)
     }
 
     companion object {
@@ -37,7 +37,19 @@ class AnalyzerImpl : Analyzer {
         private val firstInListComparator = Comparator<List<String>> { o1, o2 -> o1[0].compareTo(o2[0]) }
         private val sizeThenFirstComparator = listSizeComparator.reversed().then(firstInListComparator)
 
-        private fun composeUriByName(observations: Observations, commonPrefix:List<String>):Map<String, String>{
+        private fun composeErrors(global: ScopedAnalysis,
+                                  byGroup:Map<List<String>, ScopedAnalysis>,
+                                  lineage: Lineage): Errors {
+            val directCycles = global.cycles.flatten().distinct().sorted()
+            val groupCycles = byGroup.flatMap { (group, scopedAnalysis) ->
+                scopedAnalysis.cycles.flatten().map { group.groupToName(it) }
+            }.distinct().sorted()
+            val ancestorDependsOnDescendant = lineage.ancestorDependsOnDescendant
+            val descendantDependsOnAncestor = lineage.descendantDependsOnAncestor
+            return Errors(directCycles, groupCycles, ancestorDependsOnDescendant, descendantDependsOnAncestor)
+        }
+
+        private fun composeUriByName(observations: Observations, commonPrefix: List<String>): Map<String, String> {
             return observations.sources.flatMap { sourceDetail ->
                 sourceDetail.modules.map { rawName ->
                     val name = rawName.toName(commonPrefix)
@@ -178,10 +190,10 @@ class AnalyzerImpl : Analyzer {
         }
 
         private fun composeGroups(
-            path:List<String>,
-            namesReferences:NamesReferences
+            path: List<String>,
+            namesReferences: NamesReferences
         ): List<Pair<List<String>, ScopedAnalysis>> {
-            if(namesReferences.names.isEmpty()) return emptyList()
+            if (namesReferences.names.isEmpty()) return emptyList()
             val top = namesReferences.head()
             val topAnalysis = analyze(top.names, top.references)
             val topEntry = path to topAnalysis

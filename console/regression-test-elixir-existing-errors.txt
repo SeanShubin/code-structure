@@ -1,0 +1,35 @@
+{
+  "directCycles" : [
+    "PathC.ModuleD",
+    "PathE.PathF.ModuleL",
+    "PathE.PathF.ModuleM",
+    "PathE.PathF.ModuleN",
+    "PathG.ModuleH",
+    "PathI.ModuleJ",
+    "PathP.ModuleQ",
+    "PathR.ModuleS"
+  ],
+  "groupCycles" : [
+    "PathC",
+    "PathE",
+    "PathE.PathF.ModuleL",
+    "PathE.PathF.ModuleM",
+    "PathE.PathF.ModuleN",
+    "PathG",
+    "PathI",
+    "PathP",
+    "PathR"
+  ],
+  "ancestorDependsOnDescendant" : [
+    [
+      "ModuleP",
+      "PathP.ModuleQ"
+    ]
+  ],
+  "descendantDependsOnAncestor" : [
+    [
+      "PathE.PathF.ModuleM",
+      "ModuleE"
+    ]
+  ]
+}
