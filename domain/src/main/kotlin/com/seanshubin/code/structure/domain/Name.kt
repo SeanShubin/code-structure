@@ -13,5 +13,4 @@ object Name {
         val thisParent = thisPath.take(thisPath.size-1)
         return thatPath.startsWith(thisParent)
     }
-
 }
