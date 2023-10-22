@@ -97,8 +97,16 @@ class GroupCycleReport : Report {
         val id = cycleName(listIndex)
         val summaryAnchor = anchor(id, "$id.html")
         val summary = HtmlElement.Tag("h2", listOf(summaryAnchor), listOf("id" to id))
+        val groupAnchor = composeGroupAnchor(groupCycle.group)
+        val groupElement = HtmlElement.Tag("p", listOf(groupAnchor))
         val listElements = bigList(groupCycle.names, ::cycleElement, "big-list", "part")
-        return listOf(summary) + listElements
+        return listOf(summary) + listOf(groupElement) + listElements
+    }
+
+    private fun composeGroupAnchor(group: List<String>):HtmlElement {
+        val title = "group: " + group.joinToString(", ", "[", "]")
+        val link = (listOf("group") + group).joinToString("-") + ".html"
+        return anchor(title, link)
     }
 
     private fun cycleElement(name: String): List<HtmlElement> {
