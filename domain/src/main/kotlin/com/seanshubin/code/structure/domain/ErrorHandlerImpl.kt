@@ -3,7 +3,7 @@ package com.seanshubin.code.structure.domain
 import com.seanshubin.code.structure.collection.ComparatorUtil.pairComparator
 import com.seanshubin.code.structure.collection.ComparatorUtil.stringComparator
 import com.seanshubin.code.structure.collection.SetUtil
-import com.seanshubin.code.structure.contract.FilesContract
+import com.seanshubin.code.structure.contract.delegate.FilesContract
 import com.seanshubin.code.structure.domain.ErrorsDto.Companion.toDto
 import com.seanshubin.code.structure.json.JsonMappers
 import java.nio.file.Path

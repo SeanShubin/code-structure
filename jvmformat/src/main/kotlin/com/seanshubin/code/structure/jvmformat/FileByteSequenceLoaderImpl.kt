@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.jvmformat
 
-import com.seanshubin.code.structure.contract.FilesContract
+import com.seanshubin.code.structure.contract.delegate.FilesContract
 import java.nio.file.Path
 
 class FileByteSequenceLoaderImpl(private val files: FilesContract) : FileByteSequenceLoader {

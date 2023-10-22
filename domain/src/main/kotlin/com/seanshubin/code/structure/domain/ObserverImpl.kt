@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.binaryparser.BinaryParser
-import com.seanshubin.code.structure.contract.FilesContract
+import com.seanshubin.code.structure.contract.delegate.FilesContract
 import com.seanshubin.code.structure.domain.ErrorsDto.Companion.jsonToErrors
 import com.seanshubin.code.structure.filefinder.FileFinder
 import com.seanshubin.code.structure.sourceparser.SourceParser

@@ -12,7 +12,7 @@
         </dependency>
         <dependency>
             <groupId>com.seanshubin.code.structure</groupId>
-            <artifactId>code-structure-contract</artifactId>
+            <artifactId>code-structure-contract-delegate</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

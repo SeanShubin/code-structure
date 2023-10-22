@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.contract.test
 
-import com.seanshubin.code.structure.contract.FilesContract
+import com.seanshubin.code.structure.contract.delegate.FilesContract
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStream

@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.filefinder
 
-import com.seanshubin.code.structure.contract.FilesContract
+import com.seanshubin.code.structure.contract.delegate.FilesContract
 import java.nio.file.Path
 import java.nio.file.attribute.BasicFileAttributes
 

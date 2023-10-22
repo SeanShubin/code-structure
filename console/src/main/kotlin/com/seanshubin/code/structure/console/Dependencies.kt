@@ -10,8 +10,8 @@ import com.seanshubin.code.structure.config.TypeUtil.coerceToInt
 import com.seanshubin.code.structure.config.TypeUtil.coerceToListOfString
 import com.seanshubin.code.structure.config.TypeUtil.coerceToPath
 import com.seanshubin.code.structure.config.TypeUtil.coerceToString
-import com.seanshubin.code.structure.contract.FilesContract
-import com.seanshubin.code.structure.contract.FilesDelegate
+import com.seanshubin.code.structure.contract.delegate.FilesContract
+import com.seanshubin.code.structure.contract.delegate.FilesDelegate
 import com.seanshubin.code.structure.domain.*
 import com.seanshubin.code.structure.elixirsyntax.ElixirParser
 import com.seanshubin.code.structure.elixirsyntax.ElixirParserImpl

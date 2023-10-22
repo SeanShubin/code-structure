@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.config
 
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.seanshubin.code.structure.contract.FilesContract
+import com.seanshubin.code.structure.contract.delegate.FilesContract
 import com.seanshubin.code.structure.json.JsonMappers
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path

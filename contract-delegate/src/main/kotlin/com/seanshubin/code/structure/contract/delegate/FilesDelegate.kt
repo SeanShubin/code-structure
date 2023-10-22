@@ -1,4 +1,4 @@
-package com.seanshubin.code.structure.contract
+package com.seanshubin.code.structure.contract.delegate
 
 import java.io.BufferedReader
 import java.io.BufferedWriter
