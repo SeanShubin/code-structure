@@ -22,4 +22,11 @@ class NotificationsImpl(private val emitLine: (String) -> Unit) : Notifications 
     override fun errorReportEvent(lines: List<String>) {
         lines.forEach(emitLine)
     }
+
+    override fun summaryEvent(summary: Summary) {
+        emitLine("direct cycles: ${summary.directCycleCount}")
+        emitLine("group cycles: ${summary.groupCycleCount}")
+        emitLine("ancestor depends on descendant: ${summary.ancestorDependsOnDescendantCount}")
+        emitLine("descendant depends on ancestor: ${summary.descendantDependsOnAncestorCount}")
+    }
 }

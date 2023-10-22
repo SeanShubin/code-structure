@@ -149,6 +149,7 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
     private val errorReportEvent: (List<String>) -> Unit = notifications::errorReportEvent
     private val fullAppTimeTakenEvent: (Duration) -> Unit = notifications::fullAppTimeTakenEvent
     private val errorHandler: ErrorHandler = ErrorHandlerImpl(files, configuredErrorsFile, errorReportEvent)
+    private val summaryEvent: (Summary) -> Unit = notifications::summaryEvent
     val exitCodeHolder: ExitCodeHolder = ExitCodeHolderImpl()
     val runner: Runnable = Runner(
         clock,
@@ -160,6 +161,7 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
         fullAppTimeTakenEvent,
         configFile,
         configFileEvent,
+        summaryEvent,
         timer,
         exitCodeHolder,
         errorHandler

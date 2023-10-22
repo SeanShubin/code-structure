@@ -29,13 +29,32 @@ class AnalyzerImpl : Analyzer {
         val lineage = Lineage(ancestorToDescendant, descendantToAncestor)
         val byGroup = composeGroups(emptyList(), NamesReferences(names, references)).toMap()
         val errors = composeErrors(global, byGroup, lineage)
-        return Analysis(global, uriByName, lineage, byGroup, errors)
+        val summary = composeSummary(global, byGroup, ancestorToDescendant, descendantToAncestor)
+        return Analysis(global, uriByName, lineage, byGroup, errors, summary)
     }
 
     companion object {
         private val listSizeComparator = Comparator<List<String>> { o1, o2 -> o1.size.compareTo(o2.size) }
         private val firstInListComparator = Comparator<List<String>> { o1, o2 -> o1[0].compareTo(o2[0]) }
         private val sizeThenFirstComparator = listSizeComparator.reversed().then(firstInListComparator)
+
+        private fun composeSummary(
+            global: ScopedAnalysis,
+            byGroup: Map<List<String>, ScopedAnalysis>,
+            ancestorToDescendant: List<Pair<String, String>>,
+            descendantToAncestor: List<Pair<String, String>>
+        ): Summary {
+            val directCycleCount = global.cycles.size
+            val groupCycleCount = byGroup.values.sumOf { it.cycles.size }
+            val ancestorDependsOnDescendantCount = ancestorToDescendant.size
+            val descendantDependsOnAncestorCount = descendantToAncestor.size
+            return Summary(
+                directCycleCount,
+                groupCycleCount,
+                ancestorDependsOnDescendantCount,
+                descendantDependsOnAncestorCount
+            )
+        }
 
         private fun composeErrors(
             global: ScopedAnalysis,

@@ -7,7 +7,8 @@ data class Analysis(
     val uriByName: Map<String, String>,
     val lineage: Lineage,
     val byGroup: Map<List<String>, ScopedAnalysis>,
-    val errors: Errors
+    val errors: Errors,
+    val summary: Summary
 ) {
     fun descendantCount(group: List<String>): Int {
         val keys = byGroup.keys.filter { it.startsWith(group) }

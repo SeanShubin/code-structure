@@ -103,7 +103,7 @@ class GroupCycleReport : Report {
         return listOf(summary) + listOf(groupElement) + listElements
     }
 
-    private fun composeGroupAnchor(group: List<String>):HtmlElement {
+    private fun composeGroupAnchor(group: List<String>): HtmlElement {
         val title = "group: " + group.joinToString(", ", "[", "]")
         val link = (listOf("group") + group).joinToString("-") + ".html"
         return anchor(title, link)
