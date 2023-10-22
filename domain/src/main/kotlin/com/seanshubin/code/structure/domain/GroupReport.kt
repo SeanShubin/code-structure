@@ -62,7 +62,7 @@ class GroupReport : Report {
         val descendantCount = analysis.descendantCount(groupPath)
         val hasChildren = analysis.byGroup.containsKey(groupPath)
         val link = if (hasChildren) createLink(name) else null
-        val text = if(descendantCount == 0) name else "$name ($descendantCount)"
+        val text = if (descendantCount == 0) name else "$name ($descendantCount)"
         return DotNode(
             id = name,
             text = text,

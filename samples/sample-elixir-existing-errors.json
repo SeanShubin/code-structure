@@ -1,5 +1,5 @@
 {
-  "directCycles" : [
+  "directCycles": [
     "PathC.ModuleD",
     "PathE.PathF.ModuleL",
     "PathE.PathF.ModuleM",
@@ -9,7 +9,7 @@
     "PathP.ModuleQ",
     "PathR.ModuleS"
   ],
-  "groupCycles" : [
+  "groupCycles": [
     "PathC",
     "PathE",
     "PathE.PathF.ModuleL",
@@ -20,13 +20,13 @@
     "PathP",
     "PathR"
   ],
-  "ancestorDependsOnDescendant" : [
+  "ancestorDependsOnDescendant": [
     [
       "ModuleP",
       "PathP.ModuleQ"
     ]
   ],
-  "descendantDependsOnAncestor" : [
+  "descendantDependsOnAncestor": [
     [
       "PathE.PathF.ModuleM",
       "ModuleE"

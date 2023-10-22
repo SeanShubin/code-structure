@@ -30,7 +30,7 @@ import java.nio.file.Paths
 import java.time.Clock
 import java.time.Duration
 
-class Dependencies(integrations:Integrations, args: Array<String>) {
+class Dependencies(integrations: Integrations, args: Array<String>) {
     private val configBaseName = if (args.isEmpty() || args[0].isBlank()) {
         "code-structure"
     } else {
@@ -56,7 +56,7 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
         sourceFileIncludeRegexPatterns,
         sourceFileExcludeRegexPatterns
     )
-    private val nodeLimitMainGraph:Int = config.load(listOf("nodeLimitMainGraph"), 100).coerceToInt()
+    private val nodeLimitMainGraph: Int = config.load(listOf("nodeLimitMainGraph"), 100).coerceToInt()
     private val binaryFileIncludeRegexPatterns: List<String> =
         config.load(listOf("binaryFileRegexPatterns", "include"), emptyList<String>()).coerceToListOfString()
     private val binaryFileExcludeRegexPatterns: List<String> =
@@ -104,16 +104,18 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
         files
     )
     private val analyzer: Analyzer = AnalyzerImpl()
-    private val validator:Validator = ValidatorImpl()
+    private val validator: Validator = ValidatorImpl()
     private val staticContentReport: Report = StaticContentReport()
     private val sourcesReport: Report = SourcesReport()
     private val tableOfContentsReport: Report = TableOfContentsReport()
     private val binariesReport: Report = BinariesReport()
     private val graphReport: Report = GraphReport(nodeLimitMainGraph)
     private val directCycleReport: Report = DirectCycleReport()
-    private val groupCycleReport:Report = GroupCycleReport()
-    private val lineageReportAncestorDescendant:Report = LineageReport(Page.lineageAncestorDescendant) { it.ancestorDependsOnDescendant }
-    private val lineageReportDescendantAncestor:Report = LineageReport(Page.lineageDescendantAncestor) { it.descendantDependsOnAncestor }
+    private val groupCycleReport: Report = GroupCycleReport()
+    private val lineageReportAncestorDescendant: Report =
+        LineageReport(Page.lineageAncestorDescendant) { it.ancestorDependsOnDescendant }
+    private val lineageReportDescendantAncestor: Report =
+        LineageReport(Page.lineageDescendantAncestor) { it.descendantDependsOnAncestor }
     private val localReport: Report = LocalReport(localDepth)
     private val emitLine: (String) -> Unit = integrations.emitLine
     private val notifications: Notifications = NotificationsImpl(emitLine)
@@ -121,7 +123,7 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
     private val timer: Timer = EventTimer(timeTakenEvent, clock)
     private val timingReport: Report = TimingReport(timer)
     private val entryPointsReport: Report = EntryPointsReport()
-    private val groupReport:Report = GroupReport()
+    private val groupReport: Report = GroupReport()
     private val reports: List<Report> = listOf(
         staticContentReport,
         tableOfContentsReport,
@@ -146,8 +148,8 @@ class Dependencies(integrations:Integrations, args: Array<String>) {
     private val configFileEvent: (Path) -> Unit = notifications::configFileEvent
     private val errorReportEvent: (List<String>) -> Unit = notifications::errorReportEvent
     private val fullAppTimeTakenEvent: (Duration) -> Unit = notifications::fullAppTimeTakenEvent
-    private val errorHandler:ErrorHandler = ErrorHandlerImpl(files, configuredErrorsFile, errorReportEvent)
-    val exitCodeHolder:ExitCodeHolder = ExitCodeHolderImpl()
+    private val errorHandler: ErrorHandler = ErrorHandlerImpl(files, configuredErrorsFile, errorReportEvent)
+    val exitCodeHolder: ExitCodeHolder = ExitCodeHolderImpl()
     val runner: Runnable = Runner(
         clock,
         observer,

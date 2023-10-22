@@ -4,5 +4,5 @@ object LinkCreator {
     val local: (String) -> String = { name ->
         "local-$name.html"
     }
-    val none:(String)->String? = { null }
+    val none: (String) -> String? = { null }
 }

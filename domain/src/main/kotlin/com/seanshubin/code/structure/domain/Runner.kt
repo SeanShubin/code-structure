@@ -8,22 +8,22 @@ class Runner(
     private val clock: Clock,
     private val observer: Observer,
     private val analyzer: Analyzer,
-    private val validator:Validator,
+    private val validator: Validator,
     private val reportGenerator: ReportGenerator,
     private val commandRunner: CommandRunner,
     private val timeTakenEvent: (Duration) -> Unit,
     private val configFile: Path,
     private val configFileEvent: (Path) -> Unit,
     private val timer: Timer,
-    private val exitCodeHolder:ExitCodeHolder,
-    private val errorHandler:ErrorHandler
+    private val exitCodeHolder: ExitCodeHolder,
+    private val errorHandler: ErrorHandler
 ) : Runnable {
     override fun run() {
         configFileEvent(configFile)
         val startTime = clock.instant()
         val observations = timer.monitor("observations") { observer.makeObservations() }
         val analysis = timer.monitor("analysis") { analyzer.analyze(observations) }
-        val validated = timer.monitor("validation") { validator.validate(observations, analysis)}
+        val validated = timer.monitor("validation") { validator.validate(observations, analysis) }
         val commands = timer.monitor("reports") { reportGenerator.generateReports(validated) }
         timer.monitor("commands") { commands.forEach { commandRunner.execute(it) } }
         val finalCommands = reportGenerator.generateFinalReports(validated)

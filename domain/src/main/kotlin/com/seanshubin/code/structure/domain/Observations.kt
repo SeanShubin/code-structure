@@ -10,5 +10,5 @@ data class Observations(
     val sourceFiles: List<Path>,
     val sources: List<SourceDetail>,
     val binaries: List<BinaryDetail>,
-    val configuredErrors:Errors?
+    val configuredErrors: Errors?
 )

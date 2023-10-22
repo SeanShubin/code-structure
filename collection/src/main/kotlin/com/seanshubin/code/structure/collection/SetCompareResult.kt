@@ -5,5 +5,5 @@ data class SetCompareResult<T>(
     val extra: Set<T>,
     val same: Set<T>
 ) {
-    fun isSame():Boolean = missing.isEmpty() && extra.isEmpty()
+    fun isSame(): Boolean = missing.isEmpty() && extra.isEmpty()
 }

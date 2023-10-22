@@ -4,11 +4,11 @@ import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
 import java.nio.file.Path
 
-class GraphReport(private val nodeLimitMainGraph:Int) : Report {
+class GraphReport(private val nodeLimitMainGraph: Int) : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
         val analysis = validated.analysis
-        return if(analysis.global.names.size > nodeLimitMainGraph){
+        return if (analysis.global.names.size > nodeLimitMainGraph) {
             exceedsNodeLimit(reportDir, analysis.global)
         } else {
             val nodes = analysis.global.names.map { toDotNode(it, LinkCreator.local) }
@@ -23,10 +23,11 @@ class GraphReport(private val nodeLimitMainGraph:Int) : Report {
         }
     }
 
-    fun exceedsNodeLimit(reportDir: Path, analysis: ScopedAnalysis):List<Command> {
+    fun exceedsNodeLimit(reportDir: Path, analysis: ScopedAnalysis): List<Command> {
         val path = reportDir.resolve(Page.graph.file)
         val parents = listOf(Page.tableOfContents)
-        val paragraphText = HtmlElement.Text("Too many nodes for main graph, limit is $nodeLimitMainGraph, have ${analysis.names.size}")
+        val paragraphText =
+            HtmlElement.Text("Too many nodes for main graph, limit is $nodeLimitMainGraph, have ${analysis.names.size}")
         val content = listOf(HtmlElement.Tag("p", paragraphText))
         val lines = ReportHelper.wrapInTopLevelHtml(Page.graph.caption, content, parents).toLines()
         val createReportCommand = CreateFileCommand(path, lines)

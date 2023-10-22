@@ -13,7 +13,7 @@ data class DotFormat(
             }
         }
         val cycleReferences = cycleReferenceList.flatten()
-        val nonCycleReferences = references.filterNot{cycleReferences.contains(it)}
+        val nonCycleReferences = references.filterNot { cycleReferences.contains(it) }
         val referenceLines = nonCycleReferences.map(::toReferenceLine)
         val cycleLines = cycleReferenceList.flatMapIndexed(::toCycleContainerLines)
         val nameAndReferenceLines = nodeLines + referenceLines + cycleLines
@@ -22,7 +22,7 @@ data class DotFormat(
     }
 
     private fun toCycleContainerLines(index: Int, references: List<Pair<String, String>>): List<String> {
-        val referenceLines = references.map{(first, second) ->
+        val referenceLines = references.map { (first, second) ->
             "${first.quote()} -> ${second.quote()}"
         }
         val cycleLines = listOf("penwidth=2", "pencolor=Red") + referenceLines
@@ -38,8 +38,10 @@ data class DotFormat(
     }
 
     private fun toNodeLine(node: DotNode): String {
-        val colorAttribute: List<Pair<String, String>> = if(node.link == null) emptyList() else listOf("fontcolor" to node.color)
-        val urlAttribute: List<Pair<String, String>> = if(node.link == null) emptyList() else listOf("URL" to node.link)
+        val colorAttribute: List<Pair<String, String>> =
+            if (node.link == null) emptyList() else listOf("fontcolor" to node.color)
+        val urlAttribute: List<Pair<String, String>> =
+            if (node.link == null) emptyList() else listOf("URL" to node.link)
         val labelAttribute: List<Pair<String, String>> = listOf("label" to node.text)
         val boldAttribute: List<Pair<String, String>> = if (node.bold) {
             listOf("style" to "bold")

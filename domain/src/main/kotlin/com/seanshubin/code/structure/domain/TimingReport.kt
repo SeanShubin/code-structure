@@ -20,7 +20,8 @@ class TimingReport(private val timer: Timer) : Report {
         val events = timer.events()
         val summaries = timer.summaries().sortedByDescending { it.total }
         val eventTable = HtmlElementUtil.createTable(events, timingEventCaptions, ::timingEventToRow, "event")
-        val summaryTable = HtmlElementUtil.createTable(summaries, timingSummaryCaptions, ::timingSummaryToRow, caption = null)
+        val summaryTable =
+            HtmlElementUtil.createTable(summaries, timingSummaryCaptions, ::timingSummaryToRow, caption = null)
         return summaryTable + eventTable
     }
 

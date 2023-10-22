@@ -1,11 +1,9 @@
 package com.seanshubin.code.structure.domain
 
-import com.fasterxml.jackson.module.kotlin.readValue
 import com.seanshubin.code.structure.binaryparser.BinaryParser
 import com.seanshubin.code.structure.contract.FilesContract
 import com.seanshubin.code.structure.domain.ErrorsDto.Companion.jsonToErrors
 import com.seanshubin.code.structure.filefinder.FileFinder
-import com.seanshubin.code.structure.json.JsonMappers
 import com.seanshubin.code.structure.sourceparser.SourceParser
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path

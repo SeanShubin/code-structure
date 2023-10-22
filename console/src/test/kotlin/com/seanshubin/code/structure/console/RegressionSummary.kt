@@ -7,8 +7,8 @@ data class RegressionSummary(
     val extra: List<Path>,
     val different: List<Path>
 ) {
-    fun regressionCount():Int = missing.size + extra.size + different.size
-    fun regressionString():String = toSummaryLines().joinToString("\n")
+    fun regressionCount(): Int = missing.size + extra.size + different.size
+    fun regressionString(): String = toSummaryLines().joinToString("\n")
     fun toSummaryLines(): List<String> =
         listOf("missing (${missing.size})") +
                 missing.map { "  $it " } +

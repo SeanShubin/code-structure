@@ -70,10 +70,10 @@ class DirectCycleReport : Report {
         return listOf(countParagraph) + fragmentAnchors
     }
 
-    private fun composeFragmentAnchors(analysis: ScopedAnalysis):List<HtmlElement> =
+    private fun composeFragmentAnchors(analysis: ScopedAnalysis): List<HtmlElement> =
         analysis.cycles.indices.map(::composeFragmentAnchor)
 
-    private fun composeFragmentAnchor(index:Int):HtmlElement{
+    private fun composeFragmentAnchor(index: Int): HtmlElement {
         val title = cycleName(index)
         val link = "#$title"
         return anchor(title, link)

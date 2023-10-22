@@ -13,12 +13,12 @@ class RememberingClock(
 ) : Clock() {
     private val instants: List<Instant>
     private var index = 0
-    private val memoryFile:Path
+    private val memoryFile: Path
 
     init {
         Files.createDirectories(memoryDir)
         memoryFile = memoryDir.resolve("clock.txt")
-        if(!Files.exists(memoryFile)){
+        if (!Files.exists(memoryFile)) {
             Files.createFile(memoryFile)
         }
         val lines = Files.readAllLines(memoryFile)

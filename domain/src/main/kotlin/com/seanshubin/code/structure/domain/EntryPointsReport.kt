@@ -16,7 +16,7 @@ class EntryPointsReport : Report {
 
     private fun createContent(analysis: ScopedAnalysis): List<HtmlElement> {
         val entryPoints = analysis.entryPoints
-        val listElements = HtmlElementUtil.bigList(entryPoints, ::nameToElement,"big-list", "entry point")
+        val listElements = HtmlElementUtil.bigList(entryPoints, ::nameToElement, "big-list", "entry point")
         return listElements
     }
 

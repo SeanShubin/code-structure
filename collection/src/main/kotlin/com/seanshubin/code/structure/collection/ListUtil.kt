@@ -1,8 +1,8 @@
 package com.seanshubin.code.structure.collection
 
 object ListUtil {
-    fun <T> List<T>.startsWith(prefix:List<T>):Boolean {
-        if(prefix.size > size) return false
+    fun <T> List<T>.startsWith(prefix: List<T>): Boolean {
+        if (prefix.size > size) return false
         return take(prefix.size) == prefix
     }
 

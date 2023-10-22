@@ -37,9 +37,11 @@ class AnalyzerImpl : Analyzer {
         private val firstInListComparator = Comparator<List<String>> { o1, o2 -> o1[0].compareTo(o2[0]) }
         private val sizeThenFirstComparator = listSizeComparator.reversed().then(firstInListComparator)
 
-        private fun composeErrors(global: ScopedAnalysis,
-                                  byGroup:Map<List<String>, ScopedAnalysis>,
-                                  lineage: Lineage): Errors {
+        private fun composeErrors(
+            global: ScopedAnalysis,
+            byGroup: Map<List<String>, ScopedAnalysis>,
+            lineage: Lineage
+        ): Errors {
             val directCycles = global.cycles.flatten().distinct().sorted()
             val groupCycles = byGroup.flatMap { (group, scopedAnalysis) ->
                 scopedAnalysis.cycles.flatten().map { group.groupToName(it) }

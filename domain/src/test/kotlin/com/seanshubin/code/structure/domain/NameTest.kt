@@ -42,12 +42,12 @@ class NameTest {
     }
 
     @Test
-    fun isChildOf8(){
+    fun isChildOf8() {
         assertTrue("a".isAncestorOf("b.c"))
     }
 
     @Test
-    fun isChildOf9(){
+    fun isChildOf9() {
         assertTrue("a".isAncestorOf("b.c.d"))
     }
 }

@@ -16,17 +16,18 @@ data class ErrorsDto(
         descendantDependsOnAncestor.map { it[0] to it[1] }
     )
 
-    fun toJson():String = JsonMappers.pretty.writeValueAsString(this)
+    fun toJson(): String = JsonMappers.pretty.writeValueAsString(this)
 
     companion object {
-        fun String.jsonToErrors():Errors = jsonToErrorsDto().toDomain()
-        fun String.jsonToErrorsDto():ErrorsDto = JsonMappers.parser.readValue(this)
-        fun Errors.toDto():ErrorsDto = ErrorsDto(
+        fun String.jsonToErrors(): Errors = jsonToErrorsDto().toDomain()
+        fun String.jsonToErrorsDto(): ErrorsDto = JsonMappers.parser.readValue(this)
+        fun Errors.toDto(): ErrorsDto = ErrorsDto(
             directCycles,
             groupCycles,
-            ancestorDependsOnDescendant.map {it.toList()},
-            descendantDependsOnAncestor.map {it.toList()}
+            ancestorDependsOnDescendant.map { it.toList() },
+            descendantDependsOnAncestor.map { it.toList() }
         )
-        fun Errors.toJson():String = toDto().toJson()
+
+        fun Errors.toJson(): String = toDto().toJson()
     }
 }

@@ -9,7 +9,7 @@ import java.nio.file.Path
 class ErrorHandlerImpl(
     private val files: FilesContract,
     private val errorFilePath: Path,
-    private val errorReportEvent:(List<String>)->Unit
+    private val errorReportEvent: (List<String>) -> Unit
 ) : ErrorHandler {
     override fun handleErrors(old: Errors?, current: Errors): Int {
         return if (old == null) {
@@ -58,7 +58,7 @@ class ErrorHandlerImpl(
         )
         val lines = directCycles + groupCycles + ancestorDependsOnDescendant + descendantDependsOnAncestor
         errorReportEvent(lines)
-        return if(lines.isEmpty()) 0 else 1
+        return if (lines.isEmpty()) 0 else 1
     }
 
     private fun <T> compareReport(
@@ -75,9 +75,9 @@ class ErrorHandlerImpl(
         return listOf(caption) + captionList("added", addedList) + captionList("removed", removedList)
     }
 
-    private fun captionList(caption:String, list:List<String>):List<String> =
-        if(list.isEmpty()) emptyList()
-        else listOf("  $caption") + list.map{"    $it"}
+    private fun captionList(caption: String, list: List<String>): List<String> =
+        if (list.isEmpty()) emptyList()
+        else listOf("  $caption") + list.map { "    $it" }
 
     private val stringComparator: Comparator<String> = Comparator { o1, o2 -> o1.compareTo(o2) }
     private val firstComparator: Comparator<Pair<String, String>> =

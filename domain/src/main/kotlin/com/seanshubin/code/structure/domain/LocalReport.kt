@@ -11,7 +11,7 @@ class LocalReport(private val localDepth: Int) : Report {
         val parents = listOf(Page.tableOfContents)
         val path = reportDir.resolve(Page.local.file)
         val analysis = validated.analysis
-        val content = bigList(analysis.global.names, ::localLink, "big-list","local")
+        val content = bigList(analysis.global.names, ::localLink, "big-list", "local")
         val graphs = generateGraphs(reportDir, analysis, parents)
         val lines = ReportHelper.wrapInTopLevelHtml(Page.local.caption, content, parents).toLines()
         val index = CreateFileCommand(path, lines)
@@ -19,7 +19,7 @@ class LocalReport(private val localDepth: Int) : Report {
         return commands
     }
 
-    private fun generateGraphs(reportDir: Path, analysis:Analysis, inheritedParents: List<Page>): List<Command> =
+    private fun generateGraphs(reportDir: Path, analysis: Analysis, inheritedParents: List<Page>): List<Command> =
         analysis.global.names.flatMap { baseName ->
             val localNamesSet = expand(setOf(baseName), analysis.global, localDepth)
             val localNamesSorted = localNamesSet.toList().sorted()
@@ -37,7 +37,7 @@ class LocalReport(private val localDepth: Int) : Report {
             )
         }
 
-    private fun appendSourceLink(currentParents:List<Page>, name:String, analysis: Analysis):List<Page>{
+    private fun appendSourceLink(currentParents: List<Page>, name: String, analysis: Analysis): List<Page> {
         val sourceLink = analysis.uriByName.getValue(name)
         val page = Page.createCaptionLink("Source", sourceLink)
         return currentParents + page
@@ -55,10 +55,19 @@ class LocalReport(private val localDepth: Int) : Report {
         return names + namesOut + namesIn
     }
 
-    private fun outerShell(names: Set<String>, analysis: ScopedAnalysis, direction: (Arrows) -> DirectionalArrow): Set<String> =
+    private fun outerShell(
+        names: Set<String>,
+        analysis: ScopedAnalysis,
+        direction: (Arrows) -> DirectionalArrow
+    ): Set<String> =
         names.map { analysis.detailByName.getValue(it) }.flatMap { direction(it.arrows).all }.toSet()
 
-    private fun toDotNode(baseName: String, name: String, analysis: ScopedAnalysis, createLink: (String) -> String): DotNode {
+    private fun toDotNode(
+        baseName: String,
+        name: String,
+        analysis: ScopedAnalysis,
+        createLink: (String) -> String
+    ): DotNode {
         val baseDetail = analysis.detailByName.getValue(baseName)
         val bold = name == baseName
         val cycle = baseDetail.cycle ?: emptySet()

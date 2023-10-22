@@ -6,7 +6,7 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
 class LineageReport(
-    private val page:Page,
+    private val page: Page,
     private val direction: (Lineage) -> List<Pair<String, String>>
 ) : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {

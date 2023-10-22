@@ -11,8 +11,13 @@ object HtmlElementUtil {
             attributes = listOf("href" to link)
         )
 
-    fun <T> bigList(list: List<T>, toElements: (T) -> List<HtmlElement>, className:String, caption:String?): List<HtmlElement> {
-        val sizeElement = if(caption == null) {
+    fun <T> bigList(
+        list: List<T>,
+        toElements: (T) -> List<HtmlElement>,
+        className: String,
+        caption: String?
+    ): List<HtmlElement> {
+        val sizeElement = if (caption == null) {
             emptyList<HtmlElement>()
         } else {
             listOf(Tag("p", listOf(Text("$caption count: ${list.size}"))))
@@ -26,8 +31,13 @@ object HtmlElementUtil {
         return sizeElement + listOf(listElement)
     }
 
-    fun <T> createTable(list: List<T>, captions: List<String>, elementToRow: (T) -> List<String>, caption:String?): List<HtmlElement> {
-        val sizeElement = if(caption == null){
+    fun <T> createTable(
+        list: List<T>,
+        captions: List<String>,
+        elementToRow: (T) -> List<String>,
+        caption: String?
+    ): List<HtmlElement> {
+        val sizeElement = if (caption == null) {
             emptyList<HtmlElement>()
         } else {
             listOf(HtmlElement.Tag("p", listOf(HtmlElement.Text("$caption count: ${list.size}"))))

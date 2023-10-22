@@ -1,9 +1,9 @@
 package com.seanshubin.code.structure.console
 
-import kotlin.test.Test
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class RegressionTest {
@@ -83,7 +83,7 @@ class RegressionTest {
         }
     }
 
-    private fun validateDirectoriesEqual(expectedDir: Path, actualDir: Path):RegressionSummary {
+    private fun validateDirectoriesEqual(expectedDir: Path, actualDir: Path): RegressionSummary {
         val missing = mutableListOf<Path>()
         val extra = mutableListOf<Path>()
         val differenceA = mutableListOf<Path>()
@@ -91,10 +91,10 @@ class RegressionTest {
         recurseIntoFiles(expectedDir) { relativePath ->
             val expectedFile = expectedDir.resolve(relativePath)
             val actualFile = actualDir.resolve(relativePath)
-            if(Files.exists(actualFile)) {
+            if (Files.exists(actualFile)) {
                 val expectedContent = Files.readString(expectedFile)
                 val actualContent = Files.readString(actualFile)
-                if(expectedContent != actualContent){
+                if (expectedContent != actualContent) {
                     differenceA.add(relativePath)
                 }
             } else {
@@ -104,10 +104,10 @@ class RegressionTest {
         recurseIntoFiles(actualDir) { relativePath ->
             val expectedFile = expectedDir.resolve(relativePath)
             val actualFile = actualDir.resolve(relativePath)
-            if(Files.exists(expectedFile)){
+            if (Files.exists(expectedFile)) {
                 val expectedContent = Files.readString(expectedFile)
                 val actualContent = Files.readString(actualFile)
-                if(expectedContent != actualContent){
+                if (expectedContent != actualContent) {
                     differenceB.add(relativePath)
                 }
             } else {

@@ -1,5 +1,5 @@
 package com.seanshubin.code.structure.domain
 
 interface Validator {
-    fun validate(observations:Observations, analysis:Analysis):Validated
+    fun validate(observations: Observations, analysis: Analysis): Validated
 }

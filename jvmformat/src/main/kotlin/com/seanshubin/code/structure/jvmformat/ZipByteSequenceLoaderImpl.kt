@@ -34,7 +34,7 @@ class ZipByteSequenceLoaderImpl(
         val withoutClassSuffix = zipEntryName.substring(0, zipEntryName.length - classSuffix.length)
         val longClassName = withoutClassSuffix.replace('/', '.')
         val dollarIndex = longClassName.indexOf('$')
-        val className = if(dollarIndex == -1) {
+        val className = if (dollarIndex == -1) {
             longClassName
         } else {
             longClassName.substring(0, dollarIndex)
