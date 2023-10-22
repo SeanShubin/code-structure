@@ -10,15 +10,11 @@ class RegressionTest {
     @Test
     fun kotlin() {
         // given
-        val name = "regression-test-kotlin"
-        val base = Paths.get(name)
-        val expectedDir = base.resolve("expected")
-        val memoryDir = base.resolve("memory")
-        val actualDir = Paths.get("target", name)
-        val args = arrayOf(name)
+        val paths = TestPaths("kotlin")
+        val args = arrayOf(paths.configName)
         val productionIntegrations = ProductionIntegrations()
         val emitLine = EmitLine()
-        val regressionIntegrations = RegressionIntegrations(productionIntegrations, memoryDir, emitLine)
+        val regressionIntegrations = RegressionIntegrations(productionIntegrations, paths.memoryDir, emitLine)
         val dependencies = Dependencies(regressionIntegrations, args)
 
         // when
@@ -26,8 +22,8 @@ class RegressionTest {
 
         // then
         assertEquals("", "")
-        seedExpectationIfNecessary(expectedDir, actualDir)
-        val validationSummary = validateDirectoriesEqual(expectedDir, actualDir)
+        seedExpectationIfNecessary(paths.expectedDir, paths.actualDir)
+        val validationSummary = validateDirectoriesEqual(paths.expectedDir, paths.actualDir)
         assertEquals(0, validationSummary.regressionCount(), validationSummary.regressionString())
         assertEquals(0, dependencies.exitCodeHolder.exitCode)
     }
@@ -35,25 +31,28 @@ class RegressionTest {
     @Test
     fun elixir() {
         // given
-        val name = "regression-test-elixir"
-        val base = Paths.get(name)
-        val expectedDir = base.resolve("expected")
-        val memoryDir = base.resolve("memory")
-        val actualDir = Paths.get("target", name)
-        val args = arrayOf(name)
+        val paths = TestPaths("elixir")
+        val args = arrayOf(paths.configName)
         val productionIntegrations = ProductionIntegrations()
         val emitLine = EmitLine()
-        val regressionIntegrations = RegressionIntegrations(productionIntegrations, memoryDir, emitLine)
+        val regressionIntegrations = RegressionIntegrations(productionIntegrations, paths.memoryDir, emitLine)
         val dependencies = Dependencies(regressionIntegrations, args)
 
         // when
         dependencies.runner.run()
 
         // then
-        seedExpectationIfNecessary(expectedDir, actualDir)
-        val validationSummary = validateDirectoriesEqual(expectedDir, actualDir)
+        seedExpectationIfNecessary(paths.expectedDir, paths.actualDir)
+        val validationSummary = validateDirectoriesEqual(paths.expectedDir, paths.actualDir)
         assertEquals(0, validationSummary.regressionCount(), validationSummary.regressionString())
         assertEquals(0, dependencies.exitCodeHolder.exitCode)
+    }
+
+    class TestPaths(private val name:String){
+        val configName = "regression-test-$name"
+        val memoryDir = Paths.get("regression-test", "memory", name)
+        val expectedDir = Paths.get("regression-test", "expected", name)
+        val actualDir = Paths.get("target", "regression-test", name)
     }
 
     private fun seedExpectationIfNecessary(expectedDir: Path, actualDir: Path) {
