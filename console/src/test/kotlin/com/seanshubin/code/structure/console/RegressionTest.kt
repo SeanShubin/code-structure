@@ -48,7 +48,7 @@ class RegressionTest {
         assertEquals(0, dependencies.exitCodeHolder.exitCode)
     }
 
-    class TestPaths(private val name:String){
+    class TestPaths(private val name: String) {
         val configName = "regression-test-$name"
         val memoryDir = Paths.get("regression-test", "memory", name)
         val expectedDir = Paths.get("regression-test", "expected", name)

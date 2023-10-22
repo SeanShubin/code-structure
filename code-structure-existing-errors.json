@@ -1,8 +1,8 @@
 {
-  "directCycles" : [ ],
-  "groupCycles" : [ ],
-  "ancestorDependsOnDescendant" : [ ],
-  "descendantDependsOnAncestor" : [
+  "directCycles": [],
+  "groupCycles": [],
+  "ancestorDependsOnDescendant": [],
+  "descendantDependsOnAncestor": [
     [
       "contract.test.FilesNotImplemented",
       "contract.FilesContract"
