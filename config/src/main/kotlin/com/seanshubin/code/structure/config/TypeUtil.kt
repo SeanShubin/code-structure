@@ -18,6 +18,12 @@ object TypeUtil {
         else -> failCoerce(this, Path::class.java)
     }
 
+    fun Any?.coerceToBoolean(): Boolean = when (this) {
+        is String -> this.toBoolean()
+        is Boolean -> this
+        else -> failCoerce(this, Boolean::class.java)
+    }
+
     private fun failCoerceMessage(fromValue: Any?, toType: Class<*>): String {
         val fromDescription = when (fromValue) {
             null -> "<null>"

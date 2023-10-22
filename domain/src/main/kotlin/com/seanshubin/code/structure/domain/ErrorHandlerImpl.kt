@@ -13,14 +13,14 @@ class ErrorHandlerImpl(
     private val errorFilePath: Path,
     private val errorReportEvent: (List<String>) -> Unit
 ) : ErrorHandler {
-    override fun handleErrors(old: Errors?, current: Errors): Int {
+    override fun handleErrors(old: Errors?, current: Errors, failConditions: FailConditions): Int {
         return if (old == null) {
             if (current.hasErrors()) {
                 defineCurrentStateAsAcceptable(current)
             }
             0
         } else {
-            compareErrors(old, current)
+            compareErrors(old, current, failConditions)
         }
     }
 
@@ -29,9 +29,10 @@ class ErrorHandlerImpl(
         files.writeString(errorFilePath, text)
     }
 
-    private fun compareErrors(old: Errors, current: Errors): Int {
+    private fun compareErrors(old: Errors, current: Errors, failConditions: FailConditions): Int {
         val directCycles = compareReport(
             "Direct Cycles",
+            failConditions.directCycle,
             old.inDirectCycle,
             current.inDirectCycle,
             stringComparator,
@@ -39,6 +40,7 @@ class ErrorHandlerImpl(
         )
         val groupCycles = compareReport(
             "Group Cycles",
+            failConditions.groupCycle,
             old.inGroupCycle,
             current.inGroupCycle,
             stringComparator,
@@ -46,6 +48,7 @@ class ErrorHandlerImpl(
         )
         val ancestorDependsOnDescendant = compareReport(
             "Ancestor depends on Descendant",
+            failConditions.ancestorDependsOnDescendant,
             old.ancestorDependsOnDescendant,
             current.ancestorDependsOnDescendant,
             pairComparator,
@@ -53,28 +56,40 @@ class ErrorHandlerImpl(
         )
         val descendantDependsOnAncestor = compareReport(
             "Descendant depends on Ancestor",
+            failConditions.descendantDependsOnAncestor,
             old.descendantDependsOnAncestor,
             current.descendantDependsOnAncestor,
             pairComparator,
             referenceFormat
         )
-        val lines = directCycles + groupCycles + ancestorDependsOnDescendant + descendantDependsOnAncestor
+        val lines = directCycles.lines+
+                groupCycles.lines +
+                ancestorDependsOnDescendant.lines +
+                descendantDependsOnAncestor.lines
         errorReportEvent(lines)
-        return if (lines.isEmpty()) 0 else 1
+        val exitCode = if(directCycles.fail || groupCycles.fail || ancestorDependsOnDescendant.fail || descendantDependsOnAncestor.fail){
+            1
+        } else {
+            0
+        }
+        return exitCode
     }
 
     private fun <T> compareReport(
         caption: String,
+        failPossible: Boolean,
         old: List<T>,
         current: List<T>,
         comparator: Comparator<T>,
         format: (T) -> String
-    ): List<String> {
+    ): CompareReport {
         val compare = SetUtil.compare(old.toSet(), current.toSet())
-        if (compare.isSame()) return emptyList()
+        if (compare.isSame()) return CompareReport(fail = false, emptyList())
         val addedList = compare.extra.toList().sortedWith(comparator).map(format)
         val removedList = compare.missing.toList().sortedWith(comparator).map(format)
-        return listOf(caption) + captionList("added", addedList) + captionList("removed", removedList)
+        val lines = listOf(caption) + captionList("added", addedList) + captionList("removed", removedList)
+        val fail = failPossible && addedList.isNotEmpty()
+        return CompareReport(fail, lines)
     }
 
     private fun captionList(caption: String, list: List<String>): List<String> =
@@ -83,4 +98,6 @@ class ErrorHandlerImpl(
 
     private val stringFormat: (String) -> String = { it }
     private val referenceFormat: (Pair<String, String>) -> String = { (first, second) -> "$first -> $second" }
+
+    private data class CompareReport(val fail: Boolean, val lines: List<String>)
 }

@@ -1,21 +1,27 @@
 {
-  "inputDir": "../code_structure_sample_elixir/",
-  "outputDir": "generated/elixir/",
-  "language": "elixir",
-  "localDepth": 2,
-  "sourcePrefix": "https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/",
-  "sourceFileRegexPatterns": {
-    "include": [
+  "inputDir" : "../code_structure_sample_elixir/",
+  "outputDir" : "generated/elixir/",
+  "language" : "elixir",
+  "localDepth" : 2,
+  "sourcePrefix" : "https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/",
+  "sourceFileRegexPatterns" : {
+    "include" : [
       "lib/.*\\.ex$"
     ],
-    "exclude": []
+    "exclude" : [ ]
   },
-  "bytecodeFormat": "beam",
-  "binaryFileRegexPatterns": {
-    "include": [
+  "bytecodeFormat" : "beam",
+  "binaryFileRegexPatterns" : {
+    "include" : [
       "_build/dev/lib/code_structure_sample_elixir/ebin/.*\\.beam$"
     ],
-    "exclude": []
+    "exclude" : [ ]
   },
-  "nodeLimitMainGraph": 100
+  "nodeLimitMainGraph" : 100,
+  "failConditions" : {
+    "directCycle" : true,
+    "groupCycle" : true,
+    "ancestorDependsOnDescendant" : true,
+    "descendantDependsOnAncestor" : true
+  }
 }

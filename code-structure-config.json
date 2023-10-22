@@ -1,21 +1,27 @@
 {
-  "inputDir": ".",
-  "outputDir": "generated/self",
-  "language": "kotlin",
-  "localDepth": 2,
-  "nodeLimitMainGraph": 100,
-  "bytecodeFormat": "class",
-  "sourcePrefix": "https://github.com/SeanShubin/code-structure/blob/master/",
-  "sourceFileRegexPatterns": {
-    "include": [
+  "inputDir" : ".",
+  "outputDir" : "generated/self",
+  "language" : "kotlin",
+  "localDepth" : 2,
+  "nodeLimitMainGraph" : 100,
+  "bytecodeFormat" : "class",
+  "sourcePrefix" : "https://github.com/SeanShubin/code-structure/blob/master/",
+  "sourceFileRegexPatterns" : {
+    "include" : [
       ".*\\.kt$"
     ],
-    "exclude": []
+    "exclude" : [ ]
   },
-  "binaryFileRegexPatterns": {
-    "include": [
+  "binaryFileRegexPatterns" : {
+    "include" : [
       ".*/code-structure-console.jar$"
     ],
-    "exclude": []
+    "exclude" : [ ]
+  },
+  "failConditions" : {
+    "directCycle" : true,
+    "groupCycle" : true,
+    "ancestorDependsOnDescendant" : true,
+    "descendantDependsOnAncestor" : true
   }
 }

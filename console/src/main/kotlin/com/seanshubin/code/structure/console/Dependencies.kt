@@ -6,6 +6,7 @@ import com.seanshubin.code.structure.binaryparser.BinaryParser
 import com.seanshubin.code.structure.binaryparser.BinaryParserRepository
 import com.seanshubin.code.structure.config.Configuration
 import com.seanshubin.code.structure.config.JsonFileConfiguration
+import com.seanshubin.code.structure.config.TypeUtil.coerceToBoolean
 import com.seanshubin.code.structure.config.TypeUtil.coerceToInt
 import com.seanshubin.code.structure.config.TypeUtil.coerceToListOfString
 import com.seanshubin.code.structure.config.TypeUtil.coerceToPath
@@ -41,6 +42,16 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
     private val files: FilesContract = FilesDelegate
     private val config: Configuration = JsonFileConfiguration(files, configFile)
     private val clock: Clock = integrations.clock
+    private val failConditions: FailConditions = FailConditions(
+        directCycle =
+        config.load(listOf("failConditions", "directCycle"), true).coerceToBoolean(),
+        groupCycle =
+        config.load(listOf("failConditions", "groupCycle"), true).coerceToBoolean(),
+        ancestorDependsOnDescendant =
+        config.load(listOf("failConditions", "ancestorDependsOnDescendant"), true).coerceToBoolean(),
+        descendantDependsOnAncestor =
+        config.load(listOf("failConditions", "descendantDependsOnAncestor"), true).coerceToBoolean(),
+    )
     private val inputDir = config.load(listOf("inputDir"), ".").coerceToPath()
     private val outputDir = config.load(listOf("outputDir"), "generated").coerceToPath()
     private val language = config.load(listOf("language"), "source code language").coerceToString()
@@ -164,6 +175,7 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
         summaryEvent,
         timer,
         exitCodeHolder,
-        errorHandler
+        errorHandler,
+        failConditions
     )
 }
