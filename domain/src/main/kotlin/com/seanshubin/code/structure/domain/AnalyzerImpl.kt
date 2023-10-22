@@ -44,13 +44,15 @@ class AnalyzerImpl : Analyzer {
             ancestorToDescendant: List<Pair<String, String>>,
             descendantToAncestor: List<Pair<String, String>>
         ): Summary {
-            val directCycleCount = global.cycles.size
-            val groupCycleCount = byGroup.values.sumOf { it.cycles.size }
+            val inCycleCount = global.cycles.sumOf { it.size }
+            val inGroupCycleCount = byGroup.values.sumOf { groupCycles ->
+                groupCycles.cycles.sumOf { cycles -> cycles.size }
+            }
             val ancestorDependsOnDescendantCount = ancestorToDescendant.size
             val descendantDependsOnAncestorCount = descendantToAncestor.size
             return Summary(
-                directCycleCount,
-                groupCycleCount,
+                inCycleCount,
+                inGroupCycleCount,
                 ancestorDependsOnDescendantCount,
                 descendantDependsOnAncestorCount
             )

@@ -24,8 +24,8 @@ class NotificationsImpl(private val emitLine: (String) -> Unit) : Notifications 
     }
 
     override fun summaryEvent(summary: Summary) {
-        emitLine("direct cycles: ${summary.directCycleCount}")
-        emitLine("group cycles: ${summary.groupCycleCount}")
+        emitLine("in cycle: ${summary.inCycleCount}")
+        emitLine("in group cycle: ${summary.inGroupCycleCount}")
         emitLine("ancestor depends on descendant: ${summary.ancestorDependsOnDescendantCount}")
         emitLine("descendant depends on ancestor: ${summary.descendantDependsOnAncestorCount}")
     }
