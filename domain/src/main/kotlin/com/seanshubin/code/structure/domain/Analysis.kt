@@ -4,14 +4,16 @@ import com.seanshubin.code.structure.collection.ListUtil.startsWith
 
 data class Analysis(
     val global: ScopedAnalysis,
-    val uriByName: Map<String, String>,
+    val nameUriList: List<Pair<String, String>>,
     val lineage: Lineage,
-    val byGroup: Map<List<String>, ScopedAnalysis>,
+    val groupScopedAnalysisList: List<Pair<List<String>, ScopedAnalysis>>,
     val errors: Errors,
     val summary: Summary
 ) {
-    fun descendantCount(group: List<String>): Int {
-        val keys = byGroup.keys.filter { it.startsWith(group) }
-        return keys.sumOf { byGroup.getValue(it).names.size }
-    }
+    private val scopedAnalysisByGroup = groupScopedAnalysisList.associateBy { it.first }
+    private val uriByName = nameUriList.toMap()
+    fun descendantCount(group: List<String>): Int =
+        groupScopedAnalysisList.filter{it.first.startsWith(group)}.sumOf{it.second.names.size}
+    fun containsGroup(group:List<String>):Boolean = scopedAnalysisByGroup.containsKey(group)
+    fun lookupUri(name:String):String = uriByName.getValue(name)
 }

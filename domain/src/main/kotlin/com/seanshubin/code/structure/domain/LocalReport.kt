@@ -40,7 +40,7 @@ class LocalReport(private val localDepth: Int) : Report {
         }
 
     private fun appendSourceLink(currentParents: List<Page>, name: String, analysis: Analysis): List<Page> {
-        val sourceLink = analysis.uriByName.getValue(name)
+        val sourceLink = analysis.lookupUri(name)
         val page = Page.createCaptionLink("Source", sourceLink)
         return currentParents + page
     }
@@ -62,7 +62,7 @@ class LocalReport(private val localDepth: Int) : Report {
         analysis: ScopedAnalysis,
         direction: (Arrows) -> DirectionalArrow
     ): Set<String> =
-        names.map { analysis.detailByName.getValue(it) }.flatMap { direction(it.arrows).all }.toSet()
+        names.map { analysis.lookupDetail(it) }.flatMap { direction(it.arrows).all }.toSet()
 
     private fun toDotNode(
         baseName: String,
@@ -70,7 +70,7 @@ class LocalReport(private val localDepth: Int) : Report {
         analysis: ScopedAnalysis,
         createLink: (String) -> String
     ): DotNode {
-        val baseDetail = analysis.detailByName.getValue(baseName)
+        val baseDetail = analysis.lookupDetail(baseName)
         val bold = name == baseName
         val cycle = baseDetail.cycle ?: emptySet()
         val isCycle = cycle.contains(name)

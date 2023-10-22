@@ -9,7 +9,7 @@ import java.nio.file.Path
 class GroupCycleReport : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
-        val groupCycleList = groupCycleList(validated.analysis.byGroup)
+        val groupCycleList = groupCycleList(validated.analysis.groupScopedAnalysisList)
         val htmlInsideBody = generateHtml(groupCycleList)
         val html = ReportHelper.wrapInTopLevelHtml(Page.groupCycles.caption, htmlInsideBody, parents)
         val path = reportDir.resolve(Page.groupCycles.file)
@@ -19,10 +19,9 @@ class GroupCycleReport : Report {
         return listOf(topCommand) + graphCommands
     }
 
-    private fun groupCycleList(analysisByGroup: Map<List<String>, ScopedAnalysis>): List<GroupCycle> {
-        return analysisByGroup.keys.flatMap { group ->
-            val cycleDetails = analysisByGroup.getValue(group).cycleDetails
-            cycleDetails.map {
+    private fun groupCycleList(groupScopedAnalysisList: List<Pair<List<String>, ScopedAnalysis>>): List<GroupCycle> {
+        return groupScopedAnalysisList.flatMap { (group, scopedAnalysis) ->
+            scopedAnalysis.cycleDetails.map {
                 GroupCycle(group, it.names, it.references)
             }
         }

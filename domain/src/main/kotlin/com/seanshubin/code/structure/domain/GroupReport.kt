@@ -5,7 +5,7 @@ import java.nio.file.Path
 
 class GroupReport : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
-        return validated.analysis.byGroup.flatMap { (groupPath, groupAnalysis) ->
+        return validated.analysis.groupScopedAnalysisList.flatMap { (groupPath, groupAnalysis) ->
             singleGroupReport(reportDir, groupPath, validated.analysis, groupAnalysis)
         }
     }
@@ -60,7 +60,7 @@ class GroupReport : Report {
         createLink: (String) -> String
     ): DotNode {
         val descendantCount = analysis.descendantCount(groupPath)
-        val hasChildren = analysis.byGroup.containsKey(groupPath)
+        val hasChildren = analysis.containsGroup(groupPath)
         val link = if (hasChildren) createLink(name) else null
         val text = if (descendantCount == 0) name else "$name ($descendantCount)"
         return DotNode(
