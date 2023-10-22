@@ -63,13 +63,13 @@ class AnalyzerImpl : Analyzer {
             byGroup: Map<List<String>, ScopedAnalysis>,
             lineage: Lineage
         ): Errors {
-            val directCycles = global.cycles.flatten().distinct().sorted()
-            val groupCycles = byGroup.flatMap { (group, scopedAnalysis) ->
+            val inDirectCycle = global.cycles.flatten().distinct().sorted()
+            val inGroupCycle = byGroup.flatMap { (group, scopedAnalysis) ->
                 scopedAnalysis.cycles.flatten().map { group.groupToName(it) }
             }.distinct().sorted()
             val ancestorDependsOnDescendant = lineage.ancestorDependsOnDescendant
             val descendantDependsOnAncestor = lineage.descendantDependsOnAncestor
-            return Errors(directCycles, groupCycles, ancestorDependsOnDescendant, descendantDependsOnAncestor)
+            return Errors(inDirectCycle, inGroupCycle, ancestorDependsOnDescendant, descendantDependsOnAncestor)
         }
 
         private fun composeUriByName(observations: Observations, commonPrefix: List<String>): Map<String, String> {

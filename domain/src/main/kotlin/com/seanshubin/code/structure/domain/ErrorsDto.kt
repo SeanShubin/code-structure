@@ -22,8 +22,8 @@ data class ErrorsDto(
         fun String.jsonToErrors(): Errors = jsonToErrorsDto().toDomain()
         fun String.jsonToErrorsDto(): ErrorsDto = JsonMappers.parser.readValue(this)
         fun Errors.toDto(): ErrorsDto = ErrorsDto(
-            directCycles,
-            groupCycles,
+            inDirectCycle,
+            inGroupCycle,
             ancestorDependsOnDescendant.map { it.toList() },
             descendantDependsOnAncestor.map { it.toList() }
         )

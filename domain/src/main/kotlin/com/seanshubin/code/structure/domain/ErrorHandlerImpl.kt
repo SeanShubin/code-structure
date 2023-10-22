@@ -30,15 +30,15 @@ class ErrorHandlerImpl(
     private fun compareErrors(old: Errors, current: Errors): Int {
         val directCycles = compareReport(
             "Direct Cycles",
-            old.directCycles,
-            current.directCycles,
+            old.inDirectCycle,
+            current.inDirectCycle,
             stringComparator,
             stringFormat
         )
         val groupCycles = compareReport(
             "Group Cycles",
-            old.groupCycles,
-            current.groupCycles,
+            old.inGroupCycle,
+            current.inGroupCycle,
             stringComparator,
             stringFormat
         )
