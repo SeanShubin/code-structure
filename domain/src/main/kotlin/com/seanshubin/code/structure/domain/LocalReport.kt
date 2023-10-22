@@ -1,5 +1,7 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.collection.ComparatorUtil
+import com.seanshubin.code.structure.collection.ComparatorUtil.pairComparator
 import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
@@ -26,7 +28,7 @@ class LocalReport(private val localDepth: Int) : Report {
             val localParents = appendSourceLink(inheritedParents + listOf(Page.local), baseName, analysis)
             val nodes = localNamesSorted.map { toDotNode(baseName, it, analysis.global, LinkCreator.local) }
             val referencesSet = analysis.global.referencesForScope(localNamesSet)
-            val referencesSorted = referencesSet.sortedWith(ScopedAnalysis.referenceComparator)
+            val referencesSorted = referencesSet.sortedWith(pairComparator)
             ReportHelper.graphCommands(
                 reportDir,
                 "local-$baseName",

@@ -1,11 +1,11 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.binaryparser.BinaryDetail
+import com.seanshubin.code.structure.collection.ComparatorUtil.pairComparator
 import com.seanshubin.code.structure.collection.ListUtil
 import com.seanshubin.code.structure.cycle.CycleUtil
 import com.seanshubin.code.structure.domain.Name.groupToName
 import com.seanshubin.code.structure.domain.Name.isAncestorOf
-import com.seanshubin.code.structure.domain.ScopedAnalysis.Companion.referenceComparator
 
 class AnalyzerImpl : Analyzer {
     override fun analyze(observations: Observations): Analysis {
@@ -17,7 +17,7 @@ class AnalyzerImpl : Analyzer {
             binary.dependencyNames.map {
                 binary.toName(commonPrefix) to it.toName(commonPrefix)
             }
-        }.sortedWith(referenceComparator).distinct()
+        }.sortedWith(pairComparator).distinct()
         val global = analyze(names, references)
         val ancestorToDescendant = references.filter {
             it.first.isAncestorOf(it.second)

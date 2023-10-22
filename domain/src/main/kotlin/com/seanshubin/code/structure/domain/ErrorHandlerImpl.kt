@@ -1,5 +1,7 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.collection.ComparatorUtil.pairComparator
+import com.seanshubin.code.structure.collection.ComparatorUtil.stringComparator
 import com.seanshubin.code.structure.collection.SetUtil
 import com.seanshubin.code.structure.contract.FilesContract
 import com.seanshubin.code.structure.domain.ErrorsDto.Companion.toDto
@@ -46,14 +48,14 @@ class ErrorHandlerImpl(
             "Ancestor depends on Descendant",
             old.ancestorDependsOnDescendant,
             current.ancestorDependsOnDescendant,
-            referenceComparator,
+            pairComparator,
             referenceFormat
         )
         val descendantDependsOnAncestor = compareReport(
             "Descendant depends on Ancestor",
             old.descendantDependsOnAncestor,
             current.descendantDependsOnAncestor,
-            referenceComparator,
+            pairComparator,
             referenceFormat
         )
         val lines = directCycles + groupCycles + ancestorDependsOnDescendant + descendantDependsOnAncestor
@@ -79,12 +81,6 @@ class ErrorHandlerImpl(
         if (list.isEmpty()) emptyList()
         else listOf("  $caption") + list.map { "    $it" }
 
-    private val stringComparator: Comparator<String> = Comparator { o1, o2 -> o1.compareTo(o2) }
-    private val firstComparator: Comparator<Pair<String, String>> =
-        Comparator { o1, o2 -> o1.first.compareTo(o2.first) }
-    private val secondComparator: Comparator<Pair<String, String>> =
-        Comparator { o1, o2 -> o1.second.compareTo(o2.second) }
-    private val referenceComparator = firstComparator.thenComparing(secondComparator)
     private val stringFormat: (String) -> String = { it }
     private val referenceFormat: (Pair<String, String>) -> String = { (first, second) -> "$first -> $second" }
 }

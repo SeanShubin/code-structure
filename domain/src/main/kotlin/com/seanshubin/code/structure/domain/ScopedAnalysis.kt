@@ -22,10 +22,4 @@ data class ScopedAnalysis(
         }
         return referencesOut + referencesIn
     }
-
-    companion object {
-        val referenceComparator = Comparator
-            .comparing<Pair<String, String>, String> { it.first }
-            .thenComparing(Comparator.comparing { it.second })
-    }
 }
