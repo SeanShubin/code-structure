@@ -114,7 +114,7 @@ class ErrorHandlerImpl(
             val hasNewErrors = newErrors.isNotEmpty()
             val isFail = canFail && hasNewErrors
             val lines: List<String> = if (hasNewErrors) {
-                val newFailuresHeader = "ERROR New failures in $caption: ${newErrors.size}"
+                val newFailuresHeader = "ERROR: New failures in $caption: ${newErrors.size}"
                 val newFailuresLines = newErrors.map { "  ${it.formatted()}" }
                 listOf(newFailuresHeader) + newFailuresLines
             } else {
