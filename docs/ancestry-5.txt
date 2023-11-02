@@ -1,4 +1,7 @@
 digraph dependencies {
+    node [color="#c9d1d9" fontcolor="#c9d1d9"]
+    edge [color="#c9d1d9"]
+    bgcolor="#0d1117"
     "app.login.Login"       -> "lib.util.StringUtil"
     "app.register.Register" -> "lib.util.StringUtil"
     "app.login.Login"       -> "app.util.PageUtil"

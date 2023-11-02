@@ -8,66 +8,66 @@
  viewBox="0.00 0.00 222.14 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
 <title>dependencies</title>
-<polygon fill="white" stroke="none" points="-4,4 -4,-184 218.14,-184 218.14,4 -4,4"/>
+<polygon fill="#0d1117" stroke="none" points="-4,4 -4,-184 218.14,-184 218.14,4 -4,4"/>
 <!-- app.login -->
 <g id="node1" class="node">
 <title>app.login</title>
-<ellipse fill="none" stroke="black" cx="110" cy="-162" rx="44.39" ry="18"/>
-<text text-anchor="middle" x="110" y="-158.3" font-family="Times,serif" font-size="14.00">app.login</text>
+<ellipse fill="none" stroke="#c9d1d9" cx="110" cy="-162" rx="44.39" ry="18"/>
+<text text-anchor="middle" x="110" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#c9d1d9">app.login</text>
 </g>
 <!-- app -->
 <g id="node2" class="node">
 <title>app</title>
-<ellipse fill="none" stroke="black" cx="110" cy="-90" rx="27" ry="18"/>
-<text text-anchor="middle" x="110" y="-86.3" font-family="Times,serif" font-size="14.00">app</text>
+<ellipse fill="none" stroke="#c9d1d9" cx="110" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="110" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#c9d1d9">app</text>
 </g>
 <!-- app.login&#45;&gt;app -->
 <g id="edge1" class="edge">
 <title>app.login&#45;&gt;app</title>
-<path fill="none" stroke="black" d="M104.08,-143.7C103.3,-136.13 103.07,-127.06 103.38,-118.59"/>
-<polygon fill="black" stroke="black" points="106.94,-118.84 104.15,-108.62 99.96,-118.35 106.94,-118.84"/>
+<path fill="none" stroke="#c9d1d9" d="M104.08,-143.7C103.3,-136.13 103.07,-127.06 103.38,-118.59"/>
+<polygon fill="#c9d1d9" stroke="#c9d1d9" points="106.94,-118.84 104.15,-108.62 99.96,-118.35 106.94,-118.84"/>
 </g>
 <!-- app&#45;&gt;app.login -->
 <g id="edge4" class="edge">
 <title>app&#45;&gt;app.login</title>
-<path fill="none" stroke="black" d="M115.84,-107.62C116.66,-115.19 116.92,-124.35 116.63,-132.93"/>
-<polygon fill="black" stroke="black" points="113.08,-132.49 115.91,-142.7 120.07,-132.95 113.08,-132.49"/>
+<path fill="none" stroke="#c9d1d9" d="M115.84,-107.62C116.66,-115.19 116.92,-124.35 116.63,-132.93"/>
+<polygon fill="#c9d1d9" stroke="#c9d1d9" points="113.08,-132.49 115.91,-142.7 120.07,-132.95 113.08,-132.49"/>
 </g>
 <!-- app.register -->
 <g id="node3" class="node">
 <title>app.register</title>
-<ellipse fill="none" stroke="black" cx="52" cy="-18" rx="51.99" ry="18"/>
-<text text-anchor="middle" x="52" y="-14.3" font-family="Times,serif" font-size="14.00">app.register</text>
+<ellipse fill="none" stroke="#c9d1d9" cx="52" cy="-18" rx="51.99" ry="18"/>
+<text text-anchor="middle" x="52" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#c9d1d9">app.register</text>
 </g>
 <!-- app&#45;&gt;app.register -->
 <g id="edge5" class="edge">
 <title>app&#45;&gt;app.register</title>
-<path fill="none" stroke="black" d="M93.35,-75.5C84.97,-66.84 75.05,-55.3 66.92,-44.91"/>
-<polygon fill="black" stroke="black" points="69.15,-43.05 60.33,-37.18 63.56,-47.27 69.15,-43.05"/>
+<path fill="none" stroke="#c9d1d9" d="M93.35,-75.5C84.97,-66.84 75.05,-55.3 66.92,-44.91"/>
+<polygon fill="#c9d1d9" stroke="#c9d1d9" points="69.15,-43.05 60.33,-37.18 63.56,-47.27 69.15,-43.05"/>
 </g>
 <!-- app.home -->
 <g id="node4" class="node">
 <title>app.home</title>
-<ellipse fill="none" stroke="black" cx="168" cy="-18" rx="46.29" ry="18"/>
-<text text-anchor="middle" x="168" y="-14.3" font-family="Times,serif" font-size="14.00">app.home</text>
+<ellipse fill="none" stroke="#c9d1d9" cx="168" cy="-18" rx="46.29" ry="18"/>
+<text text-anchor="middle" x="168" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#c9d1d9">app.home</text>
 </g>
 <!-- app&#45;&gt;app.home -->
 <g id="edge6" class="edge">
 <title>app&#45;&gt;app.home</title>
-<path fill="none" stroke="black" d="M117.9,-72.41C124.35,-63.44 133.47,-52.21 142.22,-42.37"/>
-<polygon fill="black" stroke="black" points="144.25,-45.25 148.43,-35.51 139.09,-40.52 144.25,-45.25"/>
+<path fill="none" stroke="#c9d1d9" d="M117.9,-72.41C124.35,-63.44 133.47,-52.21 142.22,-42.37"/>
+<polygon fill="#c9d1d9" stroke="#c9d1d9" points="144.25,-45.25 148.43,-35.51 139.09,-40.52 144.25,-45.25"/>
 </g>
 <!-- app.register&#45;&gt;app -->
 <g id="edge2" class="edge">
 <title>app.register&#45;&gt;app</title>
-<path fill="none" stroke="black" d="M71.02,-34.99C79.01,-43.47 88.06,-54.09 95.51,-63.66"/>
-<polygon fill="black" stroke="black" points="93.29,-65.52 102.09,-71.41 98.88,-61.31 93.29,-65.52"/>
+<path fill="none" stroke="#c9d1d9" d="M71.02,-34.99C79.01,-43.47 88.06,-54.09 95.51,-63.66"/>
+<polygon fill="#c9d1d9" stroke="#c9d1d9" points="93.29,-65.52 102.09,-71.41 98.88,-61.31 93.29,-65.52"/>
 </g>
 <!-- app.home&#45;&gt;app -->
 <g id="edge3" class="edge">
 <title>app.home&#45;&gt;app</title>
-<path fill="none" stroke="black" d="M159.66,-36.18C152.81,-45.65 143.12,-57.48 134.04,-67.55"/>
-<polygon fill="black" stroke="black" points="131.89,-64.8 127.64,-74.5 137.01,-69.57 131.89,-64.8"/>
+<path fill="none" stroke="#c9d1d9" d="M159.66,-36.18C152.81,-45.65 143.12,-57.48 134.04,-67.55"/>
+<polygon fill="#c9d1d9" stroke="#c9d1d9" points="131.89,-64.8 127.64,-74.5 137.01,-69.57 131.89,-64.8"/>
 </g>
 </g>
 </svg>
