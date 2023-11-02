@@ -93,8 +93,8 @@ Although these metrics may seem arbitrary if you are not used to them, they exis
 Your first instinct may be to think "well that doesn't matter", but that is exactly the problem, you are not used to thinking about these things because you didn't have the proper tooling to keep track of these things.
 Once you try a new project that strictly applies these rules, even if you don't understand the rules at first, you will come to understand them once you see how your code is affected by diligently following these rules.
 
-See a more thorough description here
-[naming](/docs/naming.md)
+See a more thorough description in the 
+[naming](/docs/naming.md) document
 
 
 ## Prerequisites
