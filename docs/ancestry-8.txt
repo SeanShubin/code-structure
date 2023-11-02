@@ -1,0 +1,11 @@
+digraph dependencies {
+    "login"    -> "util"
+    "login"    -> "contract"
+    "register" -> "contract"
+    "home"     -> "contract"
+    "home"     -> "util"
+    "register" -> "util"
+    "factory"  -> "login"
+    "factory"  -> "register"
+    "factory"  -> "home"
+}

@@ -1,0 +1,4 @@
+digraph dependencies {
+    login -> authorization
+    authorization -> login
+}

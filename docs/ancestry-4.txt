@@ -1,0 +1,8 @@
+digraph dependencies {
+    "app.login"    -> "app"
+    "app.register" -> "app"
+    "app.home"     -> "app"
+    "app.factory"  -> "app.login"
+    "app.factory"  -> "app.register"
+    "app.factory"  -> "app.home"
+}

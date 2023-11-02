@@ -1,0 +1,13 @@
+digraph dependencies {
+    "app.login.Login"       -> "app.StringUtil"
+    "app.register.Register" -> "app.StringUtil"
+    "app.login.Login"       -> "app.PageUtil"
+    "app.login.Login"       -> "app.Page"
+    "app.register.Register" -> "app.Page"
+    "app.home.Home"         -> "app.Page"
+    "app.home.Home"         -> "app.PageUtil"
+    "app.register.Register" -> "app.PageUtil"
+    "app.factory.Factory"   -> "app.login.Login"
+    "app.factory.Factory"   -> "app.register.Register"
+    "app.factory.Factory"   -> "app.home.Home"
+}

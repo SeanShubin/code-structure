@@ -1,0 +1,4 @@
+digraph dependencies {
+    "login.LoginService" -> "authorization.PasswordVerifier"
+    "authorization.PasswordVerifier" -> "login.OneWayHash"
+}

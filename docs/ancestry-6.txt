@@ -1,0 +1,13 @@
+digraph dependencies {
+    "app.login"    -> "lib.util"
+    "app.register" -> "lib.util"
+    "app.login"    -> "app.util"
+    "app.login"    -> "app.contract"
+    "app.register" -> "app.contract"
+    "app.home"     -> "app.contract"
+    "app.home"     -> "app.util"
+    "app.register" -> "app.util"
+    "app.factory"  -> "app.login"
+    "app.factory"  -> "app.register"
+    "app.factory"  -> "app.home"
+}
