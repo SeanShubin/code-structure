@@ -52,6 +52,7 @@
       beamformat
       kotlinsyntax
       elixirsyntax
+      scalasyntax
       cycle
       dot
       exec
@@ -69,6 +70,7 @@
     beamformat        [ relationparser contract-delegate ]
     kotlinsyntax      [ nameparser ]
     elixirsyntax      [ nameparser ]
+    scalasyntax       [ nameparser ]
     html              [ ]
     io                [ ]
     string            [ ]

@@ -3,15 +3,18 @@ package com.seanshubin.code.structure.domain
 import com.seanshubin.code.structure.elixirsyntax.ElixirParser
 import com.seanshubin.code.structure.kotlinsyntax.KotlinParser
 import com.seanshubin.code.structure.nameparser.NameParser
-import com.seanshubin.code.structure.nameparser.SourceParserRepository
+import com.seanshubin.code.structure.nameparser.NameParserRepository
+import com.seanshubin.code.structure.scalasyntax.ScalaParser
 
-class SourceParserRepositoryImpl(
-    kotlinSourceParser: KotlinParser,
-    elixirParser: ElixirParser
-) : SourceParserRepository {
+class NameParserRepositoryImpl(
+    kotlinParser: KotlinParser,
+    elixirParser: ElixirParser,
+    scalaParser: ScalaParser
+) : NameParserRepository {
     private val parserByLanguage = mapOf(
-        "kotlin" to kotlinSourceParser,
-        "elixir" to elixirParser
+        "kotlin" to kotlinParser,
+        "elixir" to elixirParser,
+        "scala" to scalaParser
     )
 
     override fun lookupByLanguage(language: String): NameParser {

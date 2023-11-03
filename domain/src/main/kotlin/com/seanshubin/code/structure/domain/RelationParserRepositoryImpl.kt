@@ -2,13 +2,13 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.beamformat.BeamParser
 import com.seanshubin.code.structure.relationparser.RelationParser
-import com.seanshubin.code.structure.relationparser.BinaryParserRepository
+import com.seanshubin.code.structure.relationparser.RelationParserRepository
 import com.seanshubin.code.structure.jvmformat.ClassParser
 
-class BinaryParserRepositoryImpl(
+class RelationParserRepositoryImpl(
     classParser: ClassParser,
     beamParser: BeamParser
-) : BinaryParserRepository {
+) : RelationParserRepository {
     private val parserByBytecodeFormat = mapOf(
         "class" to classParser,
         "beam" to beamParser

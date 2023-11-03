@@ -3,7 +3,7 @@ package com.seanshubin.code.structure.console
 import com.seanshubin.code.structure.beamformat.BeamParser
 import com.seanshubin.code.structure.beamformat.BeamParserImpl
 import com.seanshubin.code.structure.relationparser.RelationParser
-import com.seanshubin.code.structure.relationparser.BinaryParserRepository
+import com.seanshubin.code.structure.relationparser.RelationParserRepository
 import com.seanshubin.code.structure.config.Configuration
 import com.seanshubin.code.structure.config.JsonFileConfiguration
 import com.seanshubin.code.structure.config.TypeUtil.coerceToBoolean
@@ -25,7 +25,9 @@ import com.seanshubin.code.structure.jvmformat.*
 import com.seanshubin.code.structure.kotlinsyntax.KotlinParser
 import com.seanshubin.code.structure.kotlinsyntax.KotlinParserImpl
 import com.seanshubin.code.structure.nameparser.NameParser
-import com.seanshubin.code.structure.nameparser.SourceParserRepository
+import com.seanshubin.code.structure.nameparser.NameParserRepository
+import com.seanshubin.code.structure.scalasyntax.ScalaParser
+import com.seanshubin.code.structure.scalasyntax.ScalaParserImpl
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.time.Clock
@@ -78,11 +80,13 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
         binaryFileExcludeRegexPatterns
     )
     private val fileFinder: FileFinder = FileFinderImpl(files)
-    private val kotlinSourceParser: KotlinParser = KotlinParserImpl(inputDir)
+    private val kotlinParser: KotlinParser = KotlinParserImpl(inputDir)
     private val elixirParser: ElixirParser = ElixirParserImpl(inputDir)
-    private val sourceParserRepository: SourceParserRepository = SourceParserRepositoryImpl(
-        kotlinSourceParser,
-        elixirParser
+    private val scalaParser: ScalaParser = ScalaParserImpl(inputDir)
+    private val nameParserRepository: NameParserRepository = NameParserRepositoryImpl(
+        kotlinParser,
+        elixirParser,
+        scalaParser
     )
     private val zipByteSequenceLoader: ZipByteSequenceLoader = ZipByteSequenceLoaderImpl(
         files
@@ -97,12 +101,12 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
     private val classInfoLoader: ClassInfoLoaderImpl = ClassInfoLoaderImpl()
     private val classParser: ClassParser = ClassParserImpl(inputDir, byteSequenceLoader, classInfoLoader)
     private val beamParser: BeamParser = BeamParserImpl(files, inputDir)
-    private val binaryParserRepository: BinaryParserRepository = BinaryParserRepositoryImpl(
+    private val relationParserRepository: RelationParserRepository = RelationParserRepositoryImpl(
         classParser,
         beamParser
     )
-    private val nameParser: NameParser = sourceParserRepository.lookupByLanguage(language)
-    private val relationParser: RelationParser = binaryParserRepository.lookupByBytecodeFormat(bytecodeFormat)
+    private val nameParser: NameParser = nameParserRepository.lookupByLanguage(language)
+    private val relationParser: RelationParser = relationParserRepository.lookupByBytecodeFormat(bytecodeFormat)
     private val observer: Observer = ObserverImpl(
         inputDir,
         configuredErrorsFile,

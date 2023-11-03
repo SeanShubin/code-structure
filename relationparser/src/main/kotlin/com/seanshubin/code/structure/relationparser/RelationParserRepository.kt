@@ -1,5 +1,5 @@
 package com.seanshubin.code.structure.relationparser
 
-interface BinaryParserRepository {
+interface RelationParserRepository {
     fun lookupByBytecodeFormat(bytecodeFormat: String): RelationParser
 }

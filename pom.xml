@@ -67,6 +67,7 @@
         <module>beamformat</module>
         <module>kotlinsyntax</module>
         <module>elixirsyntax</module>
+        <module>scalasyntax</module>
         <module>html</module>
         <module>io</module>
         <module>string</module>

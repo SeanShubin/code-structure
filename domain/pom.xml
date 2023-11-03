@@ -62,6 +62,11 @@
         </dependency>
         <dependency>
             <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-scalasyntax</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
             <artifactId>code-structure-cycle</artifactId>
             <version>${project.version}</version>
         </dependency>
