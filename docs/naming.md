@@ -2,7 +2,7 @@
 - names are a tool to communicate meaning to humans
 - a human can only comprehend so many names at one time
 - a context is a tool to only look at names currently relevant to a human
-- a hierarchy is a kind of name that communicates context to humans
+- a hierarchy is a collection of names organized by context
 
 
 ## Organizing your code with good names
