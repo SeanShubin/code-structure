@@ -7,7 +7,7 @@
     <dependencies>
         <dependency>
             <groupId>com.seanshubin.code.structure</groupId>
-            <artifactId>code-structure-binaryparser</artifactId>
+            <artifactId>code-structure-relationparser</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

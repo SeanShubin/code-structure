@@ -2,8 +2,8 @@ package com.seanshubin.code.structure.console
 
 import com.seanshubin.code.structure.beamformat.BeamParser
 import com.seanshubin.code.structure.beamformat.BeamParserImpl
-import com.seanshubin.code.structure.binaryparser.BinaryParser
-import com.seanshubin.code.structure.binaryparser.BinaryParserRepository
+import com.seanshubin.code.structure.relationparser.BinaryParser
+import com.seanshubin.code.structure.relationparser.BinaryParserRepository
 import com.seanshubin.code.structure.config.Configuration
 import com.seanshubin.code.structure.config.JsonFileConfiguration
 import com.seanshubin.code.structure.config.TypeUtil.coerceToBoolean
@@ -24,8 +24,8 @@ import com.seanshubin.code.structure.filefinder.RegexFileMatcher
 import com.seanshubin.code.structure.jvmformat.*
 import com.seanshubin.code.structure.kotlinsyntax.KotlinSourceParser
 import com.seanshubin.code.structure.kotlinsyntax.KotlinSourceParserImpl
-import com.seanshubin.code.structure.sourceparser.SourceParser
-import com.seanshubin.code.structure.sourceparser.SourceParserRepository
+import com.seanshubin.code.structure.nameparser.SourceParser
+import com.seanshubin.code.structure.nameparser.SourceParserRepository
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.time.Clock

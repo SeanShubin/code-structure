@@ -1,4 +1,4 @@
-package com.seanshubin.code.structure.binaryparser
+package com.seanshubin.code.structure.relationparser
 
 import java.nio.file.Path
 

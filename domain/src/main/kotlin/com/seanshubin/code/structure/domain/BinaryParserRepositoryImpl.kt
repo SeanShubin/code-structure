@@ -1,8 +1,8 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.beamformat.BeamParser
-import com.seanshubin.code.structure.binaryparser.BinaryParser
-import com.seanshubin.code.structure.binaryparser.BinaryParserRepository
+import com.seanshubin.code.structure.relationparser.BinaryParser
+import com.seanshubin.code.structure.relationparser.BinaryParserRepository
 import com.seanshubin.code.structure.jvmformat.ClassParser
 
 class BinaryParserRepositoryImpl(

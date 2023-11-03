@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.jvmformat
 
-import com.seanshubin.code.structure.binaryparser.BinaryDetail
+import com.seanshubin.code.structure.relationparser.BinaryDetail
 import java.nio.file.Path
 
 class ClassParserImpl(

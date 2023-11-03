@@ -1,4 +1,4 @@
-package com.seanshubin.code.structure.sourceparser
+package com.seanshubin.code.structure.nameparser
 
 object RegexUtil {
     fun findRegex(regex: Regex, content: String): List<String> {

@@ -4,7 +4,7 @@ import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElement.Tag
 import com.seanshubin.code.structure.html.HtmlElement.Text
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
-import com.seanshubin.code.structure.sourceparser.SourceDetail
+import com.seanshubin.code.structure.nameparser.SourceDetail
 import java.nio.file.Path
 
 class SourcesReport : Report {

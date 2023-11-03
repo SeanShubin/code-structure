@@ -2,8 +2,8 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.elixirsyntax.ElixirParser
 import com.seanshubin.code.structure.kotlinsyntax.KotlinSourceParser
-import com.seanshubin.code.structure.sourceparser.SourceParser
-import com.seanshubin.code.structure.sourceparser.SourceParserRepository
+import com.seanshubin.code.structure.nameparser.SourceParser
+import com.seanshubin.code.structure.nameparser.SourceParserRepository
 
 class SourceParserRepositoryImpl(
     kotlinSourceParser: KotlinSourceParser,

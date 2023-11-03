@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.binaryparser.BinaryDetail
-import com.seanshubin.code.structure.sourceparser.SourceDetail
+import com.seanshubin.code.structure.relationparser.BinaryDetail
+import com.seanshubin.code.structure.nameparser.SourceDetail
 import java.nio.file.Path
 
 data class Observations(

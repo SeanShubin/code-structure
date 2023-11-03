@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.beamformat
 
-import com.seanshubin.code.structure.binaryparser.BinaryDetail
+import com.seanshubin.code.structure.relationparser.BinaryDetail
 import com.seanshubin.code.structure.contract.delegate.FilesContract
 import java.io.ByteArrayInputStream
 import java.io.InputStream

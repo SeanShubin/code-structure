@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.binaryparser.BinaryDetail
+import com.seanshubin.code.structure.relationparser.BinaryDetail
 import com.seanshubin.code.structure.collection.ComparatorUtil.pairComparator
 import com.seanshubin.code.structure.collection.ListUtil
 import com.seanshubin.code.structure.cycle.CycleUtil

@@ -1,4 +1,4 @@
-package com.seanshubin.code.structure.sourceparser
+package com.seanshubin.code.structure.nameparser
 
 import java.nio.file.Path
 

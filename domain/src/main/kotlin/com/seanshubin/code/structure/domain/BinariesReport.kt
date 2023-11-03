@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.binaryparser.BinaryDetail
+import com.seanshubin.code.structure.relationparser.BinaryDetail
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElement.Tag
 import com.seanshubin.code.structure.html.HtmlElement.Text
