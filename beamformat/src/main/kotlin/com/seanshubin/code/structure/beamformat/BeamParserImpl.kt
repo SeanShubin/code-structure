@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.beamformat
 
-import com.seanshubin.code.structure.relationparser.BinaryDetail
+import com.seanshubin.code.structure.relationparser.RelationDetail
 import com.seanshubin.code.structure.contract.delegate.FilesContract
 import java.io.ByteArrayInputStream
 import java.io.InputStream
@@ -10,7 +10,7 @@ class BeamParserImpl(
     private val files: FilesContract,
     private val relativeToDir: Path
 ) : BeamParser {
-    override fun parseBinary(path: Path, names: List<String>): List<BinaryDetail> {
+    override fun parseDependencies(path: Path, names: List<String>): List<RelationDetail> {
         val relativeDir = relativeToDir.relativize(path)
         val binaryDetail = files.newInputStream(path).use { inputStream ->
             val beamFile = parseBeamFile(inputStream)
@@ -23,18 +23,18 @@ class BeamParserImpl(
         }
     }
 
-    private fun elixirOnly(binaryDetail: BinaryDetail): BinaryDetail? {
-        val elixirName = binaryDetail.name.toElixirName() ?: return null
-        val newDependencyNames = binaryDetail.dependencyNames.mapNotNull { it.toElixirName() }
-        return binaryDetail.copy(
+    private fun elixirOnly(relationDetail: RelationDetail): RelationDetail? {
+        val elixirName = relationDetail.name.toElixirName() ?: return null
+        val newDependencyNames = relationDetail.dependencyNames.mapNotNull { it.toElixirName() }
+        return relationDetail.copy(
             name = elixirName,
             dependencyNames = newDependencyNames
         )
     }
 
-    private fun dependenciesOnly(binaryDetail: BinaryDetail, names: List<String>): BinaryDetail {
-        val newDependencyNames = binaryDetail.dependencyNames.filter { names.contains(it) }
-        return binaryDetail.copy(
+    private fun dependenciesOnly(relationDetail: RelationDetail, names: List<String>): RelationDetail {
+        val newDependencyNames = relationDetail.dependencyNames.filter { names.contains(it) }
+        return relationDetail.copy(
             dependencyNames = newDependencyNames
         )
     }
@@ -62,13 +62,13 @@ class BeamParserImpl(
         return BeamFile(fileSize, atoms, imports, sections)
     }
 
-    private fun BeamFile.toBinaryDetail(path: Path): BinaryDetail {
+    private fun BeamFile.toBinaryDetail(path: Path): RelationDetail {
         val name = atoms[0]
         val dependencyNames = imports.map {
             atoms[it.moduleIndex - 1]
         }.distinct().filterNot { it == name }
         val pathInFile = ""
-        return BinaryDetail(path, pathInFile, name, dependencyNames)
+        return RelationDetail(path, pathInFile, name, dependencyNames)
     }
 
     companion object {

@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.relationparser.BinaryDetail
+import com.seanshubin.code.structure.relationparser.RelationDetail
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElement.Tag
 import com.seanshubin.code.structure.html.HtmlElement.Text
@@ -64,31 +64,31 @@ class BinariesReport : Report {
         return Tag("tbody", rows)
     }
 
-    private fun binaryRowsWithDependencies(binary: BinaryDetail): List<HtmlElement> =
+    private fun binaryRowsWithDependencies(binary: RelationDetail): List<HtmlElement> =
         binary.dependencyNames.map {
             binaryRowWithDependencies(binary, it)
         }
 
-    private fun binaryRowWithDependencies(binary: BinaryDetail, dependencyName: String): HtmlElement {
+    private fun binaryRowWithDependencies(binary: RelationDetail, dependencyName: String): HtmlElement {
         val binaryCells = binaryCellsWithDependencies(binary, dependencyName)
         val binaryRow = Tag("tr", binaryCells)
         return binaryRow
     }
 
-    private fun binaryRowWithoutDependencies(binary: BinaryDetail): HtmlElement {
+    private fun binaryRowWithoutDependencies(binary: RelationDetail): HtmlElement {
         val binaryCells = binaryCellsWithoutDependencies(binary)
         val binaryRow = Tag("tr", binaryCells)
         return binaryRow
     }
 
-    private fun binaryCellsWithoutDependencies(binary: BinaryDetail): List<HtmlElement> {
+    private fun binaryCellsWithoutDependencies(binary: RelationDetail): List<HtmlElement> {
         return listOf(
             binaryCell(binary.name),
             binaryCell(binary.location),
         )
     }
 
-    private fun binaryCellsWithDependencies(binary: BinaryDetail, dependencyName: String): List<HtmlElement> {
+    private fun binaryCellsWithDependencies(binary: RelationDetail, dependencyName: String): List<HtmlElement> {
         return listOf(
             binaryCell(binary.name),
             binaryCell(dependencyName)

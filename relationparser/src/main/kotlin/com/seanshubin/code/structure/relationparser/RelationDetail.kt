@@ -2,7 +2,7 @@ package com.seanshubin.code.structure.relationparser
 
 import java.nio.file.Path
 
-data class BinaryDetail(
+data class RelationDetail(
     val file: Path,
     val pathInFile: String,
     val name: String,

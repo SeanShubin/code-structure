@@ -1,23 +1,23 @@
 package com.seanshubin.code.structure.kotlinsyntax
 
-import com.seanshubin.code.structure.nameparser.SourceDetail
+import com.seanshubin.code.structure.nameparser.NameDetail
 import java.nio.file.Paths
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class KotlinSourceParserTest {
+class KotlinParserTest {
     @Test
     fun simpleClass() {
         // given
         val inputDir = Paths.get(".")
-        val parser = KotlinSourceParserImpl(inputDir)
+        val parser = KotlinParserImpl(inputDir)
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
 
             class Sample(val x:Int)
         """.trimIndent()
-        val expected = SourceDetail(
+        val expected = NameDetail(
             path,
             "kotlin",
             listOf("foo.bar.Sample"),
@@ -25,7 +25,7 @@ class KotlinSourceParserTest {
         )
 
         // when
-        val actual = parser.parseSource(path, content)
+        val actual = parser.parseName(path, content)
 
         // then
         assertEquals(expected, actual)
@@ -35,14 +35,14 @@ class KotlinSourceParserTest {
     fun abstractClass() {
         // given
         val inputDir = Paths.get(".")
-        val parser = KotlinSourceParserImpl(inputDir)
+        val parser = KotlinParserImpl(inputDir)
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
 
             abstract class Sample(val x:Int)
         """.trimIndent()
-        val expected = SourceDetail(
+        val expected = NameDetail(
             path,
             "kotlin",
             listOf("foo.bar.Sample"),
@@ -50,7 +50,7 @@ class KotlinSourceParserTest {
         )
 
         // when
-        val actual = parser.parseSource(path, content)
+        val actual = parser.parseName(path, content)
 
         // then
         assertEquals(expected, actual)
@@ -60,7 +60,7 @@ class KotlinSourceParserTest {
     fun simpleInterface() {
         // given
         val inputDir = Paths.get(".")
-        val parser = KotlinSourceParserImpl(inputDir)
+        val parser = KotlinParserImpl(inputDir)
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
@@ -68,7 +68,7 @@ class KotlinSourceParserTest {
             interface Sample {
             }
         """.trimIndent()
-        val expected = SourceDetail(
+        val expected = NameDetail(
             path,
             "kotlin",
             listOf("foo.bar.Sample"),
@@ -76,7 +76,7 @@ class KotlinSourceParserTest {
         )
 
         // when
-        val actual = parser.parseSource(path, content)
+        val actual = parser.parseName(path, content)
 
         // then
         assertEquals(expected, actual)
@@ -86,12 +86,12 @@ class KotlinSourceParserTest {
     fun rootPackage() {
         // given
         val inputDir = Paths.get(".")
-        val parser = KotlinSourceParserImpl(inputDir)
+        val parser = KotlinParserImpl(inputDir)
         val path = Paths.get("Sample.kt")
         val content = """
             class Sample(val x:Int)
         """.trimIndent()
-        val expected = SourceDetail(
+        val expected = NameDetail(
             path,
             "kotlin",
             listOf("Sample"),
@@ -99,7 +99,7 @@ class KotlinSourceParserTest {
         )
 
         // when
-        val actual = parser.parseSource(path, content)
+        val actual = parser.parseName(path, content)
 
         // then
         assertEquals(expected, actual)
@@ -109,14 +109,14 @@ class KotlinSourceParserTest {
     fun dataClass() {
         // given
         val inputDir = Paths.get(".")
-        val parser = KotlinSourceParserImpl(inputDir)
+        val parser = KotlinParserImpl(inputDir)
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
 
             data class Sample(val x:Int)
         """.trimIndent()
-        val expected = SourceDetail(
+        val expected = NameDetail(
             path,
             "kotlin",
             listOf("foo.bar.Sample"),
@@ -124,7 +124,7 @@ class KotlinSourceParserTest {
         )
 
         // when
-        val actual = parser.parseSource(path, content)
+        val actual = parser.parseName(path, content)
 
         // then
         assertEquals(expected, actual)
@@ -134,14 +134,14 @@ class KotlinSourceParserTest {
     fun objectModule() {
         // given
         val inputDir = Paths.get(".")
-        val parser = KotlinSourceParserImpl(inputDir)
+        val parser = KotlinParserImpl(inputDir)
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
 
             object Sample {}
         """.trimIndent()
-        val expected = SourceDetail(
+        val expected = NameDetail(
             path,
             "kotlin",
             listOf("foo.bar.Sample"),
@@ -149,7 +149,7 @@ class KotlinSourceParserTest {
         )
 
         // when
-        val actual = parser.parseSource(path, content)
+        val actual = parser.parseName(path, content)
 
         // then
         assertEquals(expected, actual)
@@ -159,7 +159,7 @@ class KotlinSourceParserTest {
     fun multiple() {
         // given
         val inputDir = Paths.get(".")
-        val parser = KotlinSourceParserImpl(inputDir)
+        val parser = KotlinParserImpl(inputDir)
         val path = Paths.get("foo/bar/Sample.kt")
         val content = """
             package foo.bar
@@ -175,7 +175,7 @@ class KotlinSourceParserTest {
             
             object SampleThree
         """.trimIndent()
-        val expected = SourceDetail(
+        val expected = NameDetail(
             path,
             "kotlin",
             listOf(
@@ -187,7 +187,7 @@ class KotlinSourceParserTest {
         )
 
         // when
-        val actual = parser.parseSource(path, content)
+        val actual = parser.parseName(path, content)
 
         // then
         assertEquals(expected, actual)

@@ -2,7 +2,7 @@ package com.seanshubin.code.structure.console
 
 import com.seanshubin.code.structure.beamformat.BeamParser
 import com.seanshubin.code.structure.beamformat.BeamParserImpl
-import com.seanshubin.code.structure.relationparser.BinaryParser
+import com.seanshubin.code.structure.relationparser.RelationParser
 import com.seanshubin.code.structure.relationparser.BinaryParserRepository
 import com.seanshubin.code.structure.config.Configuration
 import com.seanshubin.code.structure.config.JsonFileConfiguration
@@ -22,9 +22,9 @@ import com.seanshubin.code.structure.filefinder.FileFinder
 import com.seanshubin.code.structure.filefinder.FileFinderImpl
 import com.seanshubin.code.structure.filefinder.RegexFileMatcher
 import com.seanshubin.code.structure.jvmformat.*
-import com.seanshubin.code.structure.kotlinsyntax.KotlinSourceParser
-import com.seanshubin.code.structure.kotlinsyntax.KotlinSourceParserImpl
-import com.seanshubin.code.structure.nameparser.SourceParser
+import com.seanshubin.code.structure.kotlinsyntax.KotlinParser
+import com.seanshubin.code.structure.kotlinsyntax.KotlinParserImpl
+import com.seanshubin.code.structure.nameparser.NameParser
 import com.seanshubin.code.structure.nameparser.SourceParserRepository
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -78,7 +78,7 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
         binaryFileExcludeRegexPatterns
     )
     private val fileFinder: FileFinder = FileFinderImpl(files)
-    private val kotlinSourceParser: KotlinSourceParser = KotlinSourceParserImpl(inputDir)
+    private val kotlinSourceParser: KotlinParser = KotlinParserImpl(inputDir)
     private val elixirParser: ElixirParser = ElixirParserImpl(inputDir)
     private val sourceParserRepository: SourceParserRepository = SourceParserRepositoryImpl(
         kotlinSourceParser,
@@ -101,8 +101,8 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
         classParser,
         beamParser
     )
-    private val sourceParser: SourceParser = sourceParserRepository.lookupByLanguage(language)
-    private val binaryParser: BinaryParser = binaryParserRepository.lookupByBytecodeFormat(bytecodeFormat)
+    private val nameParser: NameParser = sourceParserRepository.lookupByLanguage(language)
+    private val relationParser: RelationParser = binaryParserRepository.lookupByBytecodeFormat(bytecodeFormat)
     private val observer: Observer = ObserverImpl(
         inputDir,
         configuredErrorsFile,
@@ -110,8 +110,8 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
         isSourceFile,
         isBinaryFile,
         fileFinder,
-        sourceParser,
-        binaryParser,
+        nameParser,
+        relationParser,
         files
     )
     private val analyzer: Analyzer = AnalyzerImpl()

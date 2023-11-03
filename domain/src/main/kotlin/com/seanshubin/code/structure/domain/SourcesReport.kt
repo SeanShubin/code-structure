@@ -4,7 +4,7 @@ import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElement.Tag
 import com.seanshubin.code.structure.html.HtmlElement.Text
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
-import com.seanshubin.code.structure.nameparser.SourceDetail
+import com.seanshubin.code.structure.nameparser.NameDetail
 import java.nio.file.Path
 
 class SourcesReport : Report {
@@ -60,11 +60,11 @@ class SourcesReport : Report {
         return td
     }
 
-    private fun tdSourceDetail(sourceDetail: SourceDetail): HtmlElement {
-        val names = if (sourceDetail.modules.size == 1) {
-            sourceDetail.modules[0]
+    private fun tdSourceDetail(nameDetail: NameDetail): HtmlElement {
+        val names = if (nameDetail.modules.size == 1) {
+            nameDetail.modules[0]
         } else {
-            sourceDetail.modules.joinToString(", ", "[", "]")
+            nameDetail.modules.joinToString(", ", "[", "]")
         }
         val text = Text(names)
         val td = Tag("td", text)

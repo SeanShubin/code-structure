@@ -1,5 +1,5 @@
 package com.seanshubin.code.structure.nameparser
 
 interface SourceParserRepository {
-    fun lookupByLanguage(language: String): SourceParser
+    fun lookupByLanguage(language: String): NameParser
 }

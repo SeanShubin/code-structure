@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.relationparser.BinaryDetail
+import com.seanshubin.code.structure.relationparser.RelationDetail
 import com.seanshubin.code.structure.collection.ComparatorUtil.pairComparator
 import com.seanshubin.code.structure.collection.ListUtil
 import com.seanshubin.code.structure.cycle.CycleUtil
@@ -97,7 +97,7 @@ class AnalyzerImpl : Analyzer {
             )
         }
 
-        private fun BinaryDetail.toName(commonPrefix: List<String>): String = this.name.toName(commonPrefix)
+        private fun RelationDetail.toName(commonPrefix: List<String>): String = this.name.toName(commonPrefix)
 
         private fun String.toName(commonPrefix: List<String>): String {
             val parts = this.split('.')

@@ -1,15 +1,15 @@
 package com.seanshubin.code.structure.kotlinsyntax
 
 import com.seanshubin.code.structure.nameparser.RegexUtil.findRegex
-import com.seanshubin.code.structure.nameparser.SourceDetail
+import com.seanshubin.code.structure.nameparser.NameDetail
 import java.nio.file.Path
 
-class KotlinSourceParserImpl(private val relativeToDir: Path) : KotlinSourceParser {
+class KotlinParserImpl(private val relativeToDir: Path) : KotlinParser {
     private val packageRegex = Regex("""^(?:[^\n ].*)?package +([.\w]*)""", RegexOption.MULTILINE)
     private val interfaceRegex = Regex("""^(?:[^\n ].*)?interface +([.\w]*)""", RegexOption.MULTILINE)
     private val classRegex = Regex("""^(?:[^\n ].*)?class +([.\w]*)""", RegexOption.MULTILINE)
     private val objectRegex = Regex("""^(?:[^\n ].*)?object +([.\w]*)""", RegexOption.MULTILINE)
-    override fun parseSource(path: Path, content: String): SourceDetail {
+    override fun parseName(path: Path, content: String): NameDetail {
         val relativePath = relativeToDir.relativize(path)
         val language = "kotlin"
         val packages = findRegex(packageRegex, content)
@@ -19,7 +19,7 @@ class KotlinSourceParserImpl(private val relativeToDir: Path) : KotlinSourcePars
             packages.forEachIndexed { index, line ->
                 errorLines.add("  [$index] '$line'")
             }
-            return SourceDetail(
+            return NameDetail(
                 relativePath,
                 language,
                 emptyList(),
@@ -34,7 +34,7 @@ class KotlinSourceParserImpl(private val relativeToDir: Path) : KotlinSourcePars
         val qualifiedNames = names.map {
             "$prefix$it"
         }
-        return SourceDetail(
+        return NameDetail(
             relativePath,
             language,
             qualifiedNames,
