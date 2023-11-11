@@ -32,7 +32,8 @@ Example configuration:
     "groupCycle" : true,
     "ancestorDependsOnDescendant" : true,
     "descendantDependsOnAncestor" : true
-  }
+  },
+  "useObservationsCache": false
 }
 ```
 
@@ -82,7 +83,11 @@ Example configuration:
     - ancestorDependsOnDescendant
       - fail if there is a new dependency going from the upper to lower levels of the hierarchy
     - descendantDependsOnAncestor
-      - fail if there is a new dependency going from the lower to the upper level of the hierarchy 
+      - fail if there is a new dependency going from the lower to the upper level of the hierarchy
+  - useObservationsCache
+    - if the observations file exists, use that instead of scanning the sources and binaries
+    - this is useful if you want to run "what if" scenarios by manually changing the observations file
+    - while true, changes to the source won't show up unless you delete the observations file 
 
 ## Why these metrics fail the build
 Although these metrics may seem arbitrary if you are not used to them, they exist for very good reasons.

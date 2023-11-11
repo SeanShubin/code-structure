@@ -22,5 +22,6 @@
     "groupCycle" : true,
     "ancestorDependsOnDescendant" : true,
     "descendantDependsOnAncestor" : true
-  }
+  },
+  "useObservationsCache" : true
 }

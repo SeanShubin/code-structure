@@ -58,6 +58,7 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
     private val inputDir = config.load(listOf("inputDir"), ".").coerceToPath()
     private val outputDir = config.load(listOf("outputDir"), "generated").coerceToPath()
     private val localDepth = config.load(listOf("localDepth"), 2).coerceToInt()
+    private val useObservationsCache = config.load(listOf("useObservationsCache"), false).coerceToBoolean()
     private val bytecodeFormat = config.load(listOf("bytecodeFormat"), "bytecode format").coerceToString()
     private val sourcePrefix = config.load(listOf("sourcePrefix"), "prefix for link to source code").coerceToString()
     private val sourceFileIncludeRegexPatterns: List<String> =
@@ -117,7 +118,9 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
         fileFinder,
         nameParser,
         relationParser,
-        files
+        files,
+        outputDir,
+        useObservationsCache
     )
     private val analyzer: Analyzer = AnalyzerImpl()
     private val validator: Validator = ValidatorImpl()
