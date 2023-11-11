@@ -11,7 +11,6 @@ Example configuration:
 {
   "inputDir" : ".",
   "outputDir" : "generated/self",
-  "language" : "kotlin",
   "localDepth" : 2,
   "nodeLimitMainGraph" : 100,
   "bytecodeFormat" : "class",
@@ -47,9 +46,6 @@ Example configuration:
     - path, the directory from which to start scanning
   - outputDir
     - path, the directory to place the report
-  - language
-    - the source language, currently only kotlin and elixir supported
-    - used to determine the names of things defined in each file
   - localDepth
     - when looking at the graph of a single file, how many levels of associated files to look at
     - for example, if depth is 1, only look at the files the subject immediately depends on, or is immediately depended on by

@@ -1,7 +1,6 @@
 {
   "inputDir" : "../code_structure_sample_elixir/",
   "outputDir" : "generated/elixir/",
-  "language" : "elixir",
   "localDepth" : 2,
   "sourcePrefix" : "https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/",
   "sourceFileRegexPatterns" : {

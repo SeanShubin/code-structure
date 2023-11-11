@@ -68,6 +68,7 @@
         <module>kotlinsyntax</module>
         <module>elixirsyntax</module>
         <module>scalasyntax</module>
+        <module>javasyntax</module>
         <module>html</module>
         <module>io</module>
         <module>string</module>
@@ -180,7 +181,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.6.0</version>
+                        <version>3.6.2</version>
                         <executions>
                             <execution>
                                 <id>generate-dummy-javadoc-per-maven-central-requirements</id>

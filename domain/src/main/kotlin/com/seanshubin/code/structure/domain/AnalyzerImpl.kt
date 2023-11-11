@@ -201,7 +201,11 @@ class AnalyzerImpl : Analyzer {
         ): Set<String> {
             val thisOrCycle = cyclesByName[name] ?: setOf(name)
             val immediate = thisOrCycle.flatMap { partOfCycle ->
-                referencesByName.getValue(partOfCycle)
+                if(referencesByName.containsKey(partOfCycle)) {
+                    referencesByName.getValue(partOfCycle)
+                } else {
+                    throw RuntimeException(partOfCycle)
+                }
             }.filterNot {
                 thisOrCycle.contains(it)
             }

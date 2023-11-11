@@ -1,7 +1,6 @@
 {
   "inputDir" : ".",
   "outputDir" : "generated/self",
-  "language" : "kotlin",
   "localDepth" : 2,
   "nodeLimitMainGraph" : 100,
   "bytecodeFormat" : "class",

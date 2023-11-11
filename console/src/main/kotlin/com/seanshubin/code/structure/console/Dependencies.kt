@@ -2,8 +2,6 @@ package com.seanshubin.code.structure.console
 
 import com.seanshubin.code.structure.beamformat.BeamParser
 import com.seanshubin.code.structure.beamformat.BeamParserImpl
-import com.seanshubin.code.structure.relationparser.RelationParser
-import com.seanshubin.code.structure.relationparser.RelationParserRepository
 import com.seanshubin.code.structure.config.Configuration
 import com.seanshubin.code.structure.config.JsonFileConfiguration
 import com.seanshubin.code.structure.config.TypeUtil.coerceToBoolean
@@ -21,11 +19,14 @@ import com.seanshubin.code.structure.exec.ExecImpl
 import com.seanshubin.code.structure.filefinder.FileFinder
 import com.seanshubin.code.structure.filefinder.FileFinderImpl
 import com.seanshubin.code.structure.filefinder.RegexFileMatcher
+import com.seanshubin.code.structure.javasyntax.JavaParser
+import com.seanshubin.code.structure.javasyntax.JavaParserImpl
 import com.seanshubin.code.structure.jvmformat.*
 import com.seanshubin.code.structure.kotlinsyntax.KotlinParser
 import com.seanshubin.code.structure.kotlinsyntax.KotlinParserImpl
 import com.seanshubin.code.structure.nameparser.NameParser
-import com.seanshubin.code.structure.nameparser.NameParserRepository
+import com.seanshubin.code.structure.relationparser.RelationParser
+import com.seanshubin.code.structure.relationparser.RelationParserRepository
 import com.seanshubin.code.structure.scalasyntax.ScalaParser
 import com.seanshubin.code.structure.scalasyntax.ScalaParserImpl
 import java.nio.file.Path
@@ -56,7 +57,6 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
     )
     private val inputDir = config.load(listOf("inputDir"), ".").coerceToPath()
     private val outputDir = config.load(listOf("outputDir"), "generated").coerceToPath()
-    private val language = config.load(listOf("language"), "source code language").coerceToString()
     private val localDepth = config.load(listOf("localDepth"), 2).coerceToInt()
     private val bytecodeFormat = config.load(listOf("bytecodeFormat"), "bytecode format").coerceToString()
     private val sourcePrefix = config.load(listOf("sourcePrefix"), "prefix for link to source code").coerceToString()
@@ -83,11 +83,7 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
     private val kotlinParser: KotlinParser = KotlinParserImpl(inputDir)
     private val elixirParser: ElixirParser = ElixirParserImpl(inputDir)
     private val scalaParser: ScalaParser = ScalaParserImpl(inputDir)
-    private val nameParserRepository: NameParserRepository = NameParserRepositoryImpl(
-        kotlinParser,
-        elixirParser,
-        scalaParser
-    )
+    private val javaParser: JavaParser = JavaParserImpl(inputDir)
     private val zipByteSequenceLoader: ZipByteSequenceLoader = ZipByteSequenceLoaderImpl(
         files
     )
@@ -105,7 +101,12 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
         classParser,
         beamParser
     )
-    private val nameParser: NameParser = nameParserRepository.lookupByLanguage(language)
+    private val nameParser: NameParser = DynamicNameParser(
+        kotlinParser,
+        elixirParser,
+        scalaParser,
+        javaParser
+    )
     private val relationParser: RelationParser = relationParserRepository.lookupByBytecodeFormat(bytecodeFormat)
     private val observer: Observer = ObserverImpl(
         inputDir,
