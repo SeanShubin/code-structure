@@ -23,5 +23,5 @@
     "ancestorDependsOnDescendant" : true,
     "descendantDependsOnAncestor" : true
   },
-  "useObservationsCache" : true
+  "useObservationsCache" : false
 }

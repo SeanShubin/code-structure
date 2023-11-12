@@ -1,0 +1,410 @@
+{
+  "inputDir" : "../../code_structure_sample_elixir",
+  "sourcePrefix" : "https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/",
+  "sourceFiles" : [
+    "lib/module_e.ex",
+    "lib/module_p.ex",
+    "lib/path_a/module_b.ex",
+    "lib/path_c/module_d.ex",
+    "lib/path_e/path_f/module_k.ex",
+    "lib/path_e/path_f/module_l.ex",
+    "lib/path_e/path_f/module_m.ex",
+    "lib/path_e/path_f/module_n.ex",
+    "lib/path_e/path_f/module_o.ex",
+    "lib/path_g/module_h.ex",
+    "lib/path_i/module_j.ex",
+    "lib/path_p/module_q.ex",
+    "lib/path_r/module_s.ex",
+    "lib/path_t/module_u.ex"
+  ],
+  "sources" : [
+    {
+      "path" : "lib/module_e.ex",
+      "language" : "elixir",
+      "modules" : [
+        "ModuleE"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/module_p.ex",
+      "language" : "elixir",
+      "modules" : [
+        "ModuleP"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_a/module_b.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathA.ModuleB"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_c/module_d.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathC.ModuleD"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_e/path_f/module_k.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathE.PathF.ModuleK"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_e/path_f/module_l.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathE.PathF.ModuleL"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_e/path_f/module_m.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathE.PathF.ModuleM"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_e/path_f/module_n.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathE.PathF.ModuleN"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_e/path_f/module_o.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathE.PathF.ModuleO"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_g/module_h.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathG.ModuleH"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_i/module_j.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathI.ModuleJ"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_p/module_q.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathP.ModuleQ"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_r/module_s.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathR.ModuleS"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_t/module_u.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathT.ModuleU"
+      ],
+      "errorLines" : [ ]
+    }
+  ],
+  "missingBinaries" : [
+    {
+      "path" : "lib/module_e.ex",
+      "language" : "elixir",
+      "modules" : [
+        "ModuleE"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/module_p.ex",
+      "language" : "elixir",
+      "modules" : [
+        "ModuleP"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_a/module_b.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathA.ModuleB"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_c/module_d.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathC.ModuleD"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_e/path_f/module_k.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathE.PathF.ModuleK"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_e/path_f/module_l.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathE.PathF.ModuleL"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_e/path_f/module_m.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathE.PathF.ModuleM"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_e/path_f/module_n.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathE.PathF.ModuleN"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_e/path_f/module_o.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathE.PathF.ModuleO"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_g/module_h.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathG.ModuleH"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_i/module_j.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathI.ModuleJ"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_p/module_q.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathP.ModuleQ"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_r/module_s.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathR.ModuleS"
+      ],
+      "errorLines" : [ ]
+    },
+    {
+      "path" : "lib/path_t/module_u.ex",
+      "language" : "elixir",
+      "modules" : [
+        "PathT.ModuleU"
+      ],
+      "errorLines" : [ ]
+    }
+  ],
+  "binaries" : [
+    {
+      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.ModuleE.beam",
+      "pathInFile" : "",
+      "name" : "ModuleE",
+      "dependencyNames" : [ ],
+      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.ModuleE.beam"
+    },
+    {
+      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.ModuleP.beam",
+      "pathInFile" : "",
+      "name" : "ModuleP",
+      "dependencyNames" : [
+        "PathP.ModuleQ"
+      ],
+      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.ModuleP.beam"
+    },
+    {
+      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathA.ModuleB.beam",
+      "pathInFile" : "",
+      "name" : "PathA.ModuleB",
+      "dependencyNames" : [
+        "PathC.ModuleD"
+      ],
+      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathA.ModuleB.beam"
+    },
+    {
+      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathC.ModuleD.beam",
+      "pathInFile" : "",
+      "name" : "PathC.ModuleD",
+      "dependencyNames" : [
+        "PathE.PathF.ModuleL"
+      ],
+      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathC.ModuleD.beam"
+    },
+    {
+      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleK.beam",
+      "pathInFile" : "",
+      "name" : "PathE.PathF.ModuleK",
+      "dependencyNames" : [
+        "PathE.PathF.ModuleL"
+      ],
+      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleK.beam"
+    },
+    {
+      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleL.beam",
+      "pathInFile" : "",
+      "name" : "PathE.PathF.ModuleL",
+      "dependencyNames" : [
+        "PathE.PathF.ModuleM"
+      ],
+      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleL.beam"
+    },
+    {
+      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleM.beam",
+      "pathInFile" : "",
+      "name" : "PathE.PathF.ModuleM",
+      "dependencyNames" : [
+        "PathE.PathF.ModuleN",
+        "ModuleE"
+      ],
+      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleM.beam"
+    },
+    {
+      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleN.beam",
+      "pathInFile" : "",
+      "name" : "PathE.PathF.ModuleN",
+      "dependencyNames" : [
+        "PathE.PathF.ModuleL",
+        "PathE.PathF.ModuleO",
+        "PathG.ModuleH"
+      ],
+      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleN.beam"
+    },
+    {
+      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleO.beam",
+      "pathInFile" : "",
+      "name" : "PathE.PathF.ModuleO",
+      "dependencyNames" : [ ],
+      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleO.beam"
+    },
+    {
+      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathG.ModuleH.beam",
+      "pathInFile" : "",
+      "name" : "PathG.ModuleH",
+      "dependencyNames" : [
+        "PathC.ModuleD",
+        "PathI.ModuleJ"
+      ],
+      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathG.ModuleH.beam"
+    },
+    {
+      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathI.ModuleJ.beam",
+      "pathInFile" : "",
+      "name" : "PathI.ModuleJ",
+      "dependencyNames" : [
+        "PathP.ModuleQ"
+      ],
+      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathI.ModuleJ.beam"
+    },
+    {
+      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathP.ModuleQ.beam",
+      "pathInFile" : "",
+      "name" : "PathP.ModuleQ",
+      "dependencyNames" : [
+        "PathR.ModuleS"
+      ],
+      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathP.ModuleQ.beam"
+    },
+    {
+      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathR.ModuleS.beam",
+      "pathInFile" : "",
+      "name" : "PathR.ModuleS",
+      "dependencyNames" : [
+        "PathI.ModuleJ",
+        "PathT.ModuleU"
+      ],
+      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathR.ModuleS.beam"
+    },
+    {
+      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathT.ModuleU.beam",
+      "pathInFile" : "",
+      "name" : "PathT.ModuleU",
+      "dependencyNames" : [ ],
+      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathT.ModuleU.beam"
+    }
+  ],
+  "configuredErrors" : {
+    "inDirectCycle" : [
+      "PathC.ModuleD",
+      "PathE.PathF.ModuleL",
+      "PathE.PathF.ModuleM",
+      "PathE.PathF.ModuleN",
+      "PathG.ModuleH",
+      "PathI.ModuleJ",
+      "PathP.ModuleQ",
+      "PathR.ModuleS"
+    ],
+    "inGroupCycle" : [
+      "PathC",
+      "PathE",
+      "PathE.PathF.ModuleL",
+      "PathE.PathF.ModuleM",
+      "PathE.PathF.ModuleN",
+      "PathG",
+      "PathI",
+      "PathP",
+      "PathR"
+    ],
+    "ancestorDependsOnDescendant" : [
+      {
+        "first" : "ModuleP",
+        "second" : "PathP.ModuleQ"
+      }
+    ],
+    "descendantDependsOnAncestor" : [
+      {
+        "first" : "PathE.PathF.ModuleM",
+        "second" : "ModuleE"
+      }
+    ]
+  }
+}

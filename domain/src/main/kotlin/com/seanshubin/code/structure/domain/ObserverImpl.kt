@@ -45,8 +45,9 @@ class ObserverImpl(
         } else {
             null
         }
-        val sourceFiles = fileFinder.findFiles(inputDir, isSourceFile).sorted()
-        val nameDetailList = sourceFiles.map { path ->
+        val absoluteSourceFiles = fileFinder.findFiles(inputDir, isSourceFile).sorted()
+        val relativeSourceFiles = absoluteSourceFiles.map { inputDir.relativize(it)}
+        val nameDetailList = absoluteSourceFiles.map { path ->
             val content = files.readString(path, StandardCharsets.UTF_8)
             val nameDetail = nameParser.parseName(path, content)
             nameDetail
@@ -74,7 +75,7 @@ class ObserverImpl(
             return relationDetail.copy(dependencyNames = dependencyNames)
         }
         val filteredReferenceDetailList = binaryDetailList.map(::filterBinaryDetail)
-        val observations = Observations(inputDir, sourcePrefix, sourceFiles, filteredNameDetailList, missingBinaries, filteredReferenceDetailList, configuredErrors)
+        val observations = Observations(inputDir, sourcePrefix, relativeSourceFiles, filteredNameDetailList, missingBinaries, filteredReferenceDetailList, configuredErrors)
         val text = JsonMappers.pretty.writeValueAsString(observations)
         files.createDirectories(outputDir)
         files.writeString(observationsFile, text, StandardCharsets.UTF_8)
