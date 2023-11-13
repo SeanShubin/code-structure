@@ -87,7 +87,7 @@ class DirectCycleReport : Report {
         val id = cycleName(listIndex)
         val summaryAnchor = anchor(id, "$id.html")
         val summary = HtmlElement.Tag("h2", listOf(summaryAnchor), listOf("id" to id))
-        val listElements = bigList(cycleList, ::cycleElement, "big-list", "part")
+        val listElements = bigList(cycleList, ::cycleElement, "column-1", "part")
         return listOf(summary) + listElements
     }
 

@@ -1,7 +1,7 @@
 {
   "inputDir": "../code-structure-sample-kotlin/",
   "outputDir": "generated/kotlin/",
-  "localDepth": 1,
+  "localDepth": 2,
   "sourcePrefix": "https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/",
   "sourceFileRegexPatterns": {
     "include": [

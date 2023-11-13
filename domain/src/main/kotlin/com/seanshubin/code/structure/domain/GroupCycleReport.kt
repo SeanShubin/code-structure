@@ -98,7 +98,7 @@ class GroupCycleReport : Report {
         val summary = HtmlElement.Tag("h2", listOf(summaryAnchor), listOf("id" to id))
         val groupAnchor = composeGroupAnchor(groupCycle.group)
         val groupElement = HtmlElement.Tag("p", listOf(groupAnchor))
-        val listElements = bigList(groupCycle.names, ::cycleElement, "big-list", "part")
+        val listElements = bigList(groupCycle.names, ::cycleElement, "column-1", "part")
         return listOf(summary) + listOf(groupElement) + listElements
     }
 

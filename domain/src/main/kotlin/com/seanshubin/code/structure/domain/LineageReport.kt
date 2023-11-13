@@ -25,7 +25,7 @@ class LineageReport(
 
     private fun lineageElement(references: List<Pair<String, String>>): List<HtmlElement> {
         val captionElement = HtmlElement.Tag("h2", listOf(HtmlElement.Text(page.caption)))
-        val referencesElement = bigList(references, ::referenceToElements, "two-column", page.caption)
+        val referencesElement = bigList(references, ::referenceToElements, "column-2", page.caption)
         return listOf(captionElement) + referencesElement
     }
 

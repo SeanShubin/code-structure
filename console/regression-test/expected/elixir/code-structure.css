@@ -64,7 +64,7 @@ table {
     overflow-x: scroll;
 }
 
-.big-list {
+.column-1 {
     display: grid;
     grid-template-columns: auto;
     grid-row-gap: 0.5rem;
@@ -72,9 +72,17 @@ table {
     justify-content: start;
 }
 
-.two-column {
+.column-2 {
     display: grid;
     grid-template-columns: auto auto;
+    grid-row-gap: 0.5rem;
+    grid-column-gap: 0.5rem;
+    justify-content: start;
+}
+
+.column-3 {
+    display: grid;
+    grid-template-columns: auto auto auto;
     grid-row-gap: 0.5rem;
     grid-column-gap: 0.5rem;
     justify-content: start;
