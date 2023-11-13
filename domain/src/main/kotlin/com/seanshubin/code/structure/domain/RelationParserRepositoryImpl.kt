@@ -1,9 +1,9 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.beamformat.BeamParser
+import com.seanshubin.code.structure.jvmformat.ClassParser
 import com.seanshubin.code.structure.relationparser.RelationParser
 import com.seanshubin.code.structure.relationparser.RelationParserRepository
-import com.seanshubin.code.structure.jvmformat.ClassParser
 
 class RelationParserRepositoryImpl(
     classParser: ClassParser,

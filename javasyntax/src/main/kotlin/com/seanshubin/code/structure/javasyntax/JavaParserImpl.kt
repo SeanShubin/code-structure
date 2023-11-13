@@ -4,7 +4,7 @@ import com.seanshubin.code.structure.nameparser.NameDetail
 import com.seanshubin.code.structure.nameparser.RegexUtil
 import java.nio.file.Path
 
-class JavaParserImpl(private val relativeToDir: Path):JavaParser {
+class JavaParserImpl(private val relativeToDir: Path) : JavaParser {
     private val packageRegex = Regex("""^(?:[^\n ].*)?package +([.\w]*)""", RegexOption.MULTILINE)
     private val interfaceRegex = Regex("""^(?:[^\n ].*)?interface +([.\w]*)""", RegexOption.MULTILINE)
     private val classRegex = Regex("""^(?:[^\n ].*)?class +([.\w]*)""", RegexOption.MULTILINE)

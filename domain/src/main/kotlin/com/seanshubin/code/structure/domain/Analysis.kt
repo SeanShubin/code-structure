@@ -13,7 +13,8 @@ data class Analysis(
     private val scopedAnalysisByGroup = groupScopedAnalysisList.associateBy { it.first }
     private val uriByName = nameUriList.toMap()
     fun descendantCount(group: List<String>): Int =
-        groupScopedAnalysisList.filter{it.first.startsWith(group)}.sumOf{it.second.names.size}
-    fun containsGroup(group:List<String>):Boolean = scopedAnalysisByGroup.containsKey(group)
-    fun lookupUri(name:String):String = uriByName.getValue(name)
+        groupScopedAnalysisList.filter { it.first.startsWith(group) }.sumOf { it.second.names.size }
+
+    fun containsGroup(group: List<String>): Boolean = scopedAnalysisByGroup.containsKey(group)
+    fun lookupUri(name: String): String = uriByName.getValue(name)
 }

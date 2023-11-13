@@ -1,9 +1,9 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.relationparser.RelationDetail
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElement.Tag
 import com.seanshubin.code.structure.html.HtmlElement.Text
+import com.seanshubin.code.structure.relationparser.RelationDetail
 import java.nio.file.Path
 
 class BinariesReport : Report {

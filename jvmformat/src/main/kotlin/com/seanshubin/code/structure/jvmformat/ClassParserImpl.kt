@@ -19,7 +19,12 @@ class ClassParserImpl(
         return binaryDetailList
     }
 
-    private fun toBinaryDetail(file: Path, pathInFile: String, jvmClass: JvmClass, names: List<String>): RelationDetail {
+    private fun toBinaryDetail(
+        file: Path,
+        pathInFile: String,
+        jvmClass: JvmClass,
+        names: List<String>
+    ): RelationDetail {
         val name = jvmClass.thisClassName.formatClassName()
         val allDependencyNames = jvmClass.dependencyNames.map { it.formatClassName() }
         val filteredDependencyNames = allDependencyNames.filter {

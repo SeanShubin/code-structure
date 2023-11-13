@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.beamformat
 
-import com.seanshubin.code.structure.relationparser.RelationDetail
 import com.seanshubin.code.structure.contract.delegate.FilesContract
+import com.seanshubin.code.structure.relationparser.RelationDetail
 import java.io.ByteArrayInputStream
 import java.io.InputStream
 import java.nio.file.Path

@@ -17,7 +17,7 @@ class CycleUtilTest {
         val expected = listOf(listOf("b", "c", "d"))
 
         // when
-        val actual = CycleUtil.findCycles(input)
+        val actual = CycleUtil.findCycles(input, CycleUtil.cycleLoopNop)
 
         // then
         assertEquals(expected, actual)
@@ -43,7 +43,7 @@ class CycleUtilTest {
         )
 
         // when
-        val actual = CycleUtil.findCycles(input)
+        val actual = CycleUtil.findCycles(input, CycleUtil.cycleLoopNop)
 
         // then
         assertEquals(expected, actual)

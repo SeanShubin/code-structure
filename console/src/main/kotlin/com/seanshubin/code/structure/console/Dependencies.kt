@@ -122,7 +122,11 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
         outputDir,
         useObservationsCache
     )
-    private val analyzer: Analyzer = AnalyzerImpl()
+    private val emitLine: (String) -> Unit = integrations.emitLine
+    private val notifications: Notifications = NotificationsImpl(emitLine)
+    private val timeTakenEvent: (String, Duration) -> Unit = notifications::timeTakenEvent
+    private val timer: Timer = EventTimer(timeTakenEvent, clock)
+    private val analyzer: Analyzer = AnalyzerImpl(timer, notifications::cycleLoopEvent)
     private val validator: Validator = ValidatorImpl()
     private val staticContentReport: Report = StaticContentReport()
     private val sourcesReport: Report = SourcesReport()
@@ -135,11 +139,7 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
         LineageReport(Page.lineageAncestorDescendant) { it.ancestorDependsOnDescendant }
     private val lineageReportDescendantAncestor: Report =
         LineageReport(Page.lineageDescendantAncestor) { it.descendantDependsOnAncestor }
-    private val localReport: Report = LocalReport(localDepth)
-    private val emitLine: (String) -> Unit = integrations.emitLine
-    private val notifications: Notifications = NotificationsImpl(emitLine)
-    private val timeTakenEvent: (String, Duration) -> Unit = notifications::timeTakenEvent
-    private val timer: Timer = EventTimer(timeTakenEvent, clock)
+    private val namesReport: Report = NamesReport(localDepth)
     private val timingReport: Report = TimingReport(timer)
     private val entryPointsReport: Report = EntryPointsReport()
     private val groupReport: Report = GroupReport()
@@ -154,7 +154,7 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
         lineageReportAncestorDescendant,
         lineageReportDescendantAncestor,
         groupReport,
-        localReport,
+        namesReport,
         graphReport
     )
     private val finalReports: List<Report> = listOf(

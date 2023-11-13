@@ -30,7 +30,7 @@ interface Page {
         val groupCycles = createIdCaption("group-cycles", "Group Cycles")
         val lineageAncestorDescendant = createIdCaption("lineage-ad", "Ancestor depends on Descendant")
         val lineageDescendantAncestor = createIdCaption("lineage-da", "Descendant depends on Ancestor")
-        val local = createIdCaption("local", "Local")
+        val names = createIdCaption("names", "Names")
         val timing = createIdCaption("timing", "Timing")
         val groups = createIdCaption("group", "Groups")
 

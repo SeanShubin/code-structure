@@ -30,7 +30,11 @@ class Runner(
         timer.monitor("commands") { commands.forEach { commandRunner.execute(it) } }
         val finalCommands = reportGenerator.generateFinalReports(validated)
         finalCommands.forEach { commandRunner.execute(it) }
-        val exitCode = errorHandler.handleErrors(validated.observations.configuredErrors, validated.analysis.errors, failConditions)
+        val exitCode = errorHandler.handleErrors(
+            validated.observations.configuredErrors,
+            validated.analysis.errors,
+            failConditions
+        )
         exitCodeHolder.exitCode = exitCode
         summaryEvent(validated.analysis.summary)
         val endTime = clock.instant()

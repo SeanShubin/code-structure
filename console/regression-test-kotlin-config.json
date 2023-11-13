@@ -1,27 +1,27 @@
 {
-  "inputDir" : "../../code-structure-sample-kotlin",
-  "outputDir" : "target/regression-test/kotlin",
-  "localDepth" : 2,
-  "sourcePrefix" : "https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/",
-  "sourceFileRegexPatterns" : {
-    "include" : [
+  "inputDir": "../../code-structure-sample-kotlin",
+  "outputDir": "target/regression-test/kotlin",
+  "localDepth": 2,
+  "sourcePrefix": "https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/",
+  "sourceFileRegexPatterns": {
+    "include": [
       ".*\\.kt$"
     ],
-    "exclude" : [ ]
+    "exclude": []
   },
-  "bytecodeFormat" : "class",
-  "binaryFileRegexPatterns" : {
-    "include" : [
+  "bytecodeFormat": "class",
+  "binaryFileRegexPatterns": {
+    "include": [
       "console/target/code-structure-sample-kotlin-console.jar$"
     ],
-    "exclude" : [ ]
+    "exclude": []
   },
-  "nodeLimitMainGraph" : 100,
-  "failConditions" : {
-    "directCycle" : true,
-    "groupCycle" : true,
-    "ancestorDependsOnDescendant" : true,
-    "descendantDependsOnAncestor" : true
+  "nodeLimitMainGraph": 100,
+  "failConditions": {
+    "directCycle": true,
+    "groupCycle": true,
+    "ancestorDependsOnDescendant": true,
+    "descendantDependsOnAncestor": true
   },
-  "useObservationsCache" : false
+  "useObservationsCache": false
 }

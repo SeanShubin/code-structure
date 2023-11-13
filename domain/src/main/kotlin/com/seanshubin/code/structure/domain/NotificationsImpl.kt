@@ -29,4 +29,8 @@ class NotificationsImpl(private val emitLine: (String) -> Unit) : Notifications 
         emitLine("ancestor depends on descendant: ${summary.ancestorDependsOnDescendantCount}")
         emitLine("descendant depends on ancestor: ${summary.descendantDependsOnAncestorCount}")
     }
+
+    override fun cycleLoopEvent(caption: String, index: Int, size: Int) {
+//        emitLine("cycle loop $caption ${index+1} of $size")
+    }
 }

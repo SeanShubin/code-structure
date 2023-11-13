@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.elixirsyntax
 
-import com.seanshubin.code.structure.nameparser.RegexUtil.findRegex
 import com.seanshubin.code.structure.nameparser.NameDetail
+import com.seanshubin.code.structure.nameparser.RegexUtil.findRegex
 import java.nio.file.Path
 
 class ElixirParserImpl(private val relativeToDir: Path) : ElixirParser {

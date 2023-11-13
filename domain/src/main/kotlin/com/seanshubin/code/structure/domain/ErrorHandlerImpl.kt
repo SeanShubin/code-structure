@@ -31,9 +31,9 @@ class ErrorHandlerImpl(
     private fun compareErrors(old: Errors, current: Errors, failConditions: FailConditions): Int {
         val errorInfo = ErrorInfo(old, current, failConditions)
         val errorReports = ErrorDimension.values().map { it.analyze(errorInfo) }
-        val anyFailed = errorReports.any{it.isFail}
-        val exitCode = if(anyFailed) 1 else 0
-        val lines = errorReports.flatMap{it.lines}
+        val anyFailed = errorReports.any { it.isFail }
+        val exitCode = if (anyFailed) 1 else 0
+        val lines = errorReports.flatMap { it.lines }
         errorReportEvent(lines)
         return exitCode
     }
@@ -42,9 +42,10 @@ class ErrorHandlerImpl(
 
     class ErrorInfo(val old: Errors, val current: Errors, val failConditions: FailConditions)
 
-    interface ErrorElement:Comparable<ErrorElement>{
-        fun formatted():String
+    interface ErrorElement : Comparable<ErrorElement> {
+        fun formatted(): String
     }
+
     data class StringErrorElement(val value: String) : ErrorElement {
         override fun compareTo(other: ErrorElement): Int {
             other as StringErrorElement
@@ -53,6 +54,7 @@ class ErrorHandlerImpl(
 
         override fun formatted(): String = value
     }
+
     data class PairErrorElement(val value: Pair<String, String>) : ErrorElement {
         override fun compareTo(other: ErrorElement): Int {
             other as PairErrorElement
@@ -77,27 +79,27 @@ class ErrorHandlerImpl(
                 return failConditions.directCycle
             }
         },
-        GROUP_CYCLE("Group Cycle"){
+        GROUP_CYCLE("Group Cycle") {
             override fun fetchElements(errors: Errors): Set<ErrorElement> {
-                return errors.inGroupCycle.map{ StringErrorElement(it)}.toSet()
+                return errors.inGroupCycle.map { StringErrorElement(it) }.toSet()
             }
 
             override fun fetchCanFail(failConditions: FailConditions): Boolean {
                 return failConditions.groupCycle
             }
         },
-        ANCESTOR_DEPENDS_ON_DESCENDANT("Ancestor Depends On Descendant"){
+        ANCESTOR_DEPENDS_ON_DESCENDANT("Ancestor Depends On Descendant") {
             override fun fetchElements(errors: Errors): Set<ErrorElement> {
-                return errors.ancestorDependsOnDescendant.map { PairErrorElement(it)}.toSet()
+                return errors.ancestorDependsOnDescendant.map { PairErrorElement(it) }.toSet()
             }
 
             override fun fetchCanFail(failConditions: FailConditions): Boolean {
                 return failConditions.ancestorDependsOnDescendant
             }
         },
-        DESCENDANT_DEPENDS_ON_ANCESTOR("Descendant Depends On Ancestor"){
+        DESCENDANT_DEPENDS_ON_ANCESTOR("Descendant Depends On Ancestor") {
             override fun fetchElements(errors: Errors): Set<ErrorElement> {
-                return errors.descendantDependsOnAncestor.map { PairErrorElement(it)}.toSet()
+                return errors.descendantDependsOnAncestor.map { PairErrorElement(it) }.toSet()
             }
 
             override fun fetchCanFail(failConditions: FailConditions): Boolean {

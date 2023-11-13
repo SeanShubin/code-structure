@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.kotlinsyntax
 
-import com.seanshubin.code.structure.nameparser.RegexUtil.findRegex
 import com.seanshubin.code.structure.nameparser.NameDetail
+import com.seanshubin.code.structure.nameparser.RegexUtil.findRegex
 import java.nio.file.Path
 
 class KotlinParserImpl(private val relativeToDir: Path) : KotlinParser {

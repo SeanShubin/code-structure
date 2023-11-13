@@ -1,31 +1,49 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.collection.ComparatorUtil
 import com.seanshubin.code.structure.collection.ComparatorUtil.pairComparator
+import com.seanshubin.code.structure.domain.Name.toGroupPath
 import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
-class LocalReport(private val localDepth: Int) : Report {
+class NamesReport(private val localDepth: Int) : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
-        val path = reportDir.resolve(Page.local.file)
+        val path = reportDir.resolve(Page.names.file)
         val analysis = validated.analysis
-        val content = bigList(analysis.global.names, ::localLink, "big-list", "local")
-        val graphs = generateGraphs(reportDir, analysis, parents)
-        val lines = ReportHelper.wrapInTopLevelHtml(Page.local.caption, content, parents).toLines()
+        val localLink = renderFunction(localDepth)
+        val content = bigList(analysis.global.names, localLink, "big-list", "local")
+        val graphs = if(localDepth == 0) emptyList() else generateGraphs(reportDir, analysis, parents)
+        val lines = ReportHelper.wrapInTopLevelHtml(Page.names.caption, content, parents).toLines()
         val index = CreateFileCommand(path, lines)
         val commands = listOf(index) + graphs
         return commands
     }
 
+    private fun renderFunction(localDepth:Int):(String)->List<HtmlElement> =
+        if(localDepth == 0){
+            ::containingGroupLink
+        } else {
+            ::localLink
+        }
+
+    private fun containingGroupLink(name:String):List<HtmlElement> {
+        val group = name.toGroupPath()
+        val containingGroup = group.dropLast(1)
+        val linkText = containingGroup.joinToString("-", "group-", ".html")
+        return listOf(anchor(name, linkText))
+    }
+
+    private fun localLink(name:String):List<HtmlElement> =
+        listOf(anchor(name, "local-$name.html"))
+
     private fun generateGraphs(reportDir: Path, analysis: Analysis, inheritedParents: List<Page>): List<Command> =
         analysis.global.names.flatMap { baseName ->
             val localNamesSet = expand(setOf(baseName), analysis.global, localDepth)
             val localNamesSorted = localNamesSet.toList().sorted()
-            val localParents = appendSourceLink(inheritedParents + listOf(Page.local), baseName, analysis)
+            val localParents = appendSourceLink(inheritedParents + listOf(Page.names), baseName, analysis)
             val nodes = localNamesSorted.map { toDotNode(baseName, it, analysis.global, LinkCreator.local) }
             val referencesSet = analysis.global.referencesForScope(localNamesSet)
             val referencesSorted = referencesSet.sortedWith(pairComparator)
@@ -87,7 +105,4 @@ class LocalReport(private val localDepth: Int) : Report {
             bold = bold
         )
     }
-
-    private fun localLink(name: String): List<HtmlElement> =
-        listOf(anchor(name, "local-$name.html"))
 }

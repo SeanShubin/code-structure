@@ -6,7 +6,7 @@ data class ScopedAnalysis(
     val references: List<Pair<String, String>>,
     val entryPoints: List<String>,
     val cycleDetails: List<CycleDetail>,
-    val details:List<Detail>
+    val details: List<Detail>
 ) {
     private val detailByName = details.associateBy { it.name }
     fun referencesForScope(scope: Set<String>): Set<Pair<String, String>> {
@@ -24,5 +24,5 @@ data class ScopedAnalysis(
         return referencesOut + referencesIn
     }
 
-    fun lookupDetail(name:String):Detail = detailByName.getValue(name)
+    fun lookupDetail(name: String): Detail = detailByName.getValue(name)
 }
