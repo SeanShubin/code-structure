@@ -7,7 +7,10 @@ import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
-
+/*
+file:///Users/seashubi/github.com/SeanShubin/code-structure/generated/kotlin/local-packagec.ClassD.html
+file:///Users/seashubi/github.com/SeanShubin/code-structure/generated/kotlin/local-packagec-ClassD.html
+ */
 class NamesReport(private val localDepth: Int) : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
@@ -47,7 +50,7 @@ class NamesReport(private val localDepth: Int) : Report {
     }
 
     private fun localLink(name: String, caption: String): List<HtmlElement> =
-        listOf(anchor(caption, "local-$name.html"))
+        listOf(anchor(caption, name.toCodeUnit().toUriName("local", ".html")))
 
     private fun singleGroupLink(name: String): List<HtmlElement> =
         containingGroupLink(name, name)
@@ -55,16 +58,17 @@ class NamesReport(private val localDepth: Int) : Report {
     private fun span(name: String): List<HtmlElement> = listOf(HtmlElement.Tag("span", HtmlElement.Text(name)))
 
     private fun generateGraphs(reportDir: Path, analysis: Analysis, inheritedParents: List<Page>): List<Command> =
-        analysis.global.names.flatMap { baseName ->
-            val localNamesSet = expand(setOf(baseName), analysis.global, localDepth)
+        analysis.global.names.flatMap { name ->
+            val localNamesSet = expand(setOf(name), analysis.global, localDepth)
             val localNamesSorted = localNamesSet.toList().sorted()
-            val localParents = appendSourceLink(inheritedParents + listOf(Page.names), baseName, analysis)
-            val nodes = localNamesSorted.map { toDotNode(baseName, it, analysis.global, LinkCreator.local) }
+            val localParents = appendSourceLink(inheritedParents + listOf(Page.names), name, analysis)
+            val nodes = localNamesSorted.map { toDotNode(name, it, analysis.global) }
             val referencesSet = analysis.global.referencesForScope(localNamesSet)
             val referencesSorted = referencesSet.sortedWith(pairComparator)
+            val baseName = name.toCodeUnit().id("local")
             ReportHelper.graphCommands(
                 reportDir,
-                "local-$baseName",
+                baseName,
                 nodes,
                 referencesSorted,
                 emptyList(),
@@ -100,8 +104,7 @@ class NamesReport(private val localDepth: Int) : Report {
     private fun toDotNode(
         baseName: String,
         name: String,
-        analysis: ScopedAnalysis,
-        createLink: (String) -> String
+        analysis: ScopedAnalysis
     ): DotNode {
         val baseDetail = analysis.lookupDetail(baseName)
         val bold = name == baseName
@@ -115,7 +118,7 @@ class NamesReport(private val localDepth: Int) : Report {
         return DotNode(
             id = name,
             text = text,
-            link = createLink(name),
+            link = name.toCodeUnit().toUriName("local", ".html"),
             color = "blue",
             bold = bold
         )

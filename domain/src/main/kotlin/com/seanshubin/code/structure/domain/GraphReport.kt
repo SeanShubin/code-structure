@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
 import java.nio.file.Path
@@ -11,7 +12,7 @@ class GraphReport(private val nodeLimitMainGraph: Int) : Report {
         return if (analysis.global.names.size > nodeLimitMainGraph) {
             exceedsNodeLimit(reportDir, analysis.global)
         } else {
-            val nodes = analysis.global.names.map { toDotNode(it, LinkCreator.local) }
+            val nodes = analysis.global.names.map(::toDotNode)
             ReportHelper.graphCommands(
                 reportDir,
                 Page.graph.id,
@@ -34,11 +35,11 @@ class GraphReport(private val nodeLimitMainGraph: Int) : Report {
         return listOf(createReportCommand)
     }
 
-    private fun toDotNode(name: String, createLink: (String) -> String): DotNode =
+    private fun toDotNode(name: String): DotNode =
         DotNode(
             id = name,
             text = name,
-            link = createLink(name),
+            link = name.toCodeUnit().toUriName("local", ".html"),
             color = "blue",
             bold = false
         )

@@ -12,14 +12,20 @@
 <!-- ClassL -->
 <g id="node1" class="node">
 <title>ClassL</title>
+<g id="a_node1"><a xlink:href="group-ClassL.html" xlink:title="ClassL">
 <ellipse fill="none" stroke="black" cx="71.35" cy="-162" rx="35.19" ry="18"/>
-<text text-anchor="middle" x="71.35" y="-158.3" font-family="Times,serif" font-size="14.00">ClassL</text>
+<text text-anchor="middle" x="71.35" y="-158.3" font-family="Times,serif" font-size="14.00" fill="blue">ClassL</text>
+</a>
+</g>
 </g>
 <!-- ClassM -->
 <g id="node2" class="node">
 <title>ClassM</title>
+<g id="a_node2"><a xlink:href="group-ClassM.html" xlink:title="ClassM">
 <ellipse fill="none" stroke="black" cx="38.35" cy="-90" rx="38.19" ry="18"/>
-<text text-anchor="middle" x="38.35" y="-86.3" font-family="Times,serif" font-size="14.00">ClassM</text>
+<text text-anchor="middle" x="38.35" y="-86.3" font-family="Times,serif" font-size="14.00" fill="blue">ClassM</text>
+</a>
+</g>
 </g>
 <!-- ClassL&#45;&gt;ClassM -->
 <g id="edge1" class="edge">
@@ -30,8 +36,11 @@
 <!-- ClassN -->
 <g id="node3" class="node">
 <title>ClassN</title>
+<g id="a_node3"><a xlink:href="group-ClassN.html" xlink:title="ClassN">
 <ellipse fill="none" stroke="black" cx="71.35" cy="-18" rx="36.29" ry="18"/>
-<text text-anchor="middle" x="71.35" y="-14.3" font-family="Times,serif" font-size="14.00">ClassN</text>
+<text text-anchor="middle" x="71.35" y="-14.3" font-family="Times,serif" font-size="14.00" fill="blue">ClassN</text>
+</a>
+</g>
 </g>
 <!-- ClassM&#45;&gt;ClassN -->
 <g id="edge2" class="edge">

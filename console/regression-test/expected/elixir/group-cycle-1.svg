@@ -12,14 +12,20 @@
 <!-- PathI -->
 <g id="node1" class="node">
 <title>PathI</title>
+<g id="a_node1"><a xlink:href="group-PathI.html" xlink:title="PathI">
 <ellipse fill="none" stroke="black" cx="60.2" cy="-162" rx="29.5" ry="18"/>
-<text text-anchor="middle" x="60.2" y="-158.3" font-family="Times,serif" font-size="14.00">PathI</text>
+<text text-anchor="middle" x="60.2" y="-158.3" font-family="Times,serif" font-size="14.00" fill="blue">PathI</text>
+</a>
+</g>
 </g>
 <!-- PathP -->
 <g id="node2" class="node">
 <title>PathP</title>
+<g id="a_node2"><a xlink:href="group-PathP.html" xlink:title="PathP">
 <ellipse fill="none" stroke="black" cx="31.2" cy="-90" rx="31.4" ry="18"/>
-<text text-anchor="middle" x="31.2" y="-86.3" font-family="Times,serif" font-size="14.00">PathP</text>
+<text text-anchor="middle" x="31.2" y="-86.3" font-family="Times,serif" font-size="14.00" fill="blue">PathP</text>
+</a>
+</g>
 </g>
 <!-- PathI&#45;&gt;PathP -->
 <g id="edge1" class="edge">
@@ -30,8 +36,11 @@
 <!-- PathR -->
 <g id="node3" class="node">
 <title>PathR</title>
+<g id="a_node3"><a xlink:href="group-PathR.html" xlink:title="PathR">
 <ellipse fill="none" stroke="black" cx="60.2" cy="-18" rx="32.49" ry="18"/>
-<text text-anchor="middle" x="60.2" y="-14.3" font-family="Times,serif" font-size="14.00">PathR</text>
+<text text-anchor="middle" x="60.2" y="-14.3" font-family="Times,serif" font-size="14.00" fill="blue">PathR</text>
+</a>
+</g>
 </g>
 <!-- PathP&#45;&gt;PathR -->
 <g id="edge2" class="edge">

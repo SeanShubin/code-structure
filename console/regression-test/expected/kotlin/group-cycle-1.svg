@@ -12,14 +12,20 @@
 <!-- packagei -->
 <g id="node1" class="node">
 <title>packagei</title>
+<g id="a_node1"><a xlink:href="group-packagei.html" xlink:title="packagei">
 <ellipse fill="none" stroke="black" cx="80.2" cy="-162" rx="42.49" ry="18"/>
-<text text-anchor="middle" x="80.2" y="-158.3" font-family="Times,serif" font-size="14.00">packagei</text>
+<text text-anchor="middle" x="80.2" y="-158.3" font-family="Times,serif" font-size="14.00" fill="blue">packagei</text>
+</a>
+</g>
 </g>
 <!-- packagep -->
 <g id="node2" class="node">
 <title>packagep</title>
+<g id="a_node2"><a xlink:href="group-packagep.html" xlink:title="packagep">
 <ellipse fill="none" stroke="black" cx="44.2" cy="-90" rx="44.39" ry="18"/>
-<text text-anchor="middle" x="44.2" y="-86.3" font-family="Times,serif" font-size="14.00">packagep</text>
+<text text-anchor="middle" x="44.2" y="-86.3" font-family="Times,serif" font-size="14.00" fill="blue">packagep</text>
+</a>
+</g>
 </g>
 <!-- packagei&#45;&gt;packagep -->
 <g id="edge1" class="edge">
@@ -30,8 +36,11 @@
 <!-- packager -->
 <g id="node3" class="node">
 <title>packager</title>
+<g id="a_node3"><a xlink:href="group-packager.html" xlink:title="packager">
 <ellipse fill="none" stroke="black" cx="80.2" cy="-18" rx="42.49" ry="18"/>
-<text text-anchor="middle" x="80.2" y="-14.3" font-family="Times,serif" font-size="14.00">packager</text>
+<text text-anchor="middle" x="80.2" y="-14.3" font-family="Times,serif" font-size="14.00" fill="blue">packager</text>
+</a>
+</g>
 </g>
 <!-- packagep&#45;&gt;packager -->
 <g id="edge2" class="edge">

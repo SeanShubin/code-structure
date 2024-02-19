@@ -1,0 +1,20 @@
+digraph detangled {
+  bgcolor=lightgray
+  "PathA.ModuleB" [fontcolor="blue" URL="local-PathA-ModuleB.html" label="PathA.ModuleB"]
+  "PathC.ModuleD" [fontcolor="blue" URL="local-PathC-ModuleD.html" label="↻ PathC.ModuleD ↻ (5)" style="bold"]
+  "PathE.PathF.ModuleK" [fontcolor="blue" URL="local-PathE-PathF-ModuleK.html" label="PathE.PathF.ModuleK"]
+  "PathE.PathF.ModuleL" [fontcolor="blue" URL="local-PathE-PathF-ModuleL.html" label="↻ PathE.PathF.ModuleL ↻ (5)"]
+  "PathE.PathF.ModuleM" [fontcolor="blue" URL="local-PathE-PathF-ModuleM.html" label="↻ PathE.PathF.ModuleM ↻ (5)"]
+  "PathE.PathF.ModuleN" [fontcolor="blue" URL="local-PathE-PathF-ModuleN.html" label="↻ PathE.PathF.ModuleN ↻ (5)"]
+  "PathG.ModuleH" [fontcolor="blue" URL="local-PathG-ModuleH.html" label="↻ PathG.ModuleH ↻ (5)"]
+  "PathI.ModuleJ" [fontcolor="blue" URL="local-PathI-ModuleJ.html" label="PathI.ModuleJ"]
+  "PathA.ModuleB" -> "PathC.ModuleD"
+  "PathC.ModuleD" -> "PathE.PathF.ModuleL"
+  "PathE.PathF.ModuleK" -> "PathE.PathF.ModuleL"
+  "PathE.PathF.ModuleL" -> "PathE.PathF.ModuleM"
+  "PathE.PathF.ModuleM" -> "PathE.PathF.ModuleN"
+  "PathE.PathF.ModuleN" -> "PathE.PathF.ModuleL"
+  "PathE.PathF.ModuleN" -> "PathG.ModuleH"
+  "PathG.ModuleH" -> "PathC.ModuleD"
+  "PathG.ModuleH" -> "PathI.ModuleJ"
+}

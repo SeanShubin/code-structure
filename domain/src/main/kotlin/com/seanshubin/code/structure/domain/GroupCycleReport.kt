@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
@@ -44,7 +45,7 @@ class GroupCycleReport : Report {
         groupCycle: GroupCycle,
         parents: List<Page>
     ): List<Command> {
-        val nodes = groupCycle.names.map { toDotNode(it, LinkCreator.none) }
+        val nodes = groupCycle.names.map { toDotNode(it) }
         return ReportHelper.graphCommands(
             reportDir,
             cycleName(index),
@@ -60,11 +61,11 @@ class GroupCycleReport : Report {
         return parts.joinToString("-")
     }
 
-    private fun toDotNode(name: String, createLink: (String) -> String?): DotNode =
+    private fun toDotNode(name: String): DotNode =
         DotNode(
             id = name,
             text = name,
-            link = createLink(name),
+            link = name.toCodeUnit().toUriName("group", ".html"),
             color = "blue",
             bold = false
         )

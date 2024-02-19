@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
@@ -35,7 +36,7 @@ class DirectCycleReport : Report {
         detail: CycleDetail,
         parents: List<Page>
     ): List<Command> {
-        val nodes = detail.names.map { toDotNode(it, LinkCreator.local) }
+        val nodes = detail.names.map { toDotNode(it) }
         return ReportHelper.graphCommands(
             reportDir,
             cycleName(index),
@@ -51,11 +52,11 @@ class DirectCycleReport : Report {
         return parts.joinToString("-")
     }
 
-    private fun toDotNode(name: String, createLink: (String) -> String?): DotNode =
+    private fun toDotNode(name: String): DotNode =
         DotNode(
             id = name,
             text = name,
-            link = createLink(name),
+            link = name.toCodeUnit().toUriName("local", ".html"),
             color = "blue",
             bold = false
         )
@@ -92,7 +93,7 @@ class DirectCycleReport : Report {
     }
 
     private fun cycleElement(name: String): List<HtmlElement> {
-        val link = LinkCreator.local(name)
+        val link = name.toCodeUnit().toUriName("local", ".html")
         return listOf(anchor(name, link))
     }
 }

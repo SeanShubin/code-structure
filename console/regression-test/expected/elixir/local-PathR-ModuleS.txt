@@ -1,0 +1,15 @@
+digraph detangled {
+  bgcolor=lightgray
+  "ModuleP" [fontcolor="blue" URL="local-ModuleP.html" label="ModuleP"]
+  "PathG.ModuleH" [fontcolor="blue" URL="local-PathG-ModuleH.html" label="PathG.ModuleH"]
+  "PathI.ModuleJ" [fontcolor="blue" URL="local-PathI-ModuleJ.html" label="↻ PathI.ModuleJ ↻ (3)"]
+  "PathP.ModuleQ" [fontcolor="blue" URL="local-PathP-ModuleQ.html" label="↻ PathP.ModuleQ ↻ (3)"]
+  "PathR.ModuleS" [fontcolor="blue" URL="local-PathR-ModuleS.html" label="↻ PathR.ModuleS ↻ (3)" style="bold"]
+  "PathT.ModuleU" [fontcolor="blue" URL="local-PathT-ModuleU.html" label="PathT.ModuleU"]
+  "ModuleP" -> "PathP.ModuleQ"
+  "PathG.ModuleH" -> "PathI.ModuleJ"
+  "PathI.ModuleJ" -> "PathP.ModuleQ"
+  "PathP.ModuleQ" -> "PathR.ModuleS"
+  "PathR.ModuleS" -> "PathI.ModuleJ"
+  "PathR.ModuleS" -> "PathT.ModuleU"
+}
