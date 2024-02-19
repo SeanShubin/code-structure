@@ -255,7 +255,7 @@ class AnalyzerImpl(
         private fun composeGroupScopedAnalysisList(
             path: List<String>,
             namesReferences: NamesReferences,
-            cycleLoop:(Int, Int)->Unit
+            cycleLoop: (Int, Int) -> Unit
         ): List<Pair<List<String>, ScopedAnalysis>> {
             if (namesReferences.names.isEmpty()) return emptyList()
             val top = namesReferences.head()

@@ -14,47 +14,47 @@ class NamesReport(private val localDepth: Int) : Report {
         val path = reportDir.resolve(Page.names.file)
         val analysis = validated.analysis
         val content = createContent(analysis.global.names)
-        val graphs = if(localDepth == 0) emptyList() else generateGraphs(reportDir, analysis, parents)
+        val graphs = if (localDepth == 0) emptyList() else generateGraphs(reportDir, analysis, parents)
         val lines = ReportHelper.wrapInTopLevelHtml(Page.names.caption, content, parents).toLines()
         val index = CreateFileCommand(path, lines)
         val commands = listOf(index) + graphs
         return commands
     }
 
-    private fun createContent(names:List<String>):List<HtmlElement> =
-        if(localDepth == 0){
+    private fun createContent(names: List<String>): List<HtmlElement> =
+        if (localDepth == 0) {
             createGroupList(names)
         } else {
             createGroupAndLocalList(names)
         }
 
-    private fun createGroupList(names:List<String>):List<HtmlElement> =
+    private fun createGroupList(names: List<String>): List<HtmlElement> =
         bigList(names, ::singleGroupLink, "column-1", "names")
 
-    private fun createGroupAndLocalList(names:List<String>):List<HtmlElement> =
+    private fun createGroupAndLocalList(names: List<String>): List<HtmlElement> =
         bigList(names, ::plainGroupLocal, "column-3", "names")
 
-    private fun plainGroupLocal(name:String):List<HtmlElement>{
+    private fun plainGroupLocal(name: String): List<HtmlElement> {
         val plain = span(name)
         val group = containingGroupLink(name, "group")
         val local = localLink(name, "local")
         return plain + group + local
     }
 
-    private fun containingGroupLink(name:String, caption:String):List<HtmlElement> {
+    private fun containingGroupLink(name: String, caption: String): List<HtmlElement> {
         val group = name.toGroupPath()
         val containingGroup = group.dropLast(1)
         val linkText = containingGroup.joinToString("-", "group-", ".html")
         return listOf(anchor(caption, linkText))
     }
 
-    private fun localLink(name:String, caption:String):List<HtmlElement> =
+    private fun localLink(name: String, caption: String): List<HtmlElement> =
         listOf(anchor(caption, "local-$name.html"))
 
-    private fun singleGroupLink(name:String):List<HtmlElement> =
+    private fun singleGroupLink(name: String): List<HtmlElement> =
         containingGroupLink(name, name)
 
-    private fun span(name:String):List<HtmlElement> = listOf(HtmlElement.Tag("span", HtmlElement.Text(name)))
+    private fun span(name: String): List<HtmlElement> = listOf(HtmlElement.Tag("span", HtmlElement.Text(name)))
 
     private fun generateGraphs(reportDir: Path, analysis: Analysis, inheritedParents: List<Page>): List<Command> =
         analysis.global.names.flatMap { baseName ->

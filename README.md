@@ -145,6 +145,7 @@ dot - graphviz version 8.0.2 (20230410.1723)
 ```
 
 ## Work in Progress
+
 - maven plugin
 - spaghettification number
 - leaf navigation

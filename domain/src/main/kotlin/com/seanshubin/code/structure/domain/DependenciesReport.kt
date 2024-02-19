@@ -37,16 +37,16 @@ class DependenciesReport : Report {
 
     private fun thead(): HtmlElement {
         val name = Tag("th", Text("name"))
-            val dependency = Tag("th", Text("dependency"))
-            val elements = listOf(name, dependency)
+        val dependency = Tag("th", Text("dependency"))
+        val elements = listOf(name, dependency)
         val row = Tag("tr", elements)
         return Tag("thead", row)
     }
 
     private fun tbody(observations: Observations): HtmlElement {
         val rows = observations.binaries.flatMap { binary ->
-                binaryRowsWithDependencies(binary)
-            }
+            binaryRowsWithDependencies(binary)
+        }
         return Tag("tbody", rows)
     }
 

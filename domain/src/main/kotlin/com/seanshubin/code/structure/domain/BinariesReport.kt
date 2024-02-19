@@ -45,8 +45,8 @@ class BinariesReport : Report {
 
     private fun tbody(observations: Observations): HtmlElement {
         val rows = observations.binaries.map { binary ->
-                binaryRowWithoutDependencies(binary)
-            }
+            binaryRowWithoutDependencies(binary)
+        }
         return Tag("tbody", rows)
     }
 
