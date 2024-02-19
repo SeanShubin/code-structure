@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.dot.DotFormat
 import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
@@ -7,6 +8,24 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import java.nio.file.Path
 
 object ReportHelper {
+    fun composeGroupPages(groupPath: List<String>):List<Page> {
+        val groupPages =
+            if (groupPath.isEmpty()) emptyList()
+            else groupPages(groupPath.take(groupPath.size - 1))
+        return groupPages
+    }
+
+    fun groupPage(groupPath: List<String>): Page {
+        val codeUnit = CodeUnit(groupPath)
+        val caption = codeUnit.caption("Group")
+        val id = codeUnit.id("group")
+        return Page.createIdCaption(id, caption)
+    }
+
+    private fun groupPages(groupPath: List<String>): List<Page> =
+        if (groupPath.isEmpty()) listOf(groupPage(groupPath))
+        else groupPages(groupPath.take(groupPath.size - 1)) + groupPage(groupPath)
+
     fun graphCommands(
         reportDir: Path,
         baseName: String,

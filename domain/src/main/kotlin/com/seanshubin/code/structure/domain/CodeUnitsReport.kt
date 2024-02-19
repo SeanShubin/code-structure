@@ -42,7 +42,7 @@ class CodeUnitsReport(private val localDepth: Int) : Report {
     }
 
     private fun containingGroupLink(name: String, caption: String): List<HtmlElement> {
-        val linkText = name.toCodeUnit().containing().toUriName("group", ".html")
+        val linkText = name.toCodeUnit().parent().toUriName("group", ".html")
         return listOf(anchor(caption, linkText))
     }
 

@@ -1,5 +1,7 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.domain.ReportHelper.composeGroupPages
+import com.seanshubin.code.structure.domain.ReportHelper.groupPage
 import com.seanshubin.code.structure.dot.DotNode
 import java.nio.file.Path
 
@@ -33,22 +35,9 @@ class GroupReport : Report {
     }
 
     private fun composeParents(groupPath: List<String>): List<Page> {
-        val groupPages =
-            if (groupPath.isEmpty()) emptyList()
-            else groupPages(groupPath.take(groupPath.size - 1))
+        val groupPages = composeGroupPages(groupPath)
         return listOf(Page.tableOfContents) + groupPages
     }
-
-    private fun groupPage(groupPath: List<String>): Page {
-        val codeUnit = CodeUnit(groupPath)
-        val caption = codeUnit.caption("Group")
-        val id = codeUnit.id("group")
-        return Page.createIdCaption(id, caption)
-    }
-
-    private fun groupPages(groupPath: List<String>): List<Page> =
-        if (groupPath.isEmpty()) listOf(groupPage(groupPath))
-        else groupPages(groupPath.take(groupPath.size - 1)) + groupPage(groupPath)
 
     private fun toDotNode(
         name: String,
