@@ -140,7 +140,7 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
         LineageReport(Page.lineageAncestorDescendant) { it.ancestorDependsOnDescendant }
     private val lineageReportDescendantAncestor: Report =
         LineageReport(Page.lineageDescendantAncestor) { it.descendantDependsOnAncestor }
-    private val namesReport: Report = NamesReport(localDepth)
+    private val codeUnitsReport: Report = CodeUnitsReport(localDepth)
     private val timingReport: Report = TimingReport(timer)
     private val entryPointsReport: Report = EntryPointsReport()
     private val groupReport: Report = GroupReport()
@@ -156,7 +156,7 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
         lineageReportAncestorDescendant,
         lineageReportDescendantAncestor,
         groupReport,
-        namesReport,
+        codeUnitsReport,
         graphReport
     )
     private val finalReports: List<Report> = listOf(

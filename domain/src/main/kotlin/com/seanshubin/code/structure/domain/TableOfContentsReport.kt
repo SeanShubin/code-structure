@@ -15,7 +15,7 @@ class TableOfContentsReport : Report {
             Page.groupCycles,
             Page.lineageAncestorDescendant,
             Page.lineageDescendantAncestor,
-            Page.names,
+            Page.codeUnits,
             Page.sources,
             Page.binaries,
             Page.dependencies,

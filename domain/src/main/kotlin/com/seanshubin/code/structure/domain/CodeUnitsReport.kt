@@ -7,18 +7,15 @@ import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
-/*
-file:///Users/seashubi/github.com/SeanShubin/code-structure/generated/kotlin/local-packagec.ClassD.html
-file:///Users/seashubi/github.com/SeanShubin/code-structure/generated/kotlin/local-packagec-ClassD.html
- */
-class NamesReport(private val localDepth: Int) : Report {
+
+class CodeUnitsReport(private val localDepth: Int) : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
-        val path = reportDir.resolve(Page.names.file)
+        val path = reportDir.resolve(Page.codeUnits.file)
         val analysis = validated.analysis
         val content = createContent(analysis.global.names)
         val graphs = if (localDepth == 0) emptyList() else generateGraphs(reportDir, analysis, parents)
-        val lines = ReportHelper.wrapInTopLevelHtml(Page.names.caption, content, parents).toLines()
+        val lines = ReportHelper.wrapInTopLevelHtml(Page.codeUnits.caption, content, parents).toLines()
         val index = CreateFileCommand(path, lines)
         val commands = listOf(index) + graphs
         return commands
@@ -61,7 +58,7 @@ class NamesReport(private val localDepth: Int) : Report {
         analysis.global.names.flatMap { name ->
             val localNamesSet = expand(setOf(name), analysis.global, localDepth)
             val localNamesSorted = localNamesSet.toList().sorted()
-            val localParents = appendSourceLink(inheritedParents + listOf(Page.names), name, analysis)
+            val localParents = appendSourceLink(inheritedParents + listOf(Page.codeUnits), name, analysis)
             val nodes = localNamesSorted.map { toDotNode(name, it, analysis.global) }
             val referencesSet = analysis.global.referencesForScope(localNamesSet)
             val referencesSorted = referencesSet.sortedWith(pairComparator)
