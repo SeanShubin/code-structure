@@ -142,7 +142,7 @@ class AnalyzerImpl(
                 throw RuntimeException("Expected $this to start with $commonPrefix")
             }
             val remain = parts.drop(commonPrefixSize)
-            return remain.joinToString(".")
+            return CodeUnit(remain).toName()
         }
 
         private fun findCycles(references: List<Pair<String, String>>, loop: (Int, Int) -> Unit): List<List<String>> {

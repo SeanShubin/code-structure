@@ -44,8 +44,9 @@ class GroupReport : Report {
     }
 
     private fun groupPage(groupPath: List<String>): Page {
-        val caption = (listOf("Group") + groupPath).joinToString(".")
-        val id = (listOf("group") + groupPath).joinToString("-")
+        val codeUnit = CodeUnit(groupPath)
+        val caption = codeUnit.caption("Group")
+        val id = codeUnit.id("group")
         return Page.createIdCaption(id, caption)
     }
 

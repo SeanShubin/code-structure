@@ -26,7 +26,7 @@ data class NamesReferences(
         if (parts[0] != top) return null
         val tail = parts.drop(1)
         if (tail.isEmpty()) return null
-        return tail.joinToString(".")
+        return CodeUnit(tail).toName()
     }
 
     fun remainOnlyReference(reference: Pair<String, String>, top: String): Pair<String, String>? {
