@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.collection.ComparatorUtil.pairComparator
-import com.seanshubin.code.structure.domain.CodeUnit.toGroupPath
+import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
@@ -42,9 +42,7 @@ class NamesReport(private val localDepth: Int) : Report {
     }
 
     private fun containingGroupLink(name: String, caption: String): List<HtmlElement> {
-        val group = name.toGroupPath()
-        val containingGroup = group.dropLast(1)
-        val linkText = containingGroup.joinToString("-", "group-", ".html")
+        val linkText = name.toCodeUnit().containing().toUriName("group", ".html")
         return listOf(anchor(caption, linkText))
     }
 

@@ -3,8 +3,7 @@ package com.seanshubin.code.structure.domain
 import com.seanshubin.code.structure.collection.ComparatorUtil.pairComparator
 import com.seanshubin.code.structure.collection.ListUtil
 import com.seanshubin.code.structure.cycle.CycleUtil
-import com.seanshubin.code.structure.domain.CodeUnit.groupToCodeUnit
-import com.seanshubin.code.structure.domain.CodeUnit.isAncestorOf
+import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.relationparser.RelationDetail
 
 class AnalyzerImpl(
@@ -13,7 +12,7 @@ class AnalyzerImpl(
 ) : Analyzer {
     override fun analyze(observations: Observations): Analysis {
         val rawNames = observations.binaries.map { it.name }
-        val rawIds = rawNames.map { it.split('.') }
+        val rawIds = rawNames.map { it.toCodeUnit().parts }
         val commonPrefix = ListUtil.commonPrefix(rawIds)
         val names = timer.monitor("analysis.names") {
             observations.binaries.map { it.toName(commonPrefix) }.sorted().distinct()
@@ -29,12 +28,12 @@ class AnalyzerImpl(
         val global = timer.monitor("analysis.global") { analyze(names, references, cycleLoop) }
         val ancestorToDescendant = timer.monitor("analysis.ancestorToDescendant") {
             references.filter {
-                it.first.isAncestorOf(it.second)
+                it.first.toCodeUnit().isAncestorOf(it.second.toCodeUnit())
             }
         }
         val descendantToAncestor = timer.monitor("analysis.descendantToAncestor") {
             references.filter {
-                it.second.isAncestorOf(it.first)
+                it.second.toCodeUnit().isAncestorOf(it.first.toCodeUnit())
             }
         }
         val nameUriList = timer.monitor("analysis.nameUriList") { composeNameUriList(observations, commonPrefix) }
@@ -94,7 +93,7 @@ class AnalyzerImpl(
         ): Errors {
             val inDirectCycle = global.cycles.flatten().distinct().sorted()
             val inGroupCycle = groupScopedAnalysisList.flatMap { (group, scopedAnalysis) ->
-                scopedAnalysis.cycles.flatten().map { group.groupToCodeUnit(it) }
+                scopedAnalysis.cycles.flatten().map { CodeUnit(group).resolve(it).toName() }
             }.distinct().sorted()
             val ancestorDependsOnDescendant = lineage.ancestorDependsOnDescendant
             val descendantDependsOnAncestor = lineage.descendantDependsOnAncestor
