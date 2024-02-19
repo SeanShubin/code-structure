@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil
 import java.nio.file.Path
@@ -21,5 +22,5 @@ class EntryPointsReport : Report {
     }
 
     private fun nameToElement(name: String): List<HtmlElement> =
-        listOf(HtmlElementUtil.anchor(name, "local-$name.html"))
+        listOf(HtmlElementUtil.anchor(name, name.toCodeUnit().toUriName("local", ".html")))
 }

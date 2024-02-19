@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
@@ -33,7 +34,7 @@ class LineageReport(
         listOf(nameToElement(reference.first), nameToElement(reference.second))
 
     private fun nameToElement(name: String): HtmlElement {
-        val link = "local-$name.html"
+        val link = name.toCodeUnit().toUriName("local", ".html")
         val anchor = anchor(name, link)
         val inSpan = listOf(anchor)
         val span = HtmlElement.Tag("span", inSpan)
