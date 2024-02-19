@@ -2,6 +2,7 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.collection.ComparatorUtil.pairComparator
 import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
+import com.seanshubin.code.structure.domain.ReportHelper.composeGroupPages
 import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
@@ -58,7 +59,8 @@ class CodeUnitsReport(private val localDepth: Int) : Report {
         analysis.global.names.flatMap { name ->
             val localNamesSet = expand(setOf(name), analysis.global, localDepth)
             val localNamesSorted = localNamesSet.toList().sorted()
-            val localParents = appendSourceLink(inheritedParents + listOf(Page.codeUnits), name, analysis)
+            val groupPages = composeGroupPages(name.toCodeUnit().parts)
+            val localParents = appendSourceLink(inheritedParents + groupPages + listOf(Page.codeUnits), name, analysis)
             val nodes = localNamesSorted.map { toDotNode(name, it, analysis.global) }
             val referencesSet = analysis.global.referencesForScope(localNamesSet)
             val referencesSorted = referencesSet.sortedWith(pairComparator)

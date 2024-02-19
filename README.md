@@ -148,9 +148,6 @@ dot - graphviz version 8.0.2 (20230410.1723)
 
 - maven plugin
 - spaghettification number
-- leaf navigation
 - summary report
 - error report
 - make local report optional
-- split binary and relations reports
-- summary / detail
