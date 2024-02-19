@@ -1,11 +1,11 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.domain.Name.isAncestorOf
+import com.seanshubin.code.structure.domain.CodeUnit.isAncestorOf
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-class NameTest {
+class CodeUnitTest {
     @Test
     fun isChildOf1() {
         assertFalse("a.b.c".isAncestorOf("a.b.c"))

@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.collection.ComparatorUtil.pairComparator
-import com.seanshubin.code.structure.domain.Name.toGroupPath
+import com.seanshubin.code.structure.domain.CodeUnit.toGroupPath
 import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
