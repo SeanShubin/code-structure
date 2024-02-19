@@ -24,6 +24,7 @@ interface Page {
         val tableOfContents = createIdCaption("index", "Table Of Contents")
         val sources = createIdCaption("sources", "Sources")
         val binaries = createIdCaption("binaries", "Binaries")
+        val dependencies = createIdCaption("dependencies", "Dependencies")
         val entryPoints = createIdCaption("entry-points", "Entry Points")
         val graph = createIdCaption("graph", "Graph")
         val directCycles = createIdCaption("direct-cycles", "Direct Cycles")

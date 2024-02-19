@@ -18,6 +18,7 @@ class TableOfContentsReport : Report {
             Page.names,
             Page.sources,
             Page.binaries,
+            Page.dependencies,
             Page.graph,
             Page.timing
         )

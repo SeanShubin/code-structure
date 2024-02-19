@@ -6,12 +6,12 @@ import com.seanshubin.code.structure.html.HtmlElement.Text
 import com.seanshubin.code.structure.relationparser.RelationDetail
 import java.nio.file.Path
 
-class BinariesReport : Report {
+class DependenciesReport : Report {
     override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
         val parents = listOf(Page.tableOfContents)
         val htmlInsideBody = generateHtml(validated.observations)
-        val html = ReportHelper.wrapInTopLevelHtml(Page.binaries.caption, htmlInsideBody, parents)
-        val path = reportDir.resolve(Page.binaries.file)
+        val html = ReportHelper.wrapInTopLevelHtml(Page.dependencies.caption, htmlInsideBody, parents)
+        val path = reportDir.resolve(Page.dependencies.file)
         val lines = html.toLines()
         return listOf(CreateFileCommand(path, lines))
     }
@@ -23,7 +23,7 @@ class BinariesReport : Report {
     private fun table(observations: Observations): List<HtmlElement> {
         val thead = thead()
         val tbody = tbody(observations)
-        val captionText = Page.binaries.caption
+        val captionText = Page.dependencies.caption
         val caption = Tag("h2", Text(captionText))
         val table = Tag("table", thead, tbody)
         return listOf(caption, table)
@@ -37,17 +37,28 @@ class BinariesReport : Report {
 
     private fun thead(): HtmlElement {
         val name = Tag("th", Text("name"))
-        val location = Tag("th", Text("location"))
-        val elements = listOf(name, location)
+            val dependency = Tag("th", Text("dependency"))
+            val elements = listOf(name, dependency)
         val row = Tag("tr", elements)
         return Tag("thead", row)
     }
 
     private fun tbody(observations: Observations): HtmlElement {
-        val rows = observations.binaries.map { binary ->
-                binaryRowWithoutDependencies(binary)
+        val rows = observations.binaries.flatMap { binary ->
+                binaryRowsWithDependencies(binary)
             }
         return Tag("tbody", rows)
+    }
+
+    private fun binaryRowsWithDependencies(binary: RelationDetail): List<HtmlElement> =
+        binary.dependencyNames.map {
+            binaryRowWithDependencies(binary, it)
+        }
+
+    private fun binaryRowWithDependencies(binary: RelationDetail, dependencyName: String): HtmlElement {
+        val binaryCells = binaryCellsWithDependencies(binary, dependencyName)
+        val binaryRow = Tag("tr", binaryCells)
+        return binaryRow
     }
 
     private fun binaryRowWithoutDependencies(binary: RelationDetail): HtmlElement {
@@ -60,6 +71,13 @@ class BinariesReport : Report {
         return listOf(
             binaryCell(binary.name),
             binaryCell(binary.location),
+        )
+    }
+
+    private fun binaryCellsWithDependencies(binary: RelationDetail, dependencyName: String): List<HtmlElement> {
+        return listOf(
+            binaryCell(binary.name),
+            binaryCell(dependencyName)
         )
     }
 
