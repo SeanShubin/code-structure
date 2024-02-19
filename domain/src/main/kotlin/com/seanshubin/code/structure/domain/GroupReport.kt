@@ -57,8 +57,15 @@ class GroupReport : Report {
     ): DotNode {
         val descendantCount = analysis.descendantCount(groupPath)
         val hasChildren = analysis.containsGroup(groupPath)
-        val link = if (hasChildren) CodeUnit(groupPath).toUriName("group", ".html") else null
-        val text = if (descendantCount == 0) name else "$name ($descendantCount)"
+        val link =
+            if (hasChildren) CodeUnit(groupPath).toUriName("group", ".html")
+            else CodeUnit(groupPath).toUriName("local", ".html")
+        val text =
+            if (hasChildren)
+                if (descendantCount == 0) name
+                else "$name ($descendantCount)"
+            else
+                "$name (local)"
         return DotNode(
             id = name,
             text = text,

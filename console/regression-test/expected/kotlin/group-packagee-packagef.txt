@@ -1,10 +1,10 @@
 digraph detangled {
   bgcolor=lightgray
-  "ClassK" [label="ClassK"]
-  "ClassL" [label="ClassL"]
-  "ClassM" [label="ClassM"]
-  "ClassN" [label="ClassN"]
-  "ClassO" [label="ClassO"]
+  "ClassK" [fontcolor="blue" URL="local-packagee-packagef-ClassK.html" label="ClassK (local)"]
+  "ClassL" [fontcolor="blue" URL="local-packagee-packagef-ClassL.html" label="ClassL (local)"]
+  "ClassM" [fontcolor="blue" URL="local-packagee-packagef-ClassM.html" label="ClassM (local)"]
+  "ClassN" [fontcolor="blue" URL="local-packagee-packagef-ClassN.html" label="ClassN (local)"]
+  "ClassO" [fontcolor="blue" URL="local-packagee-packagef-ClassO.html" label="ClassO (local)"]
   "ClassK" -> "ClassL"
   "ClassN" -> "ClassO"
   subgraph cluster_0 {

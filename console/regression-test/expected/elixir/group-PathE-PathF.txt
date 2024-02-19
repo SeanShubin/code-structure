@@ -1,10 +1,10 @@
 digraph detangled {
   bgcolor=lightgray
-  "ModuleK" [label="ModuleK"]
-  "ModuleL" [label="ModuleL"]
-  "ModuleM" [label="ModuleM"]
-  "ModuleN" [label="ModuleN"]
-  "ModuleO" [label="ModuleO"]
+  "ModuleK" [fontcolor="blue" URL="local-PathE-PathF-ModuleK.html" label="ModuleK (local)"]
+  "ModuleL" [fontcolor="blue" URL="local-PathE-PathF-ModuleL.html" label="ModuleL (local)"]
+  "ModuleM" [fontcolor="blue" URL="local-PathE-PathF-ModuleM.html" label="ModuleM (local)"]
+  "ModuleN" [fontcolor="blue" URL="local-PathE-PathF-ModuleN.html" label="ModuleN (local)"]
+  "ModuleO" [fontcolor="blue" URL="local-PathE-PathF-ModuleO.html" label="ModuleO (local)"]
   "ModuleK" -> "ModuleL"
   "ModuleN" -> "ModuleO"
   subgraph cluster_0 {
