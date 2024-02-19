@@ -3,7 +3,7 @@ package com.seanshubin.code.structure.domain
 import com.seanshubin.code.structure.collection.ComparatorUtil.pairComparator
 import com.seanshubin.code.structure.collection.ListUtil
 import com.seanshubin.code.structure.cycle.CycleUtil
-import com.seanshubin.code.structure.domain.CodeUnit.groupToName
+import com.seanshubin.code.structure.domain.CodeUnit.groupToCodeUnit
 import com.seanshubin.code.structure.domain.CodeUnit.isAncestorOf
 import com.seanshubin.code.structure.relationparser.RelationDetail
 
@@ -94,7 +94,7 @@ class AnalyzerImpl(
         ): Errors {
             val inDirectCycle = global.cycles.flatten().distinct().sorted()
             val inGroupCycle = groupScopedAnalysisList.flatMap { (group, scopedAnalysis) ->
-                scopedAnalysis.cycles.flatten().map { group.groupToName(it) }
+                scopedAnalysis.cycles.flatten().map { group.groupToCodeUnit(it) }
             }.distinct().sorted()
             val ancestorDependsOnDescendant = lineage.ancestorDependsOnDescendant
             val descendantDependsOnAncestor = lineage.descendantDependsOnAncestor

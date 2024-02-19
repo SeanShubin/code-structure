@@ -4,8 +4,7 @@ import com.seanshubin.code.structure.collection.ListUtil.startsWith
 
 object CodeUnit {
     fun String.toGroupPath(): List<String> = split('.')
-    fun List<String>.groupToName(): String = joinToString(".")
-    fun List<String>.groupToName(existing: String): String = (this + existing).joinToString(".")
+    fun List<String>.groupToCodeUnit(existing: String): String = (this + existing).joinToString(".")
     fun String.isAncestorOf(that: String): Boolean {
         val thisPath = this.toGroupPath()
         val thatPath = that.toGroupPath()
