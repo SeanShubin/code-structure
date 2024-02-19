@@ -3,8 +3,6 @@ package com.seanshubin.code.structure.domain
 import com.seanshubin.code.structure.collection.ListUtil.startsWith
 
 data class CodeUnit(val parts:List<String>) {
-//    fun String.toGroupPath(): List<String> = split('.')
-//    fun List<String>.groupToCodeUnit(existing: String): String = (this + existing).joinToString(".")
     fun resolve(part:String):CodeUnit = CodeUnit(parts + part)
     fun toName():String = parts.joinToString(".")
     fun toUriName(prefix:String, suffix:String):String = (listOf(prefix) + parts).joinToString("-") + suffix

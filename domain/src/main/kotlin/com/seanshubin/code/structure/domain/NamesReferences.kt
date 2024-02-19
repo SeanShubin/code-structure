@@ -1,5 +1,7 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
+
 data class NamesReferences(
     val names: List<String>,
     val references: List<Pair<String, String>>
@@ -18,9 +20,9 @@ data class NamesReferences(
         return NamesReferences(newNames, newReferences)
     }
 
-    fun topOnly(name: String): String = name.split('.')[0]
+    fun topOnly(name: String): String = name.toCodeUnit().parts[0]
     fun remainOnly(name: String, top: String): String? {
-        val parts = name.split('.')
+        val parts = name.toCodeUnit().parts
         if (parts[0] != top) return null
         val tail = parts.drop(1)
         if (tail.isEmpty()) return null

@@ -135,7 +135,7 @@ class AnalyzerImpl(
         private fun RelationDetail.toName(commonPrefix: List<String>): String = this.name.toName(commonPrefix)
 
         private fun String.toName(commonPrefix: List<String>): String {
-            val parts = this.split('.')
+            val parts = this.toCodeUnit().parts
             val commonPrefixSize = commonPrefix.size
             val prefix = parts.take(commonPrefixSize)
             if (prefix != commonPrefix) {
