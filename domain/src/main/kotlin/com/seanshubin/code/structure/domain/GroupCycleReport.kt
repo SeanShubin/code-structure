@@ -104,7 +104,7 @@ class GroupCycleReport : Report {
 
     private fun composeGroupAnchor(group: List<String>): HtmlElement {
         val title = "group: " + group.joinToString(", ", "[", "]")
-        val link = (listOf("group") + group).joinToString("-") + ".html"
+        val link = CodeUnit(group).toUriName("group", ".html")
         return anchor(title, link)
     }
 
