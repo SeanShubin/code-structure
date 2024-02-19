@@ -19,12 +19,8 @@ class GroupReport : Report {
         val basePage = groupPage(groupPath)
         val baseName = basePage.id
         val parents = composeParents(groupPath)
-        val createLink: (String) -> String = { name ->
-            val page = groupPage(groupPath + name)
-            page.link
-        }
         val nodes = groupAnalysis.names.map { name ->
-            toDotNode(name, groupPath + name, analysis, createLink)
+            toDotNode(name, groupPath + name, analysis)
         }
         return ReportHelper.graphCommands(
             reportDir,
@@ -57,12 +53,11 @@ class GroupReport : Report {
     private fun toDotNode(
         name: String,
         groupPath: List<String>,
-        analysis: Analysis,
-        createLink: (String) -> String
+        analysis: Analysis
     ): DotNode {
         val descendantCount = analysis.descendantCount(groupPath)
         val hasChildren = analysis.containsGroup(groupPath)
-        val link = if (hasChildren) createLink(name) else null
+        val link = if (hasChildren) CodeUnit(groupPath).toUriName("group", ".html") else null
         val text = if (descendantCount == 0) name else "$name ($descendantCount)"
         return DotNode(
             id = name,
