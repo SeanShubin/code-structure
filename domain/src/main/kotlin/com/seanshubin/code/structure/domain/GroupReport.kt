@@ -61,11 +61,8 @@ class GroupReport : Report {
             if (hasChildren) CodeUnit(groupPath).toUriName("group", ".html")
             else CodeUnit(groupPath).toUriName("local", ".html")
         val text =
-            if (hasChildren)
-                if (descendantCount == 0) name
-                else "$name ($descendantCount)"
-            else
-                "$name (local)"
+            if (hasChildren) "$name ($descendantCount)"
+            else "$name (local)"
         return DotNode(
             id = name,
             text = text,
