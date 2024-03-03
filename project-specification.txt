@@ -37,10 +37,24 @@
         group com.fasterxml.jackson.datatype
         artifact jackson-datatype-jsr310
     }
+    maven-plugin-api {
+        group    org.apache.maven
+        artifact maven-plugin-api
+    }
+    maven-project {
+        group    org.apache.maven
+        artifact maven-project
+    }
+    maven-plugin-annotations {
+        group    org.apache.maven.plugin-tools
+        artifact maven-plugin-annotations
+    }
   }
   global [ stdlib test ]
   modules {
-    console         [ domain ]
+    console   [ injection ]
+    maven     [ injection maven-project maven-plugin-api maven-plugin-annotations domain ]
+    injection [ domain ]
     domain          [
       durationformat
       filefinder

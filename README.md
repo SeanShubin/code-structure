@@ -5,6 +5,18 @@
 - Check the "Prerequisites" section
 - Run on self with `./scripts/clean-test-build-run.sh`
 
+## Maven Plugin Configuration
+```xml
+<plugin>
+    <groupId>com.seanshubin.code.structure</groupId>
+    <artifactId>code-structure-parent</artifactId>
+    <version>0.1.0</version>
+    <configuration>
+        <configBaseName>code-structure</configBaseName>
+    </configuration>
+</plugin>
+```
+
 ## Configuration Explained
 
 Example configuration:
@@ -146,6 +158,8 @@ dot - graphviz version 8.0.2 (20230410.1723)
 
 ## Work in Progress
 
+- optionally turn off direct cycle checking
+- failure based on quantity
 - maven plugin
 - spaghettification number
 - summary report

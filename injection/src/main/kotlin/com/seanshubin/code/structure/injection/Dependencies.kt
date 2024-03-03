@@ -1,4 +1,4 @@
-package com.seanshubin.code.structure.console
+package com.seanshubin.code.structure.injection
 
 import com.seanshubin.code.structure.beamformat.BeamParser
 import com.seanshubin.code.structure.beamformat.BeamParserImpl
@@ -34,12 +34,8 @@ import java.nio.file.Paths
 import java.time.Clock
 import java.time.Duration
 
-class Dependencies(integrations: Integrations, args: Array<String>) {
-    private val configBaseName = if (args.isEmpty() || args[0].isBlank()) {
-        "code-structure"
-    } else {
-        args[0]
-    }
+class Dependencies(integrations: Integrations) {
+    private val configBaseName:String = integrations.configBaseName
     private val configFile = Paths.get("$configBaseName-config.json")
     private val configuredErrorsFile = Paths.get("$configBaseName-existing-errors.json")
     private val files: FilesContract = FilesDelegate
@@ -171,7 +167,7 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
     private val fullAppTimeTakenEvent: (Duration) -> Unit = notifications::fullAppTimeTakenEvent
     private val errorHandler: ErrorHandler = ErrorHandlerImpl(files, configuredErrorsFile, errorReportEvent)
     private val summaryEvent: (Summary) -> Unit = notifications::summaryEvent
-    val exitCodeHolder: ExitCodeHolder = ExitCodeHolderImpl()
+    val errorMessageHolder: ErrorMessageHolder = ErrorMessageHolderImpl()
     val runner: Runnable = Runner(
         clock,
         observer,
@@ -184,7 +180,7 @@ class Dependencies(integrations: Integrations, args: Array<String>) {
         configFileEvent,
         summaryEvent,
         timer,
-        exitCodeHolder,
+        errorMessageHolder,
         errorHandler,
         failConditions
     )

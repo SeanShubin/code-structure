@@ -1,8 +1,11 @@
 package com.seanshubin.code.structure.console
 
+import com.seanshubin.code.structure.injection.Dependencies
+import com.seanshubin.code.structure.injection.Integrations
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.time.Clock
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -11,32 +14,37 @@ class RegressionTest {
     fun kotlin() {
         // given
         val paths = TestPaths("kotlin")
-        val args = arrayOf(paths.configName)
-        val productionIntegrations = ProductionIntegrations()
+        val realClock = Clock.systemUTC()
         val emitLine = EmitLine()
-        val regressionIntegrations = RegressionIntegrations(productionIntegrations, paths.memoryDir, emitLine)
-        val dependencies = Dependencies(regressionIntegrations, args)
+        val regressionIntegrations = object: Integrations {
+            override val clock: Clock = RememberingClock(paths.memoryDir, realClock)
+            override val emitLine: (String) -> Unit = emitLine
+            override val configBaseName: String= paths.configName
+        }
+        val dependencies = Dependencies(regressionIntegrations)
 
         // when
         dependencies.runner.run()
 
         // then
-        assertEquals("", "")
         seedExpectationIfNecessary(paths.expectedDir, paths.actualDir)
         val validationSummary = validateDirectoriesEqual(paths.expectedDir, paths.actualDir)
         assertEquals(0, validationSummary.regressionCount(), validationSummary.regressionString())
-        assertEquals(0, dependencies.exitCodeHolder.exitCode)
+        assertEquals(null, dependencies.errorMessageHolder.errorMessage)
     }
 
     @Test
     fun elixir() {
         // given
         val paths = TestPaths("elixir")
-        val args = arrayOf(paths.configName)
-        val productionIntegrations = ProductionIntegrations()
+        val realClock = Clock.systemUTC()
         val emitLine = EmitLine()
-        val regressionIntegrations = RegressionIntegrations(productionIntegrations, paths.memoryDir, emitLine)
-        val dependencies = Dependencies(regressionIntegrations, args)
+        val regressionIntegrations = object: Integrations {
+            override val clock: Clock = RememberingClock(paths.memoryDir, realClock)
+            override val emitLine: (String) -> Unit = emitLine
+            override val configBaseName: String= paths.configName
+        }
+        val dependencies = Dependencies(regressionIntegrations)
 
         // when
         dependencies.runner.run()
@@ -45,7 +53,7 @@ class RegressionTest {
         seedExpectationIfNecessary(paths.expectedDir, paths.actualDir)
         val validationSummary = validateDirectoriesEqual(paths.expectedDir, paths.actualDir)
         assertEquals(0, validationSummary.regressionCount(), validationSummary.regressionString())
-        assertEquals(0, dependencies.exitCodeHolder.exitCode)
+        assertEquals(null, dependencies.errorMessageHolder.errorMessage)
     }
 
     class TestPaths(private val name: String) {

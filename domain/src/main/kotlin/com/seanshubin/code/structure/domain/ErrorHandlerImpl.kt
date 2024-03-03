@@ -12,12 +12,12 @@ class ErrorHandlerImpl(
     private val errorFilePath: Path,
     private val errorReportEvent: (List<String>) -> Unit
 ) : ErrorHandler {
-    override fun handleErrors(old: Errors?, current: Errors, failConditions: FailConditions): Int {
+    override fun handleErrors(old: Errors?, current: Errors, failConditions: FailConditions): String? {
         return if (old == null) {
             if (current.hasErrors()) {
                 defineCurrentStateAsAcceptable(current)
             }
-            0
+            null
         } else {
             compareErrors(old, current, failConditions)
         }
@@ -28,14 +28,14 @@ class ErrorHandlerImpl(
         files.writeString(errorFilePath, text)
     }
 
-    private fun compareErrors(old: Errors, current: Errors, failConditions: FailConditions): Int {
+    private fun compareErrors(old: Errors, current: Errors, failConditions: FailConditions): String? {
         val errorInfo = ErrorInfo(old, current, failConditions)
         val errorReports = ErrorDimension.values().map { it.analyze(errorInfo) }
         val anyFailed = errorReports.any { it.isFail }
-        val exitCode = if (anyFailed) 1 else 0
+        val errorMessage = if (anyFailed) "There were failures" else null
         val lines = errorReports.flatMap { it.lines }
         errorReportEvent(lines)
-        return exitCode
+        return errorMessage
     }
 
     data class ErrorReport(val isFail: Boolean, val lines: List<String>)

@@ -16,7 +16,7 @@ class Runner(
     private val configFileEvent: (Path) -> Unit,
     private val summaryEvent: (Summary) -> Unit,
     private val timer: Timer,
-    private val exitCodeHolder: ExitCodeHolder,
+    private val exitCodeHolder: ErrorMessageHolder,
     private val errorHandler: ErrorHandler,
     private val failConditions: FailConditions,
 ) : Runnable {
@@ -30,12 +30,12 @@ class Runner(
         timer.monitor("commands") { commands.forEach { commandRunner.execute(it) } }
         val finalCommands = reportGenerator.generateFinalReports(validated)
         finalCommands.forEach { commandRunner.execute(it) }
-        val exitCode = errorHandler.handleErrors(
+        val errorMessage = errorHandler.handleErrors(
             validated.observations.configuredErrors,
             validated.analysis.errors,
             failConditions
         )
-        exitCodeHolder.exitCode = exitCode
+        exitCodeHolder.errorMessage = errorMessage
         summaryEvent(validated.analysis.summary)
         val endTime = clock.instant()
         val duration = Duration.between(startTime, endTime)
