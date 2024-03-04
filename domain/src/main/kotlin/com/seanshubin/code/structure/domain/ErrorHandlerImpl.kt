@@ -10,9 +10,10 @@ import java.nio.file.Path
 class ErrorHandlerImpl(
     private val files: FilesContract,
     private val errorFilePath: Path,
+    private val maximumAllowedErrorCount:Int,
     private val errorReportEvent: (List<String>) -> Unit
 ) : ErrorHandler {
-    override fun handleErrors(old: Errors?, current: Errors, countAsErrors: countAsErrors): String? {
+    override fun handleErrors(old: Errors?, current: Errors, countAsErrors: CountAsErrors): String? {
         return if (old == null) {
             if (current.hasErrors()) {
                 defineCurrentStateAsAcceptable(current)
@@ -28,19 +29,32 @@ class ErrorHandlerImpl(
         files.writeString(errorFilePath, text)
     }
 
-    private fun compareErrors(old: Errors, current: Errors, countAsErrors: countAsErrors): String? {
+    private fun compareErrors(old: Errors, current: Errors, countAsErrors: CountAsErrors): String? {
         val errorInfo = ErrorInfo(old, current, countAsErrors)
-        val errorReports = ErrorDimension.values().map { it.analyze(errorInfo) }
+        val errorReports = ErrorDimension.entries.map { it.analyze(errorInfo) }
+        val totalCanFailErrors = errorReports.sumOf { it.canFailErrorCount }
         val anyFailed = errorReports.any { it.isFail }
-        val errorMessage = if (anyFailed) "There were failures" else null
-        val lines = errorReports.flatMap { it.lines }
+        val errorReportLines = errorReports.flatMap { it.lines }
+        val errorMessage = if(anyFailed) {
+            "There are new errors"
+        } else if(totalCanFailErrors > maximumAllowedErrorCount) {
+            "Exceeded maximum allowable errors.  Got $totalCanFailErrors.  Limit is $maximumAllowedErrorCount"
+        } else {
+            null
+        }
+        val totalFailureLines = if(errorMessage == null){
+            emptyList()
+        } else {
+            listOf(errorMessage)
+        }
+        val lines = errorReportLines + totalFailureLines
         errorReportEvent(lines)
         return errorMessage
     }
 
-    data class ErrorReport(val isFail: Boolean, val lines: List<String>)
+    data class ErrorReport(val isFail: Boolean, val lines: List<String>, val canFailErrorCount:Int)
 
-    class ErrorInfo(val old: Errors, val current: Errors, val countAsErrors: countAsErrors)
+    class ErrorInfo(val old: Errors, val current: Errors, val countAsErrors: CountAsErrors)
 
     interface ErrorElement : Comparable<ErrorElement> {
         fun formatted(): String
@@ -68,14 +82,13 @@ class ErrorHandlerImpl(
         }
     }
 
-
     enum class ErrorDimension(val caption: String) {
         DIRECT_CYCLE("Direct Cycle") {
             override fun fetchElements(errors: Errors): Set<ErrorElement> {
                 return errors.inDirectCycle.map { StringErrorElement(it) }.toSet()
             }
 
-            override fun fetchCanFail(countAsErrors: countAsErrors): Boolean {
+            override fun fetchCountAsError(countAsErrors: CountAsErrors): Boolean {
                 return countAsErrors.directCycle
             }
         },
@@ -84,7 +97,7 @@ class ErrorHandlerImpl(
                 return errors.inGroupCycle.map { StringErrorElement(it) }.toSet()
             }
 
-            override fun fetchCanFail(countAsErrors: countAsErrors): Boolean {
+            override fun fetchCountAsError(countAsErrors: CountAsErrors): Boolean {
                 return countAsErrors.groupCycle
             }
         },
@@ -93,7 +106,7 @@ class ErrorHandlerImpl(
                 return errors.ancestorDependsOnDescendant.map { PairErrorElement(it) }.toSet()
             }
 
-            override fun fetchCanFail(countAsErrors: countAsErrors): Boolean {
+            override fun fetchCountAsError(countAsErrors: CountAsErrors): Boolean {
                 return countAsErrors.ancestorDependsOnDescendant
             }
         },
@@ -102,7 +115,7 @@ class ErrorHandlerImpl(
                 return errors.descendantDependsOnAncestor.map { PairErrorElement(it) }.toSet()
             }
 
-            override fun fetchCanFail(countAsErrors: countAsErrors): Boolean {
+            override fun fetchCountAsError(countAsErrors: CountAsErrors): Boolean {
                 return countAsErrors.descendantDependsOnAncestor
             }
         };
@@ -111,7 +124,7 @@ class ErrorHandlerImpl(
             val old = fetchElements(errorInfo.old)
             val current = fetchElements(errorInfo.current)
             val compareResult = SetUtil.compare(old, current)
-            val canFail = fetchCanFail(errorInfo.countAsErrors)
+            val canFail = fetchCountAsError(errorInfo.countAsErrors)
             val newErrors = compareResult.extra.toList().sorted().distinct()
             val hasNewErrors = newErrors.isNotEmpty()
             val isFail = canFail && hasNewErrors
@@ -122,10 +135,11 @@ class ErrorHandlerImpl(
             } else {
                 emptyList()
             }
-            return ErrorReport(isFail, lines)
+            val canFailErrorCount = if(canFail) current.size else 0
+            return ErrorReport(isFail, lines, canFailErrorCount)
         }
 
         abstract fun fetchElements(errors: Errors): Set<ErrorElement>
-        abstract fun fetchCanFail(countAsErrors: countAsErrors): Boolean
+        abstract fun fetchCountAsError(countAsErrors: CountAsErrors): Boolean
     }
 }

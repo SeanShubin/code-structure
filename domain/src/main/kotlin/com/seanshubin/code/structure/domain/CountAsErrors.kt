@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.domain
 
-data class countAsErrors(
+data class CountAsErrors(
     val directCycle: Boolean,
     val groupCycle: Boolean,
     val ancestorDependsOnDescendant: Boolean,

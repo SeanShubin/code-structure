@@ -41,7 +41,7 @@ class Dependencies(integrations: Integrations) {
     private val files: FilesContract = FilesDelegate
     private val config: Configuration = JsonFileConfiguration(files, configFile)
     private val clock: Clock = integrations.clock
-    private val countAsErrors: countAsErrors = countAsErrors(
+    private val countAsErrors: CountAsErrors = CountAsErrors(
         directCycle =
         config.load(listOf("countAsErrors", "directCycle"), true).coerceToBoolean(),
         groupCycle =
@@ -51,6 +51,7 @@ class Dependencies(integrations: Integrations) {
         descendantDependsOnAncestor =
         config.load(listOf("countAsErrors", "descendantDependsOnAncestor"), true).coerceToBoolean(),
     )
+    private val maximumAllowedErrorCount:Int = config.load(listOf("maximumAllowedErrorCount"), 0).coerceToInt()
     private val inputDir = config.load(listOf("inputDir"), ".").coerceToPath()
     private val outputDir = config.load(listOf("outputDir"), "generated").coerceToPath()
     private val localDepth = config.load(listOf("localDepth"), 2).coerceToInt()
@@ -165,7 +166,7 @@ class Dependencies(integrations: Integrations) {
     private val configFileEvent: (Path) -> Unit = notifications::configFileEvent
     private val errorReportEvent: (List<String>) -> Unit = notifications::errorReportEvent
     private val fullAppTimeTakenEvent: (Duration) -> Unit = notifications::fullAppTimeTakenEvent
-    private val errorHandler: ErrorHandler = ErrorHandlerImpl(files, configuredErrorsFile, errorReportEvent)
+    private val errorHandler: ErrorHandler = ErrorHandlerImpl(files, configuredErrorsFile, maximumAllowedErrorCount, errorReportEvent)
     private val summaryEvent: (Summary) -> Unit = notifications::summaryEvent
     val errorMessageHolder: ErrorMessageHolder = ErrorMessageHolderImpl()
     val runner: Runnable = Runner(

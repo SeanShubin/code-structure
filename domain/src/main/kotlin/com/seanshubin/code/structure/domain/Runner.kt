@@ -18,7 +18,7 @@ class Runner(
     private val timer: Timer,
     private val exitCodeHolder: ErrorMessageHolder,
     private val errorHandler: ErrorHandler,
-    private val countAsErrors: countAsErrors,
+    private val countAsErrors: CountAsErrors,
 ) : Runnable {
     override fun run() {
         configFileEvent(configFile)
