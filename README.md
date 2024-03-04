@@ -41,7 +41,7 @@ Example configuration:
     ],
     "exclude" : [ ]
   },
-  "failConditions" : {
+  "countAsErrors" : {
     "directCycle" : true,
     "groupCycle" : true,
     "ancestorDependsOnDescendant" : true,
@@ -86,12 +86,12 @@ Example configuration:
     - binaryFileRegexPatterns
         - what file name constitutes a binary file, relative to the `inputDir` configuration item
         - used to determine dependency relationships between names
-    - failConditions
+    - countAsErrors
         - if true, will return a non-zero exit code if any new items show up in these categories
         - items in the file ending with `-existing-errors.json` do not count as new items
         - fail conditions are, from most important to least important, directCycle, groupCycle,
           ancestorDependsOnDescendant, descendantDependsOnAncestor
-    - failConditions
+    - countAsErrors
         - directCycle
             - fail if there is a new cycle between the bottom level items, classes for kotlin and modules for elixir
         - groupCycle

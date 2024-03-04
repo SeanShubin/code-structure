@@ -17,11 +17,12 @@
     "exclude": []
   },
   "nodeLimitMainGraph": 100,
-  "failConditions": {
+  "countAsErrors": {
     "directCycle": true,
     "groupCycle": true,
     "ancestorDependsOnDescendant": true,
     "descendantDependsOnAncestor": true
   },
-  "useObservationsCache": false
+  "useObservationsCache": false,
+  "maximumAllowedErrorCount": 0
 }

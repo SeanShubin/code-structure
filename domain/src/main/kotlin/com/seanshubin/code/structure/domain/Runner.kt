@@ -18,7 +18,7 @@ class Runner(
     private val timer: Timer,
     private val exitCodeHolder: ErrorMessageHolder,
     private val errorHandler: ErrorHandler,
-    private val failConditions: FailConditions,
+    private val countAsErrors: countAsErrors,
 ) : Runnable {
     override fun run() {
         configFileEvent(configFile)
@@ -33,7 +33,7 @@ class Runner(
         val errorMessage = errorHandler.handleErrors(
             validated.observations.configuredErrors,
             validated.analysis.errors,
-            failConditions
+            countAsErrors
         )
         exitCodeHolder.errorMessage = errorMessage
         summaryEvent(validated.analysis.summary)

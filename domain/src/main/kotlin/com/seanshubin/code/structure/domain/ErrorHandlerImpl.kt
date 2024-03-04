@@ -12,14 +12,14 @@ class ErrorHandlerImpl(
     private val errorFilePath: Path,
     private val errorReportEvent: (List<String>) -> Unit
 ) : ErrorHandler {
-    override fun handleErrors(old: Errors?, current: Errors, failConditions: FailConditions): String? {
+    override fun handleErrors(old: Errors?, current: Errors, countAsErrors: countAsErrors): String? {
         return if (old == null) {
             if (current.hasErrors()) {
                 defineCurrentStateAsAcceptable(current)
             }
             null
         } else {
-            compareErrors(old, current, failConditions)
+            compareErrors(old, current, countAsErrors)
         }
     }
 
@@ -28,8 +28,8 @@ class ErrorHandlerImpl(
         files.writeString(errorFilePath, text)
     }
 
-    private fun compareErrors(old: Errors, current: Errors, failConditions: FailConditions): String? {
-        val errorInfo = ErrorInfo(old, current, failConditions)
+    private fun compareErrors(old: Errors, current: Errors, countAsErrors: countAsErrors): String? {
+        val errorInfo = ErrorInfo(old, current, countAsErrors)
         val errorReports = ErrorDimension.values().map { it.analyze(errorInfo) }
         val anyFailed = errorReports.any { it.isFail }
         val errorMessage = if (anyFailed) "There were failures" else null
@@ -40,7 +40,7 @@ class ErrorHandlerImpl(
 
     data class ErrorReport(val isFail: Boolean, val lines: List<String>)
 
-    class ErrorInfo(val old: Errors, val current: Errors, val failConditions: FailConditions)
+    class ErrorInfo(val old: Errors, val current: Errors, val countAsErrors: countAsErrors)
 
     interface ErrorElement : Comparable<ErrorElement> {
         fun formatted(): String
@@ -75,8 +75,8 @@ class ErrorHandlerImpl(
                 return errors.inDirectCycle.map { StringErrorElement(it) }.toSet()
             }
 
-            override fun fetchCanFail(failConditions: FailConditions): Boolean {
-                return failConditions.directCycle
+            override fun fetchCanFail(countAsErrors: countAsErrors): Boolean {
+                return countAsErrors.directCycle
             }
         },
         GROUP_CYCLE("Group Cycle") {
@@ -84,8 +84,8 @@ class ErrorHandlerImpl(
                 return errors.inGroupCycle.map { StringErrorElement(it) }.toSet()
             }
 
-            override fun fetchCanFail(failConditions: FailConditions): Boolean {
-                return failConditions.groupCycle
+            override fun fetchCanFail(countAsErrors: countAsErrors): Boolean {
+                return countAsErrors.groupCycle
             }
         },
         ANCESTOR_DEPENDS_ON_DESCENDANT("Ancestor Depends On Descendant") {
@@ -93,8 +93,8 @@ class ErrorHandlerImpl(
                 return errors.ancestorDependsOnDescendant.map { PairErrorElement(it) }.toSet()
             }
 
-            override fun fetchCanFail(failConditions: FailConditions): Boolean {
-                return failConditions.ancestorDependsOnDescendant
+            override fun fetchCanFail(countAsErrors: countAsErrors): Boolean {
+                return countAsErrors.ancestorDependsOnDescendant
             }
         },
         DESCENDANT_DEPENDS_ON_ANCESTOR("Descendant Depends On Ancestor") {
@@ -102,8 +102,8 @@ class ErrorHandlerImpl(
                 return errors.descendantDependsOnAncestor.map { PairErrorElement(it) }.toSet()
             }
 
-            override fun fetchCanFail(failConditions: FailConditions): Boolean {
-                return failConditions.descendantDependsOnAncestor
+            override fun fetchCanFail(countAsErrors: countAsErrors): Boolean {
+                return countAsErrors.descendantDependsOnAncestor
             }
         };
 
@@ -111,7 +111,7 @@ class ErrorHandlerImpl(
             val old = fetchElements(errorInfo.old)
             val current = fetchElements(errorInfo.current)
             val compareResult = SetUtil.compare(old, current)
-            val canFail = fetchCanFail(errorInfo.failConditions)
+            val canFail = fetchCanFail(errorInfo.countAsErrors)
             val newErrors = compareResult.extra.toList().sorted().distinct()
             val hasNewErrors = newErrors.isNotEmpty()
             val isFail = canFail && hasNewErrors
@@ -126,6 +126,6 @@ class ErrorHandlerImpl(
         }
 
         abstract fun fetchElements(errors: Errors): Set<ErrorElement>
-        abstract fun fetchCanFail(failConditions: FailConditions): Boolean
+        abstract fun fetchCanFail(countAsErrors: countAsErrors): Boolean
     }
 }

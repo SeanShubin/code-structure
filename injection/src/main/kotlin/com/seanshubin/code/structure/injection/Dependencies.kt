@@ -41,15 +41,15 @@ class Dependencies(integrations: Integrations) {
     private val files: FilesContract = FilesDelegate
     private val config: Configuration = JsonFileConfiguration(files, configFile)
     private val clock: Clock = integrations.clock
-    private val failConditions: FailConditions = FailConditions(
+    private val countAsErrors: countAsErrors = countAsErrors(
         directCycle =
-        config.load(listOf("failConditions", "directCycle"), true).coerceToBoolean(),
+        config.load(listOf("countAsErrors", "directCycle"), true).coerceToBoolean(),
         groupCycle =
-        config.load(listOf("failConditions", "groupCycle"), true).coerceToBoolean(),
+        config.load(listOf("countAsErrors", "groupCycle"), true).coerceToBoolean(),
         ancestorDependsOnDescendant =
-        config.load(listOf("failConditions", "ancestorDependsOnDescendant"), true).coerceToBoolean(),
+        config.load(listOf("countAsErrors", "ancestorDependsOnDescendant"), true).coerceToBoolean(),
         descendantDependsOnAncestor =
-        config.load(listOf("failConditions", "descendantDependsOnAncestor"), true).coerceToBoolean(),
+        config.load(listOf("countAsErrors", "descendantDependsOnAncestor"), true).coerceToBoolean(),
     )
     private val inputDir = config.load(listOf("inputDir"), ".").coerceToPath()
     private val outputDir = config.load(listOf("outputDir"), "generated").coerceToPath()
@@ -182,6 +182,6 @@ class Dependencies(integrations: Integrations) {
         timer,
         errorMessageHolder,
         errorHandler,
-        failConditions
+        countAsErrors
     )
 }
