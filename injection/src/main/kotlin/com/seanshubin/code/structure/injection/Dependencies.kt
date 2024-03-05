@@ -168,8 +168,10 @@ class Dependencies(integrations: Integrations) {
     private val fullAppTimeTakenEvent: (Duration) -> Unit = notifications::fullAppTimeTakenEvent
     private val errorHandler: ErrorHandler = ErrorHandlerImpl(files, configuredErrorsFile, maximumAllowedErrorCount, errorReportEvent)
     private val summaryEvent: (Summary) -> Unit = notifications::summaryEvent
+    private val configHelp:ConfigHelp = ConfigHelpImpl(config, relationParserRepository)
     val errorMessageHolder: ErrorMessageHolder = ErrorMessageHolderImpl()
     val runner: Runnable = Runner(
+        configHelp,
         clock,
         observer,
         analyzer,

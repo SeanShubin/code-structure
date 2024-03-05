@@ -14,6 +14,9 @@ class RelationParserRepositoryImpl(
         "beam" to beamParser
     )
 
+    override fun supportedBytecodeFormatNames(): List<String> =
+        parserByBytecodeFormat.keys.sorted()
+
     override fun lookupByBytecodeFormat(bytecodeFormat: String): RelationParser {
         return parserByBytecodeFormat[bytecodeFormat]
             ?: throw RuntimeException("Unsupported bytecode format '$bytecodeFormat'")
