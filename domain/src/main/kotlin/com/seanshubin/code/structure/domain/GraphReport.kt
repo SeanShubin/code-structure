@@ -18,7 +18,7 @@ class GraphReport(private val nodeLimitMainGraph: Int) : Report {
                 Page.graph.id,
                 nodes,
                 analysis.global.references,
-                analysis.global.cycles,
+                analysis.global.cycleInfo?.cycles ?: emptyList(),
                 parents
             )
         }

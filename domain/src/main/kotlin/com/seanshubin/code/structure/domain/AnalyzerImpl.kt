@@ -8,9 +8,11 @@ import com.seanshubin.code.structure.relationparser.RelationDetail
 
 class AnalyzerImpl(
     private val timer: Timer,
-    private val cycleLoopEvent: (String, Int, Int) -> Unit
+    private val cycleLoopEvent: (String, Int, Int) -> Unit,
+    private val reportType: ReportType
 ) : Analyzer {
     override fun analyze(observations: Observations): Analysis {
+        val includeCycles = reportType.shouldDisplayDirectCycles
         val rawNames = observations.binaries.map { it.name }
         val rawIds = rawNames.map { it.toCodeUnit().parts }
         val commonPrefix = ListUtil.commonPrefix(rawIds)
@@ -25,7 +27,7 @@ class AnalyzerImpl(
             }.sortedWith(pairComparator).distinct()
         }
         val cycleLoop = cycleLoopFunction("analysis.global.cycle")
-        val global = timer.monitor("analysis.global") { analyze(names, references, cycleLoop) }
+        val global = timer.monitor("analysis.global") { analyze(names, references, cycleLoop, includeCycles) }
         val ancestorToDescendant = timer.monitor("analysis.ancestorToDescendant") {
             references.filter {
                 it.first.toCodeUnit().isAncestorOf(it.second.toCodeUnit())
@@ -42,7 +44,8 @@ class AnalyzerImpl(
             composeGroupScopedAnalysisList(
                 emptyList(),
                 NamesReferences(names, references),
-                CycleUtil.cycleLoopNop
+                CycleUtil.cycleLoopNop,
+                includeCycles
             )
         }
         val errors = timer.monitor("analysis.errors") { composeErrors(global, groupScopedAnalysisList, lineage) }
@@ -72,9 +75,9 @@ class AnalyzerImpl(
             ancestorToDescendant: List<Pair<String, String>>,
             descendantToAncestor: List<Pair<String, String>>
         ): Summary {
-            val inCycleCount = global.cycles.sumOf { it.size }
+            val inCycleCount = global.cycleInfo?.cycles?.sumOf { it.size } ?: 0
             val inGroupCycleCount = groupScopedAnalysisList.map { it.second }.sumOf { scopedAnalysis ->
-                scopedAnalysis.cycles.sumOf { cycles -> cycles.size }
+                scopedAnalysis.cycleInfo?.cycles?.sumOf { cycles -> cycles.size } ?: 0
             }
             val ancestorDependsOnDescendantCount = ancestorToDescendant.size
             val descendantDependsOnAncestorCount = descendantToAncestor.size
@@ -91,9 +94,9 @@ class AnalyzerImpl(
             groupScopedAnalysisList: List<Pair<List<String>, ScopedAnalysis>>,
             lineage: Lineage
         ): Errors {
-            val inDirectCycle = global.cycles.flatten().distinct().sorted()
+            val inDirectCycle = global.cycleInfo?.cycles?.flatten()?.distinct()?.sorted() ?: emptyList()
             val inGroupCycle = groupScopedAnalysisList.flatMap { (group, scopedAnalysis) ->
-                scopedAnalysis.cycles.flatten().map { CodeUnit(group).resolve(it).toName() }
+                scopedAnalysis.cycleInfo?.cycles?.flatten()?.map { CodeUnit(group).resolve(it).toName()  } ?: emptyList()
             }.distinct().sorted()
             val ancestorDependsOnDescendant = lineage.ancestorDependsOnDescendant
             val descendantDependsOnAncestor = lineage.descendantDependsOnAncestor
@@ -116,18 +119,23 @@ class AnalyzerImpl(
         private fun analyze(
             names: List<String>,
             references: List<Pair<String, String>>,
-            cycleLoop: (Int, Int) -> Unit
+            cycleLoop: (Int, Int) -> Unit,
+            includeCycles: Boolean
         ): ScopedAnalysis {
-            val cycles = findCycles(references, cycleLoop)
+            val cycleInfo = if (includeCycles) {
+                val cycles = findCycles(references, cycleLoop)
+                val cycleDetails = composeAllCycleDetails(cycles, references)
+                CycleInfo(cycles, cycleDetails)
+            } else {
+                null
+            }
             val entryPoints = findEntryPoints(names, references)
-            val cycleDetails = composeAllCycleDetails(cycles, references)
-            val details = composeDetails(names, references, cycles)
+            val details = composeDetails(names, references, cycleInfo?.cycles)
             return ScopedAnalysis(
-                cycles,
+                cycleInfo,
                 names,
                 references,
                 entryPoints,
-                cycleDetails,
                 details
             )
         }
@@ -174,7 +182,7 @@ class AnalyzerImpl(
         fun composeDetails(
             names: List<String>,
             references: List<Pair<String, String>>,
-            cycles: List<List<String>>
+            cycles: List<List<String>>?
         ): List<Detail> {
             val referencesByFirst = references.groupBy { it.first }
             val referencesBySecond = references.groupBy { it.second }
@@ -186,11 +194,11 @@ class AnalyzerImpl(
                 val referencesIn: List<String> = referencesBySecond[name]?.map { it.first } ?: emptyList()
                 referencesIn.toSet()
             }
-            val cyclesByName = cycles.flatMap { cycle ->
+            val cyclesByName = cycles?.flatMap { cycle ->
                 cycle.map { name ->
                     name to cycle.toSet()
                 }
-            }.toMap()
+            }?.toMap() ?: emptyMap()
             return names.map { name ->
                 composeDetail(name, referencesOutByName, referencesInByName, cyclesByName)
             }
@@ -234,6 +242,7 @@ class AnalyzerImpl(
             referencesByName: Map<String, Set<String>>,
             cyclesByName: Map<String, Set<String>>
         ): Set<String> {
+            println("name = $name, referencesByName = $referencesByName, cyclesByName = $cyclesByName")
             val thisOrCycle = cyclesByName[name] ?: setOf(name)
             val immediate = thisOrCycle.flatMap { partOfCycle ->
                 if (referencesByName.containsKey(partOfCycle)) {
@@ -254,16 +263,21 @@ class AnalyzerImpl(
         private fun composeGroupScopedAnalysisList(
             path: List<String>,
             namesReferences: NamesReferences,
-            cycleLoop: (Int, Int) -> Unit
+            cycleLoop: (Int, Int) -> Unit,
+            includeCycles:Boolean
         ): List<Pair<List<String>, ScopedAnalysis>> {
             if (namesReferences.names.isEmpty()) return emptyList()
             val top = namesReferences.head()
-            val topAnalysis = analyze(top.names, top.references, cycleLoop)
+            val topAnalysis = analyze(top.names, top.references, cycleLoop, includeCycles)
             val topEntry = path to topAnalysis
             val descendantMap = top.names.flatMap {
                 val childPath = path + it
                 val childNamesReferences = namesReferences.tail(it)
-                composeGroupScopedAnalysisList(childPath, childNamesReferences, cycleLoop)
+                composeGroupScopedAnalysisList(
+                    childPath,
+                    childNamesReferences,
+                    cycleLoop,
+                    includeCycles)
             }
             return listOf(topEntry) + descendantMap
         }

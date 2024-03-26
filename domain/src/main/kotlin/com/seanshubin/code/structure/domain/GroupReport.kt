@@ -29,7 +29,7 @@ class GroupReport : Report {
             baseName,
             nodes,
             groupAnalysis.references,
-            groupAnalysis.cycles,
+            groupAnalysis.cycleInfo?.cycles ?: emptyList(),
             parents
         )
     }

@@ -22,9 +22,9 @@ class GroupCycleReport : Report {
 
     private fun groupCycleList(groupScopedAnalysisList: List<Pair<List<String>, ScopedAnalysis>>): List<GroupCycle> {
         return groupScopedAnalysisList.flatMap { (group, scopedAnalysis) ->
-            scopedAnalysis.cycleDetails.map {
+            scopedAnalysis.cycleInfo?.cycleDetails?.map {
                 GroupCycle(group, it.names, it.references)
-            }
+            } ?: emptyList()
         }
     }
 

@@ -12,6 +12,8 @@ import com.seanshubin.code.structure.config.TypeUtil.coerceToString
 import com.seanshubin.code.structure.contract.delegate.FilesContract
 import com.seanshubin.code.structure.contract.delegate.FilesDelegate
 import com.seanshubin.code.structure.domain.*
+import com.seanshubin.code.structure.domain.EnumUtil.coerceToEnum
+import com.seanshubin.code.structure.domain.EnumUtil.defaultString
 import com.seanshubin.code.structure.elixirsyntax.ElixirParser
 import com.seanshubin.code.structure.elixirsyntax.ElixirParserImpl
 import com.seanshubin.code.structure.exec.Exec
@@ -25,6 +27,7 @@ import com.seanshubin.code.structure.jvmformat.*
 import com.seanshubin.code.structure.kotlinsyntax.KotlinParser
 import com.seanshubin.code.structure.kotlinsyntax.KotlinParserImpl
 import com.seanshubin.code.structure.nameparser.NameParser
+import com.seanshubin.code.structure.relationparser.BytecodeFormat
 import com.seanshubin.code.structure.relationparser.RelationParser
 import com.seanshubin.code.structure.relationparser.RelationParserRepository
 import com.seanshubin.code.structure.scalasyntax.ScalaParser
@@ -35,7 +38,7 @@ import java.time.Clock
 import java.time.Duration
 
 class Dependencies(integrations: Integrations) {
-    private val configBaseName:String = integrations.configBaseName
+    private val configBaseName: String = integrations.configBaseName
     private val configFile = Paths.get("$configBaseName-config.json")
     private val configuredErrorsFile = Paths.get("$configBaseName-existing-errors.json")
     private val files: FilesContract = FilesDelegate
@@ -51,12 +54,12 @@ class Dependencies(integrations: Integrations) {
         descendantDependsOnAncestor =
         config.load(listOf("countAsErrors", "descendantDependsOnAncestor"), true).coerceToBoolean(),
     )
-    private val maximumAllowedErrorCount:Int = config.load(listOf("maximumAllowedErrorCount"), 0).coerceToInt()
+    private val maximumAllowedErrorCount: Int = config.load(listOf("maximumAllowedErrorCount"), 0).coerceToInt()
     private val inputDir = config.load(listOf("inputDir"), ".").coerceToPath()
     private val outputDir = config.load(listOf("outputDir"), "generated").coerceToPath()
     private val localDepth = config.load(listOf("localDepth"), 2).coerceToInt()
     private val useObservationsCache = config.load(listOf("useObservationsCache"), false).coerceToBoolean()
-    private val bytecodeFormat = config.load(listOf("bytecodeFormat"), "bytecode format").coerceToString()
+    private val bytecodeFormat = config.load(listOf("bytecodeFormat"), defaultString<BytecodeFormat>()).coerceToEnum<BytecodeFormat>()
     private val sourcePrefix = config.load(listOf("sourcePrefix"), "prefix for link to source code").coerceToString()
     private val sourceFileIncludeRegexPatterns: List<String> =
         config.load(listOf("sourceFileRegexPatterns", "include"), emptyList<String>()).coerceToListOfString()
@@ -77,6 +80,7 @@ class Dependencies(integrations: Integrations) {
         binaryFileIncludeRegexPatterns,
         binaryFileExcludeRegexPatterns
     )
+    private val reportType: ReportType = config.load(listOf("reportType"), defaultString<ReportType>()).coerceToEnum<ReportType>()
     private val fileFinder: FileFinder = FileFinderImpl(files)
     private val kotlinParser: KotlinParser = KotlinParserImpl(inputDir)
     private val elixirParser: ElixirParser = ElixirParserImpl(inputDir)
@@ -123,7 +127,7 @@ class Dependencies(integrations: Integrations) {
     private val notifications: Notifications = NotificationsImpl(emitLine)
     private val timeTakenEvent: (String, Duration) -> Unit = notifications::timeTakenEvent
     private val timer: Timer = EventTimer(timeTakenEvent, clock)
-    private val analyzer: Analyzer = AnalyzerImpl(timer, notifications::cycleLoopEvent)
+    private val analyzer: Analyzer = AnalyzerImpl(timer, notifications::cycleLoopEvent, reportType)
     private val validator: Validator = ValidatorImpl()
     private val staticContentReport: Report = StaticContentReport()
     private val sourcesReport: Report = SourcesReport()
@@ -166,12 +170,11 @@ class Dependencies(integrations: Integrations) {
     private val configFileEvent: (Path) -> Unit = notifications::configFileEvent
     private val errorReportEvent: (List<String>) -> Unit = notifications::errorReportEvent
     private val fullAppTimeTakenEvent: (Duration) -> Unit = notifications::fullAppTimeTakenEvent
-    private val errorHandler: ErrorHandler = ErrorHandlerImpl(files, configuredErrorsFile, maximumAllowedErrorCount, errorReportEvent)
+    private val errorHandler: ErrorHandler =
+        ErrorHandlerImpl(files, configuredErrorsFile, maximumAllowedErrorCount, errorReportEvent)
     private val summaryEvent: (Summary) -> Unit = notifications::summaryEvent
-    private val configHelp:ConfigHelp = ConfigHelpImpl(config, relationParserRepository)
     val errorMessageHolder: ErrorMessageHolder = ErrorMessageHolderImpl()
     val runner: Runnable = Runner(
-        configHelp,
         clock,
         observer,
         analyzer,

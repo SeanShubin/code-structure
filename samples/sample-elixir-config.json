@@ -24,5 +24,6 @@
     "descendantDependsOnAncestor" : true
   },
   "useObservationsCache" : false,
-  "maximumAllowedErrorCount" : 19
+  "maximumAllowedErrorCount" : 19,
+  "reportType" : "choose one of: fast, detailed"
 }

@@ -25,10 +25,5 @@
   },
   "useObservationsCache" : false,
   "maximumAllowedErrorCount" : 19,
-  "help" : {
-    "bytecodeFormat" : [
-      "beam",
-      "class"
-    ]
-  }
+  "reportType" : "fast"
 }

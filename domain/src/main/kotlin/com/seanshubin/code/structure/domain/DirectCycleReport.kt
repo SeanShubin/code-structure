@@ -10,22 +10,38 @@ import java.nio.file.Path
 class DirectCycleReport : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
-        val htmlInsideBody = generateHtml(validated.analysis.global)
-        val html = ReportHelper.wrapInTopLevelHtml(Page.directCycles.caption, htmlInsideBody, parents)
-        val path = reportDir.resolve(Page.directCycles.file)
-        val lines = html.toLines()
-        val topCommand = CreateFileCommand(path, lines)
-        val graphCommands = commandsForAllCycleGraphs(reportDir, validated.analysis.global, parents)
-        return listOf(topCommand) + graphCommands
+        val cycleInfo = validated.analysis.global.cycleInfo
+        if(cycleInfo == null){
+            val htmlInsideBody = generateNoCycleInformation()
+            val html = ReportHelper.wrapInTopLevelHtml(Page.directCycles.caption, htmlInsideBody, parents)
+            val path = reportDir.resolve(Page.directCycles.file)
+            val lines = html.toLines()
+            val topCommand = CreateFileCommand(path, lines)
+            val cycleDetails = validated.analysis.global.cycleInfo?.cycleDetails
+            val graphCommands = if(cycleDetails == null) {
+                emptyList()
+            } else {
+                commandsForAllCycleGraphs(reportDir, cycleDetails, parents)
+            }
+            return listOf(topCommand) + graphCommands
+        } else {
+            val htmlInsideBody = generateHtml(cycleInfo.cycles)
+            val html = ReportHelper.wrapInTopLevelHtml(Page.directCycles.caption, htmlInsideBody, parents)
+            val path = reportDir.resolve(Page.directCycles.file)
+            val lines = html.toLines()
+            val topCommand = CreateFileCommand(path, lines)
+            val cycleDetails = cycleInfo.cycleDetails
+            val graphCommands = commandsForAllCycleGraphs(reportDir, cycleDetails, parents)
+            return listOf(topCommand) + graphCommands
+        }
     }
-
     private fun commandsForAllCycleGraphs(
         reportDir: Path,
-        analysis: ScopedAnalysis,
+        cycleDetails: List<CycleDetail>,
         parents: List<Page>
     ): List<Command> {
         val parentsForCycle = parents + listOf(Page.directCycles)
-        return analysis.cycleDetails.flatMapIndexed { index, cycleDetail ->
+        return cycleDetails.flatMapIndexed { index, cycleDetail ->
             commandsForCycleGraph(reportDir, index, cycleDetail, parentsForCycle)
         }
     }
@@ -61,18 +77,24 @@ class DirectCycleReport : Report {
             bold = false
         )
 
-    private fun generateHtml(analysis: ScopedAnalysis): List<HtmlElement> {
-        return summaryElement(analysis) + cyclesElement(analysis)
+    private fun generateHtml(cycles: List<List<String>>): List<HtmlElement> {
+        return summaryElement(cycles) + cyclesElement(cycles)
+    }
+    private fun generateNoCycleInformation(): List<HtmlElement> {
+        val text = "If you need cycle information at this level, in your configuration, change reportType to ${ReportType.DETAILED.name.lowercase()}"
+        val textElement = HtmlElement.Text(text)
+        val paragraph = HtmlElement.Tag("p", textElement)
+        return listOf(paragraph)
     }
 
-    private fun summaryElement(analysis: ScopedAnalysis): List<HtmlElement> {
-        val countParagraph = HtmlElement.Tag("p", HtmlElement.Text("cycle count: ${analysis.cycles.size}"))
-        val fragmentAnchors = composeFragmentAnchors(analysis)
+    private fun summaryElement(cycles: List<List<String>>): List<HtmlElement> {
+        val countParagraph = HtmlElement.Tag("p", HtmlElement.Text("cycle count: ${cycles.size}"))
+        val fragmentAnchors = composeFragmentAnchors(cycles)
         return listOf(countParagraph) + fragmentAnchors
     }
 
-    private fun composeFragmentAnchors(analysis: ScopedAnalysis): List<HtmlElement> =
-        analysis.cycles.indices.map(::composeFragmentAnchor)
+    private fun composeFragmentAnchors(cycles: List<List<String>>): List<HtmlElement> =
+        cycles.indices.map(::composeFragmentAnchor)
 
     private fun composeFragmentAnchor(index: Int): HtmlElement {
         val title = cycleName(index)
@@ -80,8 +102,8 @@ class DirectCycleReport : Report {
         return anchor(title, link)
     }
 
-    private fun cyclesElement(analysis: ScopedAnalysis): List<HtmlElement> {
-        return analysis.cycles.flatMapIndexed(::cycleListElement)
+    private fun cyclesElement(cycles: List<List<String>>): List<HtmlElement> {
+        return cycles.flatMapIndexed(::cycleListElement)
     }
 
     private fun cycleListElement(listIndex: Int, cycleList: List<String>): List<HtmlElement> {

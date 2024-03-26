@@ -1,11 +1,10 @@
 package com.seanshubin.code.structure.domain
 
 data class ScopedAnalysis(
-    val cycles: List<List<String>>,
+    val cycleInfo:CycleInfo?,
     val names: List<String>,
     val references: List<Pair<String, String>>,
     val entryPoints: List<String>,
-    val cycleDetails: List<CycleDetail>,
     val details: List<Detail>
 ) {
     private val detailByName = details.associateBy { it.name }
