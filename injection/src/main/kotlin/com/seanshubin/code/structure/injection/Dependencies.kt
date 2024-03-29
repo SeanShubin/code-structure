@@ -33,6 +33,9 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import java.time.Clock
 import java.time.Duration
+import com.seanshubin.code.structure.domain.EnumUtil.coerceToEnum
+import com.seanshubin.code.structure.domain.EnumUtil.defaultString
+import com.seanshubin.code.structure.relationparser.BytecodeFormat
 
 class Dependencies(integrations: Integrations) {
     private val configBaseName:String = integrations.configBaseName
@@ -56,7 +59,7 @@ class Dependencies(integrations: Integrations) {
     private val outputDir = config.load(listOf("outputDir"), "generated").coerceToPath()
     private val localDepth = config.load(listOf("localDepth"), 2).coerceToInt()
     private val useObservationsCache = config.load(listOf("useObservationsCache"), false).coerceToBoolean()
-    private val bytecodeFormat = config.load(listOf("bytecodeFormat"), "bytecode format").coerceToString()
+    private val bytecodeFormat = config.load(listOf("bytecodeFormat"), defaultString<BytecodeFormat>()).coerceToEnum<BytecodeFormat>()
     private val sourcePrefix = config.load(listOf("sourcePrefix"), "prefix for link to source code").coerceToString()
     private val sourceFileIncludeRegexPatterns: List<String> =
         config.load(listOf("sourceFileRegexPatterns", "include"), emptyList<String>()).coerceToListOfString()
@@ -168,10 +171,8 @@ class Dependencies(integrations: Integrations) {
     private val fullAppTimeTakenEvent: (Duration) -> Unit = notifications::fullAppTimeTakenEvent
     private val errorHandler: ErrorHandler = ErrorHandlerImpl(files, configuredErrorsFile, maximumAllowedErrorCount, errorReportEvent)
     private val summaryEvent: (Summary) -> Unit = notifications::summaryEvent
-    private val configHelp:ConfigHelp = ConfigHelpImpl(config, relationParserRepository)
     val errorMessageHolder: ErrorMessageHolder = ErrorMessageHolderImpl()
     val runner: Runnable = Runner(
-        configHelp,
         clock,
         observer,
         analyzer,

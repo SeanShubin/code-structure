@@ -5,7 +5,6 @@ import java.time.Clock
 import java.time.Duration
 
 class Runner(
-    private val configHelp:ConfigHelp,
     private val clock: Clock,
     private val observer: Observer,
     private val analyzer: Analyzer,
@@ -22,7 +21,6 @@ class Runner(
     private val countAsErrors: CountAsErrors,
 ) : Runnable {
     override fun run() {
-        configHelp.generateConfigHelp()
         configFileEvent(configFile)
         val startTime = clock.instant()
         val observations = timer.monitor("observations") { observer.makeObservations() }

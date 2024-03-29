@@ -165,3 +165,7 @@ dot - graphviz version 8.0.2 (20230410.1723)
 - summary report
 - error report
 - make local report optional
+- ConfigHelp
+- EnumUtil
+- RelationParserRepository
+- BytecodeFormat
