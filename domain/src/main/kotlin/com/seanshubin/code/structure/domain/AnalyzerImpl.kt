@@ -11,18 +11,19 @@ class AnalyzerImpl(
     private val cycleLoopEvent: (String, Int, Int) -> Unit
 ) : Analyzer {
     override fun analyze(observations: Observations): Analysis {
-        val rawNames = observations.binaries.map { it.name }
+        val rawNames = observations.sources.flatMap { it.modules }.sorted().distinct()
         val rawIds = rawNames.map { it.toCodeUnit().parts }
         val commonPrefix = ListUtil.commonPrefix(rawIds)
         val names = timer.monitor("analysis.names") {
-            observations.binaries.map { it.toName(commonPrefix) }.sorted().distinct()
+            observations.sources.flatMap { nameDetail -> nameDetail.modules.map { rawName -> rawName.toName(commonPrefix) } }
+                .sorted().distinct()
         }
         val references = timer.monitor("analysis.references") {
             observations.binaries.flatMap { binary ->
                 binary.dependencyNames.map {
                     binary.toName(commonPrefix) to it.toName(commonPrefix)
                 }
-            }.sortedWith(pairComparator).distinct()
+            }.sortedWith(pairComparator).filter(bothPartsOfReferenceInList(names)).distinct()
         }
         val cycleLoop = cycleLoopFunction("analysis.global.cycle")
         val global = timer.monitor("analysis.global") { analyze(names, references, cycleLoop) }
@@ -55,6 +56,10 @@ class AnalyzerImpl(
             )
         }
         return Analysis(global, nameUriList, lineage, groupScopedAnalysisList, errors, summary)
+    }
+
+    private fun bothPartsOfReferenceInList(list: List<String>): (Pair<String, String>) -> Boolean = { reference ->
+        list.contains(reference.first) && list.contains(reference.second)
     }
 
     private fun cycleLoopFunction(caption: String): (Int, Int) -> Unit = { index, size ->
