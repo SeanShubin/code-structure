@@ -11,19 +11,24 @@ class AnalyzerImpl(
     private val cycleLoopEvent: (String, Int, Int) -> Unit
 ) : Analyzer {
     override fun analyze(observations: Observations): Analysis {
-        val rawNames = observations.sources.flatMap { it.modules }.sorted().distinct()
-        val rawIds = rawNames.map { it.toCodeUnit().parts }
-        val commonPrefix = ListUtil.commonPrefix(rawIds)
+        val qualifiedNames = observations.sources.flatMap { it.modules }.sorted().distinct()
+        val qualifiedIds = qualifiedNames.map { it.toCodeUnit().parts }
+        val commonPrefix = ListUtil.commonPrefix(qualifiedIds)
         val names = timer.monitor("analysis.names") {
-            observations.sources.flatMap { nameDetail -> nameDetail.modules.map { rawName -> rawName.toName(commonPrefix) } }
-                .sorted().distinct()
+            qualifiedNames.map { it.toName(commonPrefix) }
         }
         val references = timer.monitor("analysis.references") {
             observations.binaries.flatMap { binary ->
-                binary.dependencyNames.map {
-                    binary.toName(commonPrefix) to it.toName(commonPrefix)
+                binary.dependencyNames.map { dependency ->
+                    binary.name to dependency
                 }
-            }.sortedWith(pairComparator).filter(bothPartsOfReferenceInList(names)).distinct()
+            }
+                .sortedWith(pairComparator)
+                .filter(bothPartsOfReferenceInList(qualifiedNames))
+                .map { (first, second) ->
+                    first.toName(commonPrefix) to second.toName(commonPrefix)
+                }
+                .distinct()
         }
         val cycleLoop = cycleLoopFunction("analysis.global.cycle")
         val global = timer.monitor("analysis.global") { analyze(names, references, cycleLoop) }
