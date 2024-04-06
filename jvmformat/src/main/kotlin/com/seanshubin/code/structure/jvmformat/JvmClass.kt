@@ -114,72 +114,88 @@ data class JvmClass(
                     val nameIndex = input.readShort()
                     ClassInfo(nameIndex)
                 }
+
                 TagFieldref -> {
                     val classIndex = input.readShort()
                     val nameAndTypeIndex = input.readShort()
                     FieldRefInfo(classIndex, nameAndTypeIndex)
                 }
+
                 TagMethodref -> {
                     val classIndex = input.readShort()
                     val nameAndTypeIndex = input.readShort()
                     MethodRefInfo(classIndex, nameAndTypeIndex)
                 }
+
                 TagInterfaceMethodref -> {
                     val classIndex = input.readShort()
                     val nameAndTypeIndex = input.readShort()
                     InterfaceMethodRefInfo(classIndex, nameAndTypeIndex)
                 }
+
                 TagString -> {
                     val stringIndex = input.readShort()
                     StringInfo(stringIndex)
                 }
+
                 TagInteger -> {
                     val value = input.readInt()
                     IntegerInfo(value)
                 }
+
                 TagFloat -> {
                     val value = input.readFloat()
                     FloatInfo(value)
                 }
+
                 TagLong -> {
                     val value = input.readLong()
                     LongInfo(value)
                 }
+
                 TagDouble -> {
                     val value = input.readDouble()
                     DoubleInfo(value)
                 }
+
                 TagNameAndType -> {
                     val nameIndex = input.readShort()
                     val descriptorIndex = input.readShort()
                     NameAndTypeInfo(nameIndex, descriptorIndex)
                 }
+
                 TagUtf8 -> {
                     val value = input.readUTF()
                     Utf8Info(value)
                 }
+
                 TagMethodHandle -> {
                     val referenceKind = input.readByte()
                     val referenceIndex = input.readShort()
                     MethodHandleInfo(referenceKind, referenceIndex)
                 }
+
                 TagMethodType -> {
                     val descriptorIndex = input.readShort()
                     MethodTypeInfo(descriptorIndex)
                 }
+
                 TagInvokeDynamic -> {
                     val bootstrapMethodAttrIndex = input.readShort()
                     val nameAndTypeIndex = input.readShort()
                     InvokeDynamicInfo(bootstrapMethodAttrIndex, nameAndTypeIndex)
                 }
+
                 TagModule -> {
                     val nameIndex = input.readShort()
                     ModuleInfo(nameIndex)
                 }
+
                 TagPackage -> {
                     val nameIndex = input.readShort()
                     PackageInfo(nameIndex)
                 }
+
                 else -> throw RuntimeException("Don't know how to handle constant pool tag $tag")
             }
             return info
