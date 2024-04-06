@@ -10,15 +10,21 @@ class TableOfContentsReport : Report {
         val parents = emptyList<Page>()
         val children = listOf(
             Page.groups,
-            Page.entryPoints,
-            Page.directCycles,
-            Page.groupCycles,
-            Page.lineageAncestorDescendant,
-            Page.lineageDescendantAncestor,
-            Page.codeUnits,
-            Page.sources,
-            Page.binaries,
-            Page.dependencies,
+            annotateWithNumber(Page.entryPoints, validated.analysis.global.entryPoints.size),
+            annotateWithNumber(Page.directCycles, validated.analysis.errors.inDirectCycle.size),
+            annotateWithNumber(Page.groupCycles, validated.analysis.errors.inGroupCycle.size),
+            annotateWithNumber(
+                Page.lineageAncestorDescendant,
+                validated.analysis.errors.ancestorDependsOnDescendant.size
+            ),
+            annotateWithNumber(
+                Page.lineageDescendantAncestor,
+                validated.analysis.errors.descendantDependsOnAncestor.size
+            ),
+            annotateWithNumber(Page.codeUnits, validated.analysis.global.names.size),
+            annotateWithNumber(Page.sources, validated.observations.sources.size),
+            annotateWithNumber(Page.binaries, validated.observations.binaries.size),
+            annotateWithNumber(Page.dependencies, validated.analysis.global.references.size),
             Page.graph,
             Page.timing
         )
@@ -33,4 +39,11 @@ class TableOfContentsReport : Report {
 
     private fun generateAnchor(page: Page): List<HtmlElement> =
         listOf(anchor(page.caption, page.link))
+
+    private fun annotateWithNumber(page: Page, value: Int): Page = object : Page {
+        override val caption: String get() = if (value == 0) page.caption else "${page.caption} ($value)"
+        override val link: String get() = page.link
+        override val file: String get() = page.file
+        override val id: String get() = page.id
+    }
 }
