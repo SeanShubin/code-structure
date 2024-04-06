@@ -197,5 +197,110 @@
 </svg>
 
     </div>
+    <p>
+      dependency reasons count: 11
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>
+            dependency
+          </th>
+          <th>
+            reason
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            ClassP -> packagep
+          </td>
+          <td>
+            ClassP -> packagep.ClassQ
+          </td>
+        </tr>
+        <tr>
+          <td>
+            packagea -> packagec
+          </td>
+          <td>
+            packagea.ClassB -> packagec.ClassD
+          </td>
+        </tr>
+        <tr>
+          <td>
+            packagec -> packagee
+          </td>
+          <td>
+            packagec.ClassD -> packagee.packagef.ClassL
+          </td>
+        </tr>
+        <tr>
+          <td>
+            packagee -> ClassE
+          </td>
+          <td>
+            packagee.packagef.ClassM -> ClassE
+          </td>
+        </tr>
+        <tr>
+          <td>
+            packagee -> packageg
+          </td>
+          <td>
+            packagee.packagef.ClassN -> packageg.ClassH
+          </td>
+        </tr>
+        <tr>
+          <td>
+            packageg -> packagec
+          </td>
+          <td>
+            packageg.ClassH -> packagec.ClassD
+          </td>
+        </tr>
+        <tr>
+          <td>
+            packageg -> packagei
+          </td>
+          <td>
+            packageg.ClassH -> packagei.ClassJ
+          </td>
+        </tr>
+        <tr>
+          <td>
+            packagei -> packagep
+          </td>
+          <td>
+            packagei.ClassJ -> packagep.ClassQ
+          </td>
+        </tr>
+        <tr>
+          <td>
+            packagep -> packager
+          </td>
+          <td>
+            packagep.ClassQ -> packager.ClassS
+          </td>
+        </tr>
+        <tr>
+          <td>
+            packager -> packagei
+          </td>
+          <td>
+            packager.ClassS -> packagei.ClassJ
+          </td>
+        </tr>
+        <tr>
+          <td>
+            packager -> packaget
+          </td>
+          <td>
+            packager.ClassS -> packaget.ClassU
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>

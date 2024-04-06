@@ -197,5 +197,110 @@
 </svg>
 
     </div>
+    <p>
+      dependency reasons count: 11
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>
+            dependency
+          </th>
+          <th>
+            reason
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            ModuleP -> PathP
+          </td>
+          <td>
+            ModuleP -> PathP.ModuleQ
+          </td>
+        </tr>
+        <tr>
+          <td>
+            PathA -> PathC
+          </td>
+          <td>
+            PathA.ModuleB -> PathC.ModuleD
+          </td>
+        </tr>
+        <tr>
+          <td>
+            PathC -> PathE
+          </td>
+          <td>
+            PathC.ModuleD -> PathE.PathF.ModuleL
+          </td>
+        </tr>
+        <tr>
+          <td>
+            PathE -> ModuleE
+          </td>
+          <td>
+            PathE.PathF.ModuleM -> ModuleE
+          </td>
+        </tr>
+        <tr>
+          <td>
+            PathE -> PathG
+          </td>
+          <td>
+            PathE.PathF.ModuleN -> PathG.ModuleH
+          </td>
+        </tr>
+        <tr>
+          <td>
+            PathG -> PathC
+          </td>
+          <td>
+            PathG.ModuleH -> PathC.ModuleD
+          </td>
+        </tr>
+        <tr>
+          <td>
+            PathG -> PathI
+          </td>
+          <td>
+            PathG.ModuleH -> PathI.ModuleJ
+          </td>
+        </tr>
+        <tr>
+          <td>
+            PathI -> PathP
+          </td>
+          <td>
+            PathI.ModuleJ -> PathP.ModuleQ
+          </td>
+        </tr>
+        <tr>
+          <td>
+            PathP -> PathR
+          </td>
+          <td>
+            PathP.ModuleQ -> PathR.ModuleS
+          </td>
+        </tr>
+        <tr>
+          <td>
+            PathR -> PathI
+          </td>
+          <td>
+            PathR.ModuleS -> PathI.ModuleJ
+          </td>
+        </tr>
+        <tr>
+          <td>
+            PathR -> PathT
+          </td>
+          <td>
+            PathR.ModuleS -> PathT.ModuleU
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>

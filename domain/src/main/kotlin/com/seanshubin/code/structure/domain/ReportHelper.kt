@@ -32,7 +32,8 @@ object ReportHelper {
         nodes: List<DotNode>,
         references: List<Pair<String, String>>,
         cycles: List<List<String>>,
-        parents: List<Page>
+        parents: List<Page>,
+        belowGraph:List<HtmlElement> = emptyList()
     ): List<Command> {
         val dotSourcePath = reportDir.resolve("$baseName.txt")
         val svgPath = reportDir.resolve("$baseName.svg")
@@ -42,7 +43,7 @@ object ReportHelper {
         val createDotSource = CreateFileCommand(dotSourcePath, lines)
         val generateSvg = GenerateSvgCommand(dotSourcePath, svgPath)
         val substitutionTag = "---replace--with--$baseName.svg---"
-        val htmlContent = htmlContent(substitutionTag)
+        val htmlContent = htmlContent(substitutionTag, belowGraph)
         val htmlElement = wrapInTopLevelHtml(baseName, htmlContent, parents)
         val htmlLines = htmlElement.toLines()
         val createHtml = CreateFileCommand(htmlTemplatePath, htmlLines)
@@ -50,10 +51,10 @@ object ReportHelper {
         return listOf(createDotSource, generateSvg, createHtml, replaceCommand)
     }
 
-    private fun htmlContent(substitutionTag: String): List<HtmlElement> {
+    private fun htmlContent(substitutionTag: String, belowGraph:List<HtmlElement>): List<HtmlElement> {
         val divContents = HtmlElement.Text(substitutionTag)
         val div = HtmlElement.Tag("div", divContents)
-        return listOf(div)
+        return listOf(div) + belowGraph
     }
 
     fun wrapInTopLevelHtml(name: String, innerContent: List<HtmlElement>, parents: List<Page>): HtmlElement {

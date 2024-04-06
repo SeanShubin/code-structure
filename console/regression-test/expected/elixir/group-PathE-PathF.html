@@ -122,5 +122,62 @@
 </svg>
 
     </div>
+    <p>
+      dependency reasons count: 5
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>
+            dependency
+          </th>
+          <th>
+            reason
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            ModuleK -> ModuleL
+          </td>
+          <td>
+            PathE.PathF.ModuleK -> PathE.PathF.ModuleL
+          </td>
+        </tr>
+        <tr>
+          <td>
+            ModuleL -> ModuleM
+          </td>
+          <td>
+            PathE.PathF.ModuleL -> PathE.PathF.ModuleM
+          </td>
+        </tr>
+        <tr>
+          <td>
+            ModuleM -> ModuleN
+          </td>
+          <td>
+            PathE.PathF.ModuleM -> PathE.PathF.ModuleN
+          </td>
+        </tr>
+        <tr>
+          <td>
+            ModuleN -> ModuleL
+          </td>
+          <td>
+            PathE.PathF.ModuleN -> PathE.PathF.ModuleL
+          </td>
+        </tr>
+        <tr>
+          <td>
+            ModuleN -> ModuleO
+          </td>
+          <td>
+            PathE.PathF.ModuleN -> PathE.PathF.ModuleO
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>
