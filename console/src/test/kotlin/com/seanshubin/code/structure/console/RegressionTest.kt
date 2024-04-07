@@ -16,10 +16,10 @@ class RegressionTest {
         val paths = TestPaths("kotlin")
         val realClock = Clock.systemUTC()
         val emitLine = EmitLine()
-        val regressionIntegrations = object: Integrations {
+        val regressionIntegrations = object : Integrations {
             override val clock: Clock = RememberingClock(paths.memoryDir, realClock)
             override val emitLine: (String) -> Unit = emitLine
-            override val configBaseName: String= paths.configName
+            override val configBaseName: String = paths.configName
         }
         val dependencies = Dependencies(regressionIntegrations)
 
@@ -39,10 +39,10 @@ class RegressionTest {
         val paths = TestPaths("elixir")
         val realClock = Clock.systemUTC()
         val emitLine = EmitLine()
-        val regressionIntegrations = object: Integrations {
+        val regressionIntegrations = object : Integrations {
             override val clock: Clock = RememberingClock(paths.memoryDir, realClock)
             override val emitLine: (String) -> Unit = emitLine
-            override val configBaseName: String= paths.configName
+            override val configBaseName: String = paths.configName
         }
         val dependencies = Dependencies(regressionIntegrations)
 

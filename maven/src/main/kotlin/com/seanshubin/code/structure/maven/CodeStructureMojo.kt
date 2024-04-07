@@ -12,10 +12,10 @@ import java.time.Clock
 @Mojo(name = "code-structure", defaultPhase = LifecyclePhase.VERIFY)
 class CodeStructureMojo : AbstractMojo() {
     @Parameter(property = "scope")
-    var configBaseName:String? = null
+    var configBaseName: String? = null
     override fun execute() {
         val nonNullConfigBaseName = configBaseName ?: "code-structure"
-        val integrations = object: Integrations {
+        val integrations = object : Integrations {
             override val clock: Clock = Clock.systemUTC()
             override val emitLine: (String) -> Unit = log::info
             override val configBaseName: String = nonNullConfigBaseName
@@ -23,7 +23,7 @@ class CodeStructureMojo : AbstractMojo() {
         val dependencies = Dependencies(integrations)
         dependencies.runner.run()
         val errorMessage = dependencies.errorMessageHolder.errorMessage
-        if(errorMessage != null){
+        if (errorMessage != null) {
             throw MojoFailureException(errorMessage)
         }
     }

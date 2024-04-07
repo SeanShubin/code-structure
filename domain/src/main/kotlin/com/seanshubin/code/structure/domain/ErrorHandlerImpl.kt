@@ -10,7 +10,7 @@ import java.nio.file.Path
 class ErrorHandlerImpl(
     private val files: FilesContract,
     private val errorFilePath: Path,
-    private val maximumAllowedErrorCount:Int,
+    private val maximumAllowedErrorCount: Int,
     private val errorReportEvent: (List<String>) -> Unit
 ) : ErrorHandler {
     override fun handleErrors(old: Errors?, current: Errors, countAsErrors: CountAsErrors): String? {
@@ -35,14 +35,14 @@ class ErrorHandlerImpl(
         val totalCanFailErrors = errorReports.sumOf { it.canFailErrorCount }
         val anyFailed = errorReports.any { it.isFail }
         val errorReportLines = errorReports.flatMap { it.lines }
-        val errorMessage = if(anyFailed) {
+        val errorMessage = if (anyFailed) {
             "There are new errors"
-        } else if(totalCanFailErrors > maximumAllowedErrorCount) {
+        } else if (totalCanFailErrors > maximumAllowedErrorCount) {
             "Exceeded maximum allowable errors.  Got $totalCanFailErrors.  Limit is $maximumAllowedErrorCount"
         } else {
             null
         }
-        val totalFailureLines = if(errorMessage == null){
+        val totalFailureLines = if (errorMessage == null) {
             emptyList()
         } else {
             listOf(errorMessage)
@@ -52,7 +52,7 @@ class ErrorHandlerImpl(
         return errorMessage
     }
 
-    data class ErrorReport(val isFail: Boolean, val lines: List<String>, val canFailErrorCount:Int)
+    data class ErrorReport(val isFail: Boolean, val lines: List<String>, val canFailErrorCount: Int)
 
     class ErrorInfo(val old: Errors, val current: Errors, val countAsErrors: CountAsErrors)
 
@@ -135,7 +135,7 @@ class ErrorHandlerImpl(
             } else {
                 emptyList()
             }
-            val canFailErrorCount = if(canFail) current.size else 0
+            val canFailErrorCount = if (canFail) current.size else 0
             return ErrorReport(isFail, lines, canFailErrorCount)
         }
 

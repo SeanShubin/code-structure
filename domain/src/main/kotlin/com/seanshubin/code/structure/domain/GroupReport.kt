@@ -1,6 +1,5 @@
 package com.seanshubin.code.structure.domain
 
-import com.fasterxml.jackson.databind.JsonMappingException.Reference
 import com.seanshubin.code.structure.domain.ReportHelper.composeGroupPages
 import com.seanshubin.code.structure.domain.ReportHelper.groupPage
 import com.seanshubin.code.structure.dot.DotNode
@@ -43,20 +42,20 @@ class GroupReport : Report {
         groupPath: List<String>,
         analysis: Analysis,
         groupAnalysis: ScopedAnalysis
-    ):List<HtmlElement>{
+    ): List<HtmlElement> {
         val caption = "dependency reasons"
         val captions = listOf("dependency", "reason")
-        val list = groupAnalysis.references.flatMap{ reference ->
-            val (first, second ) = reference
+        val list = groupAnalysis.references.flatMap { reference ->
+            val (first, second) = reference
             val dependencyString = "$first -> $second"
             val reasons = analysis.reasonsForDependency(groupPath, reference)
-            val reasonStrings = reasons.map{(reasonFirst, reasonSecond) ->
+            val reasonStrings = reasons.map { (reasonFirst, reasonSecond) ->
                 val reasonString = "$reasonFirst -> $reasonSecond"
                 Pair(dependencyString, reasonString)
             }
             reasonStrings
         }
-        val elementToRow:(Pair<String, String>) -> List<String> = { it.toList()}
+        val elementToRow: (Pair<String, String>) -> List<String> = { it.toList() }
         return HtmlElementUtil.createTable(list, captions, elementToRow, caption)
     }
 

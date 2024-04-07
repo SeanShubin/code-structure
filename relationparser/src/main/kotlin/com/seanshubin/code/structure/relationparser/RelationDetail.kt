@@ -7,10 +7,13 @@ data class RelationDetail(
     val pathInFile: String,
     val name: String,
     val dependencyNames: List<String>
-) {
+) : Comparable<RelationDetail> {
     val location: String = if (pathInFile == "") {
         file.toString()
     } else {
         "$file!$pathInFile"
     }
+
+    override fun compareTo(other: RelationDetail): Int =
+        this.name.compareTo(other.name)
 }

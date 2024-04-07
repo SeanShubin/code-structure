@@ -50,7 +50,7 @@ class CodeUnitTest {
         verify(expected = true, "a", "b.c.d")
     }
 
-    private fun verify(expected:Boolean, first:String, second:String){
+    private fun verify(expected: Boolean, first: String, second: String) {
         assertEquals(expected, first.toCodeUnit().isAncestorOf(second.toCodeUnit()))
     }
 }

@@ -1,6 +1,5 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.dot.DotFormat
 import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
@@ -8,7 +7,7 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import java.nio.file.Path
 
 object ReportHelper {
-    fun composeGroupPages(groupPath: List<String>):List<Page> {
+    fun composeGroupPages(groupPath: List<String>): List<Page> {
         val groupPages =
             if (groupPath.isEmpty()) emptyList()
             else groupPages(groupPath.take(groupPath.size - 1))
@@ -33,7 +32,7 @@ object ReportHelper {
         references: List<Pair<String, String>>,
         cycles: List<List<String>>,
         parents: List<Page>,
-        belowGraph:List<HtmlElement> = emptyList()
+        belowGraph: List<HtmlElement> = emptyList()
     ): List<Command> {
         val dotSourcePath = reportDir.resolve("$baseName.txt")
         val svgPath = reportDir.resolve("$baseName.svg")
@@ -51,7 +50,7 @@ object ReportHelper {
         return listOf(createDotSource, generateSvg, createHtml, replaceCommand)
     }
 
-    private fun htmlContent(substitutionTag: String, belowGraph:List<HtmlElement>): List<HtmlElement> {
+    private fun htmlContent(substitutionTag: String, belowGraph: List<HtmlElement>): List<HtmlElement> {
         val divContents = HtmlElement.Text(substitutionTag)
         val div = HtmlElement.Tag("div", divContents)
         return listOf(div) + belowGraph

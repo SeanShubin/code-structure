@@ -54,7 +54,9 @@ class ObserverImpl(
         }
         val names = nameDetailList.flatMap { it.modules }.distinct().sorted()
         val binaryFiles = fileFinder.findFiles(inputDir, isBinaryFile).sorted()
-        val binaryDetailList = binaryFiles.flatMap { relationParser.parseDependencies(it, names) }
+        val binaryDetailList = binaryFiles.flatMap {
+            relationParser.parseDependencies(it, names)
+        }.sorted()
         val binaryDetailNames = binaryDetailList.map { it.name }
         val (namesInBinary, namesNotInBinary) = names.partition { name ->
             binaryDetailNames.contains(name)
