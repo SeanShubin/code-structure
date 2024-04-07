@@ -9,7 +9,7 @@ data class Observations(
     val sourcePrefix: String,
     val sourceFiles: List<Path>,
     val sources: List<NameDetail>,
-    val missingBinaries: List<NameDetail>,
     val binaries: List<RelationDetail>,
+    val missingBinaries: List<NameDetail>,
     val configuredErrors: Errors?
 )

@@ -85,8 +85,8 @@ class ObserverImpl(
             sourcePrefix,
             relativeSourceFiles,
             filteredNameDetailList,
-            missingBinaries,
             filteredReferenceDetailList,
+            missingBinaries,
             configuredErrors
         )
         val text = JsonMappers.pretty.writeValueAsString(observations)
