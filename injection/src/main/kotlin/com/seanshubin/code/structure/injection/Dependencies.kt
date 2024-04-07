@@ -133,6 +133,7 @@ class Dependencies(integrations: Integrations) {
     private val sourcesReport: Report = SourcesReport()
     private val tableOfContentsReport: Report = TableOfContentsReport()
     private val binariesReport: Report = BinariesReport()
+    private val missingBinariesReport: Report = MissingBinariesReport()
     private val dependenciesReport: Report = DependenciesReport()
     private val graphReport: Report = GraphReport(nodeLimitMainGraph)
     private val directCycleReport: Report = DirectCycleReport()
@@ -150,6 +151,7 @@ class Dependencies(integrations: Integrations) {
         tableOfContentsReport,
         sourcesReport,
         binariesReport,
+        missingBinariesReport,
         dependenciesReport,
         entryPointsReport,
         directCycleReport,

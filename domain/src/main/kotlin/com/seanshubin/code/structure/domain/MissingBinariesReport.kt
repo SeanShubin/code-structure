@@ -2,8 +2,8 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.nameparser.NameDetail
 
-class SourcesReport : NameDetailReport() {
-    override val page: Page = Page.sources
+class MissingBinariesReport : NameDetailReport() {
+    override val page: Page = Page.missingBinaries
     override fun lookupSourceFiles(observations: Observations): List<NameDetail> =
-        observations.sources
+        observations.missingBinaries
 }

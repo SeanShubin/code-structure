@@ -63,7 +63,7 @@ class ObserverImpl(
         }
         val missingBinaries = nameDetailList.filter { nameDetail ->
             nameDetail.modules.any { module ->
-                !namesNotInBinary.contains(module)
+                namesNotInBinary.contains(module)
             }
         }
 
