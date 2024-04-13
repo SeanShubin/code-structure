@@ -11,4 +11,12 @@ data class Errors(
                 || inGroupCycle.isNotEmpty()
                 || ancestorDependsOnDescendant.isNotEmpty()
                 || descendantDependsOnAncestor.isNotEmpty()
+    companion object {
+        val empty = Errors(
+            inDirectCycle = emptyList(),
+            inGroupCycle = emptyList(),
+            ancestorDependsOnDescendant = emptyList(),
+            descendantDependsOnAncestor = emptyList()
+        )
+    }
 }
