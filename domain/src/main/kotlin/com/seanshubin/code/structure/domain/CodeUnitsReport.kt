@@ -4,6 +4,7 @@ import com.seanshubin.code.structure.collection.ComparatorUtil.pairComparator
 import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.domain.ReportHelper.composeGroupPages
 import com.seanshubin.code.structure.dot.DotNode
+import com.seanshubin.code.structure.html.BigListClassName
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
@@ -30,10 +31,10 @@ class CodeUnitsReport(private val localDepth: Int) : Report {
         }
 
     private fun createGroupList(names: List<String>): List<HtmlElement> =
-        bigList(names, ::singleGroupLink, BigListClassNames.COLUMN_1, "names")
+        bigList(names, ::singleGroupLink, BigListClassName.COLUMN_1, "names")
 
     private fun createGroupAndLocalList(names: List<String>): List<HtmlElement> =
-        bigList(names, ::plainGroupLocal, BigListClassNames.COLUMN_3, "names")
+        bigList(names, ::plainGroupLocal, BigListClassName.COLUMN_3, "names")
 
     private fun plainGroupLocal(name: String): List<HtmlElement> {
         val plain = span(name)

@@ -2,6 +2,7 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.dot.DotNode
+import com.seanshubin.code.structure.html.BigListClassName
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
@@ -88,7 +89,7 @@ class DirectCycleReport : Report {
         val id = cycleName(listIndex)
         val summaryAnchor = anchor(id, "$id.html")
         val summary = HtmlElement.Tag("h2", listOf(summaryAnchor), listOf("id" to id))
-        val listElements = bigList(cycleList, ::cycleElement, BigListClassNames.COLUMN_1, "part")
+        val listElements = bigList(cycleList, ::cycleElement, BigListClassName.COLUMN_1, "part")
         return listOf(summary) + listElements
     }
 

@@ -1,6 +1,7 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
+import com.seanshubin.code.structure.html.BigListClassName
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil
 import java.nio.file.Path
@@ -17,7 +18,7 @@ class EntryPointsReport : Report {
 
     private fun createContent(analysis: ScopedAnalysis): List<HtmlElement> {
         val entryPoints = analysis.entryPoints
-        val listElements = HtmlElementUtil.bigList(entryPoints, ::nameToElement, BigListClassNames.COLUMN_1, "entry point")
+        val listElements = HtmlElementUtil.bigList(entryPoints, ::nameToElement, BigListClassName.COLUMN_1, "entry point")
         return listElements
     }
 

@@ -14,7 +14,7 @@ object HtmlElementUtil {
     fun <T> bigList(
         list: List<T>,
         toElements: (T) -> List<HtmlElement>,
-        className: String,
+        className: BigListClassName,
         caption: String?
     ): List<HtmlElement> {
         val sizeElement = if (caption == null) {
@@ -25,7 +25,7 @@ object HtmlElementUtil {
         val children = list.flatMap(toElements)
         val listElement = Tag(
             "div", children, listOf(
-                "class" to className
+                "class" to className.htmlClassName
             )
         )
         return sizeElement + listOf(listElement)

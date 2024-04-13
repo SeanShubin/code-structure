@@ -2,6 +2,7 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.dot.DotNode
+import com.seanshubin.code.structure.html.BigListClassName
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
@@ -99,7 +100,7 @@ class GroupCycleReport : Report {
         val summary = HtmlElement.Tag("h2", listOf(summaryAnchor), listOf("id" to id))
         val groupAnchor = composeGroupAnchor(groupCycle.group)
         val groupElement = HtmlElement.Tag("p", listOf(groupAnchor))
-        val listElements = bigList(groupCycle.names, ::cycleElement, BigListClassNames.COLUMN_1, "part")
+        val listElements = bigList(groupCycle.names, ::cycleElement, BigListClassName.COLUMN_1, "part")
         return listOf(summary) + listOf(groupElement) + listElements
     }
 

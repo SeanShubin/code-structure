@@ -1,6 +1,7 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
+import com.seanshubin.code.structure.html.BigListClassName
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
@@ -26,7 +27,7 @@ class LineageReport(
 
     private fun lineageElement(references: List<Pair<String, String>>): List<HtmlElement> {
         val captionElement = HtmlElement.Tag("h2", listOf(HtmlElement.Text(page.caption)))
-        val referencesElement = bigList(references, ::referenceToElements, BigListClassNames.COLUMN_2, page.caption)
+        val referencesElement = bigList(references, ::referenceToElements, BigListClassName.COLUMN_2, page.caption)
         return listOf(captionElement) + referencesElement
     }
 

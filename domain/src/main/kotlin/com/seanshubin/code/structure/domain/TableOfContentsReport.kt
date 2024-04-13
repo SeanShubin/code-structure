@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.html.BigListClassName
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
@@ -29,7 +30,7 @@ class TableOfContentsReport : Report {
             annotateWithNumber(Page.missingBinaries, validated.observations.missingBinaries.size),
             Page.timing
         )
-        val listElements = bigList(children, ::generateAnchor, BigListClassNames.COLUMN_1, caption = null)
+        val listElements = bigList(children, ::generateAnchor, BigListClassName.COLUMN_1, caption = null)
         val name = "Table Of Contents"
         val html = ReportHelper.wrapInTopLevelHtml(name, listElements, parents)
         val fileName = "index.html"
