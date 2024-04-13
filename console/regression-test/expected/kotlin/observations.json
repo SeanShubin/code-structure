@@ -131,120 +131,6 @@
       "errorLines" : [ ]
     }
   ],
-  "missingBinaries" : [
-    {
-      "path" : "domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/ClassE.kt",
-      "language" : "kotlin",
-      "modules" : [
-        "com.seanshubin.code.structure.sample.kotlin.domain.ClassE"
-      ],
-      "errorLines" : [ ]
-    },
-    {
-      "path" : "domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/ClassP.kt",
-      "language" : "kotlin",
-      "modules" : [
-        "com.seanshubin.code.structure.sample.kotlin.domain.ClassP"
-      ],
-      "errorLines" : [ ]
-    },
-    {
-      "path" : "domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagea/ClassB.kt",
-      "language" : "kotlin",
-      "modules" : [
-        "com.seanshubin.code.structure.sample.kotlin.domain.packagea.ClassB"
-      ],
-      "errorLines" : [ ]
-    },
-    {
-      "path" : "domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagec/ClassD.kt",
-      "language" : "kotlin",
-      "modules" : [
-        "com.seanshubin.code.structure.sample.kotlin.domain.packagec.ClassD"
-      ],
-      "errorLines" : [ ]
-    },
-    {
-      "path" : "domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassK.kt",
-      "language" : "kotlin",
-      "modules" : [
-        "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassK"
-      ],
-      "errorLines" : [ ]
-    },
-    {
-      "path" : "domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassL.kt",
-      "language" : "kotlin",
-      "modules" : [
-        "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassL"
-      ],
-      "errorLines" : [ ]
-    },
-    {
-      "path" : "domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassM.kt",
-      "language" : "kotlin",
-      "modules" : [
-        "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassM"
-      ],
-      "errorLines" : [ ]
-    },
-    {
-      "path" : "domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassN.kt",
-      "language" : "kotlin",
-      "modules" : [
-        "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassN"
-      ],
-      "errorLines" : [ ]
-    },
-    {
-      "path" : "domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassO.kt",
-      "language" : "kotlin",
-      "modules" : [
-        "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassO"
-      ],
-      "errorLines" : [ ]
-    },
-    {
-      "path" : "domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packageg/ClassH.kt",
-      "language" : "kotlin",
-      "modules" : [
-        "com.seanshubin.code.structure.sample.kotlin.domain.packageg.ClassH"
-      ],
-      "errorLines" : [ ]
-    },
-    {
-      "path" : "domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagei/ClassJ.kt",
-      "language" : "kotlin",
-      "modules" : [
-        "com.seanshubin.code.structure.sample.kotlin.domain.packagei.ClassJ"
-      ],
-      "errorLines" : [ ]
-    },
-    {
-      "path" : "domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagep/ClassQ.kt",
-      "language" : "kotlin",
-      "modules" : [
-        "com.seanshubin.code.structure.sample.kotlin.domain.packagep.ClassQ"
-      ],
-      "errorLines" : [ ]
-    },
-    {
-      "path" : "domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packager/ClassS.kt",
-      "language" : "kotlin",
-      "modules" : [
-        "com.seanshubin.code.structure.sample.kotlin.domain.packager.ClassS"
-      ],
-      "errorLines" : [ ]
-    },
-    {
-      "path" : "domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packaget/ClassU.kt",
-      "language" : "kotlin",
-      "modules" : [
-        "com.seanshubin.code.structure.sample.kotlin.domain.packaget.ClassU"
-      ],
-      "errorLines" : [ ]
-    }
-  ],
   "binaries" : [
     {
       "file" : "console/target/code-structure-sample-kotlin-console.jar",
@@ -372,6 +258,7 @@
       "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/packaget/ClassU.class"
     }
   ],
+  "missingBinaries" : [ ],
   "configuredErrors" : {
     "inDirectCycle" : [
       "packagec.ClassD",
