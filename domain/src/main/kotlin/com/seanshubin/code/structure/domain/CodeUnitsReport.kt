@@ -30,10 +30,10 @@ class CodeUnitsReport(private val localDepth: Int) : Report {
         }
 
     private fun createGroupList(names: List<String>): List<HtmlElement> =
-        bigList(names, ::singleGroupLink, "column-1", "names")
+        bigList(names, ::singleGroupLink, BigListClassNames.COLUMN_1, "names")
 
     private fun createGroupAndLocalList(names: List<String>): List<HtmlElement> =
-        bigList(names, ::plainGroupLocal, "column-3", "names")
+        bigList(names, ::plainGroupLocal, BigListClassNames.COLUMN_3, "names")
 
     private fun plainGroupLocal(name: String): List<HtmlElement> {
         val plain = span(name)

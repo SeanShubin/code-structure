@@ -29,7 +29,7 @@ class TableOfContentsReport : Report {
             annotateWithNumber(Page.missingBinaries, validated.observations.missingBinaries.size),
             Page.timing
         )
-        val listElements = bigList(children, ::generateAnchor, "column-1", caption = null)
+        val listElements = bigList(children, ::generateAnchor, BigListClassNames.COLUMN_1, caption = null)
         val name = "Table Of Contents"
         val html = ReportHelper.wrapInTopLevelHtml(name, listElements, parents)
         val fileName = "index.html"
