@@ -67,11 +67,12 @@ class DirectCycleReport : Report {
         inDirectCycle: List<String>,
         cycleElementFunction:(String)->List<HtmlElement>
     ):List<HtmlElement> {
+        val header = listOf(HtmlElement.tagText("h2", "Differences"))
         val configured = inDirectCycle.toSet()
         val existing = cycles.flatten().toSet()
         val newCycles = (existing - configured).toList().sorted()
         val fixedCycles = (configured - existing).toList().sorted()
-        return differentCyclesElement("Newly in cycle", newCycles, cycleElementFunction) + differentCyclesElement("No longer in cycle", fixedCycles, cycleElementFunction)
+        return header + differentCyclesElement("Newly in cycle", newCycles, cycleElementFunction) + differentCyclesElement("No longer in cycle", fixedCycles, cycleElementFunction)
     }
 
     private fun differentCyclesElement(
@@ -85,7 +86,6 @@ class DirectCycleReport : Report {
             BigListClassName.COLUMN_1,
             caption
         )
-
     }
 
     private fun generateHtml(validated: Validated): List<HtmlElement> {
@@ -101,9 +101,10 @@ class DirectCycleReport : Report {
     }
 
     private fun summaryElement(cycles: List<List<String>>): List<HtmlElement> {
+        val header = HtmlElement.tagText("h2", "Summary")
         val countParagraph = HtmlElement.Tag("p", HtmlElement.Text("cycle count: ${cycles.size}"))
         val fragmentAnchors = composeFragmentAnchors(cycles)
-        return listOf(countParagraph) + fragmentAnchors
+        return listOf(header, countParagraph) + fragmentAnchors
     }
 
     private fun composeFragmentAnchors(cycles: List<List<String>>): List<HtmlElement> =
@@ -116,7 +117,8 @@ class DirectCycleReport : Report {
     }
 
     private fun cyclesElement(cycles: List<List<String>>): List<HtmlElement> {
-        return cycles.flatMapIndexed(::cycleListElement)
+        val header = HtmlElement.tagText("h2", "Cycles")
+        return listOf(header) + cycles.flatMapIndexed(::cycleListElement)
     }
 
     private fun cycleListElement(listIndex: Int, cycleList: List<String>): List<HtmlElement> {

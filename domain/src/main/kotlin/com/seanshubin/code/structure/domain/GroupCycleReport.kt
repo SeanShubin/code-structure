@@ -12,7 +12,7 @@ class GroupCycleReport : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
         val groupCycleList = groupCycleList(validated.analysis.groupScopedAnalysisList)
-        val htmlInsideBody = generateHtml(groupCycleList)
+        val htmlInsideBody = generateHtml(validated, groupCycleList)
         val html = ReportHelper.wrapInTopLevelHtml(Page.groupCycles.caption, htmlInsideBody, parents)
         val path = reportDir.resolve(Page.groupCycles.file)
         val lines = html.toLines()
@@ -71,14 +71,51 @@ class GroupCycleReport : Report {
             bold = false
         )
 
-    private fun generateHtml(groupCycles: List<GroupCycle>): List<HtmlElement> {
-        return summaryElement(groupCycles) + cyclesElement(groupCycles)
+    private fun generateHtml(validated: Validated, groupCycles: List<GroupCycle>): List<HtmlElement> {
+        return differencesElement(validated, groupCycles) + summaryElement(groupCycles) + cyclesElement(groupCycles)
     }
 
+    private fun differencesElement(validated: Validated, groupCycles: List<GroupCycle>):List<HtmlElement>{
+        val header = listOf(HtmlElement.tagText("h2", "Differences"))
+        val cycleElementFunction = createCycleElementFunction(validated.analysis.global.names)
+        val configuredErrors = validated.observations.configuredErrors ?: Errors.empty
+        val configuredInGroupCycle = configuredErrors.inGroupCycle.toSet()
+        val allInGroupCycle = groupCycles.flatMap { groupCycle ->
+            groupCycle.qualifiedNames()
+        }.toSet()
+        val newInGroupCycle = (allInGroupCycle - configuredInGroupCycle).toList().sorted()
+        val fixedInGroupCycle = (configuredInGroupCycle - allInGroupCycle).toList().sorted()
+        return header + differentCyclesElement("Newly in cycle", newInGroupCycle, cycleElementFunction) + differentCyclesElement("No longer in cycle", fixedInGroupCycle, cycleElementFunction)
+    }
+
+    private fun differentCyclesElement(
+        caption:String,
+        cycles:List<String>,
+        cycleElementFunction:(String)->List<HtmlElement>
+    ):List<HtmlElement>{
+        return bigList(
+            cycles,
+            cycleElementFunction,
+            BigListClassName.COLUMN_1,
+            caption
+        )
+    }
+
+    private fun cycleElementThatDoesNotExist(name: String): List<HtmlElement> {
+        return listOf(HtmlElement.tagText("span", "$name (no longer exists)"))
+    }
+
+    private fun createCycleElementFunction(existingNames:List<String>):(name:String) -> List<HtmlElement> = {name:String ->
+        if(existingNames.contains(name)) cycleElement(name)
+        else cycleElementThatDoesNotExist(name)
+    }
+
+
     private fun summaryElement(groupCycles: List<GroupCycle>): List<HtmlElement> {
+        val header = HtmlElement.tagText("h2", "Summary")
         val countParagraph = HtmlElement.Tag("p", HtmlElement.Text("cycle count: ${groupCycles.size}"))
         val fragmentAnchors = composeFragmentAnchors(groupCycles)
-        return listOf(countParagraph) + fragmentAnchors
+        return listOf(header, countParagraph) + fragmentAnchors
     }
 
     private fun composeFragmentAnchors(groupCycles: List<GroupCycle>): List<HtmlElement> =
@@ -91,7 +128,8 @@ class GroupCycleReport : Report {
     }
 
     private fun cyclesElement(groupCycles: List<GroupCycle>): List<HtmlElement> {
-        return groupCycles.flatMapIndexed(::cycleListElement)
+        val header = HtmlElement.tagText("h2", "Cycles")
+        return listOf(header) + groupCycles.flatMapIndexed(::cycleListElement)
     }
 
     private fun cycleListElement(listIndex: Int, groupCycle: GroupCycle): List<HtmlElement> {
@@ -120,5 +158,8 @@ class GroupCycleReport : Report {
         val group: List<String>,
         val names: List<String>,
         val references: List<Pair<String, String>>
-    )
+    ){
+        fun qualifiedNames():List<String> =
+            names.map { name -> CodeUnit(group + name).toName() }
+    }
 }
