@@ -11,7 +11,7 @@ import java.nio.file.Path
 class DirectCycleReport : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
-        val htmlInsideBody = generateHtml(validated.analysis.global.cycles)
+        val htmlInsideBody = generateHtml(validated)
         val html = ReportHelper.wrapInTopLevelHtml(Page.directCycles.caption, htmlInsideBody, parents)
         val path = reportDir.resolve(Page.directCycles.file)
         val lines = html.toLines()
@@ -62,8 +62,42 @@ class DirectCycleReport : Report {
             bold = false
         )
 
-    private fun generateHtml(cycles: List<List<String>>): List<HtmlElement> {
-        return summaryElement(cycles) + cyclesElement(cycles)
+    private fun differencesElement(
+        cycles: List<List<String>>,
+        inDirectCycle: List<String>,
+        cycleElementFunction:(String)->List<HtmlElement>
+    ):List<HtmlElement> {
+        val configured = inDirectCycle.toSet()
+        val existing = cycles.flatten().toSet()
+        val newCycles = (existing - configured).toList().sorted()
+        val fixedCycles = (configured - existing).toList().sorted()
+        return differentCyclesElement("Newly in cycle", newCycles, cycleElementFunction) + differentCyclesElement("No longer in cycle", fixedCycles, cycleElementFunction)
+    }
+
+    private fun differentCyclesElement(
+        caption:String,
+        cycles:List<String>,
+        cycleElementFunction:(String)->List<HtmlElement>
+    ):List<HtmlElement>{
+        return bigList(
+            cycles,
+            cycleElementFunction,
+            BigListClassName.COLUMN_1,
+            caption
+        )
+
+    }
+
+    private fun generateHtml(validated: Validated): List<HtmlElement> {
+        val cycleElementFunction = createCycleElementFunction(validated.analysis.global.names)
+        val configuredErrors = validated.observations.configuredErrors
+        val cycles = validated.analysis.global.cycles
+        val differences = if(configuredErrors == null){
+            emptyList()
+        } else {
+            differencesElement(cycles, configuredErrors.inDirectCycle, cycleElementFunction)
+        }
+        return differences + summaryElement(cycles) + cyclesElement(cycles)
     }
 
     private fun summaryElement(cycles: List<List<String>>): List<HtmlElement> {
@@ -96,5 +130,14 @@ class DirectCycleReport : Report {
     private fun cycleElement(name: String): List<HtmlElement> {
         val link = name.toCodeUnit().toUriName("local", ".html")
         return listOf(anchor(name, link))
+    }
+
+    private fun cycleElementThatDoesNotExist(name: String): List<HtmlElement> {
+        return listOf(HtmlElement.tagText("span", "$name (no longer exists)"))
+    }
+
+    private fun createCycleElementFunction(existingNames:List<String>):(name:String) -> List<HtmlElement> = {name:String ->
+        if(existingNames.contains(name)) cycleElement(name)
+        else cycleElementThatDoesNotExist(name)
     }
 }

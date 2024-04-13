@@ -43,7 +43,7 @@ class ObserverImpl(
             val configuredErrorsText = files.readString(configuredErrorsPath, StandardCharsets.UTF_8)
             configuredErrorsText.jsonToErrors()
         } else {
-            Errors.empty
+            null
         }
         val absoluteSourceFiles = fileFinder.findFiles(inputDir, isSourceFile).sorted()
         val relativeSourceFiles = absoluteSourceFiles.map { inputDir.relativize(it) }
