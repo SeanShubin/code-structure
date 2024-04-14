@@ -67,12 +67,11 @@ class DirectCycleReport : Report {
         inDirectCycle: List<String>,
         cycleElementFunction:(String)->List<HtmlElement>
     ):List<HtmlElement> {
-        val header = listOf(HtmlElement.tagText("h2", "Differences"))
         val configured = inDirectCycle.toSet()
         val existing = cycles.flatten().toSet()
         val newCycles = (existing - configured).toList().sorted()
         val fixedCycles = (configured - existing).toList().sorted()
-        return header + differentCyclesElement("Newly in cycle", newCycles, cycleElementFunction) + differentCyclesElement("No longer in cycle", fixedCycles, cycleElementFunction)
+        return differentCyclesElement("Newly in cycle", newCycles, cycleElementFunction) + differentCyclesElement("No longer in cycle", fixedCycles, cycleElementFunction)
     }
 
     private fun differentCyclesElement(
@@ -80,12 +79,15 @@ class DirectCycleReport : Report {
         cycles:List<String>,
         cycleElementFunction:(String)->List<HtmlElement>
     ):List<HtmlElement>{
-        return bigList(
+        if(cycles.isEmpty()) return emptyList()
+        val header = HtmlElement.tagText("h2", caption)
+        val list = bigList(
             cycles,
             cycleElementFunction,
             BigListClassName.COLUMN_1,
-            caption
+            "in cycle"
         )
+        return listOf(header) + list
     }
 
     private fun generateHtml(validated: Validated): List<HtmlElement> {

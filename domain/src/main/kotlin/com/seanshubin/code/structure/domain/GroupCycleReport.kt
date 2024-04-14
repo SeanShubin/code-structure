@@ -76,7 +76,6 @@ class GroupCycleReport : Report {
     }
 
     private fun differencesElement(validated: Validated, groupCycles: List<GroupCycle>):List<HtmlElement>{
-        val header = listOf(HtmlElement.tagText("h2", "Differences"))
         val cycleElementFunction = createCycleElementFunction(validated.analysis.global.names)
         val configuredErrors = validated.observations.configuredErrors ?: Errors.empty
         val configuredInGroupCycle = configuredErrors.inGroupCycle.toSet()
@@ -85,7 +84,7 @@ class GroupCycleReport : Report {
         }.toSet()
         val newInGroupCycle = (allInGroupCycle - configuredInGroupCycle).toList().sorted()
         val fixedInGroupCycle = (configuredInGroupCycle - allInGroupCycle).toList().sorted()
-        return header + differentCyclesElement("Newly in cycle", newInGroupCycle, cycleElementFunction) + differentCyclesElement("No longer in cycle", fixedInGroupCycle, cycleElementFunction)
+        return differentCyclesElement("Newly in cycle", newInGroupCycle, cycleElementFunction) + differentCyclesElement("No longer in cycle", fixedInGroupCycle, cycleElementFunction)
     }
 
     private fun differentCyclesElement(
@@ -93,12 +92,15 @@ class GroupCycleReport : Report {
         cycles:List<String>,
         cycleElementFunction:(String)->List<HtmlElement>
     ):List<HtmlElement>{
-        return bigList(
+        if(cycles.isEmpty()) return emptyList()
+        val header = HtmlElement.tagText("h2", caption)
+        val list = bigList(
             cycles,
             cycleElementFunction,
             BigListClassName.COLUMN_1,
-            caption
+            "in cycle"
         )
+        return listOf(header) + list
     }
 
     private fun cycleElementThatDoesNotExist(name: String): List<HtmlElement> {
