@@ -20,8 +20,7 @@ object HtmlElementUtil {
         val sizeElement = if (caption == null) {
             emptyList<HtmlElement>()
         } else {
-            val count = list.size / className.columnCount
-            listOf(Tag("p", listOf(Text("$caption count: $count"))))
+            listOf(Tag("p", listOf(Text("$caption count: ${list.size}"))))
         }
         val children = list.flatMap(toElements)
         val listElement = Tag(
