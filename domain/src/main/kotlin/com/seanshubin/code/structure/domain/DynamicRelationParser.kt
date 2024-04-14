@@ -26,7 +26,7 @@ class DynamicRelationParser(
     override fun parseDependencies(path: Path, names: List<String>): List<RelationDetail> {
         val extension = path.extension
         val parser =
-            parserByExtension[extension] ?: throw RuntimeException("No parser defined for extension '$extension'")
+            parserByExtension[extension] ?: throw RuntimeException("No relation parser defined for extension '$extension'")
         return parser.parseDependencies(path, names)
     }
 }

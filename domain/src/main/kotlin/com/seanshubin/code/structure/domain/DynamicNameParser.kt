@@ -25,7 +25,7 @@ class DynamicNameParser(
     override fun parseName(path: Path, content: String): NameDetail {
         val extension = path.extension
         val parser =
-            parserByExtension[extension] ?: throw RuntimeException("No parser defined for extension '$extension'")
+            parserByExtension[extension] ?: throw RuntimeException("No name parser defined for extension '$extension'")
         return parser.parseName(path, content)
     }
 }
