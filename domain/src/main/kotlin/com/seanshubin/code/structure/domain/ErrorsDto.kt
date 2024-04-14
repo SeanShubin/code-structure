@@ -12,8 +12,10 @@ data class ErrorsDto(
     fun toDomain(): Errors = Errors(
         directCycles,
         groupCycles,
-        ancestorDependsOnDescendant.map { it[0] to it[1] },
-        descendantDependsOnAncestor.map { it[0] to it[1] }
+        Lineage(
+            ancestorDependsOnDescendant.map { it[0] to it[1] },
+            descendantDependsOnAncestor.map { it[0] to it[1] }
+        )
     )
 
     fun toJson(): String = JsonMappers.pretty.writeValueAsString(this)
@@ -24,8 +26,8 @@ data class ErrorsDto(
         fun Errors.toDto(): ErrorsDto = ErrorsDto(
             inDirectCycle,
             inGroupCycle,
-            ancestorDependsOnDescendant.map { it.toList() },
-            descendantDependsOnAncestor.map { it.toList() }
+            lineage.ancestorDependsOnDescendant.map { it.toList() },
+            lineage.descendantDependsOnAncestor.map { it.toList() }
         )
 
         fun Errors.toJson(): String = toDto().toJson()

@@ -103,7 +103,7 @@ class ErrorHandlerImpl(
         },
         ANCESTOR_DEPENDS_ON_DESCENDANT("Ancestor Depends On Descendant") {
             override fun fetchElements(errors: Errors): Set<ErrorElement> {
-                return errors.ancestorDependsOnDescendant.map { PairErrorElement(it) }.toSet()
+                return errors.lineage.ancestorDependsOnDescendant.map { PairErrorElement(it) }.toSet()
             }
 
             override fun fetchCountAsError(countAsErrors: CountAsErrors): Boolean {
@@ -112,7 +112,7 @@ class ErrorHandlerImpl(
         },
         DESCENDANT_DEPENDS_ON_ANCESTOR("Descendant Depends On Ancestor") {
             override fun fetchElements(errors: Errors): Set<ErrorElement> {
-                return errors.descendantDependsOnAncestor.map { PairErrorElement(it) }.toSet()
+                return errors.lineage.descendantDependsOnAncestor.map { PairErrorElement(it) }.toSet()
             }
 
             override fun fetchCountAsError(countAsErrors: CountAsErrors): Boolean {

@@ -16,11 +16,11 @@ class TableOfContentsReport : Report {
             annotateWithNumber(Page.groupCycles, validated.analysis.errors.inGroupCycle.size),
             annotateWithNumber(
                 Page.lineageAncestorDescendant,
-                validated.analysis.errors.ancestorDependsOnDescendant.size
+                validated.analysis.errors.lineage.ancestorDependsOnDescendant.size
             ),
             annotateWithNumber(
                 Page.lineageDescendantAncestor,
-                validated.analysis.errors.descendantDependsOnAncestor.size
+                validated.analysis.errors.lineage.descendantDependsOnAncestor.size
             ),
             annotateWithNumber(Page.codeUnits, validated.analysis.global.names.size),
             annotateWithNumber(Page.sources, validated.observations.sources.size),

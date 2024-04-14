@@ -281,17 +281,19 @@
       "PathP",
       "PathR"
     ],
-    "ancestorDependsOnDescendant" : [
-      {
-        "first" : "ModuleP",
-        "second" : "PathP.ModuleQ"
-      }
-    ],
-    "descendantDependsOnAncestor" : [
-      {
-        "first" : "PathE.PathF.ModuleM",
-        "second" : "ModuleE"
-      }
-    ]
+    "lineage" : {
+      "ancestorDependsOnDescendant" : [
+        {
+          "first" : "ModuleP",
+          "second" : "PathP.ModuleQ"
+        }
+      ],
+      "descendantDependsOnAncestor" : [
+        {
+          "first" : "PathE.PathF.ModuleM",
+          "second" : "ModuleE"
+        }
+      ]
+    }
   }
 }

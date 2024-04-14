@@ -105,9 +105,7 @@ class AnalyzerImpl(
             val inGroupCycle = groupScopedAnalysisList.flatMap { (group, scopedAnalysis) ->
                 scopedAnalysis.cycles.flatten().map { CodeUnit(group).resolve(it).toName() }
             }.distinct().sorted()
-            val ancestorDependsOnDescendant = lineage.ancestorDependsOnDescendant
-            val descendantDependsOnAncestor = lineage.descendantDependsOnAncestor
-            return Errors(inDirectCycle, inGroupCycle, ancestorDependsOnDescendant, descendantDependsOnAncestor)
+            return Errors(inDirectCycle, inGroupCycle, lineage)
         }
 
         private fun composeNameUriList(

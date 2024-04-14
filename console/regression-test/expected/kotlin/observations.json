@@ -281,17 +281,19 @@
       "packagep",
       "packager"
     ],
-    "ancestorDependsOnDescendant" : [
-      {
-        "first" : "ClassP",
-        "second" : "packagep.ClassQ"
-      }
-    ],
-    "descendantDependsOnAncestor" : [
-      {
-        "first" : "packagee.packagef.ClassM",
-        "second" : "ClassE"
-      }
-    ]
+    "lineage" : {
+      "ancestorDependsOnDescendant" : [
+        {
+          "first" : "ClassP",
+          "second" : "packagep.ClassQ"
+        }
+      ],
+      "descendantDependsOnAncestor" : [
+        {
+          "first" : "packagee.packagef.ClassM",
+          "second" : "ClassE"
+        }
+      ]
+    }
   }
 }
