@@ -65,21 +65,25 @@ class DirectCycleReport : Report {
     private fun differencesElement(
         cycles: List<List<String>>,
         inDirectCycle: List<String>,
-        cycleElementFunction:(String)->List<HtmlElement>
-    ):List<HtmlElement> {
+        cycleElementFunction: (String) -> List<HtmlElement>
+    ): List<HtmlElement> {
         val configured = inDirectCycle.toSet()
         val existing = cycles.flatten().toSet()
         val newCycles = (existing - configured).toList().sorted()
         val fixedCycles = (configured - existing).toList().sorted()
-        return differentCyclesElement("Newly in cycle", newCycles, cycleElementFunction) + differentCyclesElement("No longer in cycle", fixedCycles, cycleElementFunction)
+        return differentCyclesElement(
+            "Newly in cycle",
+            newCycles,
+            cycleElementFunction
+        ) + differentCyclesElement("No longer in cycle", fixedCycles, cycleElementFunction)
     }
 
     private fun differentCyclesElement(
-        caption:String,
-        cycles:List<String>,
-        cycleElementFunction:(String)->List<HtmlElement>
-    ):List<HtmlElement>{
-        if(cycles.isEmpty()) return emptyList()
+        caption: String,
+        cycles: List<String>,
+        cycleElementFunction: (String) -> List<HtmlElement>
+    ): List<HtmlElement> {
+        if (cycles.isEmpty()) return emptyList()
         val header = HtmlElement.tagText("h2", caption)
         val list = bigList(
             cycles,
@@ -94,7 +98,7 @@ class DirectCycleReport : Report {
         val cycleElementFunction = createCycleElementFunction(validated.analysis.global.names)
         val configuredErrors = validated.observations.configuredErrors
         val cycles = validated.analysis.global.cycles
-        val differences = if(configuredErrors == null){
+        val differences = if (configuredErrors == null) {
             emptyList()
         } else {
             differencesElement(cycles, configuredErrors.inDirectCycle, cycleElementFunction)
@@ -140,8 +144,9 @@ class DirectCycleReport : Report {
         return listOf(HtmlElement.tagText("span", "$name (no longer exists)"))
     }
 
-    private fun createCycleElementFunction(existingNames:List<String>):(name:String) -> List<HtmlElement> = {name:String ->
-        if(existingNames.contains(name)) cycleElement(name)
-        else cycleElementThatDoesNotExist(name)
-    }
+    private fun createCycleElementFunction(existingNames: List<String>): (name: String) -> List<HtmlElement> =
+        { name: String ->
+            if (existingNames.contains(name)) cycleElement(name)
+            else cycleElementThatDoesNotExist(name)
+        }
 }

@@ -37,8 +37,8 @@ interface HtmlElement {
         override fun toLines(): List<String> = lines
     }
 
-    companion object{
-        fun tagText(tag:String, text:String):HtmlElement {
+    companion object {
+        fun tagText(tag: String, text: String): HtmlElement {
             val textElement = Text(text)
             val tagElement = Tag(tag, listOf(textElement))
             return tagElement

@@ -12,8 +12,6 @@ import com.seanshubin.code.structure.config.TypeUtil.coerceToString
 import com.seanshubin.code.structure.contract.delegate.FilesContract
 import com.seanshubin.code.structure.contract.delegate.FilesDelegate
 import com.seanshubin.code.structure.domain.*
-import com.seanshubin.code.structure.domain.EnumUtil.coerceToEnum
-import com.seanshubin.code.structure.domain.EnumUtil.defaultString
 import com.seanshubin.code.structure.elixirsyntax.ElixirParser
 import com.seanshubin.code.structure.elixirsyntax.ElixirParserImpl
 import com.seanshubin.code.structure.exec.Exec

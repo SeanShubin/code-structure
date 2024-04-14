@@ -27,7 +27,7 @@ class LineageReport(
         val lineageElementFunction = createLineageElementFunction(codeUnitElementFunction)
         val lineage: List<Pair<String, String>> = direction(validated.analysis.lineage)
         val configuredErrors = validated.observations.configuredErrors
-        val differences = if(configuredErrors == null){
+        val differences = if (configuredErrors == null) {
             emptyList()
         } else {
             differencesElement(lineage, direction(configuredErrors.lineage), lineageElementFunction)
@@ -38,21 +38,25 @@ class LineageReport(
     private fun differencesElement(
         fromAnalysis: List<Pair<String, String>>,
         fromConfiguredErrors: List<Pair<String, String>>,
-        lineageElementFunction:(Pair<String,String>)->List<HtmlElement>
-    ):List<HtmlElement> {
+        lineageElementFunction: (Pair<String, String>) -> List<HtmlElement>
+    ): List<HtmlElement> {
         val configured = fromConfiguredErrors.toSet()
         val existing = fromAnalysis.toSet()
         val newEntries = (existing - configured).toList().sortedWith(pairComparator)
         val fixedEntries = (configured - existing).toList().sortedWith(pairComparator)
-        return differentLineageElement("New", newEntries, lineageElementFunction) + differentLineageElement("Fixed", fixedEntries, lineageElementFunction)
+        return differentLineageElement("New", newEntries, lineageElementFunction) + differentLineageElement(
+            "Fixed",
+            fixedEntries,
+            lineageElementFunction
+        )
     }
 
     private fun differentLineageElement(
-        caption:String,
-        lineage:List<Pair<String, String>>,
-        elementFunction:(Pair<String, String>)->List<HtmlElement>
-    ):List<HtmlElement>{
-        if(lineage.isEmpty()) return emptyList()
+        caption: String,
+        lineage: List<Pair<String, String>>,
+        elementFunction: (Pair<String, String>) -> List<HtmlElement>
+    ): List<HtmlElement> {
+        if (lineage.isEmpty()) return emptyList()
         val header = HtmlElement.tagText("h2", caption)
         val list = bigList(
             lineage,
@@ -89,12 +93,14 @@ class LineageReport(
         return listOf(HtmlElement.tagText("span", "$name (no longer exists)"))
     }
 
-    private fun createCodeUnitElementFunction(existingNames:List<String>):(name:String) -> List<HtmlElement> = {name:String ->
-        if(existingNames.contains(name)) codeUnitElement(name)
-        else codeUnitElementThatDoesNotExist(name)
-    }
+    private fun createCodeUnitElementFunction(existingNames: List<String>): (name: String) -> List<HtmlElement> =
+        { name: String ->
+            if (existingNames.contains(name)) codeUnitElement(name)
+            else codeUnitElementThatDoesNotExist(name)
+        }
 
-    private fun createLineageElementFunction(codeUnitElementFunction:(String)->List<HtmlElement>):(lineage:Pair<String, String>) -> List<HtmlElement> = {lineage ->
-        lineage.toList().flatMap(codeUnitElementFunction)
-    }
+    private fun createLineageElementFunction(codeUnitElementFunction: (String) -> List<HtmlElement>): (lineage: Pair<String, String>) -> List<HtmlElement> =
+        { lineage ->
+            lineage.toList().flatMap(codeUnitElementFunction)
+        }
 }
