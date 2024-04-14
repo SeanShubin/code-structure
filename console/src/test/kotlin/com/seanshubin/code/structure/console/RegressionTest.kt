@@ -102,7 +102,6 @@ class RegressionTest {
     }
 
     private fun recurseIntoFilesBase(baseDir: Path, dir: Path, f: (Path) -> Unit) {
-        println(baseDir)
         val list = Files.list(dir).toList()
         list.forEach { current ->
             if (Files.isDirectory(current)) {
