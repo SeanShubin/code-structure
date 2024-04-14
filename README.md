@@ -27,7 +27,6 @@ Example configuration:
   "outputDir" : "generated/self",
   "localDepth" : 2,
   "nodeLimitMainGraph" : 100,
-  "bytecodeFormat" : "class",
   "sourcePrefix" : "https://github.com/SeanShubin/code-structure/blob/master/",
   "sourceFileRegexPatterns" : {
     "include" : [

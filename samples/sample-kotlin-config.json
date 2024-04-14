@@ -9,7 +9,6 @@
     ],
     "exclude" : [ ]
   },
-  "bytecodeFormat" : "class",
   "binaryFileRegexPatterns" : {
     "include" : [
       "console/target/code-structure-sample-kotlin-console.jar$"

@@ -1,0 +1,11 @@
+digraph detangled {
+  bgcolor=lightgray
+  "ClassP" [fontcolor="blue" URL="local-ClassP.html" label="ClassP" style="bold"]
+  "packagei.ClassJ" [fontcolor="blue" URL="local-packagei-ClassJ.html" label="packagei.ClassJ"]
+  "packagep.ClassQ" [fontcolor="blue" URL="local-packagep-ClassQ.html" label="packagep.ClassQ"]
+  "packager.ClassS" [fontcolor="blue" URL="local-packager-ClassS.html" label="packager.ClassS"]
+  "ClassP" -> "packagep.ClassQ"
+  "packagei.ClassJ" -> "packagep.ClassQ"
+  "packagep.ClassQ" -> "packager.ClassS"
+  "packager.ClassS" -> "packagei.ClassJ"
+}

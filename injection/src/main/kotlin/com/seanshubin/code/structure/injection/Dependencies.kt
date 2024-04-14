@@ -27,9 +27,7 @@ import com.seanshubin.code.structure.jvmformat.*
 import com.seanshubin.code.structure.kotlinsyntax.KotlinParser
 import com.seanshubin.code.structure.kotlinsyntax.KotlinParserImpl
 import com.seanshubin.code.structure.nameparser.NameParser
-import com.seanshubin.code.structure.relationparser.BytecodeFormat
 import com.seanshubin.code.structure.relationparser.RelationParser
-import com.seanshubin.code.structure.relationparser.RelationParserRepository
 import com.seanshubin.code.structure.scalasyntax.ScalaParser
 import com.seanshubin.code.structure.scalasyntax.ScalaParserImpl
 import java.nio.file.Path
@@ -59,8 +57,6 @@ class Dependencies(integrations: Integrations) {
     private val outputDir = config.load(listOf("outputDir"), "generated").coerceToPath()
     private val localDepth = config.load(listOf("localDepth"), 2).coerceToInt()
     private val useObservationsCache = config.load(listOf("useObservationsCache"), false).coerceToBoolean()
-    private val bytecodeFormat =
-        config.load(listOf("bytecodeFormat"), defaultString<BytecodeFormat>()).coerceToEnum<BytecodeFormat>()
     private val sourcePrefix = config.load(listOf("sourcePrefix"), "prefix for link to source code").coerceToString()
     private val sourceFileIncludeRegexPatterns: List<String> =
         config.load(listOf("sourceFileRegexPatterns", "include"), emptyList<String>()).coerceToListOfString()
@@ -99,17 +95,13 @@ class Dependencies(integrations: Integrations) {
     private val classInfoLoader: ClassInfoLoaderImpl = ClassInfoLoaderImpl()
     private val classParser: ClassParser = ClassParserImpl(inputDir, byteSequenceLoader, classInfoLoader)
     private val beamParser: BeamParser = BeamParserImpl(files, inputDir)
-    private val relationParserRepository: RelationParserRepository = RelationParserRepositoryImpl(
-        classParser,
-        beamParser
-    )
     private val nameParser: NameParser = DynamicNameParser(
         kotlinParser,
         elixirParser,
         scalaParser,
         javaParser
     )
-    private val relationParser: RelationParser = relationParserRepository.lookupByBytecodeFormat(bytecodeFormat)
+    private val relationParser: RelationParser = DynamicRelationParser(classParser, beamParser)
     private val observer: Observer = ObserverImpl(
         inputDir,
         configuredErrorsFile,

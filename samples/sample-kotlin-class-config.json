@@ -1,0 +1,27 @@
+{
+  "inputDir" : "../code-structure-sample-kotlin/",
+  "outputDir" : "generated/kotlin-class/",
+  "localDepth" : 2,
+  "sourcePrefix" : "https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/",
+  "sourceFileRegexPatterns" : {
+    "include" : [
+      ".*\\.kt$"
+    ],
+    "exclude" : [ ]
+  },
+  "binaryFileRegexPatterns" : {
+    "include" : [
+      "domain/target/classes/.*\\.class$"
+    ],
+    "exclude" : [ ]
+  },
+  "nodeLimitMainGraph" : 100,
+  "countAsErrors" : {
+    "directCycle" : true,
+    "groupCycle" : true,
+    "ancestorDependsOnDescendant" : true,
+    "descendantDependsOnAncestor" : true
+  },
+  "useObservationsCache" : false,
+  "maximumAllowedErrorCount" : 19
+}

@@ -1,0 +1,41 @@
+digraph detangled {
+  bgcolor=lightgray
+  "ClassE" [fontcolor="blue" URL="local-ClassE.html" label="ClassE"]
+  "ClassP" [fontcolor="blue" URL="local-ClassP.html" label="ClassP"]
+  "packagea.ClassB" [fontcolor="blue" URL="local-packagea-ClassB.html" label="packagea.ClassB"]
+  "packagec.ClassD" [fontcolor="blue" URL="local-packagec-ClassD.html" label="packagec.ClassD"]
+  "packagee.packagef.ClassK" [fontcolor="blue" URL="local-packagee-packagef-ClassK.html" label="packagee.packagef.ClassK"]
+  "packagee.packagef.ClassL" [fontcolor="blue" URL="local-packagee-packagef-ClassL.html" label="packagee.packagef.ClassL"]
+  "packagee.packagef.ClassM" [fontcolor="blue" URL="local-packagee-packagef-ClassM.html" label="packagee.packagef.ClassM"]
+  "packagee.packagef.ClassN" [fontcolor="blue" URL="local-packagee-packagef-ClassN.html" label="packagee.packagef.ClassN"]
+  "packagee.packagef.ClassO" [fontcolor="blue" URL="local-packagee-packagef-ClassO.html" label="packagee.packagef.ClassO"]
+  "packageg.ClassH" [fontcolor="blue" URL="local-packageg-ClassH.html" label="packageg.ClassH"]
+  "packagei.ClassJ" [fontcolor="blue" URL="local-packagei-ClassJ.html" label="packagei.ClassJ"]
+  "packagep.ClassQ" [fontcolor="blue" URL="local-packagep-ClassQ.html" label="packagep.ClassQ"]
+  "packager.ClassS" [fontcolor="blue" URL="local-packager-ClassS.html" label="packager.ClassS"]
+  "packaget.ClassU" [fontcolor="blue" URL="local-packaget-ClassU.html" label="packaget.ClassU"]
+  "ClassP" -> "packagep.ClassQ"
+  "packagea.ClassB" -> "packagec.ClassD"
+  "packagee.packagef.ClassK" -> "packagee.packagef.ClassL"
+  "packagee.packagef.ClassM" -> "ClassE"
+  "packagee.packagef.ClassN" -> "packagee.packagef.ClassO"
+  "packageg.ClassH" -> "packagei.ClassJ"
+  "packager.ClassS" -> "packaget.ClassU"
+  subgraph cluster_0 {
+    penwidth=2
+    pencolor=Red
+    "packagec.ClassD" -> "packagee.packagef.ClassL"
+    "packagee.packagef.ClassL" -> "packagee.packagef.ClassM"
+    "packagee.packagef.ClassM" -> "packagee.packagef.ClassN"
+    "packagee.packagef.ClassN" -> "packagee.packagef.ClassL"
+    "packagee.packagef.ClassN" -> "packageg.ClassH"
+    "packageg.ClassH" -> "packagec.ClassD"
+  }
+  subgraph cluster_1 {
+    penwidth=2
+    pencolor=Red
+    "packagei.ClassJ" -> "packagep.ClassQ"
+    "packagep.ClassQ" -> "packager.ClassS"
+    "packager.ClassS" -> "packagei.ClassJ"
+  }
+}

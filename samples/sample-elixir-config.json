@@ -9,7 +9,6 @@
     ],
     "exclude" : [ ]
   },
-  "bytecodeFormat" : "beam",
   "binaryFileRegexPatterns" : {
     "include" : [
       "_build/dev/lib/code_structure_sample_elixir/ebin/.*\\.beam$"

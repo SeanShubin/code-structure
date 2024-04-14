@@ -1,0 +1,4 @@
+digraph detangled {
+  bgcolor=lightgray
+  "ClassQ" [fontcolor="blue" URL="local-packagep-ClassQ.html" label="ClassQ (local)"]
+}

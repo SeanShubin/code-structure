@@ -1,0 +1,32 @@
+digraph detangled {
+  bgcolor=lightgray
+  "ClassE" [fontcolor="blue" URL="local-ClassE.html" label="ClassE (local)"]
+  "ClassP" [fontcolor="blue" URL="local-ClassP.html" label="ClassP (local)"]
+  "packagea" [fontcolor="blue" URL="group-packagea.html" label="packagea (1)"]
+  "packagec" [fontcolor="blue" URL="group-packagec.html" label="packagec (1)"]
+  "packagee" [fontcolor="blue" URL="group-packagee.html" label="packagee (6)"]
+  "packageg" [fontcolor="blue" URL="group-packageg.html" label="packageg (1)"]
+  "packagei" [fontcolor="blue" URL="group-packagei.html" label="packagei (1)"]
+  "packagep" [fontcolor="blue" URL="group-packagep.html" label="packagep (1)"]
+  "packager" [fontcolor="blue" URL="group-packager.html" label="packager (1)"]
+  "packaget" [fontcolor="blue" URL="group-packaget.html" label="packaget (1)"]
+  "ClassP" -> "packagep"
+  "packagea" -> "packagec"
+  "packagee" -> "ClassE"
+  "packageg" -> "packagei"
+  "packager" -> "packaget"
+  subgraph cluster_0 {
+    penwidth=2
+    pencolor=Red
+    "packagec" -> "packagee"
+    "packagee" -> "packageg"
+    "packageg" -> "packagec"
+  }
+  subgraph cluster_1 {
+    penwidth=2
+    pencolor=Red
+    "packagei" -> "packagep"
+    "packagep" -> "packager"
+    "packager" -> "packagei"
+  }
+}

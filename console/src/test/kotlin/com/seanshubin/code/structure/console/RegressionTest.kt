@@ -11,9 +11,32 @@ import kotlin.test.assertEquals
 
 class RegressionTest {
     @Test
-    fun kotlin() {
+    fun kotlinClass() {
         // given
-        val paths = TestPaths("kotlin")
+        val paths = TestPaths("kotlin-class")
+        val realClock = Clock.systemUTC()
+        val emitLine = EmitLine()
+        val regressionIntegrations = object : Integrations {
+            override val clock: Clock = RememberingClock(paths.memoryDir, realClock)
+            override val emitLine: (String) -> Unit = emitLine
+            override val configBaseName: String = paths.configName
+        }
+        val dependencies = Dependencies(regressionIntegrations)
+
+        // when
+        dependencies.runner.run()
+
+        // then
+        seedExpectationIfNecessary(paths.expectedDir, paths.actualDir)
+        val validationSummary = validateDirectoriesEqual(paths.expectedDir, paths.actualDir)
+        assertEquals(0, validationSummary.regressionCount(), validationSummary.regressionString())
+        assertEquals(null, dependencies.errorMessageHolder.errorMessage)
+    }
+
+    @Test
+    fun kotlinJar() {
+        // given
+        val paths = TestPaths("kotlin-jar")
         val realClock = Clock.systemUTC()
         val emitLine = EmitLine()
         val regressionIntegrations = object : Integrations {
@@ -79,6 +102,7 @@ class RegressionTest {
     }
 
     private fun recurseIntoFilesBase(baseDir: Path, dir: Path, f: (Path) -> Unit) {
+        println(baseDir)
         val list = Files.list(dir).toList()
         list.forEach { current ->
             if (Files.isDirectory(current)) {

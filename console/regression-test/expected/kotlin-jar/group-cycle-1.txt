@@ -1,0 +1,9 @@
+digraph detangled {
+  bgcolor=lightgray
+  "packagei" [fontcolor="blue" URL="group-packagei.html" label="packagei"]
+  "packagep" [fontcolor="blue" URL="group-packagep.html" label="packagep"]
+  "packager" [fontcolor="blue" URL="group-packager.html" label="packager"]
+  "packagei" -> "packagep"
+  "packagep" -> "packager"
+  "packager" -> "packagei"
+}

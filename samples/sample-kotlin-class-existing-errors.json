@@ -1,0 +1,35 @@
+{
+  "directCycles" : [
+    "packagec.ClassD",
+    "packagee.packagef.ClassL",
+    "packagee.packagef.ClassM",
+    "packagee.packagef.ClassN",
+    "packageg.ClassH",
+    "packagei.ClassJ",
+    "packagep.ClassQ",
+    "packager.ClassS"
+  ],
+  "groupCycles" : [
+    "packagec",
+    "packagee",
+    "packagee.packagef.ClassL",
+    "packagee.packagef.ClassM",
+    "packagee.packagef.ClassN",
+    "packageg",
+    "packagei",
+    "packagep",
+    "packager"
+  ],
+  "ancestorDependsOnDescendant" : [
+    [
+      "ClassP",
+      "packagep.ClassQ"
+    ]
+  ],
+  "descendantDependsOnAncestor" : [
+    [
+      "packagee.packagef.ClassM",
+      "ClassE"
+    ]
+  ]
+}
