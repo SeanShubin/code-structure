@@ -14,6 +14,7 @@ class DynamicRelationParser(
     private val parserByExtension = mapOf(
         "class" to classParser,
         "jar" to classParser,
+        "war" to classParser,
         "beam" to beamParser
     )
 
