@@ -28,12 +28,19 @@ import com.seanshubin.code.structure.nameparser.NameParser
 import com.seanshubin.code.structure.relationparser.RelationParser
 import com.seanshubin.code.structure.scalasyntax.ScalaParser
 import com.seanshubin.code.structure.scalasyntax.ScalaParserImpl
+import com.seanshubin.code.structure.typescriptsyntax.TypeScriptNameParser
+import com.seanshubin.code.structure.typescriptsyntax.TypeScriptNameParserImpl
+import com.seanshubin.code.structure.typescriptsyntax.TypeScriptRelationParser
+import com.seanshubin.code.structure.typescriptsyntax.TypeScriptRelationParserImpl
+import java.nio.charset.Charset
+import java.nio.charset.StandardCharsets
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.time.Clock
 import java.time.Duration
 
 class Dependencies(integrations: Integrations) {
+    private val charset: Charset = StandardCharsets.UTF_8
     private val configBaseName: String = integrations.configBaseName
     private val configFile = Paths.get("$configBaseName-config.json")
     private val configuredErrorsFile = Paths.get("$configBaseName-existing-errors.json")
@@ -93,13 +100,18 @@ class Dependencies(integrations: Integrations) {
     private val classInfoLoader: ClassInfoLoaderImpl = ClassInfoLoaderImpl()
     private val classParser: ClassParser = ClassParserImpl(inputDir, byteSequenceLoader, classInfoLoader)
     private val beamParser: BeamParser = BeamParserImpl(files, inputDir)
+    private val typeScriptRelationParser:TypeScriptRelationParser = TypeScriptRelationParserImpl(
+        files, charset
+    )
+    private val typeScriptNameParser: TypeScriptNameParser = TypeScriptNameParserImpl()
     private val nameParser: NameParser = DynamicNameParser(
         kotlinParser,
         elixirParser,
         scalaParser,
-        javaParser
+        javaParser,
+        typeScriptNameParser
     )
-    private val relationParser: RelationParser = DynamicRelationParser(classParser, beamParser)
+    private val relationParser: RelationParser = DynamicRelationParser(classParser, beamParser, typeScriptRelationParser)
     private val observer: Observer = ObserverImpl(
         inputDir,
         configuredErrorsFile,
