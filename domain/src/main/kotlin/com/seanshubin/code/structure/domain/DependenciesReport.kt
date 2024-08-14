@@ -3,7 +3,7 @@ package com.seanshubin.code.structure.domain
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElement.Tag
 import com.seanshubin.code.structure.html.HtmlElement.Text
-import com.seanshubin.code.structure.relationparser.RelationDetail
+import com.seanshubin.code.structure.relationparser.RelationDetail.Companion.toRelations
 import java.nio.file.Path
 
 class DependenciesReport : Report {
@@ -31,7 +31,7 @@ class DependenciesReport : Report {
 
     private fun summary(observations: Observations): List<HtmlElement> {
         return listOf(
-            Tag("p", Text("binary count: ${observations.binaries.size}"))
+            Tag("p", Text("relation count: ${observations.binaries.toRelations().size}"))
         )
     }
 
@@ -44,39 +44,22 @@ class DependenciesReport : Report {
     }
 
     private fun tbody(observations: Observations): HtmlElement {
-        val rows = observations.binaries.flatMap { binary ->
-            binaryRowsWithDependencies(binary)
+        val rows = observations.binaries.toRelations().map { relation ->
+            binaryRowWithDependencies(relation)
         }
         return Tag("tbody", rows)
     }
 
-    private fun binaryRowsWithDependencies(binary: RelationDetail): List<HtmlElement> =
-        binary.dependencyNames.map {
-            binaryRowWithDependencies(binary, it)
-        }
-
-    private fun binaryRowWithDependencies(binary: RelationDetail, dependencyName: String): HtmlElement {
-        val binaryCells = binaryCellsWithDependencies(binary, dependencyName)
+    private fun binaryRowWithDependencies(relation:Pair<String, String>): HtmlElement {
+        val (name, dependencyName) = relation
+        val binaryCells = binaryCellsWithDependencies(name, dependencyName)
         val binaryRow = Tag("tr", binaryCells)
         return binaryRow
     }
 
-    private fun binaryRowWithoutDependencies(binary: RelationDetail): HtmlElement {
-        val binaryCells = binaryCellsWithoutDependencies(binary)
-        val binaryRow = Tag("tr", binaryCells)
-        return binaryRow
-    }
-
-    private fun binaryCellsWithoutDependencies(binary: RelationDetail): List<HtmlElement> {
+    private fun binaryCellsWithDependencies(name: String, dependencyName: String): List<HtmlElement> {
         return listOf(
-            binaryCell(binary.name),
-            binaryCell(binary.location),
-        )
-    }
-
-    private fun binaryCellsWithDependencies(binary: RelationDetail, dependencyName: String): List<HtmlElement> {
-        return listOf(
-            binaryCell(binary.name),
+            binaryCell(name),
             binaryCell(dependencyName)
         )
     }
