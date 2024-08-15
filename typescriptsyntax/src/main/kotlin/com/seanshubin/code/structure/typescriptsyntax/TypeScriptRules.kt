@@ -17,7 +17,7 @@ object TypeScriptRules {
 
     private fun String.removeExistingPrefix(prefix:String): String {
         return if (startsWith(prefix)) removePrefix(prefix)
-        else throw RuntimeException("Expected to start with $prefix")
+        else throw RuntimeException("Expected '$this' to start with '$prefix'")
     }
 
     private fun String.removeSuffix(): String =

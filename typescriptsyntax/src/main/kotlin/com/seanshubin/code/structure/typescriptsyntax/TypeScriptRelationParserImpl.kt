@@ -35,8 +35,8 @@ class TypeScriptRelationParserImpl(
     }
 
     companion object {
-        private val dependsOnRegexSQuote = Regex("from\\s+'(\\.(.*))'")
-        private val dependsOnRegexDQuote = Regex("from\\s+\"(\\.(.*))\"")
+        private val dependsOnRegexSQuote = Regex("from\\s+'(.*)'")
+        private val dependsOnRegexDQuote = Regex("from\\s+\"(.*)\"")
         private val dependsOnRegexList = listOf(dependsOnRegexSQuote, dependsOnRegexDQuote)
     }
 }

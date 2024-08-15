@@ -147,7 +147,7 @@ class AnalyzerImpl(
             val commonPrefixSize = commonPrefix.size
             val prefix = parts.take(commonPrefixSize)
             if (prefix != commonPrefix) {
-                throw RuntimeException("Expected $this to start with $commonPrefix")
+                throw RuntimeException("Expected '$this' to start with '$commonPrefix'")
             }
             val remain = parts.drop(commonPrefixSize)
             return CodeUnit(remain).toName()
