@@ -68,7 +68,9 @@ class AnalyzerImpl(
     }
 
     private fun cycleLoopFunction(caption: String): (Int, Int) -> Unit = { index, size ->
-        cycleLoopEvent(caption, index, size)
+        timer.monitor(caption){
+            cycleLoopEvent(caption, index, size)
+        }
     }
 
     companion object {

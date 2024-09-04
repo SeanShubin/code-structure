@@ -99,10 +99,12 @@
     tree              [ ]
     cycle             [ ]
     exec              [ ]
+    stress            [ durationformat ]
   }
   detangler [domain]
   consoleEntryPoint {
     console com.seanshubin.code.structure.console.EntryPoint
+    stress  com.seanshubin.code.structure.stress.LargeProjectGeneratorApp
   }
   javaVersion 17
   deployableToMavenCentral true
