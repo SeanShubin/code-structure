@@ -244,20 +244,19 @@ class AnalyzerImpl(
             referencesByName: Map<String, Set<String>>,
             cyclesByName: Map<String, Set<String>>
         ): Set<String> {
+            val transitive = mutableSetOf<String>()
             val thisOrCycle = cyclesByName[name] ?: setOf(name)
-            val immediate = thisOrCycle.flatMap { partOfCycle ->
-                if (referencesByName.containsKey(partOfCycle)) {
-                    referencesByName.getValue(partOfCycle)
-                } else {
-                    throw RuntimeException(partOfCycle)
-                }
-            }.filterNot {
-                thisOrCycle.contains(it)
+            val toCheck = mutableSetOf<String>()
+            toCheck.addAll(thisOrCycle)
+            while(toCheck.isNotEmpty()){
+                val current= toCheck.first()
+                transitive.add(current)
+                toCheck.remove(current)
+                val allReferences = (referencesByName[current] ?: emptySet()) + (cyclesByName[current] ?: emptySet())
+                val remainingReferences = allReferences.filterNot { transitive.contains(it) }
+                toCheck.addAll(remainingReferences)
             }
-            val deep = immediate.flatMap {
-                findTransitive(it, referencesByName, cyclesByName)
-            }.toSet()
-            val transitive = (thisOrCycle + immediate + deep) - name
+            transitive.remove(name)
             return transitive
         }
 
