@@ -28,6 +28,7 @@ class Runner(
         val validated = timer.monitor("validation") { validator.validate(observations, analysis) }
         val commands = timer.monitor("reports") { reportGenerator.generateReports(validated) }
         timer.monitor("commands") { commands.forEach { commandRunner.execute(it) } }
+        // final commands create the report on timing, so no point in monitoring time after this point
         val finalCommands = reportGenerator.generateFinalReports(validated)
         finalCommands.forEach { commandRunner.execute(it) }
         val errorMessage = errorHandler.handleErrors(

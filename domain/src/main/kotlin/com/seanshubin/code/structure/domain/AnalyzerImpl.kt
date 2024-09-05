@@ -31,7 +31,7 @@ class AnalyzerImpl(
                 .distinct()
         }
         val cycleLoop = cycleLoopFunction("analysis.global.cycle")
-        val global = timer.monitor("analysis.global") { analyze(names, references, cycleLoop) }
+        val global = timer.monitor("analysis.global") { analyze(names, references, cycleLoop, timer) }
         val ancestorToDescendant = timer.monitor("analysis.ancestorToDescendant") {
             references.filter {
                 it.first.toCodeUnit().isAncestorOf(it.second.toCodeUnit())
@@ -48,7 +48,8 @@ class AnalyzerImpl(
             composeGroupScopedAnalysisList(
                 emptyList(),
                 NamesReferences(names, references),
-                CycleUtil.cycleLoopNop
+                CycleUtil.cycleLoopNop,
+                timer
             )
         }
         val errors = timer.monitor("analysis.errors") { composeErrors(global, groupScopedAnalysisList, lineage) }
@@ -126,12 +127,13 @@ class AnalyzerImpl(
         private fun analyze(
             names: List<String>,
             references: List<Pair<String, String>>,
-            cycleLoop: (Int, Int) -> Unit
+            cycleLoop: (Int, Int) -> Unit,
+            timer: Timer
         ): ScopedAnalysis {
-            val cycles = findCycles(references, cycleLoop)
-            val entryPoints = findEntryPoints(names, references)
-            val cycleDetails = composeAllCycleDetails(cycles, references)
-            val details = composeDetails(names, references, cycles)
+            val cycles = timer.monitor("analyze.cycles"){findCycles(references, cycleLoop)}
+            val entryPoints = timer.monitor("analyze.entryPoints"){findEntryPoints(names, references)}
+            val cycleDetails = timer.monitor("analyze.cycleDetails"){composeAllCycleDetails(cycles, references)}
+            val details = timer.monitor("analyze.details"){composeDetails(names, references, cycles)}
             return ScopedAnalysis(
                 cycles,
                 names,
@@ -263,16 +265,17 @@ class AnalyzerImpl(
         private fun composeGroupScopedAnalysisList(
             path: List<String>,
             namesReferences: NamesReferences,
-            cycleLoop: (Int, Int) -> Unit
+            cycleLoop: (Int, Int) -> Unit,
+            timer: Timer
         ): List<Pair<List<String>, ScopedAnalysis>> {
             if (namesReferences.names.isEmpty()) return emptyList()
             val top = namesReferences.head()
-            val topAnalysis = analyze(top.names, top.references, cycleLoop)
+            val topAnalysis = analyze(top.names, top.references, cycleLoop, timer)
             val topEntry = path to topAnalysis
             val descendantMap = top.names.flatMap {
                 val childPath = path + it
                 val childNamesReferences = namesReferences.tail(it)
-                composeGroupScopedAnalysisList(childPath, childNamesReferences, cycleLoop)
+                composeGroupScopedAnalysisList(childPath, childNamesReferences, cycleLoop, timer)
             }
             return listOf(topEntry) + descendantMap
         }
