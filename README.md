@@ -3,7 +3,7 @@
 ## Getting started
 
 - Check the "Prerequisites" section
-- Run on self with `./scripts/clean-test-build-run.sh`
+- Run on self with `./scripts/clean-build-run-skip-tests.sh`
 
 ## Maven Plugin Configuration
 ```xml
