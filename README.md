@@ -143,7 +143,7 @@ OS name: "mac os x", version: "12.6.8", arch: "x86_64", family: "mac"
 
 ```
 dot --version
-dot - graphviz version 8.0.2 (20230410.1723)
+dot - graphviz version 12.0.0 (20240704.0754)
 ```
 
 ## Scripts
