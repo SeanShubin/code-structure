@@ -14,7 +14,7 @@ class CycleUtilTest {
             "d" to "e",
             "d" to "b"
         )
-        val expected = listOf(listOf("b", "c", "d"))
+        val expected = setOf(setOf("b", "c", "d"))
 
         // when
         val actual = CycleUtil.findCycles(input, CycleUtil.cycleLoopNop)
@@ -37,9 +37,9 @@ class CycleUtilTest {
             "d" to "b",
             "g" to "e"
         )
-        val expected = listOf(
-            listOf("b", "c", "d"),
-            listOf("e", "f", "g")
+        val expected = setOf(
+            setOf("b", "c", "d"),
+            setOf("e", "f", "g")
         )
 
         // when
