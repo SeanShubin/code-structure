@@ -14,10 +14,10 @@ class CycleUtilTest {
             "d" to "e",
             "d" to "b"
         )
-        val expected = listOf(listOf("b", "c", "d"))
+        val expected = setOf(setOf("b", "c", "d"))
 
         // when
-        val actual = CycleUtil.findCycles(input, CycleUtil.cycleLoopNop)
+        val actual = CycleUtil.findCycles(input)
 
         // then
         assertEquals(expected, actual)
@@ -37,13 +37,41 @@ class CycleUtilTest {
             "d" to "b",
             "g" to "e"
         )
-        val expected = listOf(
-            listOf("b", "c", "d"),
-            listOf("e", "f", "g")
+        val expected = setOf(
+            setOf("b", "c", "d"),
+            setOf("e", "f", "g")
         )
 
         // when
-        val actual = CycleUtil.findCycles(input, CycleUtil.cycleLoopNop)
+        val actual = CycleUtil.findCycles(input)
+
+        // then
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun repeatProblem() {
+        // given
+        val input = setOf(
+            "ModuleP" to "PathP",
+            "PathA" to "PathC",
+            "PathC" to "PathE",
+            "PathE" to "ModuleE",
+            "PathE" to "PathG",
+            "PathG" to "PathC",
+            "PathG" to "PathI",
+            "PathI" to "PathP",
+            "PathP" to "PathR",
+            "PathR" to "PathI",
+            "PathR" to "PathT",
+        )
+        val expected = setOf(
+            setOf("PathC", "PathE", "PathG"),
+            setOf("PathI", "PathP", "PathR")
+        )
+
+        // when
+        val actual = CycleUtil.findCycles(input)
 
         // then
         assertEquals(expected, actual)

@@ -31,7 +31,7 @@ class AnalyzerImpl(
                 .distinct()
         }
         val cycleLoop = cycleLoopFunction("analysis.global.cycle")
-        val global = timer.monitor("analysis.global") { analyze(names, references, cycleLoop, timer) }
+        val global = timer.monitor("analysis.global") { analyze(names, references, timer) }
         val ancestorToDescendant = timer.monitor("analysis.ancestorToDescendant") {
             references.filter {
                 it.first.toCodeUnit().isAncestorOf(it.second.toCodeUnit())
@@ -48,7 +48,6 @@ class AnalyzerImpl(
             composeGroupScopedAnalysisList(
                 emptyList(),
                 NamesReferences(names, references),
-                CycleUtil.cycleLoopNop,
                 timer
             )
         }
@@ -127,10 +126,9 @@ class AnalyzerImpl(
         private fun analyze(
             names: List<String>,
             references: List<Pair<String, String>>,
-            cycleLoop: (Int, Int) -> Unit,
             timer: Timer
         ): ScopedAnalysis {
-            val cycles = timer.monitor("analyze.cycles"){findCycles(references, cycleLoop)}
+            val cycles = timer.monitor("analyze.cycles"){findCycles(references)}
             val entryPoints = timer.monitor("analyze.entryPoints"){findEntryPoints(names, references)}
             val cycleDetails = timer.monitor("analyze.cycleDetails"){composeAllCycleDetails(cycles, references)}
             val details = timer.monitor("analyze.details"){composeDetails(names, references, cycles)}
@@ -157,9 +155,9 @@ class AnalyzerImpl(
             return CodeUnit(remain).toName()
         }
 
-        private fun findCycles(references: List<Pair<String, String>>, loop: (Int, Int) -> Unit): List<List<String>> {
+        private fun findCycles(references: List<Pair<String, String>>): List<List<String>> {
             val edges = references.toSet()
-            val cycles = CycleUtil.findCycles(edges, loop)
+            val cycles = CycleUtil.findCycles(edges)
             return cycles.map { it.sorted() }.sortedWith(sizeThenFirstComparator)
         }
 
@@ -265,17 +263,16 @@ class AnalyzerImpl(
         private fun composeGroupScopedAnalysisList(
             path: List<String>,
             namesReferences: NamesReferences,
-            cycleLoop: (Int, Int) -> Unit,
             timer: Timer
         ): List<Pair<List<String>, ScopedAnalysis>> {
             if (namesReferences.names.isEmpty()) return emptyList()
             val top = namesReferences.head()
-            val topAnalysis = analyze(top.names, top.references, cycleLoop, timer)
+            val topAnalysis = analyze(top.names, top.references, timer)
             val topEntry = path to topAnalysis
             val descendantMap = top.names.flatMap {
                 val childPath = path + it
                 val childNamesReferences = namesReferences.tail(it)
-                composeGroupScopedAnalysisList(childPath, childNamesReferences, cycleLoop, timer)
+                composeGroupScopedAnalysisList(childPath, childNamesReferences, timer)
             }
             return listOf(topEntry) + descendantMap
         }
