@@ -168,5 +168,5 @@ class CycleAlgorithmTest {
         }
     }
 
-    val cycleLoopNop: (Int, Int) -> Unit = { _, _ -> }
+    val cycleLoopNop: (Int) -> Unit = { _ -> }
 }

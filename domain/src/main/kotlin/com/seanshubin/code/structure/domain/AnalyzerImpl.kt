@@ -8,7 +8,7 @@ import com.seanshubin.code.structure.relationparser.RelationDetail
 
 class AnalyzerImpl(
     private val timer: Timer,
-    private val cycleLoopEvent: (String, Int, Int) -> Unit
+    private val cycleLoopEvent: (String, Int) -> Unit
 ) : Analyzer {
     override fun analyze(observations: Observations): Analysis {
         val qualifiedNames = observations.sources.flatMap { it.modules }.sorted().distinct()
@@ -68,9 +68,9 @@ class AnalyzerImpl(
         list.contains(reference.first) && list.contains(reference.second)
     }
 
-    private fun cycleLoopFunction(caption: String): (Int, Int) -> Unit = { index, size ->
+    private fun cycleLoopFunction(caption: String): (Int) -> Unit = { remaining ->
         timer.monitor(caption){
-            cycleLoopEvent(caption, index, size)
+            cycleLoopEvent(caption, remaining)
         }
     }
 
@@ -127,7 +127,7 @@ class AnalyzerImpl(
         private fun analyze(
             names: List<String>,
             references: List<Pair<String, String>>,
-            cycleLoop: (Int, Int) -> Unit,
+            cycleLoop: (Int) -> Unit,
             timer: Timer
         ): ScopedAnalysis {
             val cycles = timer.monitor("analyze.cycles"){findCycles(references, cycleLoop)}
@@ -157,7 +157,7 @@ class AnalyzerImpl(
             return CodeUnit(remain).toName()
         }
 
-        private fun findCycles(references: List<Pair<String, String>>, loop: (Int, Int) -> Unit): List<List<String>> {
+        private fun findCycles(references: List<Pair<String, String>>, loop: (Int) -> Unit): List<List<String>> {
             val edges = references.toSet()
             val cycles = CycleUtil.findCycles(edges, loop)
             return cycles.map { it.sorted() }.sortedWith(sizeThenFirstComparator)
@@ -265,7 +265,7 @@ class AnalyzerImpl(
         private fun composeGroupScopedAnalysisList(
             path: List<String>,
             namesReferences: NamesReferences,
-            cycleLoop: (Int, Int) -> Unit,
+            cycleLoop: (Int) -> Unit,
             timer: Timer
         ): List<Pair<List<String>, ScopedAnalysis>> {
             if (namesReferences.names.isEmpty()) return emptyList()

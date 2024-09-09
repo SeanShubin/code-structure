@@ -3,9 +3,10 @@ package com.seanshubin.code.structure.cycle
 import com.seanshubin.code.structure.cycle.CycleAlgorithmCustom.Node.Companion.connectTo
 
 class CycleAlgorithmCustom : CycleAlgorithm {
-    override fun <T> findCycles(edges: Set<Pair<T, T>>, cycleLoop: (Int, Int) -> Unit): Set<Set<T>> {
+    override fun <T> findCycles(edges: Set<Pair<T, T>>, cycleLoop: (Int) -> Unit): Set<Set<T>> {
         var accumulator = Accumulator.create(edges)
         while (accumulator.remainingPaths.isNotEmpty()) {
+            cycleLoop(accumulator.remainingPaths.size)
             accumulator = accumulator.process()
         }
         return accumulator.cycles.map { it.parts }.toSet()

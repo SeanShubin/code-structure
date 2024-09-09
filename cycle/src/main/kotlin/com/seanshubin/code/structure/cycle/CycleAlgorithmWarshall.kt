@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.cycle
 
 class CycleAlgorithmWarshall:CycleAlgorithm {
-    override fun <T> findCycles(edges: Set<Pair<T, T>>, cycleLoop: (Int, Int) -> Unit): Set<Set<T>> {
+    override fun <T> findCycles(edges: Set<Pair<T, T>>, cycleLoop: (Int) -> Unit): Set<Set<T>> {
         val vertices: List<T> = edges.flatMap { listOf(it.first, it.second) }.distinct()
         val adjacencyMatrix: MutableList<MutableList<Boolean>> = vertices.map { row ->
             vertices.map { column ->
@@ -10,7 +10,7 @@ class CycleAlgorithmWarshall:CycleAlgorithm {
         }.toMutableList()
         val size = vertices.size
         vertices.indices.forEach { k ->
-            cycleLoop(k, size)
+            cycleLoop(size-k)
             vertices.indices.forEach { i ->
                 vertices.indices.forEach { j ->
                     if (adjacencyMatrix[i][k] && adjacencyMatrix[k][j]) {
