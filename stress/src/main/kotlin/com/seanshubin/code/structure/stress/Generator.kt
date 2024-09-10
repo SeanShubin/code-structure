@@ -8,13 +8,14 @@ class Generator(
     alphabet: List<String>,
     val random: Random
 ) {
+    private val backwardsRelationsCount = depth * breadth
     private val words = alphabet.take(breadth)
     private val multiplier = words.map { listOf(it) }
     fun createNames(): List<String> = wordLists().map(::wordsToName)
     fun createRelations(names: List<String>, relationsPerName: Int): List<Pair<String, String>> {
         val size = names.size
         val totalRelations = relationsPerName * size
-        val relations = (1..totalRelations).map {
+        val forwardRelations = (1..totalRelations).map {
             random.nextInt(size) to random.nextInt(size)
         }.filter { (first, second) -> first != second }.map { (first, second) ->
             if (first > second) second to first
@@ -22,6 +23,15 @@ class Generator(
         }.distinct().map { (first, second) ->
             names[first] to names[second]
         }
+        val backwardsRelations = (1..backwardsRelationsCount).map {
+            random.nextInt(size) to random.nextInt(size)
+        }.filter { (first, second) -> first != second }.map { (first, second) ->
+            if (first < second) second to first
+            else first to second
+        }.distinct().map { (first, second) ->
+            names[first] to names[second]
+        }
+        val relations = forwardRelations + backwardsRelations
         return relations
     }
 
