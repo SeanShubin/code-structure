@@ -11,6 +11,10 @@ import com.seanshubin.code.structure.config.TypeUtil.coerceToPath
 import com.seanshubin.code.structure.config.TypeUtil.coerceToString
 import com.seanshubin.code.structure.contract.delegate.FilesContract
 import com.seanshubin.code.structure.contract.delegate.FilesDelegate
+import com.seanshubin.code.structure.cycle.CycleAlgorithm
+import com.seanshubin.code.structure.cycle.CycleAlgorithmCustom
+import com.seanshubin.code.structure.cycle.CycleAlgorithmTarjan
+import com.seanshubin.code.structure.cycle.CycleAlgorithmWarshall
 import com.seanshubin.code.structure.domain.*
 import com.seanshubin.code.structure.elixirsyntax.ElixirParser
 import com.seanshubin.code.structure.elixirsyntax.ElixirParserImpl
@@ -129,7 +133,8 @@ class Dependencies(integrations: Integrations) {
     private val notifications: Notifications = NotificationsImpl(emitLine)
     private val timeTakenEvent: (String, Duration) -> Unit = notifications::timeTakenEvent
     private val timer: Timer = EventTimer(timeTakenEvent, clock)
-    private val analyzer: Analyzer = AnalyzerImpl(timer, notifications::cycleLoopEvent)
+    private val cycleAlgorithm: CycleAlgorithm = CycleAlgorithmTarjan()
+    private val analyzer: Analyzer = AnalyzerImpl(timer, cycleAlgorithm, notifications::cycleLoopEvent)
     private val validator: Validator = ValidatorImpl()
     private val staticContentReport: Report = StaticContentReport()
     private val sourcesReport: Report = SourcesReport()

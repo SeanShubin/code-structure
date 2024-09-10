@@ -38,12 +38,6 @@ class CycleAlgorithmCustom : CycleAlgorithm {
         override fun parts(): Set<T> {
             return setOf(value)
         }
-
-        companion object {
-            fun <T> makePath(parts: List<T>): List<Node<T>> {
-                return parts.map(::Single)
-            }
-        }
     }
 
     data class Cycle<T>(val parts: Set<T>) : Node<T> {
@@ -71,9 +65,9 @@ class CycleAlgorithmCustom : CycleAlgorithm {
     }
 
     data class Accumulator<T>(
-        val remainingPaths: List<List<Node<T>>>,
-        val exploringPaths: List<List<Node<T>>>,
-        val pathsWithCycle: List<List<Node<T>>>,
+        val remainingPaths: Set<List<Node<T>>>,
+        val exploringPaths: Set<List<Node<T>>>,
+        val pathsWithCycle: Set<List<Node<T>>>,
         val cycles: Set<Cycle<T>>
     ) {
         val cyclesByPart = cycles.flatMap { cycle ->
@@ -99,7 +93,7 @@ class CycleAlgorithmCustom : CycleAlgorithm {
 
         private fun explorePaths(): Accumulator<T> {
             val current = remainingPaths.first()
-            val remainingMinusCurrent = remainingPaths.drop(1)
+            val remainingMinusCurrent = remainingPaths.drop(1).toSet()
             val newExploringPaths = remainingMinusCurrent.mapNotNull { next ->
                 val currentToNext = current.connectTo(next)
                 if (currentToNext != null) {
@@ -112,34 +106,34 @@ class CycleAlgorithmCustom : CycleAlgorithm {
                         null
                     }
                 }
-            }.distinct()
+            }.toSet()
             val newRemainingPaths = remainingMinusCurrent + newExploringPaths
             return copy(
                 exploringPaths = newExploringPaths,
-                remainingPaths = newRemainingPaths.distinct()
+                remainingPaths = newRemainingPaths
             )
         }
 
         private fun findPathsWithCycle(): Accumulator<T> {
-            val pathsWithCycle = exploringPaths.filter(::pathHasCycle)
+            val pathsWithCycle = exploringPaths.filter(::pathHasCycle).toSet()
             return copy(
-                exploringPaths = emptyList(),
+                exploringPaths = emptySet(),
                 pathsWithCycle = pathsWithCycle
             )
         }
 
         private fun findAllPathsWithCycle(): Accumulator<T> {
-            val pathsWithCycle = remainingPaths.filter(::pathHasCycle)
+            val pathsWithCycle = remainingPaths.filter(::pathHasCycle).toSet()
             return copy(
-                exploringPaths = emptyList(),
+                exploringPaths = emptySet(),
                 pathsWithCycle = pathsWithCycle
             )
         }
 
         private fun convertToCycles(): Accumulator<T> {
-            val newCycles = pathsWithCycle.map(::convertPathToCycle).fold(cycles.toSet(), ::mergeCycle)
+            val newCycles = pathsWithCycle.map(::convertPathToCycle).fold(cycles, ::mergeCycle)
             return copy(
-                pathsWithCycle = emptyList(),
+                pathsWithCycle = emptySet(),
                 cycles = newCycles
             )
         }
@@ -158,8 +152,8 @@ class CycleAlgorithmCustom : CycleAlgorithm {
         }
 
         private fun replaceWithCycles(): Accumulator<T> {
-            val newRemainingPaths = remainingPaths.mapNotNull(::updatePathWithCycles)
-            return copy(remainingPaths = newRemainingPaths.distinct())
+            val newRemainingPaths = remainingPaths.mapNotNull(::updatePathWithCycles).toSet()
+            return copy(remainingPaths = newRemainingPaths)
         }
 
         private fun updatePathWithCycles(path: List<Node<T>>): List<Node<T>>? {
@@ -204,11 +198,11 @@ class CycleAlgorithmCustom : CycleAlgorithm {
                     pair.toList().map {
                         Single(it)
                     }
-                }
+                }.toSet()
                 return Accumulator(
                     remainingPaths,
-                    exploringPaths = emptyList(),
-                    pathsWithCycle = emptyList(),
+                    exploringPaths = emptySet(),
+                    pathsWithCycle = emptySet(),
                     cycles = emptySet()
                 )
             }
