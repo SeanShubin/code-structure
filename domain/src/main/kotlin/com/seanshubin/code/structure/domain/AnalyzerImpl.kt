@@ -8,8 +8,7 @@ import com.seanshubin.code.structure.relationparser.RelationDetail
 
 class AnalyzerImpl(
     private val timer: Timer,
-    private val cycleAlgorithm: CycleAlgorithm,
-    private val cycleLoopEvent: (String, Int) -> Unit
+    private val cycleAlgorithm: CycleAlgorithm
 ) : Analyzer {
     override fun analyze(observations: Observations): Analysis {
         val qualifiedNames = observations.sources.flatMap { it.modules }.sorted().distinct()
@@ -31,8 +30,7 @@ class AnalyzerImpl(
                 }
                 .distinct()
         }
-        val cycleLoop = cycleLoopFunction("analysis.global.cycle")
-        val global = timer.monitor("analysis.global") { analyze(names, references, cycleAlgorithm, cycleLoop, timer) }
+        val global = timer.monitor("analysis.global") { analyze(names, references, cycleAlgorithm, timer) }
         val ancestorToDescendant = timer.monitor("analysis.ancestorToDescendant") {
             references.filter {
                 it.first.toCodeUnit().isAncestorOf(it.second.toCodeUnit())
@@ -50,7 +48,6 @@ class AnalyzerImpl(
                 emptyList(),
                 NamesReferences(names, references),
                 cycleAlgorithm,
-                CycleAlgorithm.cycleLoopNop,
                 timer
             )
         }
@@ -68,12 +65,6 @@ class AnalyzerImpl(
 
     private fun bothPartsOfReferenceInList(list: List<String>): (Pair<String, String>) -> Boolean = { reference ->
         list.contains(reference.first) && list.contains(reference.second)
-    }
-
-    private fun cycleLoopFunction(caption: String): (Int) -> Unit = { remaining ->
-        timer.monitor(caption){
-            cycleLoopEvent(caption, remaining)
-        }
     }
 
     companion object {
@@ -130,10 +121,9 @@ class AnalyzerImpl(
             names: List<String>,
             references: List<Pair<String, String>>,
             cycleAlgorithm: CycleAlgorithm,
-            cycleLoop: (Int) -> Unit,
             timer: Timer
         ): ScopedAnalysis {
-            val cycles = timer.monitor("analyze.cycles"){findCycles(references, cycleAlgorithm , cycleLoop)}
+            val cycles = timer.monitor("analyze.cycles"){findCycles(references, cycleAlgorithm)}
             val entryPoints = timer.monitor("analyze.entryPoints"){findEntryPoints(names, references)}
             val cycleDetails = timer.monitor("analyze.cycleDetails"){composeAllCycleDetails(cycles, references)}
             val details = timer.monitor("analyze.details"){composeDetails(names, references, cycles)}
@@ -160,9 +150,9 @@ class AnalyzerImpl(
             return CodeUnit(remain).toName()
         }
 
-        private fun findCycles(references: List<Pair<String, String>>, cycleAlgorithm: CycleAlgorithm, loop: (Int) -> Unit): List<List<String>> {
+        private fun findCycles(references: List<Pair<String, String>>, cycleAlgorithm: CycleAlgorithm): List<List<String>> {
             val edges = references.toSet()
-            val cycles = cycleAlgorithm.findCycles(edges, loop)
+            val cycles = cycleAlgorithm.findCycles(edges)
             return cycles.map { it.sorted() }.sortedWith(sizeThenFirstComparator)
         }
 
@@ -246,17 +236,16 @@ class AnalyzerImpl(
             path: List<String>,
             namesReferences: NamesReferences,
             cycleAlgorithm: CycleAlgorithm,
-            cycleLoop: (Int) -> Unit,
             timer: Timer
         ): List<Pair<List<String>, ScopedAnalysis>> {
             if (namesReferences.names.isEmpty()) return emptyList()
             val top = namesReferences.head()
-            val topAnalysis = analyze(top.names, top.references, cycleAlgorithm, cycleLoop, timer)
+            val topAnalysis = analyze(top.names, top.references, cycleAlgorithm, timer)
             val topEntry = path to topAnalysis
             val descendantMap = top.names.flatMap {
                 val childPath = path + it
                 val childNamesReferences = namesReferences.tail(it)
-                composeGroupScopedAnalysisList(childPath, childNamesReferences, cycleAlgorithm, cycleLoop, timer)
+                composeGroupScopedAnalysisList(childPath, childNamesReferences, cycleAlgorithm, timer)
             }
             return listOf(topEntry) + descendantMap
         }

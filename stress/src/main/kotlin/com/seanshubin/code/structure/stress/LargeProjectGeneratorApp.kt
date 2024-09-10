@@ -2,7 +2,6 @@ package com.seanshubin.code.structure.stress
 
 import java.nio.file.Paths
 import java.time.Clock
-import java.time.Duration
 import kotlin.random.Random
 import kotlin.system.exitProcess
 
@@ -72,11 +71,3 @@ object LargeProjectGeneratorApp {
         "Zulu"
     )
 }
-/*
-
-13m39.948s ./scripts/stress.sh depth 3 breadth 6
- 0m10.878s ./scripts/stress.sh depth 4 breadth 2
- 5m15.982s ./scripts/stress.sh depth 4 breadth 3
-175m9.447s ./scripts/stress.sh depth 4 breadth 4
-           Took 2 hours 55 minutes 4 seconds 826 milliseconds
- */

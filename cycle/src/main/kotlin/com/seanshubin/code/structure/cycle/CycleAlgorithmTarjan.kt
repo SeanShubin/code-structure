@@ -1,14 +1,14 @@
 package com.seanshubin.code.structure.cycle
 
 class CycleAlgorithmTarjan : CycleAlgorithm {
-    data class Node<T>(val value:T, val nextValues:Set<T>, var id:Int, var cycleId:Int, var inPath:Boolean = false)
-    override fun <T> findCycles(edges: Set<Pair<T, T>>, cycleLoop: (Int) -> Unit): Set<Set<T>> {
+    private data class Node<T>(val value:T, val nextValues:Set<T>, var id:Int, var cycleId:Int, var inPath:Boolean = false)
+    override fun <T> findCycles(edges: Set<Pair<T, T>>): Set<Set<T>> {
         val vertices = edges.flatMap { it.toList() }.toSet()
         val grouped = edges.groupBy { it.first }
-        val edgeMap = vertices.map{value ->
+        val edgeMap = vertices.associateWith { value ->
             val nextValues = grouped[value]?.map { it.second }?.toSet() ?: emptySet()
-            value to Node(value, nextValues, -1, -1)
-        }.toMap()
+            Node(value, nextValues, -1, -1)
+        }
         val path = mutableListOf<T>()
         var nextIndex = 0
         val cycles = mutableSetOf<Set<T>>()
@@ -45,7 +45,6 @@ class CycleAlgorithmTarjan : CycleAlgorithm {
             }
         }
         edgeMap.keys.forEach {current ->
-            cycleLoop(edgeMap.size-nextIndex)
             if(edgeMap.getValue(current).id == -1){
                 visit(current)
             }

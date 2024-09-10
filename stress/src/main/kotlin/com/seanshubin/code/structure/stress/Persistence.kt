@@ -42,7 +42,7 @@ class Persistence(
               "outputDir" : "generated",
               "localDepth" : 1,
               "useObservationsCache" : false,
-              "sourcePrefix" : "",
+              "sourcePrefix" : "../",
               "sourceFileRegexPatterns" : {
                 "include" : [ ".*\\.java"],
                 "exclude" : [ ]

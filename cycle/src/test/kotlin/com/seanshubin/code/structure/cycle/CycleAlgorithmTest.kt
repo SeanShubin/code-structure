@@ -18,7 +18,7 @@ class CycleAlgorithmTest {
             val expected = setOf(setOf("b", "c", "d"))
 
             // when
-            val actual = algorithm.findCycles(input, cycleLoopNop)
+            val actual = algorithm.findCycles(input)
 
             // then
             assertEquals(expected, actual)
@@ -47,7 +47,7 @@ class CycleAlgorithmTest {
             )
 
             // when
-            val actual = algorithm.findCycles(input, cycleLoopNop)
+            val actual = algorithm.findCycles(input)
 
             // then
             assertEquals(expected, actual)
@@ -77,7 +77,7 @@ class CycleAlgorithmTest {
                 setOf("f", "g", "h")
             )
 
-            val actual = algorithm.findCycles(input, cycleLoopNop)
+            val actual = algorithm.findCycles(input)
 
             assertEquals(expected, actual)
         }
@@ -91,7 +91,7 @@ class CycleAlgorithmTest {
             val expected = emptySet<Set<String>>()
 
             // when
-            val actual = algorithm.findCycles(input, cycleLoopNop)
+            val actual = algorithm.findCycles(input)
 
             // then
             assertEquals(expected, actual)
@@ -108,7 +108,7 @@ class CycleAlgorithmTest {
             val expected = emptySet<Set<String>>()
 
             // when
-            val actual = algorithm.findCycles(input, cycleLoopNop)
+            val actual = algorithm.findCycles(input)
 
             // then
             assertEquals(expected, actual)
@@ -128,7 +128,7 @@ class CycleAlgorithmTest {
             )
 
             // when
-            val actual = algorithm.findCycles(input, cycleLoopNop)
+            val actual = algorithm.findCycles(input)
 
             // then
             assertEquals(expected, actual)
@@ -150,7 +150,7 @@ class CycleAlgorithmTest {
             )
 
             // when
-            val actual = algorithm.findCycles(input, cycleLoopNop)
+            val actual = algorithm.findCycles(input)
 
             // then
             assertEquals(expected, actual)
@@ -168,6 +168,4 @@ class CycleAlgorithmTest {
             f(algorithm)
         }
     }
-
-    val cycleLoopNop: (Int) -> Unit = { _ -> }
 }

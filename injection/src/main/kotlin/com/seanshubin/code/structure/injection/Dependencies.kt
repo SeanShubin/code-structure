@@ -134,7 +134,7 @@ class Dependencies(integrations: Integrations) {
     private val timeTakenEvent: (String, Duration) -> Unit = notifications::timeTakenEvent
     private val timer: Timer = EventTimer(timeTakenEvent, clock)
     private val cycleAlgorithm: CycleAlgorithm = CycleAlgorithmTarjan()
-    private val analyzer: Analyzer = AnalyzerImpl(timer, cycleAlgorithm, notifications::cycleLoopEvent)
+    private val analyzer: Analyzer = AnalyzerImpl(timer, cycleAlgorithm)
     private val validator: Validator = ValidatorImpl()
     private val staticContentReport: Report = StaticContentReport()
     private val sourcesReport: Report = SourcesReport()
