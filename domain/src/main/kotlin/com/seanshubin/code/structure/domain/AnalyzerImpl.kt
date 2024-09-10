@@ -236,33 +236,10 @@ class AnalyzerImpl(
             val references = referencesByName.getValue(name)
             val cycle = cyclesByName[name] ?: emptySet()
             val (inCycle, notInCycle) = references.partition { cycle.contains(it) }
-            val transitive = findTransitive(name, referencesByName, cyclesByName)
             return DirectionalArrow(
                 inCycle.toSet(),
-                notInCycle.toSet(),
-                transitive
+                notInCycle.toSet()
             )
-        }
-
-        private fun findTransitive(
-            name: String,
-            referencesByName: Map<String, Set<String>>,
-            cyclesByName: Map<String, Set<String>>
-        ): Set<String> {
-            val transitive = mutableSetOf<String>()
-            val thisOrCycle = cyclesByName[name] ?: setOf(name)
-            val toCheck = mutableSetOf<String>()
-            toCheck.addAll(thisOrCycle)
-            while(toCheck.isNotEmpty()){
-                val current= toCheck.first()
-                transitive.add(current)
-                toCheck.remove(current)
-                val allReferences = (referencesByName[current] ?: emptySet()) + (cyclesByName[current] ?: emptySet())
-                val remainingReferences = allReferences.filterNot { transitive.contains(it) }
-                toCheck.addAll(remainingReferences)
-            }
-            transitive.remove(name)
-            return transitive
         }
 
         private fun composeGroupScopedAnalysisList(
