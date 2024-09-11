@@ -4,7 +4,6 @@ import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.BigListClassName
 import com.seanshubin.code.structure.html.HtmlElement
-import com.seanshubin.code.structure.html.HtmlElementUtil
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
@@ -77,7 +76,6 @@ class GroupCycleReport : Report {
     }
 
     private fun differencesElement(validated: Validated, groupCycles: List<GroupCycle>): List<HtmlElement> {
-        val cycleElementFunction = createCycleElementFunction(validated.analysis.global.names)
         val configuredErrors = validated.observations.configuredErrors ?: Errors.empty
         val configuredInGroupCycle = configuredErrors.inGroupCycle.toSet()
         val allInGroupCycle = groupCycles.flatMap { groupCycle ->
@@ -85,10 +83,10 @@ class GroupCycleReport : Report {
         }.toSet()
         val newInGroupCycle = (allInGroupCycle - configuredInGroupCycle).toList().sorted()
         val fixedInGroupCycle = (configuredInGroupCycle - allInGroupCycle).toList().sorted()
-        return differentCyclesElement("Newly in cycle", newInGroupCycle, cycleElementFunction) + differentCyclesElement(
+        return differentCyclesElement("Newly in cycle", newInGroupCycle, ::createGroupCycleElement) + differentCyclesElement(
             "No longer in cycle",
             fixedInGroupCycle,
-            cycleElementFunction
+            ::createGroupCycleElement
         )
     }
 
@@ -108,15 +106,10 @@ class GroupCycleReport : Report {
         return listOf(header) + list
     }
 
-    private fun cycleElementThatDoesNotExist(name: String): List<HtmlElement> {
-        return listOf(HtmlElement.tagText("span", "$name (no longer exists)"))
+    private fun createGroupCycleElement(name: String): List<HtmlElement> {
+        val link = name.toCodeUnit().parent().toUriName("group", ".html")
+        return listOf(anchor(name, link))
     }
-
-    private fun createCycleElementFunction(existingNames: List<String>): (name: String) -> List<HtmlElement> =
-        { name: String ->
-            val link = name.toCodeUnit().parent().toUriName("group", ".html")
-            listOf(anchor(name, link))
-        }
 
 
     private fun summaryElement(groupCycles: List<GroupCycle>): List<HtmlElement> {
