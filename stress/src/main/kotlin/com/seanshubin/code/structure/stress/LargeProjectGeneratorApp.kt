@@ -28,15 +28,14 @@ object LargeProjectGeneratorApp {
         val depth = args[1].toIntOrNull() ?: syntax()
         val breadth = args[3].toIntOrNull() ?: syntax()
         val seed = 12345L
-        val random: Random = Random(seed)
+        val random = Random(seed)
         val baseDir = Paths.get("generated", "stress-test-project")
         val relationsPerName = 10
         val generator = Generator(depth, breadth, natoPhonetic, random)
         val names = generator.createNames()
         val relations = generator.createRelations(names, relationsPerName)
         val compilationUnits = generator.compilationUnits(names, relations)
-        val homeDir = System.getenv("HOME")
-        val persistence = Persistence(baseDir, homeDir, depth, breadth)
+        val persistence = Persistence(baseDir, depth, breadth)
         persistence.store(names, relations, compilationUnits)
         val end = clock.instant()
         persistence.createReadme(start, end)

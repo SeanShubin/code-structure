@@ -9,7 +9,6 @@ import java.time.Instant
 
 class Persistence(
     baseDir: Path,
-    private val homeDir: String,
     private val depth: Int,
     private val breadth: Int
 ) {
