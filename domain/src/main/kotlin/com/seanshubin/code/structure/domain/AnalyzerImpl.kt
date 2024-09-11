@@ -208,27 +208,13 @@ class AnalyzerImpl(
             cyclesByName: Map<String, Set<String>>
         ): Detail {
             val cycle = cyclesByName[name]
-            val directionOut = composeDirectionalArrow(name, referencesOutByName, cyclesByName)
-            val directionIn = composeDirectionalArrow(name, referencesInByName, cyclesByName)
+            val directionOut = referencesOutByName.getValue(name)
+            val directionIn = referencesInByName.getValue(name)
             val arrows = Arrows(directionOut, directionIn)
             return Detail(
                 name,
                 cycle,
                 arrows
-            )
-        }
-
-        private fun composeDirectionalArrow(
-            name: String,
-            referencesByName: Map<String, Set<String>>,
-            cyclesByName: Map<String, Set<String>>
-        ): DirectionalArrow {
-            val references = referencesByName.getValue(name)
-            val cycle = cyclesByName[name] ?: emptySet()
-            val (inCycle, notInCycle) = references.partition { cycle.contains(it) }
-            return DirectionalArrow(
-                inCycle.toSet(),
-                notInCycle.toSet()
             )
         }
 

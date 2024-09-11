@@ -101,9 +101,9 @@ class CodeUnitsReport(
     private fun outerShell(
         names: Set<String>,
         analysis: ScopedAnalysis,
-        direction: (Arrows) -> DirectionalArrow
+        direction: (Arrows) -> Set<String>
     ): Set<String> =
-        names.map { analysis.lookupDetail(it) }.flatMap { direction(it.arrows).all }.toSet()
+        names.map { analysis.lookupDetail(it) }.flatMap { direction(it.arrows) }.toSet()
 
     private fun toDotNode(
         baseName: String,
