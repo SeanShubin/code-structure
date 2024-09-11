@@ -31,10 +31,10 @@ object LargeProjectGeneratorApp {
         val random = Random(seed)
         val baseDir = Paths.get("generated", "stress-test-project")
         val relationsPerName = 10
-        val generator = Generator(depth, breadth, natoPhonetic, random)
+        val generator = LargeProjectGenerator(depth, breadth, natoPhonetic, random)
         val names = generator.createNames()
         val relations = generator.createRelations(names, relationsPerName)
-        val compilationUnits = generator.compilationUnits(names, relations)
+        val compilationUnits = generator.composeCompilationUnits(names, relations)
         val persistence = Persistence(baseDir, depth, breadth)
         persistence.store(names, relations, compilationUnits)
         val end = clock.instant()

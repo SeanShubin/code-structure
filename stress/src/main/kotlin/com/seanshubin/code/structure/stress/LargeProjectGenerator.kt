@@ -2,7 +2,7 @@ package com.seanshubin.code.structure.stress
 
 import kotlin.random.Random
 
-class Generator(
+class LargeProjectGenerator(
     val depth: Int,
     breadth: Int,
     alphabet: List<String>,
@@ -35,7 +35,7 @@ class Generator(
         return relations
     }
 
-    fun compilationUnits(names:List<String>, relations:List<Pair<String, String>>):List<CompilationUnit>{
+    fun composeCompilationUnits(names:List<String>, relations:List<Pair<String, String>>):List<CompilationUnit>{
         val relationsByName: Map<String, List<Pair<String, String>>> = relations.groupBy{it.first}
         return names.map { name ->
             val dependencies = (relationsByName[name] ?: emptyList()).map { it.second }
