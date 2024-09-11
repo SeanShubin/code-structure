@@ -4,6 +4,7 @@ import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.BigListClassName
 import com.seanshubin.code.structure.html.HtmlElement
+import com.seanshubin.code.structure.html.HtmlElementUtil
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
@@ -113,8 +114,8 @@ class GroupCycleReport : Report {
 
     private fun createCycleElementFunction(existingNames: List<String>): (name: String) -> List<HtmlElement> =
         { name: String ->
-            if (existingNames.contains(name)) cycleElement(name)
-            else cycleElementThatDoesNotExist(name)
+            val link = name.toCodeUnit().parent().toUriName("group", ".html")
+            listOf(anchor(name, link))
         }
 
 
