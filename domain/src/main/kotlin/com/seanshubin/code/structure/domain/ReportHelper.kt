@@ -29,6 +29,23 @@ object ReportHelper {
         reportDir: Path,
         baseName: String,
         nodes: List<DotNode>,
+        nodeLimitForGraph:Int,
+        references: List<Pair<String, String>>,
+        cycles: List<List<String>>,
+        parents: List<Page>,
+        belowGraph: List<HtmlElement> = emptyList()
+    ): List<Command> {
+        return if(nodes.size > nodeLimitForGraph){
+            graphCommandsExceedsNodeLimit(reportDir, baseName, nodes, nodeLimitForGraph, references, cycles, parents)
+        } else {
+            graphCommandsWithinNodeLimit(reportDir, baseName, nodes, references, cycles, parents, belowGraph)
+        }
+    }
+
+    private fun graphCommandsWithinNodeLimit(
+        reportDir: Path,
+        baseName: String,
+        nodes: List<DotNode>,
         references: List<Pair<String, String>>,
         cycles: List<List<String>>,
         parents: List<Page>,
@@ -48,6 +65,28 @@ object ReportHelper {
         val createHtml = CreateFileCommand(htmlTemplatePath, htmlLines)
         val replaceCommand = SubstituteFromFileCommand(htmlTemplatePath, substitutionTag, svgPath, htmlPath)
         return listOf(createDotSource, generateSvg, createHtml, replaceCommand)
+    }
+
+    private fun graphCommandsExceedsNodeLimit(
+        reportDir: Path,
+        baseName: String,
+        nodes: List<DotNode>,
+        nodeLimitForGraph:Int,
+        references: List<Pair<String, String>>,
+        cycles: List<List<String>>,
+        parents: List<Page>,
+    ): List<Command> {
+        val dotSourcePath = reportDir.resolve("$baseName.txt")
+        val htmlTemplatePath = reportDir.resolve("$baseName.html")
+        val lines = DotFormat(nodes, references, cycles).toLines()
+        val createDotSource = CreateFileCommand(dotSourcePath, lines)
+        val message = "Too many nodes for graph $baseName, limit is $nodeLimitForGraph, have ${nodes.size}"
+        val paragraphText = HtmlElement.Text(message)
+        val htmlContent = listOf(HtmlElement.Tag("p", paragraphText))
+        val htmlElement = wrapInTopLevelHtml(baseName, htmlContent, parents)
+        val htmlLines = htmlElement.toLines()
+        val createHtml = CreateFileCommand(htmlTemplatePath, htmlLines)
+        return listOf(createDotSource, createHtml)
     }
 
     private fun htmlContent(substitutionTag: String, belowGraph: List<HtmlElement>): List<HtmlElement> {

@@ -46,7 +46,7 @@ class Persistence(
                 "include" : [ ".*\\.java"],
                 "exclude" : [ ]
               },
-              "nodeLimitMainGraph" : 100,
+              "nodeLimitForGraph" : 50,
               "binaryFileRegexPatterns" : {
                 "include" : [ ".*\\.class" ],
                 "exclude" : [ ]

@@ -12,9 +12,7 @@ import com.seanshubin.code.structure.config.TypeUtil.coerceToString
 import com.seanshubin.code.structure.contract.delegate.FilesContract
 import com.seanshubin.code.structure.contract.delegate.FilesDelegate
 import com.seanshubin.code.structure.cycle.CycleAlgorithm
-import com.seanshubin.code.structure.cycle.CycleAlgorithmCustom
 import com.seanshubin.code.structure.cycle.CycleAlgorithmTarjan
-import com.seanshubin.code.structure.cycle.CycleAlgorithmWarshall
 import com.seanshubin.code.structure.domain.*
 import com.seanshubin.code.structure.elixirsyntax.ElixirParser
 import com.seanshubin.code.structure.elixirsyntax.ElixirParserImpl
@@ -76,7 +74,7 @@ class Dependencies(integrations: Integrations) {
         sourceFileIncludeRegexPatterns,
         sourceFileExcludeRegexPatterns
     )
-    private val nodeLimitMainGraph: Int = config.load(listOf("nodeLimitMainGraph"), 100).coerceToInt()
+    private val nodeLimitForGraph: Int = config.load(listOf("nodeLimitForGraph"), 50).coerceToInt()
     private val binaryFileIncludeRegexPatterns: List<String> =
         config.load(listOf("binaryFileRegexPatterns", "include"), emptyList<String>()).coerceToListOfString()
     private val binaryFileExcludeRegexPatterns: List<String> =
@@ -142,17 +140,17 @@ class Dependencies(integrations: Integrations) {
     private val binariesReport: Report = BinariesReport()
     private val missingBinariesReport: Report = MissingBinariesReport()
     private val dependenciesReport: Report = DependenciesReport()
-    private val graphReport: Report = GraphReport(nodeLimitMainGraph)
-    private val directCycleReport: Report = DirectCycleReport()
-    private val groupCycleReport: Report = GroupCycleReport()
+    private val graphReport: Report = GraphReport(nodeLimitForGraph)
+    private val directCycleReport: Report = DirectCycleReport(nodeLimitForGraph)
+    private val groupCycleReport: Report = GroupCycleReport(nodeLimitForGraph)
     private val lineageReportAncestorDescendant: Report =
         LineageReport(Page.lineageAncestorDescendant) { it.ancestorDependsOnDescendant }
     private val lineageReportDescendantAncestor: Report =
         LineageReport(Page.lineageDescendantAncestor) { it.descendantDependsOnAncestor }
-    private val codeUnitsReport: Report = CodeUnitsReport(localDepth)
+    private val codeUnitsReport: Report = CodeUnitsReport(localDepth, nodeLimitForGraph)
     private val timingReport: Report = TimingReport(timer)
     private val entryPointsReport: Report = EntryPointsReport()
-    private val groupReport: Report = GroupReport()
+    private val groupReport: Report = GroupReport(nodeLimitForGraph)
     private val reports: List<Report> = listOf(
         staticContentReport,
         tableOfContentsReport,

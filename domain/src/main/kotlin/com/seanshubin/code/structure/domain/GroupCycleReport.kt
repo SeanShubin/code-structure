@@ -8,7 +8,7 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
-class GroupCycleReport : Report {
+class GroupCycleReport(private val nodeLimitForGraph: Int) : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
         val groupCycleList = groupCycleList(validated.analysis.groupScopedAnalysisList)
@@ -51,6 +51,7 @@ class GroupCycleReport : Report {
             reportDir,
             cycleName(index),
             nodes,
+            nodeLimitForGraph,
             groupCycle.references,
             emptyList(),
             parents

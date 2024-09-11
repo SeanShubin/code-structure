@@ -26,7 +26,7 @@ Example configuration:
   "inputDir" : ".",
   "outputDir" : "generated/self",
   "localDepth" : 2,
-  "nodeLimitMainGraph" : 100,
+  "nodeLimitForGraph" : 50,
   "sourcePrefix" : "https://github.com/SeanShubin/code-structure/blob/master/",
   "sourceFileRegexPatterns" : {
     "include" : [
@@ -66,10 +66,9 @@ Example configuration:
           depended on by
         - if depth is 2, follow the same rule from each file included in depth 1
         - and so on for depths higher than 2
-    - nodeLimitMainGraph
-        - the primary "graph" report includes ALL files
+    - nodeLimitForGraph
         - the higher the number of files, the longer the graph takes to generate and the more useless it is
-        - if this limit is exceeded, the global graph report is not generated
+        - if this limit is exceeded, the graph is not generated
     - bytecodeFormat
         - the compiled language
         - used to determine the dependency structure

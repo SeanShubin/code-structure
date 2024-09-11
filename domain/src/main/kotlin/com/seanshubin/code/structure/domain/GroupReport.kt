@@ -7,7 +7,7 @@ import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil
 import java.nio.file.Path
 
-class GroupReport : Report {
+class GroupReport(private val nodeLimitForGraph: Int) : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         return validated.analysis.groupScopedAnalysisList.flatMap { (groupPath, groupAnalysis) ->
             singleGroupReport(reportDir, groupPath, validated.analysis, groupAnalysis)
@@ -31,6 +31,7 @@ class GroupReport : Report {
             reportDir,
             baseName,
             nodes,
+            nodeLimitForGraph,
             groupAnalysis.references,
             groupAnalysis.cycles,
             parents,

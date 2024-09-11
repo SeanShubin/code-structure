@@ -8,7 +8,7 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
-class DirectCycleReport : Report {
+class DirectCycleReport(private val nodeLimitForGraph: Int) : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
         val htmlInsideBody = generateHtml(validated)
@@ -42,6 +42,7 @@ class DirectCycleReport : Report {
             reportDir,
             cycleName(index),
             nodes,
+            nodeLimitForGraph,
             detail.references,
             emptyList(),
             parents

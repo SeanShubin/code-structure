@@ -252,3 +252,35 @@ class AnalyzerImpl(
 
     }
 }
+/*
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+	at java.base/java.util.LinkedHashMap.newNode(LinkedHashMap.java:281)
+	at java.base/java.util.HashMap.putVal(HashMap.java:637)
+	at java.base/java.util.HashMap.put(HashMap.java:618)
+	at java.base/java.util.HashSet.add(HashSet.java:229)
+	at kotlin.collections.CollectionsKt___CollectionsKt.toCollection(_Collections.kt:1304)
+	at kotlin.collections.CollectionsKt___CollectionsKt.toSet(_Collections.kt:1356)
+	at com.seanshubin.code.structure.domain.AnalyzerImpl$Companion.composeDetails(AnalyzerImpl.kt:196)
+	at com.seanshubin.code.structure.domain.AnalyzerImpl$Companion.analyze$lambda$11(AnalyzerImpl.kt:129)
+	at com.seanshubin.code.structure.domain.AnalyzerImpl$Companion$$Lambda/0x00000001331cec48.invoke(Unknown Source)
+	at com.seanshubin.code.structure.domain.EventTimer.monitor(EventTimer.kt:16)
+	at com.seanshubin.code.structure.domain.EventTimer.monitor(EventTimer.kt:12)
+	at com.seanshubin.code.structure.domain.AnalyzerImpl$Companion.analyze(AnalyzerImpl.kt:129)
+	at com.seanshubin.code.structure.domain.AnalyzerImpl$Companion.access$analyze(AnalyzerImpl.kt:70)
+	at com.seanshubin.code.structure.domain.AnalyzerImpl.analyze$lambda$8(AnalyzerImpl.kt:33)
+	at com.seanshubin.code.structure.domain.AnalyzerImpl$$Lambda/0x00000001331cbb48.invoke(Unknown Source)
+	at com.seanshubin.code.structure.domain.EventTimer.monitor(EventTimer.kt:16)
+	at com.seanshubin.code.structure.domain.EventTimer.monitor(EventTimer.kt:12)
+	at com.seanshubin.code.structure.domain.AnalyzerImpl.analyze(AnalyzerImpl.kt:33)
+	at com.seanshubin.code.structure.domain.Runner.run$lambda$6$lambda$1(Runner.kt:28)
+	at com.seanshubin.code.structure.domain.Runner$$Lambda/0x00000001331ca108.invoke(Unknown Source)
+	at com.seanshubin.code.structure.domain.EventTimer.monitor(EventTimer.kt:16)
+	at com.seanshubin.code.structure.domain.EventTimer.monitor(EventTimer.kt:12)
+	at com.seanshubin.code.structure.domain.Runner.run$lambda$6(Runner.kt:28)
+	at com.seanshubin.code.structure.domain.Runner$$Lambda/0x00000001330d1408.invoke(Unknown Source)
+	at com.seanshubin.code.structure.domain.EventTimer.monitor(EventTimer.kt:16)
+	at com.seanshubin.code.structure.domain.EventTimer.monitor(EventTimer.kt:12)
+	at com.seanshubin.code.structure.domain.Runner.run(Runner.kt:26)
+	at com.seanshubin.code.structure.console.EntryPoint.main(EntryPoint.kt:22)
+
+ */

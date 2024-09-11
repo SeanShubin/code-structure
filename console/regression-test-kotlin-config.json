@@ -15,7 +15,7 @@
     ],
     "exclude" : [ ]
   },
-  "nodeLimitMainGraph" : 100,
+  "nodeLimitForGraph" : 50,
   "countAsErrors" : {
     "directCycle" : true,
     "groupCycle" : true,

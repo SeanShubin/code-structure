@@ -10,7 +10,10 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
-class CodeUnitsReport(private val localDepth: Int) : Report {
+class CodeUnitsReport(
+    private val localDepth: Int,
+    private val nodeLimitForGraph: Int
+) : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
         val path = reportDir.resolve(Page.codeUnits.file)
@@ -70,6 +73,7 @@ class CodeUnitsReport(private val localDepth: Int) : Report {
                 reportDir,
                 baseName,
                 nodes,
+                nodeLimitForGraph,
                 referencesSorted,
                 emptyList(),
                 localParents
