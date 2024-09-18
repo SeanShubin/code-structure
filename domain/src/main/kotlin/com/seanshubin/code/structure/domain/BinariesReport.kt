@@ -7,6 +7,8 @@ import com.seanshubin.code.structure.relationparser.RelationDetail
 import java.nio.file.Path
 
 class BinariesReport : Report {
+    override val name: String = "binaries"
+
     override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
         val parents = listOf(Page.tableOfContents)
         val htmlInsideBody = generateHtml(validated.observations)

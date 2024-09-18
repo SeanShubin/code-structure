@@ -7,6 +7,7 @@ import com.seanshubin.code.structure.html.HtmlElementUtil
 import java.nio.file.Path
 
 class EntryPointsReport : Report {
+    override val name: String = "entry-points"
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val path = reportDir.resolve(Page.entryPoints.file)
         val parents = listOf(Page.tableOfContents)

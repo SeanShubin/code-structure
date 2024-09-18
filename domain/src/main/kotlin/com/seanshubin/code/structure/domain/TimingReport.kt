@@ -7,6 +7,7 @@ import java.nio.file.Path
 import java.time.Duration
 
 class TimingReport(private val timer: Timer) : Report {
+    override val name: String = "timing"
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val content = createContent()
         val root = ReportHelper.wrapInTopLevelHtml(Page.timing.caption, content, listOf(Page.tableOfContents))

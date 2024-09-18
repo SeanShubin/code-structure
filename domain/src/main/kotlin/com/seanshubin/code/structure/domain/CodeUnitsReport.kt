@@ -14,6 +14,8 @@ class CodeUnitsReport(
     private val localDepth: Int,
     private val nodeLimitForGraph: Int
 ) : Report {
+    override val name: String = "code-units"
+
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
         val path = reportDir.resolve(Page.codeUnits.file)

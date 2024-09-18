@@ -7,6 +7,7 @@ import com.seanshubin.code.structure.relationparser.RelationDetail.Companion.toR
 import java.nio.file.Path
 
 class DependenciesReport : Report {
+    override val name: String = "dependencies"
     override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
         val parents = listOf(Page.tableOfContents)
         val htmlInsideBody = generateHtml(validated.observations)

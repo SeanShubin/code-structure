@@ -170,7 +170,7 @@ class Dependencies(integrations: Integrations) {
     private val finalReports: List<Report> = listOf(
         timingReport
     )
-    private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, finalReports, outputDir)
+    private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, finalReports, outputDir, timer)
     private val exec: Exec = ExecImpl()
     private val environment: Environment = EnvironmentImpl(files, outputDir, exec)
     private val commandRunner: CommandRunner = CommandRunnerImpl(timer, environment)
