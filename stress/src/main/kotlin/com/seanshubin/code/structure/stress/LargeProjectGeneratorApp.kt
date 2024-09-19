@@ -20,8 +20,6 @@ object LargeProjectGeneratorApp {
     }
 
     fun run(args: Array<String>) {
-        val clock = Clock.systemUTC()
-        val start = clock.instant()
         if (args.size != 4) syntax()
         if (args[0] != "depth") syntax()
         if (args[2] != "breadth") syntax()
@@ -30,15 +28,15 @@ object LargeProjectGeneratorApp {
         val seed = 12345L
         val random = Random(seed)
         val baseDir = Paths.get("generated", "stress-test-project")
+        val projectDir = baseDir.resolve("depth-$depth-breadth-$breadth")
+
         val relationsPerName = 10
         val generator = LargeProjectGenerator(depth, breadth, natoPhonetic, random)
         val names = generator.createNames()
         val relations = generator.createRelations(names, relationsPerName)
-        val compilationUnits = generator.composeCompilationUnits(names, relations)
-        val persistence = Persistence(baseDir, depth, breadth)
-        persistence.store(names, relations, compilationUnits)
-        val end = clock.instant()
-        persistence.createReadme(start, end)
+        ProjectGenerator.writeNames(projectDir, names)
+        ProjectGenerator.writeRelations(projectDir, relations)
+        ProjectGenerator.generateProject(projectDir)
     }
 
     val natoPhonetic = listOf(
