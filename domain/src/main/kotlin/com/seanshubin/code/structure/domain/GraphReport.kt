@@ -2,7 +2,6 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.dot.DotNode
-import com.seanshubin.code.structure.html.HtmlElement
 import java.nio.file.Path
 
 class GraphReport(private val nodeLimitForGraph: Int) : Report {

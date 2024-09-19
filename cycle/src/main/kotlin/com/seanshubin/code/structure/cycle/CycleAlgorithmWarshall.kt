@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.cycle
 
-class CycleAlgorithmWarshall:CycleAlgorithm {
+class CycleAlgorithmWarshall : CycleAlgorithm {
     override fun <T> findCycles(edges: Set<Pair<T, T>>): Set<Set<T>> {
         val vertices: List<T> = edges.flatMap { listOf(it.first, it.second) }.distinct()
         val adjacencyMatrix: MutableList<MutableList<Boolean>> = vertices.map { row ->

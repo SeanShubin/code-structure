@@ -1,27 +1,27 @@
 {
-  "inputDir" : "../../code_structure_sample_elixir",
-  "outputDir" : "target/regression-test/elixir",
-  "localDepth" : 2,
-  "sourcePrefix" : "https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/",
-  "sourceFileRegexPatterns" : {
-    "include" : [
+  "inputDir": "../../code_structure_sample_elixir",
+  "outputDir": "target/regression-test/elixir",
+  "localDepth": 2,
+  "sourcePrefix": "https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/",
+  "sourceFileRegexPatterns": {
+    "include": [
       "lib/.*\\.ex$"
     ],
-    "exclude" : [ ]
+    "exclude": []
   },
-  "binaryFileRegexPatterns" : {
-    "include" : [
+  "binaryFileRegexPatterns": {
+    "include": [
       "_build/dev/lib/code_structure_sample_elixir/ebin/.*\\.beam$"
     ],
-    "exclude" : [ ]
+    "exclude": []
   },
-  "nodeLimitForGraph" : 50,
-  "countAsErrors" : {
-    "directCycle" : true,
-    "groupCycle" : true,
-    "ancestorDependsOnDescendant" : true,
-    "descendantDependsOnAncestor" : true
+  "nodeLimitForGraph": 50,
+  "countAsErrors": {
+    "directCycle": true,
+    "groupCycle": true,
+    "ancestorDependsOnDescendant": true,
+    "descendantDependsOnAncestor": true
   },
-  "useObservationsCache" : false,
-  "maximumAllowedErrorCount" : 19
+  "useObservationsCache": false,
+  "maximumAllowedErrorCount": 19
 }

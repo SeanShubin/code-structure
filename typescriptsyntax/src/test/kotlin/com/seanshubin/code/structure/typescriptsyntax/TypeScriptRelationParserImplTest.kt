@@ -59,7 +59,7 @@ class TypeScriptRelationParserImplTest {
         val typeScriptRelationParser = TypeScriptRelationParserImpl(files, charset)
     }
 
-    class FilesStub(val contentAtPath:Map<String, String>) : FilesNotImplemented() {
+    class FilesStub(val contentAtPath: Map<String, String>) : FilesNotImplemented() {
         override fun readString(path: Path, cs: Charset): String {
             return contentAtPath.getValue(path.toString())
         }

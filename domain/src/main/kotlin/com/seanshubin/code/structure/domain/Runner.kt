@@ -23,7 +23,7 @@ class Runner(
     override fun run() {
         configFileEvent(configFile)
         val startTime = clock.instant()
-        val validated = timer.monitor("all before final report"){
+        val validated = timer.monitor("all before final report") {
             val observations = timer.monitor("observations") { observer.makeObservations() }
             val analysis = timer.monitor("analysis") { analyzer.analyze(observations) }
             val validated = timer.monitor("validation") { validator.validate(observations, analysis) }

@@ -1,7 +1,14 @@
 package com.seanshubin.code.structure.cycle
 
 class CycleAlgorithmTarjan : CycleAlgorithm {
-    private data class Node<T>(val value:T, val nextValues:Set<T>, var id:Int, var cycleId:Int, var inPath:Boolean = false)
+    private data class Node<T>(
+        val value: T,
+        val nextValues: Set<T>,
+        var id: Int,
+        var cycleId: Int,
+        var inPath: Boolean = false
+    )
+
     override fun <T> findCycles(edges: Set<Pair<T, T>>): Set<Set<T>> {
         val vertices = edges.flatMap { it.toList() }.toSet()
         val grouped = edges.groupBy { it.first }
@@ -12,7 +19,7 @@ class CycleAlgorithmTarjan : CycleAlgorithm {
         val path = mutableListOf<T>()
         var nextIndex = 0
         val cycles = mutableSetOf<Set<T>>()
-        fun visit(current:T){
+        fun visit(current: T) {
             val currentNode = edgeMap.getValue(current)
             val currentIndex = nextIndex++
             currentNode.id = currentIndex
@@ -21,31 +28,31 @@ class CycleAlgorithmTarjan : CycleAlgorithm {
             currentNode.inPath = true
             currentNode.nextValues.forEach { nextValue ->
                 val nextNode = edgeMap.getValue(nextValue)
-                if(nextNode.id == -1){
+                if (nextNode.id == -1) {
                     visit(nextValue)
                     currentNode.cycleId = minOf(currentNode.cycleId, nextNode.cycleId)
-                } else if(nextNode.inPath){
+                } else if (nextNode.inPath) {
                     currentNode.cycleId = minOf(currentNode.cycleId, nextNode.id)
                 }
             }
-            if(currentNode.id == currentNode.cycleId){
+            if (currentNode.id == currentNode.cycleId) {
                 val cycle = mutableSetOf<T>()
-                while(true){
+                while (true) {
                     val last = path.removeAt(path.size - 1)
                     val lastNode = edgeMap.getValue(last)
                     lastNode.inPath = false
                     cycle.add(last)
-                    if(last == current){
+                    if (last == current) {
                         break
                     }
                 }
-                if(cycle.size > 1) {
+                if (cycle.size > 1) {
                     cycles.add(cycle)
                 }
             }
         }
-        edgeMap.keys.forEach {current ->
-            if(edgeMap.getValue(current).id == -1){
+        edgeMap.keys.forEach { current ->
+            if (edgeMap.getValue(current).id == -1) {
                 visit(current)
             }
         }

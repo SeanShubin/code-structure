@@ -9,13 +9,13 @@ object TypeScriptRules {
     fun String.toModuleName(path: Path): String =
         path.parent.resolve(this).toModuleName()
 
-    private fun String.toModuleName():String =
+    private fun String.toModuleName(): String =
         removeSrcPrefix().removeSuffix().replaceSlashesWithDots()
 
     private val srcPrefix = "src/"
     private fun String.removeSrcPrefix(): String = removeExistingPrefix(srcPrefix)
 
-    private fun String.removeExistingPrefix(prefix:String): String {
+    private fun String.removeExistingPrefix(prefix: String): String {
         return if (startsWith(prefix)) removePrefix(prefix)
         else throw RuntimeException("Expected '$this' to start with '$prefix'")
     }

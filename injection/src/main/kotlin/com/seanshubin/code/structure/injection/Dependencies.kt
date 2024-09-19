@@ -102,7 +102,7 @@ class Dependencies(integrations: Integrations) {
     private val classInfoLoader: ClassInfoLoaderImpl = ClassInfoLoaderImpl()
     private val classParser: ClassParser = ClassParserImpl(inputDir, byteSequenceLoader, classInfoLoader)
     private val beamParser: BeamParser = BeamParserImpl(files, inputDir)
-    private val typeScriptRelationParser:TypeScriptRelationParser = TypeScriptRelationParserImpl(
+    private val typeScriptRelationParser: TypeScriptRelationParser = TypeScriptRelationParserImpl(
         files, charset
     )
     private val typeScriptNameParser: TypeScriptNameParser = TypeScriptNameParserImpl()
@@ -113,7 +113,8 @@ class Dependencies(integrations: Integrations) {
         javaParser,
         typeScriptNameParser
     )
-    private val relationParser: RelationParser = DynamicRelationParser(classParser, beamParser, typeScriptRelationParser)
+    private val relationParser: RelationParser =
+        DynamicRelationParser(classParser, beamParser, typeScriptRelationParser)
     private val observer: Observer = ObserverImpl(
         inputDir,
         configuredErrorsFile,

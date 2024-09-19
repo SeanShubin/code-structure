@@ -123,10 +123,10 @@ class AnalyzerImpl(
             cycleAlgorithm: CycleAlgorithm,
             timer: Timer
         ): ScopedAnalysis {
-            val cycles = timer.monitor("analyze.cycles"){findCycles(references, cycleAlgorithm)}
-            val entryPoints = timer.monitor("analyze.entryPoints"){findEntryPoints(names, references)}
-            val cycleDetails = timer.monitor("analyze.cycleDetails"){composeAllCycleDetails(cycles, references)}
-            val details = timer.monitor("analyze.details"){composeDetails(names, references, cycles)}
+            val cycles = timer.monitor("analyze.cycles") { findCycles(references, cycleAlgorithm) }
+            val entryPoints = timer.monitor("analyze.entryPoints") { findEntryPoints(names, references) }
+            val cycleDetails = timer.monitor("analyze.cycleDetails") { composeAllCycleDetails(cycles, references) }
+            val details = timer.monitor("analyze.details") { composeDetails(names, references, cycles) }
             return ScopedAnalysis(
                 cycles,
                 names,
@@ -150,7 +150,10 @@ class AnalyzerImpl(
             return CodeUnit(remain).toName()
         }
 
-        private fun findCycles(references: List<Pair<String, String>>, cycleAlgorithm: CycleAlgorithm): List<List<String>> {
+        private fun findCycles(
+            references: List<Pair<String, String>>,
+            cycleAlgorithm: CycleAlgorithm
+        ): List<List<String>> {
             val edges = references.toSet()
             val cycles = cycleAlgorithm.findCycles(edges)
             return cycles.map { it.sorted() }.sortedWith(sizeThenFirstComparator)

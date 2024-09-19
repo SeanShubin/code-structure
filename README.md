@@ -6,6 +6,7 @@
 - Run on self with `./scripts/clean-build-run-skip-tests.sh`
 
 ## Maven Plugin Configuration
+
 ```xml
 <plugin>
     <groupId>com.seanshubin.code.structure</groupId>

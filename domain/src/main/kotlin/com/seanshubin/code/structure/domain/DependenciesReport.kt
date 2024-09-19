@@ -51,7 +51,7 @@ class DependenciesReport : Report {
         return Tag("tbody", rows)
     }
 
-    private fun binaryRowWithDependencies(relation:Pair<String, String>): HtmlElement {
+    private fun binaryRowWithDependencies(relation: Pair<String, String>): HtmlElement {
         val (name, dependencyName) = relation
         val binaryCells = binaryCellsWithDependencies(name, dependencyName)
         val binaryRow = Tag("tr", binaryCells)

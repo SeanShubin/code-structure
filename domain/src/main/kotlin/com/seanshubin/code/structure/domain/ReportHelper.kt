@@ -29,13 +29,13 @@ object ReportHelper {
         reportDir: Path,
         baseName: String,
         nodes: List<DotNode>,
-        nodeLimitForGraph:Int,
+        nodeLimitForGraph: Int,
         references: List<Pair<String, String>>,
         cycles: List<List<String>>,
         parents: List<Page>,
         belowGraph: List<HtmlElement> = emptyList()
     ): List<Command> {
-        return if(nodes.size > nodeLimitForGraph){
+        return if (nodes.size > nodeLimitForGraph) {
             graphCommandsExceedsNodeLimit(reportDir, baseName, nodes, nodeLimitForGraph, references, cycles, parents)
         } else {
             graphCommandsWithinNodeLimit(reportDir, baseName, nodes, references, cycles, parents, belowGraph)
@@ -71,7 +71,7 @@ object ReportHelper {
         reportDir: Path,
         baseName: String,
         nodes: List<DotNode>,
-        nodeLimitForGraph:Int,
+        nodeLimitForGraph: Int,
         references: List<Pair<String, String>>,
         cycles: List<List<String>>,
         parents: List<Page>,

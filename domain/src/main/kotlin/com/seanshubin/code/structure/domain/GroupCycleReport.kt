@@ -85,7 +85,11 @@ class GroupCycleReport(private val nodeLimitForGraph: Int) : Report {
         }.toSet()
         val newInGroupCycle = (allInGroupCycle - configuredInGroupCycle).toList().sorted()
         val fixedInGroupCycle = (configuredInGroupCycle - allInGroupCycle).toList().sorted()
-        return differentCyclesElement("Newly in cycle", newInGroupCycle, ::createGroupCycleElement) + differentCyclesElement(
+        return differentCyclesElement(
+            "Newly in cycle",
+            newInGroupCycle,
+            ::createGroupCycleElement
+        ) + differentCyclesElement(
             "No longer in cycle",
             fixedInGroupCycle,
             ::createGroupCycleElement

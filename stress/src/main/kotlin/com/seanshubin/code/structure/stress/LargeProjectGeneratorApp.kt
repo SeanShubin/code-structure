@@ -1,7 +1,6 @@
 package com.seanshubin.code.structure.stress
 
 import java.nio.file.Paths
-import java.time.Clock
 import kotlin.random.Random
 import kotlin.system.exitProcess
 

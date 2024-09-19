@@ -25,7 +25,7 @@ class TypeScriptRelationParserImpl(
         return files.readString(path, charset)
     }
 
-    private fun searchAllDependencies(path:Path, text: String): List<String> {
+    private fun searchAllDependencies(path: Path, text: String): List<String> {
         val matches = dependsOnRegexList.flatMap { regex ->
             regex.findAll(text).map { matchResult ->
                 matchResult.groupValues[1].toModuleName(path)
