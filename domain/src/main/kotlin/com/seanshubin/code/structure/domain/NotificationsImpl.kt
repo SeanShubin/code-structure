@@ -28,5 +28,6 @@ class NotificationsImpl(private val emitLine: (String) -> Unit) : Notifications 
         emitLine("in group cycle: ${summary.inGroupCycleCount}")
         emitLine("ancestor depends on descendant: ${summary.ancestorDependsOnDescendantCount}")
         emitLine("descendant depends on ancestor: ${summary.descendantDependsOnAncestorCount}")
+        emitLine("total: ${summary.totalCount}")
     }
 }

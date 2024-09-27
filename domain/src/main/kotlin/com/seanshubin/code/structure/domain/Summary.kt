@@ -5,4 +5,6 @@ data class Summary(
     val inGroupCycleCount: Int,
     val ancestorDependsOnDescendantCount: Int,
     val descendantDependsOnAncestorCount: Int
-)
+){
+    val totalCount = inCycleCount + inGroupCycleCount + ancestorDependsOnDescendantCount + descendantDependsOnAncestorCount
+}
