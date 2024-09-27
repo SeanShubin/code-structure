@@ -8,7 +8,9 @@ import com.seanshubin.code.structure.relationparser.RelationDetail
 
 class AnalyzerImpl(
     private val timer: Timer,
-    private val cycleAlgorithm: CycleAlgorithm
+    private val cycleAlgorithm: CycleAlgorithm,
+    private val countAsErrors: CountAsErrors,
+    private val errorLimit: Int
 ) : Analyzer {
     override fun analyze(observations: Observations): Analysis {
         val qualifiedNames = observations.sources.flatMap { it.modules }.sorted().distinct()
@@ -54,6 +56,8 @@ class AnalyzerImpl(
         val errors = timer.monitor("analysis.errors") { composeErrors(global, groupScopedAnalysisList, lineage) }
         val summary = timer.monitor("analysis.summary") {
             composeSummary(
+                countAsErrors,
+                errorLimit,
                 global,
                 groupScopedAnalysisList,
                 ancestorToDescendant,
@@ -73,22 +77,35 @@ class AnalyzerImpl(
         private val sizeThenFirstComparator = listSizeComparator.reversed().then(firstInListComparator)
 
         private fun composeSummary(
+            countAsErrors: CountAsErrors,
+            errorLimit: Int,
             global: ScopedAnalysis,
             groupScopedAnalysisList: List<Pair<List<String>, ScopedAnalysis>>,
             ancestorToDescendant: List<Pair<String, String>>,
             descendantToAncestor: List<Pair<String, String>>
         ): Summary {
-            val inCycleCount = global.cycles.sumOf { it.size }
+            val directCycleCount = global.cycles.sumOf { it.size }
             val inGroupCycleCount = groupScopedAnalysisList.map { it.second }.sumOf { scopedAnalysis ->
                 scopedAnalysis.cycles.sumOf { cycles -> cycles.size }
             }
             val ancestorDependsOnDescendantCount = ancestorToDescendant.size
             val descendantDependsOnAncestorCount = descendantToAncestor.size
             return Summary(
-                inCycleCount,
-                inGroupCycleCount,
-                ancestorDependsOnDescendantCount,
-                descendantDependsOnAncestorCount
+                listOf(
+                    ErrorSummaryItem("Direct Cycle", directCycleCount, countAsErrors.directCycle),
+                    ErrorSummaryItem("Group Cycle", inGroupCycleCount, countAsErrors.groupCycle),
+                    ErrorSummaryItem(
+                        "Ancestor Depends on Descendant",
+                        ancestorDependsOnDescendantCount,
+                        countAsErrors.ancestorDependsOnDescendant
+                    ),
+                    ErrorSummaryItem(
+                        "Descendant Depends On Ancestor",
+                        descendantDependsOnAncestorCount,
+                        countAsErrors.descendantDependsOnAncestor
+                    ),
+                ),
+                errorLimit
             )
         }
 

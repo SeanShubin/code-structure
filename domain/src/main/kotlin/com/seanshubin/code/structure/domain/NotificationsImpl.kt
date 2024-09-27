@@ -24,10 +24,15 @@ class NotificationsImpl(private val emitLine: (String) -> Unit) : Notifications 
     }
 
     override fun summaryEvent(summary: Summary) {
-        emitLine("in direct cycle: ${summary.inCycleCount}")
-        emitLine("in group cycle: ${summary.inGroupCycleCount}")
-        emitLine("ancestor depends on descendant: ${summary.ancestorDependsOnDescendantCount}")
-        emitLine("descendant depends on ancestor: ${summary.descendantDependsOnAncestorCount}")
-        emitLine("total: ${summary.totalCount}")
+        summary.errors.forEach { errorSummaryItem ->
+            val count = errorSummaryItem.count
+            val name = errorSummaryItem.name
+            if (errorSummaryItem.isPartOfTotal){
+                emitLine("$name: $count")
+            } else {
+                emitLine("$name: $count (not part of total)")
+            }
+        }
+        emitLine("total: ${summary.errorCount} of ${summary.errorLimit} errors allowed")
     }
 }
