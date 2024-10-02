@@ -17,7 +17,7 @@ abstract class NameDetailReport : Report {
         val html = ReportHelper.wrapInTopLevelHtml(page.caption, htmlInsideBody, parents)
         val path = reportDir.resolve(page.file)
         val lines = html.toLines()
-        return listOf(CreateFileCommand(path, lines))
+        return listOf(CreateFileCommand(reportName, path, lines))
     }
 
     private fun generateHtml(observations: Observations): List<HtmlElement> {

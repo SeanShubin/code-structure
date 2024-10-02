@@ -5,12 +5,13 @@ import com.seanshubin.code.structure.dot.DotNode
 import java.nio.file.Path
 
 class GraphReport(private val nodeLimitForGraph: Int) : Report {
-    override val name: String = "graph"
+    override val reportName: String = "graph"
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
         val analysis = validated.analysis
         val nodes = analysis.global.names.map(::toDotNode)
         return ReportHelper.graphCommands(
+            reportName,
             reportDir,
             Page.graph.id,
             nodes,

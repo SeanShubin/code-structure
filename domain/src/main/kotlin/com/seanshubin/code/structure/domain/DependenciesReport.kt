@@ -7,14 +7,14 @@ import com.seanshubin.code.structure.relationparser.RelationDetail.Companion.toR
 import java.nio.file.Path
 
 class DependenciesReport : Report {
-    override val name: String = "dependencies"
+    override val reportName: String = "dependencies"
     override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
         val parents = listOf(Page.tableOfContents)
         val htmlInsideBody = generateHtml(validated.observations)
         val html = ReportHelper.wrapInTopLevelHtml(Page.dependencies.caption, htmlInsideBody, parents)
         val path = reportDir.resolve(Page.dependencies.file)
         val lines = html.toLines()
-        return listOf(CreateFileCommand(path, lines))
+        return listOf(CreateFileCommand(reportName, path, lines))
     }
 
     private fun generateHtml(observations: Observations): List<HtmlElement> {

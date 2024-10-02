@@ -8,15 +8,15 @@ class EventTimer(
     private val clock: Clock
 ) : Timer {
     private val events = mutableListOf<TimingEvent>()
-    override fun <T> monitor(category: String, f: () -> T): T =
-        monitor(category, category, f)
+    override fun <T> monitor(source:String, category: String, f: () -> T): T =
+        monitor(source, category, category, f)
 
-    override fun <T> monitor(category: String, caption: String, f: () -> T): T {
+    override fun <T> monitor(source:String, category: String, caption: String, f: () -> T): T {
         val startTime = clock.instant()
         val result = f()
         val endTime = clock.instant()
         val duration = Duration.between(startTime, endTime)
-        events.add(TimingEvent(category, caption, duration))
+        events.add(TimingEvent(source, category, caption, duration))
         timeTakenEvent(caption, duration)
         return result
     }
@@ -26,17 +26,17 @@ class EventTimer(
     }
 
     override fun summaries(): List<TimingSummary> {
-        val eventsByCategory = events.groupBy { it.category }
+        val eventsByCategory = events.groupBy { it.key }
         val categories = eventsByCategory.keys
-        val details = categories.map { category ->
-            val eventsForCategory = eventsByCategory.getValue(category)
+        val details = categories.map { key ->
+            val eventsForCategory = eventsByCategory.getValue(key)
             val durations = eventsForCategory.map { it.duration }
             val count = durations.size
             val maxDuration = durations.max()
             val minDuration = durations.min()
             val medianDuration = durations.median()
             val totalDuration = durations.fold(Duration.ZERO) { x, y -> x + y }
-            TimingSummary(category, count, minDuration, maxDuration, medianDuration, totalDuration)
+            TimingSummary(key, count, minDuration, maxDuration, medianDuration, totalDuration)
         }
         return details
     }

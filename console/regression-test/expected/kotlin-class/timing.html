@@ -21,7 +21,7 @@
       <thead>
         <tr>
           <th>
-            category
+            key
           </th>
           <th>
             count
@@ -43,7 +43,7 @@
       <tbody>
         <tr>
           <td>
-            all before final report
+            runner-all before final report
           </td>
           <td>
             1
@@ -63,7 +63,7 @@
         </tr>
         <tr>
           <td>
-            commands
+            runner-commands
           </td>
           <td>
             1
@@ -83,16 +83,16 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            code-units-GenerateSvgCommand
           </td>
           <td>
-            30
+            14
           </td>
           <td>
-            2 seconds 626 milliseconds
+            1 second 303 milliseconds
           </td>
           <td>
-            [84 milliseconds, 68 milliseconds]
+            [103 milliseconds, 123 milliseconds]
           </td>
           <td>
             63 milliseconds
@@ -103,7 +103,27 @@
         </tr>
         <tr>
           <td>
-            observations
+            groups-GenerateSvgCommand
+          </td>
+          <td>
+            10
+          </td>
+          <td>
+            878 milliseconds
+          </td>
+          <td>
+            85 milliseconds
+          </td>
+          <td>
+            83 milliseconds
+          </td>
+          <td>
+            98 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            runner-observations
           </td>
           <td>
             1
@@ -123,7 +143,67 @@
         </tr>
         <tr>
           <td>
-            analysis
+            group-cycles-GenerateSvgCommand
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            219 milliseconds
+          </td>
+          <td>
+            73 milliseconds
+          </td>
+          <td>
+            63 milliseconds
+          </td>
+          <td>
+            82 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            direct-cycles-GenerateSvgCommand
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            148 milliseconds
+          </td>
+          <td>
+            [76 milliseconds, 71 milliseconds]
+          </td>
+          <td>
+            71 milliseconds
+          </td>
+          <td>
+            76 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            graph-GenerateSvgCommand
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            76 milliseconds
+          </td>
+          <td>
+            76 milliseconds
+          </td>
+          <td>
+            76 milliseconds
+          </td>
+          <td>
+            76 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            runner-analysis
           </td>
           <td>
             1
@@ -143,16 +223,56 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            runner-reports
           </td>
           <td>
-            30
+            1
           </td>
           <td>
-            45 milliseconds
+            32 milliseconds
           </td>
           <td>
-            [1 millisecond, 0 milliseconds]
+            32 milliseconds
+          </td>
+          <td>
+            32 milliseconds
+          </td>
+          <td>
+            32 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analysis.groupScopedAnalysisList
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            31 milliseconds
+          </td>
+          <td>
+            31 milliseconds
+          </td>
+          <td>
+            31 milliseconds
+          </td>
+          <td>
+            31 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            code-units-SubstituteFromFileCommand
+          </td>
+          <td>
+            14
+          </td>
+          <td>
+            26 milliseconds
+          </td>
+          <td>
+            [0 milliseconds, 1 millisecond]
           </td>
           <td>
             0 milliseconds
@@ -163,16 +283,16 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
-            74
+            29
           </td>
           <td>
-            43 milliseconds
+            21 milliseconds
           </td>
           <td>
-            [0 milliseconds, 2 milliseconds]
+            0 milliseconds
           </td>
           <td>
             0 milliseconds
@@ -183,52 +303,72 @@
         </tr>
         <tr>
           <td>
-            reports
+            groups-SubstituteFromFileCommand
+          </td>
+          <td>
+            10
+          </td>
+          <td>
+            9 milliseconds
+          </td>
+          <td>
+            [0 milliseconds, 1 millisecond]
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            2 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            groups-CreateFileCommand
+          </td>
+          <td>
+            20
+          </td>
+          <td>
+            9 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            2 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            direct-cycles-SubstituteFromFileCommand
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            7 milliseconds
+          </td>
+          <td>
+            [7 milliseconds, 0 milliseconds]
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            7 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analysis.global
           </td>
           <td>
             1
           </td>
           <td>
-            32 milliseconds
-          </td>
-          <td>
-            32 milliseconds
-          </td>
-          <td>
-            32 milliseconds
-          </td>
-          <td>
-            32 milliseconds
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analysis.groupScopedAnalysisList
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            31 milliseconds
-          </td>
-          <td>
-            31 milliseconds
-          </td>
-          <td>
-            31 milliseconds
-          </td>
-          <td>
-            31 milliseconds
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analysis.global
-          </td>
-          <td>
-            1
-          </td>
-          <td>
             4 milliseconds
           </td>
           <td>
@@ -243,7 +383,7 @@
         </tr>
         <tr>
           <td>
-            analyze.cycles
+            analyzer-analyze.cycles
           </td>
           <td>
             11
@@ -263,7 +403,27 @@
         </tr>
         <tr>
           <td>
-            analyze.entryPoints
+            direct-cycles-CreateFileCommand
+          </td>
+          <td>
+            5
+          </td>
+          <td>
+            3 milliseconds
+          </td>
+          <td>
+            2 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            2 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.entryPoints
           </td>
           <td>
             11
@@ -283,7 +443,7 @@
         </tr>
         <tr>
           <td>
-            report.missing-binaries
+            report-generator-report.missing-binaries
           </td>
           <td>
             1
@@ -303,7 +463,27 @@
         </tr>
         <tr>
           <td>
-            analyze.details
+            group-cycles-CreateFileCommand
+          </td>
+          <td>
+            7
+          </td>
+          <td>
+            2 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.details
           </td>
           <td>
             11
@@ -323,7 +503,7 @@
         </tr>
         <tr>
           <td>
-            analysis.lineage
+            analyzer-analysis.lineage
           </td>
           <td>
             1
@@ -343,7 +523,7 @@
         </tr>
         <tr>
           <td>
-            analyze.cycleDetails
+            analyzer-analyze.cycleDetails
           </td>
           <td>
             11
@@ -363,7 +543,7 @@
         </tr>
         <tr>
           <td>
-            analysis.references
+            analyzer-analysis.references
           </td>
           <td>
             1
@@ -383,7 +563,147 @@
         </tr>
         <tr>
           <td>
-            report.lineage
+            group-cycles-SubstituteFromFileCommand
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            1 millisecond
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            reset.css-CreateFileCommand
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1 millisecond
+          </td>
+          <td>
+            1 millisecond
+          </td>
+          <td>
+            1 millisecond
+          </td>
+          <td>
+            1 millisecond
+          </td>
+        </tr>
+        <tr>
+          <td>
+            table-of-contents-CreateFileCommand
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            sources-CreateFileCommand
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            _index.html-CreateFileCommand
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            code-structure.css-CreateFileCommand
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            missing-binaries-CreateFileCommand
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            graph-CreateFileCommand
           </td>
           <td>
             2
@@ -403,7 +723,27 @@
         </tr>
         <tr>
           <td>
-            analysis.names
+            lineage-CreateFileCommand
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            graph-SubstituteFromFileCommand
           </td>
           <td>
             1
@@ -423,7 +763,7 @@
         </tr>
         <tr>
           <td>
-            report.dependencies
+            entry-points-CreateFileCommand
           </td>
           <td>
             1
@@ -443,7 +783,27 @@
         </tr>
         <tr>
           <td>
-            report.code-units
+            report-generator-report.lineage
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            dependencies-CreateFileCommand
           </td>
           <td>
             1
@@ -463,7 +823,7 @@
         </tr>
         <tr>
           <td>
-            report.graph
+            binaries-CreateFileCommand
           </td>
           <td>
             1
@@ -483,7 +843,7 @@
         </tr>
         <tr>
           <td>
-            validation
+            analyzer-analysis.names
           </td>
           <td>
             1
@@ -503,7 +863,7 @@
         </tr>
         <tr>
           <td>
-            report.table-of-contents
+            report-generator-report.dependencies
           </td>
           <td>
             1
@@ -523,7 +883,7 @@
         </tr>
         <tr>
           <td>
-            analysis.summary
+            report-generator-report.code-units
           </td>
           <td>
             1
@@ -543,7 +903,7 @@
         </tr>
         <tr>
           <td>
-            report.groups
+            report-generator-report.graph
           </td>
           <td>
             1
@@ -563,7 +923,7 @@
         </tr>
         <tr>
           <td>
-            analysis.nameUriList
+            runner-validation
           </td>
           <td>
             1
@@ -583,7 +943,7 @@
         </tr>
         <tr>
           <td>
-            report.binaries
+            report-generator-report.table-of-contents
           </td>
           <td>
             1
@@ -603,7 +963,7 @@
         </tr>
         <tr>
           <td>
-            analysis.errors
+            analyzer-analysis.summary
           </td>
           <td>
             1
@@ -623,7 +983,7 @@
         </tr>
         <tr>
           <td>
-            report.sources
+            report-generator-report.groups
           </td>
           <td>
             1
@@ -643,7 +1003,7 @@
         </tr>
         <tr>
           <td>
-            report.direct-cycles
+            analyzer-analysis.nameUriList
           </td>
           <td>
             1
@@ -663,7 +1023,7 @@
         </tr>
         <tr>
           <td>
-            report.group-cycles
+            report-generator-report.binaries
           </td>
           <td>
             1
@@ -683,7 +1043,7 @@
         </tr>
         <tr>
           <td>
-            report.static-content
+            analyzer-analysis.errors
           </td>
           <td>
             1
@@ -703,7 +1063,7 @@
         </tr>
         <tr>
           <td>
-            analysis.ancestorToDescendant
+            report-generator-report.sources
           </td>
           <td>
             1
@@ -723,7 +1083,7 @@
         </tr>
         <tr>
           <td>
-            report.entry-points
+            report-generator-report.direct-cycles
           </td>
           <td>
             1
@@ -743,7 +1103,87 @@
         </tr>
         <tr>
           <td>
-            analysis.descendantToAncestor
+            report-generator-report.group-cycles
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            report-generator-report.static-content
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analysis.ancestorToDescendant
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            report-generator-report.entry-points
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analysis.descendantToAncestor
           </td>
           <td>
             1
@@ -770,7 +1210,7 @@
       <thead>
         <tr>
           <th>
-            category
+            key
           </th>
           <th>
             duration
@@ -783,7 +1223,7 @@
       <tbody>
         <tr>
           <td>
-            observations
+            runner-observations
           </td>
           <td>
             339 milliseconds
@@ -794,7 +1234,7 @@
         </tr>
         <tr>
           <td>
-            analysis.names
+            analyzer-analysis.names
           </td>
           <td>
             0 milliseconds
@@ -805,7 +1245,7 @@
         </tr>
         <tr>
           <td>
-            analysis.references
+            analyzer-analysis.references
           </td>
           <td>
             1 millisecond
@@ -816,7 +1256,7 @@
         </tr>
         <tr>
           <td>
-            analyze.cycles
+            analyzer-analyze.cycles
           </td>
           <td>
             0 milliseconds
@@ -827,7 +1267,7 @@
         </tr>
         <tr>
           <td>
-            analyze.entryPoints
+            analyzer-analyze.entryPoints
           </td>
           <td>
             0 milliseconds
@@ -838,7 +1278,7 @@
         </tr>
         <tr>
           <td>
-            analyze.cycleDetails
+            analyzer-analyze.cycleDetails
           </td>
           <td>
             0 milliseconds
@@ -849,7 +1289,7 @@
         </tr>
         <tr>
           <td>
-            analyze.details
+            analyzer-analyze.details
           </td>
           <td>
             0 milliseconds
@@ -860,7 +1300,7 @@
         </tr>
         <tr>
           <td>
-            analysis.global
+            analyzer-analysis.global
           </td>
           <td>
             4 milliseconds
@@ -871,7 +1311,7 @@
         </tr>
         <tr>
           <td>
-            analysis.ancestorToDescendant
+            analyzer-analysis.ancestorToDescendant
           </td>
           <td>
             0 milliseconds
@@ -882,7 +1322,7 @@
         </tr>
         <tr>
           <td>
-            analysis.descendantToAncestor
+            analyzer-analysis.descendantToAncestor
           </td>
           <td>
             0 milliseconds
@@ -893,7 +1333,7 @@
         </tr>
         <tr>
           <td>
-            analysis.nameUriList
+            analyzer-analysis.nameUriList
           </td>
           <td>
             0 milliseconds
@@ -904,7 +1344,7 @@
         </tr>
         <tr>
           <td>
-            analysis.lineage
+            analyzer-analysis.lineage
           </td>
           <td>
             1 millisecond
@@ -915,7 +1355,7 @@
         </tr>
         <tr>
           <td>
-            analyze.cycles
+            analyzer-analyze.cycles
           </td>
           <td>
             0 milliseconds
@@ -926,51 +1366,7 @@
         </tr>
         <tr>
           <td>
-            analyze.entryPoints
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.entryPoints
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.cycleDetails
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.cycleDetails
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.details
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.details
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.cycles
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.cycles
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.entryPoints
+            analyzer-analyze.entryPoints
           </td>
           <td>
             0 milliseconds
@@ -981,7 +1377,7 @@
         </tr>
         <tr>
           <td>
-            analyze.cycleDetails
+            analyzer-analyze.cycleDetails
           </td>
           <td>
             0 milliseconds
@@ -992,7 +1388,7 @@
         </tr>
         <tr>
           <td>
-            analyze.details
+            analyzer-analyze.details
           </td>
           <td>
             0 milliseconds
@@ -1002,8 +1398,52 @@
           </td>
         </tr>
         <tr>
+          <td>
+            analyzer-analyze.cycles
+          </td>
+          <td>
+            0 milliseconds
+          </td>
           <td>
             analyze.cycles
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.entryPoints
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            analyze.entryPoints
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.cycleDetails
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            analyze.cycleDetails
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.details
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            analyze.details
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.cycles
           </td>
           <td>
             1 millisecond
@@ -1014,7 +1454,7 @@
         </tr>
         <tr>
           <td>
-            analyze.entryPoints
+            analyzer-analyze.entryPoints
           </td>
           <td>
             0 milliseconds
@@ -1025,7 +1465,7 @@
         </tr>
         <tr>
           <td>
-            analyze.cycleDetails
+            analyzer-analyze.cycleDetails
           </td>
           <td>
             0 milliseconds
@@ -1036,7 +1476,7 @@
         </tr>
         <tr>
           <td>
-            analyze.details
+            analyzer-analyze.details
           </td>
           <td>
             0 milliseconds
@@ -1047,51 +1487,7 @@
         </tr>
         <tr>
           <td>
-            analyze.cycles
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.cycles
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.entryPoints
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.entryPoints
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.cycleDetails
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.cycleDetails
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.details
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.details
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.cycles
+            analyzer-analyze.cycles
           </td>
           <td>
             0 milliseconds
@@ -1102,7 +1498,7 @@
         </tr>
         <tr>
           <td>
-            analyze.entryPoints
+            analyzer-analyze.entryPoints
           </td>
           <td>
             0 milliseconds
@@ -1113,7 +1509,7 @@
         </tr>
         <tr>
           <td>
-            analyze.cycleDetails
+            analyzer-analyze.cycleDetails
           </td>
           <td>
             0 milliseconds
@@ -1124,7 +1520,7 @@
         </tr>
         <tr>
           <td>
-            analyze.details
+            analyzer-analyze.details
           </td>
           <td>
             0 milliseconds
@@ -1135,51 +1531,7 @@
         </tr>
         <tr>
           <td>
-            analyze.cycles
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.cycles
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.entryPoints
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.entryPoints
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.cycleDetails
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.cycleDetails
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.details
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.details
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.cycles
+            analyzer-analyze.cycles
           </td>
           <td>
             0 milliseconds
@@ -1190,7 +1542,7 @@
         </tr>
         <tr>
           <td>
-            analyze.entryPoints
+            analyzer-analyze.entryPoints
           </td>
           <td>
             0 milliseconds
@@ -1201,7 +1553,7 @@
         </tr>
         <tr>
           <td>
-            analyze.cycleDetails
+            analyzer-analyze.cycleDetails
           </td>
           <td>
             0 milliseconds
@@ -1212,7 +1564,7 @@
         </tr>
         <tr>
           <td>
-            analyze.details
+            analyzer-analyze.details
           </td>
           <td>
             0 milliseconds
@@ -1223,51 +1575,7 @@
         </tr>
         <tr>
           <td>
-            analyze.cycles
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.cycles
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.entryPoints
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.entryPoints
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.cycleDetails
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.cycleDetails
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.details
-          </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            analyze.details
-          </td>
-        </tr>
-        <tr>
-          <td>
-            analyze.cycles
+            analyzer-analyze.cycles
           </td>
           <td>
             0 milliseconds
@@ -1278,7 +1586,7 @@
         </tr>
         <tr>
           <td>
-            analyze.entryPoints
+            analyzer-analyze.entryPoints
           </td>
           <td>
             0 milliseconds
@@ -1289,7 +1597,7 @@
         </tr>
         <tr>
           <td>
-            analyze.cycleDetails
+            analyzer-analyze.cycleDetails
           </td>
           <td>
             0 milliseconds
@@ -1300,7 +1608,7 @@
         </tr>
         <tr>
           <td>
-            analyze.details
+            analyzer-analyze.details
           </td>
           <td>
             0 milliseconds
@@ -1310,9 +1618,53 @@
           </td>
         </tr>
         <tr>
+          <td>
+            analyzer-analyze.cycles
+          </td>
+          <td>
+            0 milliseconds
+          </td>
           <td>
             analyze.cycles
           </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.entryPoints
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            analyze.entryPoints
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.cycleDetails
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            analyze.cycleDetails
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.details
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            analyze.details
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.cycles
+          </td>
           <td>
             0 milliseconds
           </td>
@@ -1322,7 +1674,7 @@
         </tr>
         <tr>
           <td>
-            analyze.entryPoints
+            analyzer-analyze.entryPoints
           </td>
           <td>
             0 milliseconds
@@ -1333,7 +1685,7 @@
         </tr>
         <tr>
           <td>
-            analyze.cycleDetails
+            analyzer-analyze.cycleDetails
           </td>
           <td>
             0 milliseconds
@@ -1344,7 +1696,7 @@
         </tr>
         <tr>
           <td>
-            analyze.details
+            analyzer-analyze.details
           </td>
           <td>
             0 milliseconds
@@ -1355,7 +1707,95 @@
         </tr>
         <tr>
           <td>
-            analysis.groupScopedAnalysisList
+            analyzer-analyze.cycles
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            analyze.cycles
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.entryPoints
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            analyze.entryPoints
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.cycleDetails
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            analyze.cycleDetails
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.details
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            analyze.details
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.cycles
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            analyze.cycles
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.entryPoints
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            analyze.entryPoints
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.cycleDetails
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            analyze.cycleDetails
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analyze.details
+          </td>
+          <td>
+            0 milliseconds
+          </td>
+          <td>
+            analyze.details
+          </td>
+        </tr>
+        <tr>
+          <td>
+            analyzer-analysis.groupScopedAnalysisList
           </td>
           <td>
             31 milliseconds
@@ -1366,7 +1806,7 @@
         </tr>
         <tr>
           <td>
-            analysis.errors
+            analyzer-analysis.errors
           </td>
           <td>
             0 milliseconds
@@ -1377,7 +1817,7 @@
         </tr>
         <tr>
           <td>
-            analysis.summary
+            analyzer-analysis.summary
           </td>
           <td>
             0 milliseconds
@@ -1388,7 +1828,7 @@
         </tr>
         <tr>
           <td>
-            analysis
+            runner-analysis
           </td>
           <td>
             49 milliseconds
@@ -1399,7 +1839,7 @@
         </tr>
         <tr>
           <td>
-            validation
+            runner-validation
           </td>
           <td>
             0 milliseconds
@@ -1410,7 +1850,7 @@
         </tr>
         <tr>
           <td>
-            report.static-content
+            report-generator-report.static-content
           </td>
           <td>
             0 milliseconds
@@ -1421,7 +1861,7 @@
         </tr>
         <tr>
           <td>
-            report.table-of-contents
+            report-generator-report.table-of-contents
           </td>
           <td>
             0 milliseconds
@@ -1432,7 +1872,7 @@
         </tr>
         <tr>
           <td>
-            report.sources
+            report-generator-report.sources
           </td>
           <td>
             0 milliseconds
@@ -1443,7 +1883,7 @@
         </tr>
         <tr>
           <td>
-            report.binaries
+            report-generator-report.binaries
           </td>
           <td>
             0 milliseconds
@@ -1454,7 +1894,7 @@
         </tr>
         <tr>
           <td>
-            report.missing-binaries
+            report-generator-report.missing-binaries
           </td>
           <td>
             2 milliseconds
@@ -1465,7 +1905,7 @@
         </tr>
         <tr>
           <td>
-            report.dependencies
+            report-generator-report.dependencies
           </td>
           <td>
             0 milliseconds
@@ -1476,7 +1916,7 @@
         </tr>
         <tr>
           <td>
-            report.entry-points
+            report-generator-report.entry-points
           </td>
           <td>
             0 milliseconds
@@ -1487,7 +1927,7 @@
         </tr>
         <tr>
           <td>
-            report.direct-cycles
+            report-generator-report.direct-cycles
           </td>
           <td>
             0 milliseconds
@@ -1498,7 +1938,7 @@
         </tr>
         <tr>
           <td>
-            report.group-cycles
+            report-generator-report.group-cycles
           </td>
           <td>
             0 milliseconds
@@ -1509,7 +1949,7 @@
         </tr>
         <tr>
           <td>
-            report.lineage
+            report-generator-report.lineage
           </td>
           <td>
             0 milliseconds
@@ -1520,7 +1960,7 @@
         </tr>
         <tr>
           <td>
-            report.lineage
+            report-generator-report.lineage
           </td>
           <td>
             0 milliseconds
@@ -1530,19 +1970,19 @@
           </td>
         </tr>
         <tr>
+          <td>
+            report-generator-report.groups
+          </td>
+          <td>
+            0 milliseconds
+          </td>
           <td>
             report.groups
           </td>
-          <td>
-            0 milliseconds
-          </td>
-          <td>
-            report.groups
-          </td>
         </tr>
         <tr>
           <td>
-            report.code-units
+            report-generator-report.code-units
           </td>
           <td>
             0 milliseconds
@@ -1553,7 +1993,7 @@
         </tr>
         <tr>
           <td>
-            report.graph
+            report-generator-report.graph
           </td>
           <td>
             0 milliseconds
@@ -1564,7 +2004,7 @@
         </tr>
         <tr>
           <td>
-            reports
+            runner-reports
           </td>
           <td>
             32 milliseconds
@@ -1575,7 +2015,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            reset.css-CreateFileCommand
           </td>
           <td>
             1 millisecond
@@ -1586,7 +2026,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-structure.css-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1597,7 +2037,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            _index.html-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1608,7 +2048,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            table-of-contents-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1619,7 +2059,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            sources-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1630,7 +2070,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            binaries-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1641,7 +2081,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            missing-binaries-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1652,7 +2092,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            dependencies-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1663,7 +2103,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            entry-points-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1674,7 +2114,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            direct-cycles-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1685,7 +2125,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            direct-cycles-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1696,7 +2136,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            direct-cycles-GenerateSvgCommand
           </td>
           <td>
             76 milliseconds
@@ -1707,7 +2147,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            direct-cycles-CreateFileCommand
           </td>
           <td>
             2 milliseconds
@@ -1718,7 +2158,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            direct-cycles-SubstituteFromFileCommand
           </td>
           <td>
             7 milliseconds
@@ -1729,7 +2169,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            direct-cycles-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1740,7 +2180,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            direct-cycles-GenerateSvgCommand
           </td>
           <td>
             71 milliseconds
@@ -1751,7 +2191,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            direct-cycles-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1762,7 +2202,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            direct-cycles-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1773,7 +2213,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            group-cycles-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1784,7 +2224,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            group-cycles-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1795,7 +2235,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            group-cycles-GenerateSvgCommand
           </td>
           <td>
             82 milliseconds
@@ -1806,7 +2246,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            group-cycles-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1817,7 +2257,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            group-cycles-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1828,7 +2268,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            group-cycles-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1839,7 +2279,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            group-cycles-GenerateSvgCommand
           </td>
           <td>
             73 milliseconds
@@ -1850,7 +2290,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            group-cycles-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1861,7 +2301,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            group-cycles-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1872,7 +2312,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            group-cycles-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1883,7 +2323,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            group-cycles-GenerateSvgCommand
           </td>
           <td>
             63 milliseconds
@@ -1894,7 +2334,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            group-cycles-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1905,7 +2345,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            group-cycles-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1916,7 +2356,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            lineage-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1927,7 +2367,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            lineage-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1938,7 +2378,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1949,7 +2389,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            groups-GenerateSvgCommand
           </td>
           <td>
             91 milliseconds
@@ -1960,7 +2400,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1971,7 +2411,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            groups-SubstituteFromFileCommand
           </td>
           <td>
             2 milliseconds
@@ -1982,7 +2422,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -1993,7 +2433,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            groups-GenerateSvgCommand
           </td>
           <td>
             89 milliseconds
@@ -2004,7 +2444,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2015,7 +2455,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            groups-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2026,7 +2466,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2037,7 +2477,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            groups-GenerateSvgCommand
           </td>
           <td>
             87 milliseconds
@@ -2048,7 +2488,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2059,7 +2499,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            groups-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2070,7 +2510,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2081,7 +2521,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            groups-GenerateSvgCommand
           </td>
           <td>
             89 milliseconds
@@ -2092,7 +2532,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2103,7 +2543,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            groups-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2114,7 +2554,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2125,7 +2565,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            groups-GenerateSvgCommand
           </td>
           <td>
             85 milliseconds
@@ -2136,7 +2576,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2147,7 +2587,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            groups-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2158,7 +2598,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2169,7 +2609,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            groups-GenerateSvgCommand
           </td>
           <td>
             85 milliseconds
@@ -2180,7 +2620,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2191,7 +2631,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            groups-SubstituteFromFileCommand
           </td>
           <td>
             1 millisecond
@@ -2202,7 +2642,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2213,7 +2653,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            groups-GenerateSvgCommand
           </td>
           <td>
             98 milliseconds
@@ -2224,7 +2664,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2235,7 +2675,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            groups-SubstituteFromFileCommand
           </td>
           <td>
             1 millisecond
@@ -2246,7 +2686,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             2 milliseconds
@@ -2257,7 +2697,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            groups-GenerateSvgCommand
           </td>
           <td>
             83 milliseconds
@@ -2268,7 +2708,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2279,7 +2719,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            groups-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2290,7 +2730,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2301,7 +2741,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            groups-GenerateSvgCommand
           </td>
           <td>
             83 milliseconds
@@ -2312,7 +2752,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2323,7 +2763,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            groups-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2334,7 +2774,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2345,7 +2785,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            groups-GenerateSvgCommand
           </td>
           <td>
             84 milliseconds
@@ -2356,7 +2796,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            groups-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2367,7 +2807,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            groups-SubstituteFromFileCommand
           </td>
           <td>
             1 millisecond
@@ -2378,7 +2818,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2389,7 +2829,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             3 milliseconds
@@ -2400,7 +2840,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            code-units-GenerateSvgCommand
           </td>
           <td>
             68 milliseconds
@@ -2411,7 +2851,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2422,7 +2862,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            code-units-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2433,7 +2873,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2444,7 +2884,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            code-units-GenerateSvgCommand
           </td>
           <td>
             75 milliseconds
@@ -2455,7 +2895,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2466,7 +2906,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            code-units-SubstituteFromFileCommand
           </td>
           <td>
             2 milliseconds
@@ -2477,7 +2917,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2488,7 +2928,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            code-units-GenerateSvgCommand
           </td>
           <td>
             75 milliseconds
@@ -2499,7 +2939,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             1 millisecond
@@ -2510,7 +2950,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            code-units-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2521,7 +2961,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2532,7 +2972,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            code-units-GenerateSvgCommand
           </td>
           <td>
             97 milliseconds
@@ -2543,7 +2983,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2554,7 +2994,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            code-units-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2565,7 +3005,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2576,7 +3016,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            code-units-GenerateSvgCommand
           </td>
           <td>
             83 milliseconds
@@ -2587,7 +3027,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2598,7 +3038,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            code-units-SubstituteFromFileCommand
           </td>
           <td>
             4 milliseconds
@@ -2609,7 +3049,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2620,7 +3060,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            code-units-GenerateSvgCommand
           </td>
           <td>
             103 milliseconds
@@ -2631,7 +3071,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2642,7 +3082,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            code-units-SubstituteFromFileCommand
           </td>
           <td>
             3 milliseconds
@@ -2653,7 +3093,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2664,7 +3104,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            code-units-GenerateSvgCommand
           </td>
           <td>
             103 milliseconds
@@ -2675,7 +3115,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2686,7 +3126,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            code-units-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2697,7 +3137,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2708,7 +3148,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            code-units-GenerateSvgCommand
           </td>
           <td>
             123 milliseconds
@@ -2719,7 +3159,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2730,7 +3170,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            code-units-SubstituteFromFileCommand
           </td>
           <td>
             1 millisecond
@@ -2741,7 +3181,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2752,7 +3192,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            code-units-GenerateSvgCommand
           </td>
           <td>
             63 milliseconds
@@ -2763,7 +3203,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2774,7 +3214,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            code-units-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2785,7 +3225,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2796,7 +3236,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            code-units-GenerateSvgCommand
           </td>
           <td>
             102 milliseconds
@@ -2807,7 +3247,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2818,7 +3258,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            code-units-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2829,7 +3269,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             3 milliseconds
@@ -2840,7 +3280,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            code-units-GenerateSvgCommand
           </td>
           <td>
             99 milliseconds
@@ -2851,7 +3291,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2862,7 +3302,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            code-units-SubstituteFromFileCommand
           </td>
           <td>
             2 milliseconds
@@ -2873,7 +3313,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2884,7 +3324,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            code-units-GenerateSvgCommand
           </td>
           <td>
             109 milliseconds
@@ -2895,7 +3335,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2906,7 +3346,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            code-units-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2917,7 +3357,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2928,7 +3368,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            code-units-GenerateSvgCommand
           </td>
           <td>
             105 milliseconds
@@ -2939,7 +3379,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2950,7 +3390,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            code-units-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2961,7 +3401,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             3 milliseconds
@@ -2972,7 +3412,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            code-units-GenerateSvgCommand
           </td>
           <td>
             91 milliseconds
@@ -2983,7 +3423,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            code-units-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -2994,7 +3434,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            code-units-SubstituteFromFileCommand
           </td>
           <td>
             7 milliseconds
@@ -3005,7 +3445,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            graph-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -3016,7 +3456,7 @@
         </tr>
         <tr>
           <td>
-            GenerateSvgCommand
+            graph-GenerateSvgCommand
           </td>
           <td>
             76 milliseconds
@@ -3027,7 +3467,7 @@
         </tr>
         <tr>
           <td>
-            CreateFileCommand
+            graph-CreateFileCommand
           </td>
           <td>
             0 milliseconds
@@ -3038,7 +3478,7 @@
         </tr>
         <tr>
           <td>
-            SubstituteFromFileCommand
+            graph-SubstituteFromFileCommand
           </td>
           <td>
             0 milliseconds
@@ -3049,7 +3489,7 @@
         </tr>
         <tr>
           <td>
-            commands
+            runner-commands
           </td>
           <td>
             2 seconds 792 milliseconds
@@ -3060,7 +3500,7 @@
         </tr>
         <tr>
           <td>
-            all before final report
+            runner-all before final report
           </td>
           <td>
             3 seconds 216 milliseconds

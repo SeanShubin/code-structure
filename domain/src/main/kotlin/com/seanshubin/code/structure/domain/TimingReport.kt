@@ -7,13 +7,13 @@ import java.nio.file.Path
 import java.time.Duration
 
 class TimingReport(private val timer: Timer) : Report {
-    override val name: String = "timing"
+    override val reportName: String = "timing"
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val content = createContent()
         val root = ReportHelper.wrapInTopLevelHtml(Page.timing.caption, content, listOf(Page.tableOfContents))
         val path = reportDir.resolve(Page.timing.file)
         val lines = root.toLines()
-        val createFileCommand = CreateFileCommand(path, lines)
+        val createFileCommand = CreateFileCommand(reportName, path, lines)
         return listOf(createFileCommand)
     }
 
@@ -27,16 +27,16 @@ class TimingReport(private val timer: Timer) : Report {
     }
 
     companion object {
-        private val timingEventCaptions = listOf("category", "duration", "caption")
+        private val timingEventCaptions = listOf("key", "duration", "caption")
         private fun timingEventToRow(timingEvent: TimingEvent): List<String> {
             return listOf(
-                timingEvent.category,
+                timingEvent.key,
                 timingEvent.duration.formatMilliseconds(),
                 timingEvent.caption
             )
         }
 
-        private val timingSummaryCaptions = listOf("category", "count", "total", "median", "min", "max")
+        private val timingSummaryCaptions = listOf("key", "count", "total", "median", "min", "max")
         private fun timingSummaryToRow(timingSummary: TimingSummary): List<String> {
             val medianString = if (timingSummary.median.size == 1) {
                 timingSummary.median[0].formatMilliseconds()
@@ -48,7 +48,7 @@ class TimingReport(private val timer: Timer) : Report {
                 }
             }
             return listOf(
-                timingSummary.category,
+                timingSummary.key,
                 timingSummary.count.toString(),
                 timingSummary.total.formatMilliseconds(),
                 medianString,

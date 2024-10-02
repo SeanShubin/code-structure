@@ -6,7 +6,7 @@ import java.nio.file.Path
 
 class StaticContentReport : Report {
     private val classLoader = javaClass.classLoader
-    override val name: String = "static-content"
+    override val reportName: String = "static-content"
     override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
         return listOf(
             fromResource(reportDir, "reset.css"),
@@ -21,6 +21,6 @@ class StaticContentReport : Report {
             ?: throw RuntimeException("Unable to load resource named '$name'")
         val lines = inputStream.consumeLines(StandardCharsets.UTF_8)
         val path = reportDir.resolve(name)
-        return CreateFileCommand(path, lines)
+        return CreateFileCommand(name, path, lines)
     }
 }

@@ -7,7 +7,7 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
 class TableOfContentsReport : Report {
-    override val name: String = "table-of-contents"
+    override val reportName: String = "table-of-contents"
     override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
         val parents = emptyList<Page>()
         val children = listOf(
@@ -32,12 +32,12 @@ class TableOfContentsReport : Report {
             Page.timing
         )
         val listElements = bigList(children, ::generateAnchor, BigListClassName.COLUMN_1, caption = null)
-        val name = "Table Of Contents"
-        val html = ReportHelper.wrapInTopLevelHtml(name, listElements, parents)
+        val title = "Table Of Contents"
+        val html = ReportHelper.wrapInTopLevelHtml(title, listElements, parents)
         val fileName = "index.html"
         val path = reportDir.resolve(fileName)
         val lines = html.toLines()
-        return listOf(CreateFileCommand(path, lines))
+        return listOf(CreateFileCommand(reportName, path, lines))
     }
 
     private fun generateAnchor(page: Page): List<HtmlElement> =

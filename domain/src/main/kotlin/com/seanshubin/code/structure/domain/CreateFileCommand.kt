@@ -3,7 +3,11 @@ package com.seanshubin.code.structure.domain
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
 
-data class CreateFileCommand(val path: Path, val lines: List<String>) : Command {
+data class CreateFileCommand(
+    override val source: String,
+    val path: Path,
+    val lines: List<String>
+) : Command {
     override val category: String get() = "CreateFileCommand"
     override val id: String get() = "CreateFileCommand(path = $path, line count = ${lines.size})"
     override fun execute(environment: Environment) {

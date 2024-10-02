@@ -5,7 +5,7 @@ class CommandRunnerImpl(
     private val environment: Environment
 ) : CommandRunner {
     override fun execute(command: Command) {
-        timer.monitor(command.category, command.id) {
+        timer.monitor(command.source, command.category, command.id) {
             command.execute(environment)
         }
     }

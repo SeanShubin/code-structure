@@ -12,14 +12,15 @@ class AnalyzerImpl(
     private val countAsErrors: CountAsErrors,
     private val errorLimit: Int
 ) : Analyzer {
+    private val sourceName = "analyzer"
     override fun analyze(observations: Observations): Analysis {
         val qualifiedNames = observations.sources.flatMap { it.modules }.sorted().distinct()
         val qualifiedIds = qualifiedNames.map { it.toCodeUnit().parts }
         val commonPrefix = ListUtil.commonPrefix(qualifiedIds)
-        val names = timer.monitor("analysis.names") {
+        val names = timer.monitor(sourceName, "analysis.names") {
             qualifiedNames.map { it.toName(commonPrefix) }
         }
-        val references = timer.monitor("analysis.references") {
+        val references = timer.monitor(sourceName, "analysis.references") {
             observations.binaries.flatMap { binary ->
                 binary.dependencyNames.map { dependency ->
                     binary.name to dependency
@@ -32,29 +33,30 @@ class AnalyzerImpl(
                 }
                 .distinct()
         }
-        val global = timer.monitor("analysis.global") { analyze(names, references, cycleAlgorithm, timer) }
-        val ancestorToDescendant = timer.monitor("analysis.ancestorToDescendant") {
+        val global = timer.monitor(sourceName, "analysis.global") { analyze(sourceName, names, references, cycleAlgorithm, timer) }
+        val ancestorToDescendant = timer.monitor(sourceName, "analysis.ancestorToDescendant") {
             references.filter {
                 it.first.toCodeUnit().isAncestorOf(it.second.toCodeUnit())
             }
         }
-        val descendantToAncestor = timer.monitor("analysis.descendantToAncestor") {
+        val descendantToAncestor = timer.monitor(sourceName, "analysis.descendantToAncestor") {
             references.filter {
                 it.second.toCodeUnit().isAncestorOf(it.first.toCodeUnit())
             }
         }
-        val nameUriList = timer.monitor("analysis.nameUriList") { composeNameUriList(observations, commonPrefix) }
-        val lineage = timer.monitor("analysis.lineage") { Lineage(ancestorToDescendant, descendantToAncestor) }
-        val groupScopedAnalysisList = timer.monitor("analysis.groupScopedAnalysisList") {
+        val nameUriList = timer.monitor(sourceName, "analysis.nameUriList") { composeNameUriList(observations, commonPrefix) }
+        val lineage = timer.monitor(sourceName, "analysis.lineage") { Lineage(ancestorToDescendant, descendantToAncestor) }
+        val groupScopedAnalysisList = timer.monitor(sourceName, "analysis.groupScopedAnalysisList") {
             composeGroupScopedAnalysisList(
+                sourceName,
                 emptyList(),
                 NamesReferences(names, references),
                 cycleAlgorithm,
                 timer
             )
         }
-        val errors = timer.monitor("analysis.errors") { composeErrors(global, groupScopedAnalysisList, lineage) }
-        val summary = timer.monitor("analysis.summary") {
+        val errors = timer.monitor(sourceName, "analysis.errors") { composeErrors(global, groupScopedAnalysisList, lineage) }
+        val summary = timer.monitor(sourceName, "analysis.summary") {
             composeSummary(
                 countAsErrors,
                 errorLimit,
@@ -135,15 +137,16 @@ class AnalyzerImpl(
         }
 
         private fun analyze(
+            sourceName: String,
             names: List<String>,
             references: List<Pair<String, String>>,
             cycleAlgorithm: CycleAlgorithm,
             timer: Timer
         ): ScopedAnalysis {
-            val cycles = timer.monitor("analyze.cycles") { findCycles(references, cycleAlgorithm) }
-            val entryPoints = timer.monitor("analyze.entryPoints") { findEntryPoints(names, references) }
-            val cycleDetails = timer.monitor("analyze.cycleDetails") { composeAllCycleDetails(cycles, references) }
-            val details = timer.monitor("analyze.details") { composeDetails(names, references, cycles) }
+            val cycles = timer.monitor(sourceName, "analyze.cycles") { findCycles(references, cycleAlgorithm) }
+            val entryPoints = timer.monitor(sourceName, "analyze.entryPoints") { findEntryPoints(names, references) }
+            val cycleDetails = timer.monitor(sourceName, "analyze.cycleDetails") { composeAllCycleDetails(cycles, references) }
+            val details = timer.monitor(sourceName, "analyze.details") { composeDetails(names, references, cycles) }
             return ScopedAnalysis(
                 cycles,
                 names,
@@ -239,6 +242,7 @@ class AnalyzerImpl(
         }
 
         private fun composeGroupScopedAnalysisList(
+            sourceName: String,
             path: List<String>,
             namesReferences: NamesReferences,
             cycleAlgorithm: CycleAlgorithm,
@@ -246,12 +250,12 @@ class AnalyzerImpl(
         ): List<Pair<List<String>, ScopedAnalysis>> {
             if (namesReferences.names.isEmpty()) return emptyList()
             val top = namesReferences.head()
-            val topAnalysis = analyze(top.names, top.references, cycleAlgorithm, timer)
+            val topAnalysis = analyze(sourceName, top.names, top.references, cycleAlgorithm, timer)
             val topEntry = path to topAnalysis
             val descendantMap = top.names.flatMap {
                 val childPath = path + it
                 val childNamesReferences = namesReferences.tail(it)
-                composeGroupScopedAnalysisList(childPath, childNamesReferences, cycleAlgorithm, timer)
+                composeGroupScopedAnalysisList(sourceName, childPath, childNamesReferences, cycleAlgorithm, timer)
             }
             return listOf(topEntry) + descendantMap
         }

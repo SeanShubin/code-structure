@@ -9,14 +9,14 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
 class DirectCycleReport(private val nodeLimitForGraph: Int) : Report {
-    override val name: String = "direct-cycles"
+    override val reportName: String = "direct-cycles"
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
         val htmlInsideBody = generateHtml(validated)
         val html = ReportHelper.wrapInTopLevelHtml(Page.directCycles.caption, htmlInsideBody, parents)
         val path = reportDir.resolve(Page.directCycles.file)
         val lines = html.toLines()
-        val topCommand = CreateFileCommand(path, lines)
+        val topCommand = CreateFileCommand(reportName, path, lines)
         val graphCommands = commandsForAllCycleGraphs(reportDir, validated.analysis.global, parents)
         return listOf(topCommand) + graphCommands
     }
@@ -40,6 +40,7 @@ class DirectCycleReport(private val nodeLimitForGraph: Int) : Report {
     ): List<Command> {
         val nodes = detail.names.map { toDotNode(it) }
         return ReportHelper.graphCommands(
+            reportName,
             reportDir,
             cycleName(index),
             nodes,

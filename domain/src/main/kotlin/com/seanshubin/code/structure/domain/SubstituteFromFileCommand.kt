@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.Path
 
 data class SubstituteFromFileCommand(
+    override val source: String,
     val templateFile: Path,
     val searchText: String,
     val replaceFile: Path,

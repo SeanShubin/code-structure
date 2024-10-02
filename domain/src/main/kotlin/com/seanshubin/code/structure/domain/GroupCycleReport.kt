@@ -9,7 +9,7 @@ import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
 
 class GroupCycleReport(private val nodeLimitForGraph: Int) : Report {
-    override val name: String = "group-cycles"
+    override val reportName: String = "group-cycles"
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
         val groupCycleList = groupCycleList(validated.analysis.groupScopedAnalysisList)
@@ -17,7 +17,7 @@ class GroupCycleReport(private val nodeLimitForGraph: Int) : Report {
         val html = ReportHelper.wrapInTopLevelHtml(Page.groupCycles.caption, htmlInsideBody, parents)
         val path = reportDir.resolve(Page.groupCycles.file)
         val lines = html.toLines()
-        val topCommand = CreateFileCommand(path, lines)
+        val topCommand = CreateFileCommand(reportName, path, lines)
         val graphCommands = commandsForAllCycleGraphs(reportDir, groupCycleList, parents)
         return listOf(topCommand) + graphCommands
     }
@@ -49,6 +49,7 @@ class GroupCycleReport(private val nodeLimitForGraph: Int) : Report {
     ): List<Command> {
         val nodes = groupCycle.names.map { toDotNode(it) }
         return ReportHelper.graphCommands(
+            reportName,
             reportDir,
             cycleName(index),
             nodes,

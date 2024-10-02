@@ -26,6 +26,7 @@ object ReportHelper {
         else groupPages(groupPath.take(groupPath.size - 1)) + groupPage(groupPath)
 
     fun graphCommands(
+        reportName: String,
         reportDir: Path,
         baseName: String,
         nodes: List<DotNode>,
@@ -36,13 +37,32 @@ object ReportHelper {
         belowGraph: List<HtmlElement> = emptyList()
     ): List<Command> {
         return if (nodes.size > nodeLimitForGraph) {
-            graphCommandsExceedsNodeLimit(reportDir, baseName, nodes, nodeLimitForGraph, references, cycles, parents)
+            graphCommandsExceedsNodeLimit(
+                reportName,
+                reportDir,
+                baseName,
+                nodes,
+                nodeLimitForGraph,
+                references,
+                cycles,
+                parents
+            )
         } else {
-            graphCommandsWithinNodeLimit(reportDir, baseName, nodes, references, cycles, parents, belowGraph)
+            graphCommandsWithinNodeLimit(
+                reportName,
+                reportDir,
+                baseName,
+                nodes,
+                references,
+                cycles,
+                parents,
+                belowGraph
+            )
         }
     }
 
     private fun graphCommandsWithinNodeLimit(
+        reportName: String,
         reportDir: Path,
         baseName: String,
         nodes: List<DotNode>,
@@ -56,18 +76,19 @@ object ReportHelper {
         val htmlTemplatePath = reportDir.resolve("$baseName--template.html")
         val htmlPath = reportDir.resolve("$baseName.html")
         val lines = DotFormat(nodes, references, cycles).toLines()
-        val createDotSource = CreateFileCommand(dotSourcePath, lines)
-        val generateSvg = GenerateSvgCommand(dotSourcePath, svgPath)
+        val createDotSource = CreateFileCommand(reportName, dotSourcePath, lines)
+        val generateSvg = GenerateSvgCommand(reportName, dotSourcePath, svgPath)
         val substitutionTag = "---replace--with--$baseName.svg---"
         val htmlContent = htmlContent(substitutionTag, belowGraph)
         val htmlElement = wrapInTopLevelHtml(baseName, htmlContent, parents)
         val htmlLines = htmlElement.toLines()
-        val createHtml = CreateFileCommand(htmlTemplatePath, htmlLines)
-        val replaceCommand = SubstituteFromFileCommand(htmlTemplatePath, substitutionTag, svgPath, htmlPath)
+        val createHtml = CreateFileCommand(reportName, htmlTemplatePath, htmlLines)
+        val replaceCommand = SubstituteFromFileCommand(reportName, htmlTemplatePath, substitutionTag, svgPath, htmlPath)
         return listOf(createDotSource, generateSvg, createHtml, replaceCommand)
     }
 
     private fun graphCommandsExceedsNodeLimit(
+        reportName: String,
         reportDir: Path,
         baseName: String,
         nodes: List<DotNode>,
@@ -79,13 +100,13 @@ object ReportHelper {
         val dotSourcePath = reportDir.resolve("$baseName.txt")
         val htmlTemplatePath = reportDir.resolve("$baseName.html")
         val lines = DotFormat(nodes, references, cycles).toLines()
-        val createDotSource = CreateFileCommand(dotSourcePath, lines)
+        val createDotSource = CreateFileCommand(reportName, dotSourcePath, lines)
         val message = "Too many nodes for graph $baseName, limit is $nodeLimitForGraph, have ${nodes.size}"
         val paragraphText = HtmlElement.Text(message)
         val htmlContent = listOf(HtmlElement.Tag("p", paragraphText))
         val htmlElement = wrapInTopLevelHtml(baseName, htmlContent, parents)
         val htmlLines = htmlElement.toLines()
-        val createHtml = CreateFileCommand(htmlTemplatePath, htmlLines)
+        val createHtml = CreateFileCommand(reportName, htmlTemplatePath, htmlLines)
         return listOf(createDotSource, createHtml)
     }
 

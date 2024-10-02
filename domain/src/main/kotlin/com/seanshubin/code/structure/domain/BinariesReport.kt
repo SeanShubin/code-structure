@@ -7,7 +7,7 @@ import com.seanshubin.code.structure.relationparser.RelationDetail
 import java.nio.file.Path
 
 class BinariesReport : Report {
-    override val name: String = "binaries"
+    override val reportName: String = "binaries"
 
     override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
         val parents = listOf(Page.tableOfContents)
@@ -15,7 +15,7 @@ class BinariesReport : Report {
         val html = ReportHelper.wrapInTopLevelHtml(Page.binaries.caption, htmlInsideBody, parents)
         val path = reportDir.resolve(Page.binaries.file)
         val lines = html.toLines()
-        return listOf(CreateFileCommand(path, lines))
+        return listOf(CreateFileCommand(reportName, path, lines))
     }
 
     private fun generateHtml(observations: Observations): List<HtmlElement> {

@@ -12,14 +12,14 @@ class LineageReport(
     private val page: Page,
     private val direction: (Lineage) -> List<Pair<String, String>>
 ) : Report {
-    override val name: String = "lineage"
+    override val reportName: String = "lineage"
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
         val htmlInsideBody = generateHtml(validated)
         val html = ReportHelper.wrapInTopLevelHtml(page.caption, htmlInsideBody, parents)
         val path = reportDir.resolve(page.file)
         val lines = html.toLines()
-        val topCommand = CreateFileCommand(path, lines)
+        val topCommand = CreateFileCommand(reportName, path, lines)
         return listOf(topCommand)
     }
 

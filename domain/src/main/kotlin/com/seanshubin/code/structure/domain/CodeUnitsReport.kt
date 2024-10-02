@@ -14,7 +14,7 @@ class CodeUnitsReport(
     private val localDepth: Int,
     private val nodeLimitForGraph: Int
 ) : Report {
-    override val name: String = "code-units"
+    override val reportName: String = "code-units"
 
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
@@ -23,7 +23,7 @@ class CodeUnitsReport(
         val content = createContent(analysis.global.names)
         val graphs = if (localDepth == 0) emptyList() else generateGraphs(reportDir, analysis, parents)
         val lines = ReportHelper.wrapInTopLevelHtml(Page.codeUnits.caption, content, parents).toLines()
-        val index = CreateFileCommand(path, lines)
+        val index = CreateFileCommand(reportName, path, lines)
         val commands = listOf(index) + graphs
         return commands
     }
@@ -72,6 +72,7 @@ class CodeUnitsReport(
             val referencesSorted = referencesSet.sortedWith(pairComparator)
             val baseName = name.toCodeUnit().id("local")
             ReportHelper.graphCommands(
+                reportName,
                 reportDir,
                 baseName,
                 nodes,

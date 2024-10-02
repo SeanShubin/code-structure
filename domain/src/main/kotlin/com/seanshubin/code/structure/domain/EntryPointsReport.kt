@@ -7,13 +7,13 @@ import com.seanshubin.code.structure.html.HtmlElementUtil
 import java.nio.file.Path
 
 class EntryPointsReport : Report {
-    override val name: String = "entry-points"
+    override val reportName: String = "entry-points"
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val path = reportDir.resolve(Page.entryPoints.file)
         val parents = listOf(Page.tableOfContents)
         val content = createContent(validated.analysis.global)
         val lines = ReportHelper.wrapInTopLevelHtml(Page.entryPoints.caption, content, parents).toLines()
-        val createFile = CreateFileCommand(path, lines)
+        val createFile = CreateFileCommand(reportName, path, lines)
         return listOf(createFile)
     }
 
