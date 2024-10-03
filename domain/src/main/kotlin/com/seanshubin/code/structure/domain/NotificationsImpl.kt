@@ -24,10 +24,11 @@ class NotificationsImpl(private val emitLine: (String) -> Unit) : Notifications 
     }
 
     override fun summaryEvent(summary: Summary) {
-        summary.errors.forEach { errorSummaryItem ->
-            val count = errorSummaryItem.count
-            val name = errorSummaryItem.name
-            if (errorSummaryItem.isPartOfTotal){
+        ErrorType.entries.forEach { errorType ->
+            val value = summary.errors.getValue(errorType)
+            val count = value.count
+            val name = errorType.caption
+            if(value.isPartOfTotal){
                 emitLine("$name: $count")
             } else {
                 emitLine("$name: $count (not part of total)")

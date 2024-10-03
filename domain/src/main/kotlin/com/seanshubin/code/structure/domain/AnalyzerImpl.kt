@@ -93,16 +93,15 @@ class AnalyzerImpl(
             val ancestorDependsOnDescendantCount = ancestorToDescendant.size
             val descendantDependsOnAncestorCount = descendantToAncestor.size
             return Summary(
-                listOf(
-                    ErrorSummaryItem("Direct Cycle", directCycleCount, countAsErrors.directCycle),
-                    ErrorSummaryItem("Group Cycle", inGroupCycleCount, countAsErrors.groupCycle),
-                    ErrorSummaryItem(
-                        "Ancestor Depends on Descendant",
+                mapOf(
+                    ErrorType.DIRECT_CYCLE to ErrorSummaryItem(directCycleCount, countAsErrors.directCycle),
+                    ErrorType.GROUP_CYCLE to ErrorSummaryItem(inGroupCycleCount, countAsErrors.groupCycle),
+                    ErrorType.ANCESTOR_DEPENDS_ON_DESCENDANT to ErrorSummaryItem(
                         ancestorDependsOnDescendantCount,
                         countAsErrors.ancestorDependsOnDescendant
                     ),
+                    ErrorType.DESCENDANT_DEPENDS_ON_ANCESTOR to
                     ErrorSummaryItem(
-                        "Descendant Depends On Ancestor",
                         descendantDependsOnAncestorCount,
                         countAsErrors.descendantDependsOnAncestor
                     ),
