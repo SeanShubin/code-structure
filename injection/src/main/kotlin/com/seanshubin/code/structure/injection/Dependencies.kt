@@ -2,6 +2,8 @@ package com.seanshubin.code.structure.injection
 
 import com.seanshubin.code.structure.beamformat.BeamParser
 import com.seanshubin.code.structure.beamformat.BeamParserImpl
+import com.seanshubin.code.structure.clojuresyntax.ClojureParser
+import com.seanshubin.code.structure.clojuresyntax.ClojureParserImpl
 import com.seanshubin.code.structure.config.Configuration
 import com.seanshubin.code.structure.config.JsonFileConfiguration
 import com.seanshubin.code.structure.config.TypeUtil.coerceToBoolean
@@ -61,9 +63,10 @@ class Dependencies(integrations: Integrations) {
     )
     private val maximumAllowedErrorCount: Int = config.load(listOf("maximumAllowedErrorCount"), 0).coerceToInt()
     private val inputDir = config.load(listOf("inputDir"), ".").coerceToPath()
-    private val outputDir = config.load(listOf("outputDir"), "generated").coerceToPath()
+    private val outputDir = config.load(listOf("outputDir"), "generated/code-structure").coerceToPath()
     private val localDepth = config.load(listOf("localDepth"), 1).coerceToInt()
     private val useObservationsCache = config.load(listOf("useObservationsCache"), false).coerceToBoolean()
+    private val includeDynamicInvocations = config.load(listOf("includeDynamicInvocations"), false).coerceToBoolean()
     private val sourcePrefix = config.load(listOf("sourcePrefix"), "prefix for link to source code").coerceToString()
     private val sourceFileIncludeRegexPatterns: List<String> =
         config.load(listOf("sourceFileRegexPatterns", "include"), emptyList<String>()).coerceToListOfString()
@@ -100,18 +103,20 @@ class Dependencies(integrations: Integrations) {
         fileByteSequenceLoader
     )
     private val classInfoLoader: ClassInfoLoaderImpl = ClassInfoLoaderImpl()
-    private val classParser: ClassParser = ClassParserImpl(inputDir, byteSequenceLoader, classInfoLoader)
+    private val classParser: ClassParser = ClassParserImpl(inputDir, byteSequenceLoader, classInfoLoader, includeDynamicInvocations)
     private val beamParser: BeamParser = BeamParserImpl(files, inputDir)
     private val typeScriptRelationParser: TypeScriptRelationParser = TypeScriptRelationParserImpl(
         files, charset
     )
     private val typeScriptNameParser: TypeScriptNameParser = TypeScriptNameParserImpl()
+    private val clojureParser:ClojureParser = ClojureParserImpl(inputDir)
     private val nameParser: NameParser = DynamicNameParser(
         kotlinParser,
         elixirParser,
         scalaParser,
         javaParser,
-        typeScriptNameParser
+        typeScriptNameParser,
+        clojureParser
     )
     private val relationParser: RelationParser =
         DynamicRelationParser(classParser, beamParser, typeScriptRelationParser)

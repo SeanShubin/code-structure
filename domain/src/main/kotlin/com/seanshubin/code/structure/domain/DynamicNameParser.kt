@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.clojuresyntax.ClojureParser
 import com.seanshubin.code.structure.elixirsyntax.ElixirParser
 import com.seanshubin.code.structure.javasyntax.JavaParser
 import com.seanshubin.code.structure.kotlinsyntax.KotlinParser
@@ -15,7 +16,8 @@ class DynamicNameParser(
     elixirParser: ElixirParser,
     scalaParser: ScalaParser,
     javaParser: JavaParser,
-    typeScriptParser: TypeScriptNameParser
+    typeScriptParser: TypeScriptNameParser,
+    clojureParser: ClojureParser
 ) : NameParser {
     private val parserByExtension = mapOf(
         "scala" to scalaParser,
@@ -23,7 +25,8 @@ class DynamicNameParser(
         "java" to javaParser,
         "ex" to elixirParser,
         "tsx" to typeScriptParser,
-        "ts" to typeScriptParser
+        "ts" to typeScriptParser,
+        "clj" to clojureParser
     )
 
     override fun parseName(path: Path, content: String): NameDetail {

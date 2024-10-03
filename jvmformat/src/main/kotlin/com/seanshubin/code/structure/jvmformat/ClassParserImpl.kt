@@ -6,9 +6,11 @@ import java.nio.file.Path
 class ClassParserImpl(
     private val relativeToDir: Path,
     private val byteSequenceLoader: ByteSequenceLoader,
-    private val classInfoLoader: ClassInfoLoader
+    private val classInfoLoader: ClassInfoLoader,
+    private val includeDynamicInvocations: Boolean
 ) : ClassParser {
-    override fun parseDependencies(path: Path, names: List<String>): List<RelationDetail> {
+    override fun parseDependencies(path: Path, rawNames: List<String>): List<RelationDetail> {
+        val names = rawNames.map{it.formatClassName()}
         val relativeDir = relativeToDir.relativize(path)
         val byteSequences = byteSequenceLoader.loadByteSequences(path, names)
         val binaryDetailList = byteSequences.map { byteSequence ->
@@ -26,7 +28,11 @@ class ClassParserImpl(
         names: List<String>
     ): RelationDetail {
         val name = jvmClass.thisClassName.formatClassName()
-        val allDependencyNames = jvmClass.dependencyNames.map { it.formatClassName() }
+        val allDependencyNames = if(includeDynamicInvocations) {
+            jvmClass.constantPool.filterIsInstance<ConstantPoolInfo.Companion.Utf8Info>().map {it.value}.map{it.formatClassName()}
+        } else {
+            jvmClass.dependencyNames.map { it.formatClassName() }
+        }
         val filteredDependencyNames = allDependencyNames.filter {
             names.contains(it)
         }.filterNot {
@@ -40,6 +46,6 @@ class ClassParserImpl(
         val dollarRemoved = if (dollarIndex == -1) this else {
             this.substring(0, dollarIndex)
         }
-        return dollarRemoved.replace('/', '.')
+        return dollarRemoved.replace('/', '.').replace('-', '_')
     }
 }

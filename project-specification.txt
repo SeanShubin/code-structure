@@ -69,6 +69,7 @@
       scalasyntax
       javasyntax
       typescriptsyntax
+      clojuresyntax
       cycle
       dot
       exec
@@ -88,6 +89,7 @@
     elixirsyntax      [ nameparser ]
     scalasyntax       [ nameparser ]
     javasyntax        [ nameparser ]
+    clojuresyntax     [ nameparser ]
     typescriptsyntax  [ relationparser nameparser contract-delegate contract-test ]
     html              [ ]
     io                [ ]
