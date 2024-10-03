@@ -181,10 +181,7 @@ class Dependencies(integrations: Integrations) {
     private val environment: Environment = EnvironmentImpl(files, outputDir, exec)
     private val commandRunner: CommandRunner = CommandRunnerImpl(timer, environment)
     private val configFileEvent: (Path) -> Unit = notifications::configFileEvent
-    private val errorReportEvent: (List<String>) -> Unit = notifications::errorReportEvent
     private val fullAppTimeTakenEvent: (Duration) -> Unit = notifications::fullAppTimeTakenEvent
-    private val errorHandler: ErrorHandler =
-        ErrorHandlerImpl(files, configuredErrorsFile, maximumAllowedErrorCount, errorReportEvent)
     private val summaryEvent: (Summary) -> Unit = notifications::summaryEvent
     val errorMessageHolder: ErrorMessageHolder = ErrorMessageHolderImpl()
     val runner: Runnable = Runner(
@@ -199,8 +196,6 @@ class Dependencies(integrations: Integrations) {
         configFileEvent,
         summaryEvent,
         timer,
-        errorMessageHolder,
-        errorHandler,
-        countAsErrors
+        errorMessageHolder
     )
 }

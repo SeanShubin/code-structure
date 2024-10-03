@@ -19,10 +19,6 @@ class NotificationsImpl(private val emitLine: (String) -> Unit) : Notifications 
         emitLine("Took $formattedTime")
     }
 
-    override fun errorReportEvent(lines: List<String>) {
-        lines.forEach(emitLine)
-    }
-
     override fun summaryEvent(summary: Summary) {
         ErrorType.entries.forEach { errorType ->
             val value = summary.errors.getValue(errorType)
