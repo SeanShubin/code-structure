@@ -60,7 +60,7 @@ class DirectCycleReport(private val nodeLimitForGraph: Int) : Report {
         DotNode(
             id = name,
             text = name,
-            link = name.toCodeUnit().toUriName("local", ".html"),
+            link = ReportUtil.toLocalUri(name),
             color = "blue",
             bold = false
         )
@@ -100,7 +100,6 @@ class DirectCycleReport(private val nodeLimitForGraph: Int) : Report {
     }
 
     private fun cycleElement(name: String): List<HtmlElement> {
-        val link = name.toCodeUnit().toUriName("local", ".html")
-        return listOf(anchor(name, link))
+        return listOf(ReportUtil.toLocalLink(name))
     }
 }

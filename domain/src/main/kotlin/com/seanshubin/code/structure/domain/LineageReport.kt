@@ -37,8 +37,7 @@ class LineageReport(
         listOf(nameToElement(reference.first), nameToElement(reference.second))
 
     private fun nameToElement(name: String): HtmlElement {
-        val link = name.toCodeUnit().toUriName("local", ".html")
-        val anchor = anchor(name, link)
+        val anchor = ReportUtil.toLocalLink(name)
         val inSpan = listOf(anchor)
         val span = HtmlElement.Tag("span", inSpan)
         return span

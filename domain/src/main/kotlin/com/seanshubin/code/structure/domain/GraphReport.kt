@@ -26,7 +26,7 @@ class GraphReport(private val nodeLimitForGraph: Int) : Report {
         DotNode(
             id = name,
             text = name,
-            link = name.toCodeUnit().toUriName("local", ".html"),
+            link = ReportUtil.toLocalUri(name),
             color = "blue",
             bold = false
         )

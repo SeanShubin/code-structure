@@ -54,7 +54,7 @@ class CodeUnitsReport(
     }
 
     private fun localLink(name: String, caption: String): List<HtmlElement> =
-        listOf(anchor(caption, name.toCodeUnit().toUriName("local", ".html")))
+        listOf(anchor(caption, ReportUtil.toLocalUri(name)))
 
     private fun singleGroupLink(name: String): List<HtmlElement> =
         containingGroupLink(name, name)
@@ -70,7 +70,7 @@ class CodeUnitsReport(
             val nodes = localNamesSorted.map { toDotNode(name, it, analysis.global) }
             val referencesSet = analysis.global.referencesForScope(localNamesSet)
             val referencesSorted = referencesSet.sortedWith(pairComparator)
-            val baseName = name.toCodeUnit().id("local")
+            val baseName = ReportUtil.toLocalBaseName(name)
             ReportHelper.graphCommands(
                 reportName,
                 reportDir,
@@ -125,7 +125,7 @@ class CodeUnitsReport(
         return DotNode(
             id = name,
             text = text,
-            link = name.toCodeUnit().toUriName("local", ".html"),
+            link = ReportUtil.toLocalUri(name),
             color = "blue",
             bold = bold
         )

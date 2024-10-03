@@ -76,7 +76,7 @@ class GroupReport(private val nodeLimitForGraph: Int) : Report {
         val hasChildren = analysis.containsGroup(groupPath)
         val link =
             if (hasChildren) CodeUnit(groupPath).toUriName("group", ".html")
-            else CodeUnit(groupPath).toUriName("local", ".html")
+            else ReportUtil.toLocalUri(CodeUnit(groupPath))
         val text =
             if (hasChildren) "$name ($descendantCount)"
             else "$name (local)"
