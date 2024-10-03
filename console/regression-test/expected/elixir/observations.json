@@ -258,42 +258,5 @@
       "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathT.ModuleU.beam"
     }
   ],
-  "missingBinaries" : [ ],
-  "configuredErrors" : {
-    "inDirectCycle" : [
-      "PathC.ModuleD",
-      "PathE.PathF.ModuleL",
-      "PathE.PathF.ModuleM",
-      "PathE.PathF.ModuleN",
-      "PathG.ModuleH",
-      "PathI.ModuleJ",
-      "PathP.ModuleQ",
-      "PathR.ModuleS"
-    ],
-    "inGroupCycle" : [
-      "PathC",
-      "PathE",
-      "PathE.PathF.ModuleL",
-      "PathE.PathF.ModuleM",
-      "PathE.PathF.ModuleN",
-      "PathG",
-      "PathI",
-      "PathP",
-      "PathR"
-    ],
-    "lineage" : {
-      "ancestorDependsOnDescendant" : [
-        {
-          "first" : "ModuleP",
-          "second" : "PathP.ModuleQ"
-        }
-      ],
-      "descendantDependsOnAncestor" : [
-        {
-          "first" : "PathE.PathF.ModuleM",
-          "second" : "ModuleE"
-        }
-      ]
-    }
-  }
+  "missingBinaries" : [ ]
 }

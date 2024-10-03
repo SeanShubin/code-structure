@@ -258,42 +258,5 @@
       "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/packaget/ClassU.class"
     }
   ],
-  "missingBinaries" : [ ],
-  "configuredErrors" : {
-    "inDirectCycle" : [
-      "packagec.ClassD",
-      "packagee.packagef.ClassL",
-      "packagee.packagef.ClassM",
-      "packagee.packagef.ClassN",
-      "packageg.ClassH",
-      "packagei.ClassJ",
-      "packagep.ClassQ",
-      "packager.ClassS"
-    ],
-    "inGroupCycle" : [
-      "packagec",
-      "packagee",
-      "packagee.packagef.ClassL",
-      "packagee.packagef.ClassM",
-      "packagee.packagef.ClassN",
-      "packageg",
-      "packagei",
-      "packagep",
-      "packager"
-    ],
-    "lineage" : {
-      "ancestorDependsOnDescendant" : [
-        {
-          "first" : "ClassP",
-          "second" : "packagep.ClassQ"
-        }
-      ],
-      "descendantDependsOnAncestor" : [
-        {
-          "first" : "packagee.packagef.ClassM",
-          "second" : "ClassE"
-        }
-      ]
-    }
-  }
+  "missingBinaries" : [ ]
 }

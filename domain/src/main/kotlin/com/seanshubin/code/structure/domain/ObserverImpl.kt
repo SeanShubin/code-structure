@@ -2,7 +2,6 @@ package com.seanshubin.code.structure.domain
 
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.seanshubin.code.structure.contract.delegate.FilesContract
-import com.seanshubin.code.structure.domain.ErrorsDto.Companion.jsonToErrors
 import com.seanshubin.code.structure.filefinder.FileFinder
 import com.seanshubin.code.structure.json.JsonMappers
 import com.seanshubin.code.structure.nameparser.NameDetail
@@ -14,7 +13,6 @@ import java.nio.file.Path
 
 class ObserverImpl(
     private val inputDir: Path,
-    private val configuredErrorsPath: Path,
     private val sourcePrefix: String,
     private val isSourceFile: (Path) -> Boolean,
     private val isBinaryFile: (Path) -> Boolean,
@@ -39,12 +37,6 @@ class ObserverImpl(
     }
 
     private fun makeObservationsFromDisk(): Observations {
-        val configuredErrors = if (files.exists(configuredErrorsPath)) {
-            val configuredErrorsText = files.readString(configuredErrorsPath, StandardCharsets.UTF_8)
-            configuredErrorsText.jsonToErrors()
-        } else {
-            null
-        }
         val absoluteSourceFiles = fileFinder.findFiles(inputDir, isSourceFile).sorted()
         val relativeSourceFiles = absoluteSourceFiles.map { inputDir.relativize(it) }
         val nameDetailList = absoluteSourceFiles.map { path ->
@@ -86,8 +78,7 @@ class ObserverImpl(
             relativeSourceFiles,
             filteredNameDetailList,
             filteredReferenceDetailList,
-            missingBinaries,
-            configuredErrors
+            missingBinaries
         )
         val text = JsonMappers.pretty.writeValueAsString(observations)
         files.createDirectories(outputDir)

@@ -47,7 +47,6 @@ class Dependencies(integrations: Integrations) {
     private val charset: Charset = StandardCharsets.UTF_8
     private val configBaseName: String = integrations.configBaseName
     private val configFile = Paths.get("$configBaseName-config.json")
-    private val configuredErrorsFile = Paths.get("$configBaseName-existing-errors.json")
     private val files: FilesContract = FilesDelegate
     private val config: Configuration = JsonFileConfiguration(files, configFile)
     private val clock: Clock = integrations.clock
@@ -122,7 +121,6 @@ class Dependencies(integrations: Integrations) {
         DynamicRelationParser(classParser, beamParser, typeScriptRelationParser)
     private val observer: Observer = ObserverImpl(
         inputDir,
-        configuredErrorsFile,
         sourcePrefix,
         isSourceFile,
         isBinaryFile,

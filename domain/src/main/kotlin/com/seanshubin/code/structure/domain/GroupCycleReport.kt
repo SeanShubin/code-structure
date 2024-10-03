@@ -13,7 +13,7 @@ class GroupCycleReport(private val nodeLimitForGraph: Int) : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
         val groupCycleList = groupCycleList(validated.analysis.groupScopedAnalysisList)
-        val htmlInsideBody = generateHtml(validated, groupCycleList)
+        val htmlInsideBody = generateHtml(groupCycleList)
         val html = ReportHelper.wrapInTopLevelHtml(Page.groupCycles.caption, htmlInsideBody, parents)
         val path = reportDir.resolve(Page.groupCycles.file)
         val lines = html.toLines()
@@ -74,50 +74,9 @@ class GroupCycleReport(private val nodeLimitForGraph: Int) : Report {
             bold = false
         )
 
-    private fun generateHtml(validated: Validated, groupCycles: List<GroupCycle>): List<HtmlElement> {
-        return differencesElement(validated, groupCycles) + summaryElement(groupCycles) + cyclesElement(groupCycles)
+    private fun generateHtml(groupCycles: List<GroupCycle>): List<HtmlElement> {
+        return summaryElement(groupCycles) + cyclesElement(groupCycles)
     }
-
-    private fun differencesElement(validated: Validated, groupCycles: List<GroupCycle>): List<HtmlElement> {
-        val configuredErrors = validated.observations.configuredErrors ?: Errors.empty
-        val configuredInGroupCycle = configuredErrors.inGroupCycle.toSet()
-        val allInGroupCycle = groupCycles.flatMap { groupCycle ->
-            groupCycle.qualifiedNames()
-        }.toSet()
-        val newInGroupCycle = (allInGroupCycle - configuredInGroupCycle).toList().sorted()
-        val fixedInGroupCycle = (configuredInGroupCycle - allInGroupCycle).toList().sorted()
-        return differentCyclesElement(
-            "Newly in cycle",
-            newInGroupCycle,
-            ::createGroupCycleElement
-        ) + differentCyclesElement(
-            "No longer in cycle",
-            fixedInGroupCycle,
-            ::createGroupCycleElement
-        )
-    }
-
-    private fun differentCyclesElement(
-        caption: String,
-        cycles: List<String>,
-        cycleElementFunction: (String) -> List<HtmlElement>
-    ): List<HtmlElement> {
-        if (cycles.isEmpty()) return emptyList()
-        val header = HtmlElement.tagText("h2", caption)
-        val list = bigList(
-            cycles,
-            cycleElementFunction,
-            BigListClassName.COLUMN_1,
-            "in cycle"
-        )
-        return listOf(header) + list
-    }
-
-    private fun createGroupCycleElement(name: String): List<HtmlElement> {
-        val link = name.toCodeUnit().parent().toUriName("group", ".html")
-        return listOf(anchor(name, link))
-    }
-
 
     private fun summaryElement(groupCycles: List<GroupCycle>): List<HtmlElement> {
         val header = HtmlElement.tagText("h2", "Summary")
