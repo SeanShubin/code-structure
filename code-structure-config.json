@@ -1,27 +1,28 @@
 {
-  "inputDir": ".",
-  "outputDir": "generated/self",
-  "localDepth": 2,
-  "nodeLimitForGraph": 100,
-  "sourcePrefix": "https://github.com/SeanShubin/code-structure/blob/master/",
-  "sourceFileRegexPatterns": {
-    "include": [
+  "inputDir" : ".",
+  "outputDir" : "generated/self",
+  "localDepth" : 2,
+  "nodeLimitForGraph" : 100,
+  "sourcePrefix" : "https://github.com/SeanShubin/code-structure/blob/master/",
+  "sourceFileRegexPatterns" : {
+    "include" : [
       ".*\\.kt$"
     ],
-    "exclude": []
+    "exclude" : [ ]
   },
-  "binaryFileRegexPatterns": {
-    "include": [
+  "binaryFileRegexPatterns" : {
+    "include" : [
       ".*/code-structure-console.jar$"
     ],
-    "exclude": []
+    "exclude" : [ ]
   },
-  "countAsErrors": {
-    "directCycle": true,
-    "groupCycle": true,
-    "ancestorDependsOnDescendant": true,
-    "descendantDependsOnAncestor": true
+  "countAsErrors" : {
+    "directCycle" : true,
+    "groupCycle" : true,
+    "ancestorDependsOnDescendant" : true,
+    "descendantDependsOnAncestor" : true
   },
-  "maximumAllowedErrorCount": 0,
-  "useObservationsCache": false
+  "maximumAllowedErrorCount" : 0,
+  "useObservationsCache" : false,
+  "includeDynamicInvocations" : false
 }

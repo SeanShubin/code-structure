@@ -13,15 +13,15 @@ class TableOfContentsReport : Report {
         val children = listOf(
             Page.groups,
             annotateWithNumber(Page.entryPoints, validated.analysis.global.entryPoints.size),
-            annotateWithNumber(Page.directCycles, validated.analysis.errors.inDirectCycle.size),
-            annotateWithNumber(Page.groupCycles, validated.analysis.errors.inGroupCycle.size),
+            annotateWithNumber(Page.directCycles, validated.analysis.summary.errors.getValue(ErrorType.DIRECT_CYCLE).count),
+            annotateWithNumber(Page.groupCycles, validated.analysis.summary.errors.getValue(ErrorType.GROUP_CYCLE).count),
             annotateWithNumber(
                 Page.lineageAncestorDescendant,
-                validated.analysis.errors.lineage.ancestorDependsOnDescendant.size
+                validated.analysis.summary.errors.getValue(ErrorType.ANCESTOR_DEPENDS_ON_DESCENDANT).count
             ),
             annotateWithNumber(
                 Page.lineageDescendantAncestor,
-                validated.analysis.errors.lineage.descendantDependsOnAncestor.size
+                validated.analysis.summary.errors.getValue(ErrorType.DESCENDANT_DEPENDS_ON_ANCESTOR).count
             ),
             annotateWithNumber(Page.codeUnits, validated.analysis.global.names.size),
             annotateWithNumber(Page.sources, validated.observations.sources.size),

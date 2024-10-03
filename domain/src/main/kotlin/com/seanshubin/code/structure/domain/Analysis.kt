@@ -8,7 +8,6 @@ data class Analysis(
     val nameUriList: List<Pair<String, String>>,
     val lineage: Lineage,
     val groupScopedAnalysisList: List<Pair<List<String>, ScopedAnalysis>>,
-    val errors: Errors,
     val summary: Summary
 ) {
     private val scopedAnalysisByGroup = groupScopedAnalysisList.associateBy { it.first }
