@@ -12,20 +12,14 @@
 <!-- PathI.ModuleJ -->
 <g id="node1" class="node">
 <title>PathI.ModuleJ</title>
-<g id="a_node1"><a xlink:href="local-PathI-ModuleJ.html" xlink:title="PathI.ModuleJ">
 <ellipse fill="none" stroke="black" cx="118.78" cy="-162" rx="65.68" ry="18"/>
-<text text-anchor="middle" x="118.78" y="-156.95" font-family="Times,serif" font-size="14.00" fill="blue">PathI.ModuleJ</text>
-</a>
-</g>
+<text text-anchor="middle" x="118.78" y="-156.95" font-family="Times,serif" font-size="14.00">PathI.ModuleJ</text>
 </g>
 <!-- PathP.ModuleQ -->
 <g id="node2" class="node">
 <title>PathP.ModuleQ</title>
-<g id="a_node2"><a xlink:href="local-PathP-ModuleQ.html" xlink:title="PathP.ModuleQ">
 <ellipse fill="none" stroke="black" cx="69.78" cy="-90" rx="69.78" ry="18"/>
-<text text-anchor="middle" x="69.78" y="-84.95" font-family="Times,serif" font-size="14.00" fill="blue">PathP.ModuleQ</text>
-</a>
-</g>
+<text text-anchor="middle" x="69.78" y="-84.95" font-family="Times,serif" font-size="14.00">PathP.ModuleQ</text>
 </g>
 <!-- PathI.ModuleJ&#45;&gt;PathP.ModuleQ -->
 <g id="edge1" class="edge">
@@ -36,11 +30,8 @@
 <!-- PathR.ModuleS -->
 <g id="node3" class="node">
 <title>PathR.ModuleS</title>
-<g id="a_node3"><a xlink:href="local-PathR-ModuleS.html" xlink:title="PathR.ModuleS">
 <ellipse fill="none" stroke="black" cx="118.78" cy="-18" rx="70.29" ry="18"/>
-<text text-anchor="middle" x="118.78" y="-12.95" font-family="Times,serif" font-size="14.00" fill="blue">PathR.ModuleS</text>
-</a>
-</g>
+<text text-anchor="middle" x="118.78" y="-12.95" font-family="Times,serif" font-size="14.00">PathR.ModuleS</text>
 </g>
 <!-- PathP.ModuleQ&#45;&gt;PathR.ModuleS -->
 <g id="edge2" class="edge">

@@ -3,6 +3,7 @@ package com.seanshubin.code.structure.domain
 import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.html.BigListClassName
 import com.seanshubin.code.structure.html.HtmlElement
+import com.seanshubin.code.structure.html.HtmlElementUtil
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
 import java.nio.file.Path
@@ -37,9 +38,7 @@ class LineageReport(
         listOf(nameToElement(reference.first), nameToElement(reference.second))
 
     private fun nameToElement(name: String): HtmlElement {
-        val anchor = ReportUtil.toLocalLink(name)
-        val inSpan = listOf(anchor)
-        val span = HtmlElement.Tag("span", inSpan)
+        val span = HtmlElement.tagText("span", name)
         return span
     }
 }

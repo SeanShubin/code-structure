@@ -63,7 +63,6 @@ class Dependencies(integrations: Integrations) {
     private val maximumAllowedErrorCount: Int = config.load(listOf("maximumAllowedErrorCount"), 0).coerceToInt()
     private val inputDir = config.load(listOf("inputDir"), ".").coerceToPath()
     private val outputDir = config.load(listOf("outputDir"), "generated/code-structure").coerceToPath()
-    private val localDepth = config.load(listOf("localDepth"), 1).coerceToInt()
     private val useObservationsCache = config.load(listOf("useObservationsCache"), false).coerceToBoolean()
     private val includeDynamicInvocations = config.load(listOf("includeDynamicInvocations"), false).coerceToBoolean()
     private val sourcePrefix = config.load(listOf("sourcePrefix"), "prefix for link to source code").coerceToString()
@@ -151,7 +150,7 @@ class Dependencies(integrations: Integrations) {
         LineageReport(Page.lineageAncestorDescendant) { it.ancestorDependsOnDescendant }
     private val lineageReportDescendantAncestor: Report =
         LineageReport(Page.lineageDescendantAncestor) { it.descendantDependsOnAncestor }
-    private val codeUnitsReport: Report = CodeUnitsReport(localDepth, nodeLimitForGraph)
+    private val codeUnitsReport: Report = CodeUnitsReport()
     private val timingReport: Report = TimingReport(timer)
     private val entryPointsReport: Report = EntryPointsReport()
     private val groupReport: Report = GroupReport(nodeLimitForGraph)

@@ -7,7 +7,9 @@ import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil
 import java.nio.file.Path
 
-class GroupReport(private val nodeLimitForGraph: Int) : Report {
+class GroupReport(
+    private val nodeLimitForGraph: Int
+) : Report {
     override val reportName: String = "groups"
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         return validated.analysis.groupScopedAnalysisList.flatMap { (groupPath, groupAnalysis) ->
@@ -76,10 +78,10 @@ class GroupReport(private val nodeLimitForGraph: Int) : Report {
         val hasChildren = analysis.containsGroup(groupPath)
         val link =
             if (hasChildren) CodeUnit(groupPath).toUriName("group", ".html")
-            else ReportUtil.toLocalUri(CodeUnit(groupPath))
+            else null
         val text =
             if (hasChildren) "$name ($descendantCount)"
-            else "$name (local)"
+            else name
         return DotNode(
             id = name,
             text = text,

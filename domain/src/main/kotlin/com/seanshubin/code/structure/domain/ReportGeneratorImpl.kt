@@ -10,7 +10,7 @@ class ReportGeneratorImpl(
 ) : ReportGenerator {
     override fun generateReports(validated: Validated): List<Command> {
         val generateReportFunction = { report: Report ->
-            timer.monitor("report-generator","report.${report.reportName}") {
+            timer.monitor("report-generator", report.reportName) {
                 report.generate(outputDir, validated)
             }
         }

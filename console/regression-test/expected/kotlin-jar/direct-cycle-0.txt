@@ -1,10 +1,10 @@
 digraph detangled {
   bgcolor=lightgray
-  "packagec.ClassD" [fontcolor="blue" URL="local-packagec-ClassD.html" label="packagec.ClassD"]
-  "packagee.packagef.ClassL" [fontcolor="blue" URL="local-packagee-packagef-ClassL.html" label="packagee.packagef.ClassL"]
-  "packagee.packagef.ClassM" [fontcolor="blue" URL="local-packagee-packagef-ClassM.html" label="packagee.packagef.ClassM"]
-  "packagee.packagef.ClassN" [fontcolor="blue" URL="local-packagee-packagef-ClassN.html" label="packagee.packagef.ClassN"]
-  "packageg.ClassH" [fontcolor="blue" URL="local-packageg-ClassH.html" label="packageg.ClassH"]
+  "packagec.ClassD" [label="packagec.ClassD"]
+  "packagee.packagef.ClassL" [label="packagee.packagef.ClassL"]
+  "packagee.packagef.ClassM" [label="packagee.packagef.ClassM"]
+  "packagee.packagef.ClassN" [label="packagee.packagef.ClassN"]
+  "packageg.ClassH" [label="packageg.ClassH"]
   "packagec.ClassD" -> "packagee.packagef.ClassL"
   "packagee.packagef.ClassL" -> "packagee.packagef.ClassM"
   "packagee.packagef.ClassM" -> "packagee.packagef.ClassN"

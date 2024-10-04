@@ -1,8 +1,8 @@
 digraph detangled {
   bgcolor=lightgray
-  "PathI.ModuleJ" [fontcolor="blue" URL="local-PathI-ModuleJ.html" label="PathI.ModuleJ"]
-  "PathP.ModuleQ" [fontcolor="blue" URL="local-PathP-ModuleQ.html" label="PathP.ModuleQ"]
-  "PathR.ModuleS" [fontcolor="blue" URL="local-PathR-ModuleS.html" label="PathR.ModuleS"]
+  "PathI.ModuleJ" [label="PathI.ModuleJ"]
+  "PathP.ModuleQ" [label="PathP.ModuleQ"]
+  "PathR.ModuleS" [label="PathR.ModuleS"]
   "PathI.ModuleJ" -> "PathP.ModuleQ"
   "PathP.ModuleQ" -> "PathR.ModuleS"
   "PathR.ModuleS" -> "PathI.ModuleJ"

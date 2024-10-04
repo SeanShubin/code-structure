@@ -1,4 +1,4 @@
 digraph detangled {
   bgcolor=lightgray
-  "ModuleB" [fontcolor="blue" URL="local-PathA-ModuleB.html" label="ModuleB (local)"]
+  "ModuleB" [label="ModuleB"]
 }

@@ -4,6 +4,7 @@ import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.html.BigListClassName
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil
+import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
 import java.nio.file.Path
 
 class EntryPointsReport : Report {
@@ -25,5 +26,5 @@ class EntryPointsReport : Report {
     }
 
     private fun nameToElement(name: String): List<HtmlElement> =
-        listOf(ReportUtil.toLocalLink(name))
+        listOf(anchor(name, name.toCodeUnit().parent().toUriName("group", ".html")))
 }
