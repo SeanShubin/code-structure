@@ -56,7 +56,7 @@ class ScopedObservationsTest {
             ),
             ScopedObservations(
                 groupPath = listOf("a"),
-                names = listOf("a", "a.c", "a.c.g", "a.c.h", "a.d", "a.d.i", "a.d.j"),
+                names = listOf("a.c", "a.c.g", "a.c.h", "a.d", "a.d.i", "a.d.j"),
                 referenceReasons = mapOf(
                     "a.c" to "a.d" to listOf(
                         "a.c.g" to "a.d",
@@ -69,7 +69,7 @@ class ScopedObservationsTest {
             ),
             ScopedObservations(
                 groupPath = listOf("a", "c"),
-                names = listOf("a.c", "a.c.g", "a.c.h"),
+                names = listOf("a.c.g", "a.c.h"),
                 referenceReasons = mapOf(
                     "a.c.g" to "a.c.h" to listOf(
                         "a.c.g" to "a.c.h"
@@ -78,12 +78,12 @@ class ScopedObservationsTest {
             ),
             ScopedObservations(
                 groupPath = listOf("a", "d"),
-                names = listOf("a.d", "a.d.i", "a.d.j"),
+                names = listOf("a.d.i", "a.d.j"),
                 referenceReasons = emptyMap()
             ),
             ScopedObservations(
                 groupPath = listOf("b"),
-                names = listOf("b", "b.e", "b.e.k", "b.e.l", "b.f.m", "b.f.n"),
+                names = listOf("b.e", "b.e.k", "b.e.l", "b.f.m", "b.f.n"),
                 referenceReasons = mapOf(
                     "b.e" to "b.f" to listOf(
                         "b.e.l" to "b.f.n"
@@ -92,7 +92,7 @@ class ScopedObservationsTest {
             ),
             ScopedObservations(
                 groupPath = listOf("b", "e"),
-                names = listOf("b.e", "b.e.k", "b.e.l"),
+                names = listOf("b.e.k", "b.e.l"),
                 referenceReasons = emptyMap()
             ),
             ScopedObservations(
@@ -102,6 +102,62 @@ class ScopedObservationsTest {
             )
         )
         val actual = ScopedObservations.create(names, references)
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun unqualified() {
+        val a = ScopedObservations(
+            groupPath = listOf("a"),
+            names = listOf("a.c", "a.c.g", "a.c.h", "a.d", "a.d.i", "a.d.j"),
+            referenceReasons = mapOf(
+                "a.c" to "a.d" to listOf(
+                    "a.c.g" to "a.d",
+                    "a.c.h" to "a.d.j"
+                ),
+                "a.d" to "a.c" to listOf(
+                    "a.d" to "a.c"
+                )
+            )
+        )
+        val expectedUnqualifiedNames = listOf("c", "d")
+        val expectedUnqualifiedReferencesQualifiedReasons = mapOf(
+            "c" to "d" to listOf(
+                "a.c.g" to "a.d",
+                "a.c.h" to "a.d.j"
+            ),
+            "d" to "c" to listOf(
+                "a.d" to "a.c"
+            )
+        )
+        val actualUnqualifiedNames = a.unqualifiedNames()
+        val actualUnqualifiedReferencesQualifiedReasons = a.unqualifiedReferenceQualifiedReasons()
+
+        assertEquals(expectedUnqualifiedNames, actualUnqualifiedNames)
+        assertEquals(expectedUnqualifiedReferencesQualifiedReasons, actualUnqualifiedReferencesQualifiedReasons)
+    }
+
+    @Test
+    fun deep() {
+        val names = listOf("a.b.c")
+        val expected = listOf(
+            ScopedObservations(
+                groupPath = emptyList(),
+                names = listOf("a.b.c"),
+                referenceReasons = emptyMap()
+            ),
+            ScopedObservations(
+                groupPath = listOf("a"),
+                names = listOf("a.b.c"),
+                referenceReasons = emptyMap()
+            ),
+            ScopedObservations(
+                groupPath = listOf("a", "b"),
+                names = listOf("a.b.c"),
+                referenceReasons = emptyMap()
+            )
+        )
+        val actual = ScopedObservations.create(names, emptyList())
         assertEquals(expected, actual)
     }
 

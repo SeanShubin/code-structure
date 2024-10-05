@@ -7,6 +7,18 @@ data class ScopedObservations(
     val names: List<String>,
     val referenceReasons: Map<Pair<String, String>, List<Pair<String, String>>>
 ) {
+    fun unqualifiedNames(): List<String> {
+        return names.map{unqualify(groupPath, it)}.distinct()
+    }
+
+    fun unqualifiedReferenceQualifiedReasons(): Map<Pair<String, String>, List<Pair<String, String>>> {
+        return referenceReasons.map { (reference, reasons) ->
+            val (first, second) = reference
+            val unqualifiedReference = unqualify(groupPath, first) to unqualify(groupPath, second)
+            unqualifiedReference to reasons
+        }.toMap()
+    }
+
     companion object {
         fun create(names: List<String>, references: List<Pair<String, String>>): List<ScopedObservations> {
             return create(emptyList(), names, references)
@@ -27,7 +39,9 @@ data class ScopedObservations(
             val subGroupObservationsList = subGroups.flatMap { subGroup ->
                 val subGroupPath = subGroup.toCodeUnit().parts
                 val newNames = names.filter(startsWithGroup(subGroupPath))
-                if (newNames.size > 1) {
+                if (newNames.isEmpty()) {
+                    emptyList()
+                } else {
                     val key = subGroup to subGroup
                     val allReasons = subGroupReferenceMap[key] ?: emptyList()
                     val target = CodeUnit(subGroupPath).toName()
@@ -38,8 +52,6 @@ data class ScopedObservations(
                         booleanResult
                     }
                     create(subGroupPath, newNames, reasons)
-                } else {
-                    emptyList()
                 }
             }
             return listOf(currentScopedObservations) + subGroupObservationsList
@@ -61,13 +73,17 @@ data class ScopedObservations(
 
         private fun startsWithGroup(groupPath: List<String>): (String) -> Boolean = { name ->
             val nameParts = name.toCodeUnit().parts
-            if (nameParts.size < groupPath.size) {
+            if (nameParts.size <= groupPath.size) {
                 false
             } else if (nameParts.subList(0, groupPath.size) == groupPath) {
                 true
             } else {
                 false
             }
+        }
+        fun unqualify(groupPath:List<String>, name:String):String {
+            val nameParts = name.toCodeUnit().parts
+            return nameParts[groupPath.size]
         }
     }
 }

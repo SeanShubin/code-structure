@@ -26,7 +26,7 @@ class TableOfContentsReport : Report {
             annotateWithNumber(Page.codeUnits, validated.analysis.global.names.size),
             annotateWithNumber(Page.sources, validated.observations.sources.size),
             annotateWithNumber(Page.binaries, validated.observations.binaries.size),
-            annotateWithNumber(Page.dependencies, validated.analysis.global.references.size),
+            annotateWithNumber(Page.dependencies, validated.analysis.global.referenceReasons.size),
             Page.graph,
             annotateWithNumber(Page.missingBinaries, validated.observations.missingBinaries.size),
             Page.timing

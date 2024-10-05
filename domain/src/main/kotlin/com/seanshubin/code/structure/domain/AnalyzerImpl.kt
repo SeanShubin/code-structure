@@ -33,7 +33,8 @@ class AnalyzerImpl(
                 }
                 .distinct()
         }
-        val global = timer.monitor(sourceName, "analysis.global") { analyze(sourceName, names, references, cycleAlgorithm, timer) }
+        val globalReferenceReasons = references.map { it to emptyList<Pair<String, String>>() }.toMap()
+        val global = timer.monitor(sourceName, "analysis.global") { analyze(sourceName, names, globalReferenceReasons, cycleAlgorithm, timer) }
         val ancestorToDescendant = timer.monitor(sourceName, "analysis.ancestorToDescendant") {
             references.filter {
                 it.first.toCodeUnit().isAncestorOf(it.second.toCodeUnit())
@@ -47,13 +48,15 @@ class AnalyzerImpl(
         val nameUriList = timer.monitor(sourceName, "analysis.nameUriList") { composeNameUriList(observations, commonPrefix) }
         val lineage = timer.monitor(sourceName, "analysis.lineage") { Lineage(ancestorToDescendant, descendantToAncestor) }
         val groupScopedAnalysisList = timer.monitor(sourceName, "analysis.groupScopedAnalysisList") {
-            composeGroupScopedAnalysisList(
-                sourceName,
-                emptyList(),
-                NamesReferences(names, references),
-                cycleAlgorithm,
-                timer
-            )
+            val scopedObservationsList = ScopedObservations.create(names, references)
+            scopedObservationsList.map{
+                composeGroupScopedAnalysisList(
+                    sourceName,
+                    it,
+                    cycleAlgorithm,
+                    timer
+                )
+            }
         }
         val summary = timer.monitor(sourceName, "analysis.summary") {
             composeSummary(
@@ -125,10 +128,11 @@ class AnalyzerImpl(
         private fun analyze(
             sourceName: String,
             names: List<String>,
-            references: List<Pair<String, String>>,
+            referenceReasons: Map<Pair<String, String>, List<Pair<String, String>>>,
             cycleAlgorithm: CycleAlgorithm,
             timer: Timer
         ): ScopedAnalysis {
+            val references = referenceReasons.keys.toList()
             val cycles = timer.monitor(sourceName, "analyze.cycles") { findCycles(references, cycleAlgorithm) }
             val entryPoints = timer.monitor(sourceName, "analyze.entryPoints") { findEntryPoints(names, references) }
             val cycleDetails = timer.monitor(sourceName, "analyze.cycleDetails") { composeAllCycleDetails(cycles, references) }
@@ -136,7 +140,7 @@ class AnalyzerImpl(
             return ScopedAnalysis(
                 cycles,
                 names,
-                references,
+                referenceReasons,
                 entryPoints,
                 cycleDetails,
                 details
@@ -229,22 +233,15 @@ class AnalyzerImpl(
 
         private fun composeGroupScopedAnalysisList(
             sourceName: String,
-            path: List<String>,
-            namesReferences: NamesReferences,
+            scopedObservations: ScopedObservations,
             cycleAlgorithm: CycleAlgorithm,
             timer: Timer
-        ): List<Pair<List<String>, ScopedAnalysis>> {
-            if (namesReferences.names.isEmpty()) return emptyList()
-            val top = namesReferences.head()
-            val topAnalysis = analyze(sourceName, top.names, top.references, cycleAlgorithm, timer)
-            val topEntry = path to topAnalysis
-            val descendantMap = top.names.flatMap {
-                val childPath = path + it
-                val childNamesReferences = namesReferences.tail(it)
-                composeGroupScopedAnalysisList(sourceName, childPath, childNamesReferences, cycleAlgorithm, timer)
-            }
-            return listOf(topEntry) + descendantMap
+        ): Pair<List<String>, ScopedAnalysis> {
+            val names = scopedObservations.unqualifiedNames()
+            val referenceReasons = scopedObservations.unqualifiedReferenceQualifiedReasons()
+            val topAnalysis = analyze(sourceName, names, referenceReasons, cycleAlgorithm, timer)
+            val topEntry = scopedObservations.groupPath to topAnalysis
+            return topEntry
         }
-
     }
 }

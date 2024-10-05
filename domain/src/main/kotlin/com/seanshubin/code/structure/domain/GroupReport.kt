@@ -29,14 +29,14 @@ class GroupReport(
         val nodes = groupAnalysis.names.map { name ->
             toDotNode(name, groupPath + name, analysis)
         }
-        val dependencyTable = dependencyTable(groupPath, analysis, groupAnalysis)
+        val dependencyTable = dependencyTable(groupAnalysis)
         return ReportHelper.graphCommands(
             reportName,
             reportDir,
             baseName,
             nodes,
             nodeLimitForGraph,
-            groupAnalysis.references,
+            groupAnalysis.referenceReasons.keys.toList(),
             groupAnalysis.cycles,
             parents,
             dependencyTable
@@ -44,16 +44,13 @@ class GroupReport(
     }
 
     private fun dependencyTable(
-        groupPath: List<String>,
-        analysis: Analysis,
         groupAnalysis: ScopedAnalysis
     ): List<HtmlElement> {
         val caption = "dependency reasons"
         val captions = listOf("dependency", "reason")
-        val list = groupAnalysis.references.flatMap { reference ->
+        val list = groupAnalysis.referenceReasons.flatMap { (reference, reasons) ->
             val (first, second) = reference
             val dependencyString = "$first -> $second"
-            val reasons = analysis.reasonsForDependency(groupPath, reference)
             val reasonStrings = reasons.map { (reasonFirst, reasonSecond) ->
                 val reasonString = "$reasonFirst -> $reasonSecond"
                 Pair(dependencyString, reasonString)
