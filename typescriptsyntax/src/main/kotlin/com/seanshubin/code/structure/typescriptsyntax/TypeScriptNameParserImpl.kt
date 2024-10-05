@@ -1,8 +1,8 @@
 package com.seanshubin.code.structure.typescriptsyntax
 
 import com.seanshubin.code.structure.nameparser.NameDetail
-import java.nio.file.Path
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptRules.toModuleName
+import java.nio.file.Path
 
 class TypeScriptNameParserImpl : TypeScriptNameParser {
     override fun parseName(path: Path, content: String): NameDetail {

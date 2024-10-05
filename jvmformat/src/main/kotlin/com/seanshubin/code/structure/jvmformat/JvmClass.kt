@@ -75,7 +75,10 @@ data class JvmClass(
             val majorVersion = input.readShort()
             val constantPoolCount = input.readShort()
 
-            tailrec fun readRemainingConstants(soFar: List<ConstantPoolInfo>, remainingIndices: Int): List<ConstantPoolInfo> =
+            tailrec fun readRemainingConstants(
+                soFar: List<ConstantPoolInfo>,
+                remainingIndices: Int
+            ): List<ConstantPoolInfo> =
                 if (remainingIndices == 0) soFar
                 else {
                     val constantPoolInfo = readConstant(input)

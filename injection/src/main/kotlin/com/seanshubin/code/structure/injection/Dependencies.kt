@@ -101,13 +101,14 @@ class Dependencies(integrations: Integrations) {
         fileByteSequenceLoader
     )
     private val classInfoLoader: ClassInfoLoaderImpl = ClassInfoLoaderImpl()
-    private val classParser: ClassParser = ClassParserImpl(inputDir, byteSequenceLoader, classInfoLoader, includeDynamicInvocations)
+    private val classParser: ClassParser =
+        ClassParserImpl(inputDir, byteSequenceLoader, classInfoLoader, includeDynamicInvocations)
     private val beamParser: BeamParser = BeamParserImpl(files, inputDir)
     private val typeScriptRelationParser: TypeScriptRelationParser = TypeScriptRelationParserImpl(
         files, charset
     )
     private val typeScriptNameParser: TypeScriptNameParser = TypeScriptNameParserImpl()
-    private val clojureParser:ClojureParser = ClojureParserImpl(inputDir)
+    private val clojureParser: ClojureParser = ClojureParserImpl(inputDir)
     private val nameParser: NameParser = DynamicNameParser(
         kotlinParser,
         elixirParser,

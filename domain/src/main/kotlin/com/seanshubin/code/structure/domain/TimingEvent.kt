@@ -8,5 +8,5 @@ data class TimingEvent(
     val caption: String,
     val duration: Duration
 ) {
-    val key:String get() = "$source-$category"
+    val key: String get() = "$source-$category"
 }

@@ -13,7 +13,7 @@ class ExecImpl : Exec {
                 val command = args.joinToString(" ")
                 throw RuntimeException("Unable to execute command $command, exited with code $exitCode")
             }
-        } catch (ex:IOException) {
+        } catch (ex: IOException) {
             val command = args.joinToString(" ")
             throw RuntimeException("Unable to execute command $command, exited by throwing exception", ex)
         }

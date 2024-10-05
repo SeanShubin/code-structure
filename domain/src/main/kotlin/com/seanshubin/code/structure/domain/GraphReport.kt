@@ -1,6 +1,5 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.dot.DotNode
 import java.nio.file.Path
 

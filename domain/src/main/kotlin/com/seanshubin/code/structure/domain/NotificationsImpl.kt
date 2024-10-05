@@ -24,7 +24,7 @@ class NotificationsImpl(private val emitLine: (String) -> Unit) : Notifications 
             val value = summary.errors.getValue(errorType)
             val count = value.count
             val name = errorType.caption
-            if(value.isPartOfTotal){
+            if (value.isPartOfTotal) {
                 emitLine("$name: $count")
             } else {
                 emitLine("$name: $count (not part of total)")

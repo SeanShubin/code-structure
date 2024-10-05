@@ -8,10 +8,10 @@ class EventTimer(
     private val clock: Clock
 ) : Timer {
     private val events = mutableListOf<TimingEvent>()
-    override fun <T> monitor(source:String, category: String, f: () -> T): T =
+    override fun <T> monitor(source: String, category: String, f: () -> T): T =
         monitor(source, category, category, f)
 
-    override fun <T> monitor(source:String, category: String, caption: String, f: () -> T): T {
+    override fun <T> monitor(source: String, category: String, caption: String, f: () -> T): T {
         val startTime = clock.instant()
         val result = f()
         val endTime = clock.instant()

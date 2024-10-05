@@ -18,7 +18,7 @@ class Runner(
     private val timer: Timer,
     private val exitCodeHolder: ErrorMessageHolder
 ) : Runnable {
-    private val reportName:String = "runner"
+    private val reportName: String = "runner"
     override fun run() {
         configFileEvent(configFile)
         val startTime = clock.instant()
@@ -33,7 +33,7 @@ class Runner(
         // final commands create the report on timing, so no point in monitoring time after this point
         val finalCommands = reportGenerator.generateFinalReports(validated)
         finalCommands.forEach { commandRunner.execute(it) }
-        if(validated.analysis.summary.isOverLimit){
+        if (validated.analysis.summary.isOverLimit) {
             val errorCount = validated.analysis.summary.errorCount
             val errorLimit = validated.analysis.summary.errorLimit
             exitCodeHolder.errorMessage = "Error count $errorCount is over limit $errorLimit"

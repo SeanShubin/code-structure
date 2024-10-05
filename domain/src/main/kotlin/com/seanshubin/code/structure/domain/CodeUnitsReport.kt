@@ -22,7 +22,7 @@ class CodeUnitsReport : Report {
     }
 
     private fun createContent(names: List<String>): List<HtmlElement> =
-            createGroupList(names)
+        createGroupList(names)
 
     private fun createGroupList(names: List<String>): List<HtmlElement> =
         bigList(names, ::singleGroupLink, BigListClassName.COLUMN_1, "names")

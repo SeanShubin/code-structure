@@ -8,7 +8,7 @@ data class ScopedObservations(
     val referenceReasons: Map<Pair<String, String>, List<Pair<String, String>>>
 ) {
     fun unqualifiedNames(): List<String> {
-        return names.map{unqualify(groupPath, it)}.distinct()
+        return names.map { unqualify(groupPath, it) }.distinct()
     }
 
     fun unqualifiedReferenceQualifiedReasons(): Map<Pair<String, String>, List<Pair<String, String>>> {
@@ -81,7 +81,8 @@ data class ScopedObservations(
                 false
             }
         }
-        fun unqualify(groupPath:List<String>, name:String):String {
+
+        fun unqualify(groupPath: List<String>, name: String): String {
             val nameParts = name.toCodeUnit().parts
             return nameParts[groupPath.size]
         }

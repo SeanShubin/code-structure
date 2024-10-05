@@ -34,7 +34,15 @@ class AnalyzerImpl(
                 .distinct()
         }
         val globalReferenceReasons = references.map { it to emptyList<Pair<String, String>>() }.toMap()
-        val global = timer.monitor(sourceName, "analysis.global") { analyze(sourceName, names, globalReferenceReasons, cycleAlgorithm, timer) }
+        val global = timer.monitor(sourceName, "analysis.global") {
+            analyze(
+                sourceName,
+                names,
+                globalReferenceReasons,
+                cycleAlgorithm,
+                timer
+            )
+        }
         val ancestorToDescendant = timer.monitor(sourceName, "analysis.ancestorToDescendant") {
             references.filter {
                 it.first.toCodeUnit().isAncestorOf(it.second.toCodeUnit())
@@ -45,11 +53,13 @@ class AnalyzerImpl(
                 it.second.toCodeUnit().isAncestorOf(it.first.toCodeUnit())
             }
         }
-        val nameUriList = timer.monitor(sourceName, "analysis.nameUriList") { composeNameUriList(observations, commonPrefix) }
-        val lineage = timer.monitor(sourceName, "analysis.lineage") { Lineage(ancestorToDescendant, descendantToAncestor) }
+        val nameUriList =
+            timer.monitor(sourceName, "analysis.nameUriList") { composeNameUriList(observations, commonPrefix) }
+        val lineage =
+            timer.monitor(sourceName, "analysis.lineage") { Lineage(ancestorToDescendant, descendantToAncestor) }
         val groupScopedAnalysisList = timer.monitor(sourceName, "analysis.groupScopedAnalysisList") {
             val scopedObservationsList = ScopedObservations.create(names, references)
-            scopedObservationsList.map{
+            scopedObservationsList.map {
                 composeGroupScopedAnalysisList(
                     sourceName,
                     it,
@@ -103,10 +113,10 @@ class AnalyzerImpl(
                         countAsErrors.ancestorDependsOnDescendant
                     ),
                     ErrorType.DESCENDANT_DEPENDS_ON_ANCESTOR to
-                    ErrorSummaryItem(
-                        descendantDependsOnAncestorCount,
-                        countAsErrors.descendantDependsOnAncestor
-                    ),
+                            ErrorSummaryItem(
+                                descendantDependsOnAncestorCount,
+                                countAsErrors.descendantDependsOnAncestor
+                            ),
                 ),
                 errorLimit
             )
@@ -135,7 +145,8 @@ class AnalyzerImpl(
             val references = referenceReasons.keys.toList()
             val cycles = timer.monitor(sourceName, "analyze.cycles") { findCycles(references, cycleAlgorithm) }
             val entryPoints = timer.monitor(sourceName, "analyze.entryPoints") { findEntryPoints(names, references) }
-            val cycleDetails = timer.monitor(sourceName, "analyze.cycleDetails") { composeAllCycleDetails(cycles, references) }
+            val cycleDetails =
+                timer.monitor(sourceName, "analyze.cycleDetails") { composeAllCycleDetails(cycles, references) }
             val details = timer.monitor(sourceName, "analyze.details") { composeDetails(names, references, cycles) }
             return ScopedAnalysis(
                 cycles,
