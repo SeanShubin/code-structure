@@ -14,28 +14,44 @@ data class ScopedObservations(
 
         private fun create(
             currentGroup: List<String>,
-            unsortedNames: List<String>,
+            names: List<String>,
             references: List<Pair<String, String>>
         ): List<ScopedObservations> {
-            val names = unsortedNames.sorted()
+            val subGroups = names.mapNotNull { subGroup(currentGroup, it) }.distinct()
             val (subGroupReferences, groupReferences) = references.groupBy { (first, second) ->
                 oneLevelDownFromGroup(currentGroup, first) to oneLevelDownFromGroup(currentGroup, second)
             }.toList().partition { it.first.first == it.first.second }
             val currentReferenceReasons = groupReferences.toMap()
             val currentScopedObservations = ScopedObservations(currentGroup, names, currentReferenceReasons)
-            val subGroupObservationsList = subGroupReferences.flatMap { (identicalPair, allReasons) ->
-                val subGroupPath = identicalPair.first.toCodeUnit().parts
-                val target = CodeUnit(subGroupPath).toName()
-                val reasons = allReasons.filterNot {
-                    val firstName = it.first
-                    val secondName = it.second
-                    val booleanResult = firstName == target || secondName == target
-                    booleanResult
-                }
+            val subGroupReferenceMap = subGroupReferences.toMap()
+            val subGroupObservationsList = subGroups.flatMap { subGroup ->
+                val subGroupPath = subGroup.toCodeUnit().parts
                 val newNames = names.filter(startsWithGroup(subGroupPath))
-                create(subGroupPath, newNames, reasons)
+                if (newNames.size > 1) {
+                    val key = subGroup to subGroup
+                    val allReasons = subGroupReferenceMap[key] ?: emptyList()
+                    val target = CodeUnit(subGroupPath).toName()
+                    val reasons = allReasons.filterNot {
+                        val firstName = it.first
+                        val secondName = it.second
+                        val booleanResult = firstName == target || secondName == target
+                        booleanResult
+                    }
+                    create(subGroupPath, newNames, reasons)
+                } else {
+                    emptyList()
+                }
             }
             return listOf(currentScopedObservations) + subGroupObservationsList
+        }
+
+        private fun subGroup(groupPath: List<String>, name: String): String? {
+            val nameParts = name.toCodeUnit().parts
+            return if (nameParts.size > groupPath.size) {
+                CodeUnit(nameParts.subList(0, groupPath.size + 1)).toName()
+            } else {
+                null
+            }
         }
 
         private fun oneLevelDownFromGroup(groupPath: List<String>, name: String): String {

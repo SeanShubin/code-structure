@@ -77,6 +77,11 @@ class ScopedObservationsTest {
                 )
             ),
             ScopedObservations(
+                groupPath = listOf("a", "d"),
+                names = listOf("a.d", "a.d.i", "a.d.j"),
+                referenceReasons = emptyMap()
+            ),
+            ScopedObservations(
                 groupPath = listOf("b"),
                 names = listOf("b", "b.e", "b.e.k", "b.e.l", "b.f.m", "b.f.n"),
                 referenceReasons = mapOf(
@@ -89,33 +94,20 @@ class ScopedObservationsTest {
                 groupPath = listOf("b", "e"),
                 names = listOf("b.e", "b.e.k", "b.e.l"),
                 referenceReasons = emptyMap()
+            ),
+            ScopedObservations(
+                groupPath = listOf("b", "f"),
+                names = listOf("b.f.m", "b.f.n"),
+                referenceReasons = emptyMap()
             )
         )
         val actual = ScopedObservations.create(names, references)
-        display(expected, actual)
         assertEquals(expected, actual)
-    }
-
-    private fun display(expected: List<ScopedObservations>, actual: List<ScopedObservations>) {
-        if (expected.size != actual.size) {
-            println("Expected size: ${expected.size}")
-            println("Actual   size: ${actual.size}")
-        } else {
-            (0 until expected.size).forEach { index ->
-                val expectedItem = expected[index]
-                val actualItem = actual[index]
-                if (expectedItem != actualItem) {
-                    println()
-                    println(expectedItem)
-                    println(actualItem)
-                }
-            }
-        }
     }
 
     private fun collectNames(references: List<Pair<String, String>>): List<String> {
         val names = references.flatMap { it.toList() }
         val distinctNames = names.distinct()
-        return distinctNames
+        return distinctNames.sorted()
     }
 }
