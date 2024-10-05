@@ -162,11 +162,11 @@ class Dependencies(integrations: Integrations) {
         missingBinariesReport,
         dependenciesReport,
         entryPointsReport,
+        groupReport,
         directCycleReport,
         groupCycleReport,
         lineageReportAncestorDescendant,
         lineageReportDescendantAncestor,
-        groupReport,
         codeUnitsReport,
         graphReport
     )
