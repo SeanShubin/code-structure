@@ -25,9 +25,25 @@ class ScopedObservationsTest {
 
     @Test
     fun createAll() {
+        val names = collectNames(references)
         val expected = listOf(
             ScopedObservations(
                 groupPath = emptyList(),
+                names = listOf(
+                    "a",
+                    "a.c",
+                    "a.c.g",
+                    "a.c.h",
+                    "a.d",
+                    "a.d.i",
+                    "a.d.j",
+                    "b",
+                    "b.e",
+                    "b.e.k",
+                    "b.e.l",
+                    "b.f.m",
+                    "b.f.n"
+                ),
                 referenceReasons = mapOf(
                     "a" to "b" to listOf(
                         "a.c" to "b",
@@ -40,6 +56,7 @@ class ScopedObservationsTest {
             ),
             ScopedObservations(
                 groupPath = listOf("a"),
+                names = listOf("a", "a.c", "a.c.g", "a.c.h", "a.d", "a.d.i", "a.d.j"),
                 referenceReasons = mapOf(
                     "a.c" to "a.d" to listOf(
                         "a.c.g" to "a.d",
@@ -52,6 +69,7 @@ class ScopedObservationsTest {
             ),
             ScopedObservations(
                 groupPath = listOf("a", "c"),
+                names = listOf("a.c", "a.c.g", "a.c.h"),
                 referenceReasons = mapOf(
                     "a.c.g" to "a.c.h" to listOf(
                         "a.c.g" to "a.c.h"
@@ -60,6 +78,7 @@ class ScopedObservationsTest {
             ),
             ScopedObservations(
                 groupPath = listOf("b"),
+                names = listOf("b", "b.e", "b.e.k", "b.e.l", "b.f.m", "b.f.n"),
                 referenceReasons = mapOf(
                     "b.e" to "b.f" to listOf(
                         "b.e.l" to "b.f.n"
@@ -68,10 +87,35 @@ class ScopedObservationsTest {
             ),
             ScopedObservations(
                 groupPath = listOf("b", "e"),
+                names = listOf("b.e", "b.e.k", "b.e.l"),
                 referenceReasons = emptyMap()
             )
         )
-        val actual = ScopedObservations.create(references)
+        val actual = ScopedObservations.create(names, references)
+        display(expected, actual)
         assertEquals(expected, actual)
+    }
+
+    private fun display(expected: List<ScopedObservations>, actual: List<ScopedObservations>) {
+        if (expected.size != actual.size) {
+            println("Expected size: ${expected.size}")
+            println("Actual   size: ${actual.size}")
+        } else {
+            (0 until expected.size).forEach { index ->
+                val expectedItem = expected[index]
+                val actualItem = actual[index]
+                if (expectedItem != actualItem) {
+                    println()
+                    println(expectedItem)
+                    println(actualItem)
+                }
+            }
+        }
+    }
+
+    private fun collectNames(references: List<Pair<String, String>>): List<String> {
+        val names = references.flatMap { it.toList() }
+        val distinctNames = names.distinct()
+        return distinctNames
     }
 }
