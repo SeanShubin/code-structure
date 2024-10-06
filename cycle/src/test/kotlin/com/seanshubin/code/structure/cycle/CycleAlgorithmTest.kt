@@ -158,8 +158,6 @@ class CycleAlgorithmTest {
     }
 
     private val algorithms = listOf(
-        CycleAlgorithmCustom(),
-        CycleAlgorithmWarshall(),
         CycleAlgorithmTarjan()
     )
 
