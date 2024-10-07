@@ -4,19 +4,14 @@
 
 - Check the "Prerequisites" section
 - Run on self with `./scripts/clean-build-run-skip-tests.sh`
-
-## Maven Plugin Configuration
-
-```xml
-<plugin>
-    <groupId>com.seanshubin.code.structure</groupId>
-    <artifactId>code-structure-parent</artifactId>
-    <version>0.1.0</version>
-    <configuration>
-        <configBaseName>code-structure</configBaseName>
-    </configuration>
-</plugin>
-```
+- Run on your project with no parameters, this will create the default configuration file
+  - If you need multiple configuration files, specify the base name of the configuration file as the first parameter
+- Add regular expressions to the sourceFileRegexPatterns sections in the default configuration file so that all of your sources are included (see examples)
+  - Run the application again
+- Inspect the "Sources without corresponding Binaries" section of the generated report
+  - Add regular expressions to the binaryFileRegexPatterns section so that all of your source files have corresponding binaries
+  - Run the application again
+- If your source language is Clojure, set includeJvmDynamicInvocations to true
 
 ## Configuration Explained
 
@@ -26,7 +21,6 @@ Example configuration:
 {
   "inputDir" : ".",
   "outputDir" : "generated/self",
-  "localDepth" : 2,
   "nodeLimitForGraph" : 50,
   "sourcePrefix" : "https://github.com/SeanShubin/code-structure/blob/master/",
   "sourceFileRegexPatterns" : {
@@ -47,26 +41,20 @@ Example configuration:
     "ancestorDependsOnDescendant" : true,
     "descendantDependsOnAncestor" : true
   },
-  "useObservationsCache": false
+  "maximumAllowedErrorCount" : 0,
+  "useObservationsCache": false,
+  "includeJvmDynamicInvocations" : false
 }
 ```
 
 - command line arguments
     - one argument, the prefix for the config file, default is `code-structure`
-    - this cause it to use `code-structure-config.json` as the main configuration file
-    - and if there are any errors, it will create the default ignore list at `code-structure-existing-errors.json`
-    - to reset the errors to ignore to the current state, delete the `code-structure-existing-errors.json` file
+    - this causes it to use `code-structure-config.json` as the main configuration file
 - config file
     - inputDir
         - path, the directory from which to start scanning
     - outputDir
         - path, the directory to place the report
-    - localDepth
-        - when looking at the graph of a single file, how many levels of associated files to look at
-        - for example, if depth is 1, only look at the files the subject immediately depends on, or is immediately
-          depended on by
-        - if depth is 2, follow the same rule from each file included in depth 1
-        - and so on for depths higher than 2
     - nodeLimitForGraph
         - the higher the number of files, the longer the graph takes to generate and the more useless it is
         - if this limit is exceeded, the graph is not generated
@@ -102,7 +90,25 @@ Example configuration:
     - useObservationsCache
         - if the observations file exists, use that instead of scanning the sources and binaries
         - this is useful if you want to run "what if" scenarios by manually changing the observations file
-        - while true, changes to the source won't show up unless you delete the observations file
+    - maximumAllowedErrorCount
+        - if the number of errors exceeds this number, the build will fail
+    - includeJvmDynamicInvocations
+        - Clojure invokes methods dynamically, so the class dependency won't show up as a class in the constant pool (CONSTANT_Class - 7)
+        - However, the class name will still show up as a string, so we can get it as a string in the constant pool (CONSTANT_Utf8 - 1)
+        - Reading the string constants instead of class constants will also catch instances of Class.forName, but only if the completed string exists in the constant pool, it will not be able to detect it in cases where the string is constructed at runtime.
+
+## Maven Plugin Configuration
+
+```xml
+<plugin>
+    <groupId>com.seanshubin.code.structure</groupId>
+    <artifactId>code-structure-parent</artifactId>
+    <version>0.1.0</version>
+    <configuration>
+        <configBaseName>code-structure</configBaseName>
+    </configuration>
+</plugin>
+```
 
 ## Why these metrics fail the build
 

@@ -23,5 +23,5 @@
   },
   "maximumAllowedErrorCount" : 0,
   "useObservationsCache" : false,
-  "includeDynamicInvocations" : false
+  "includeJvmDynamicInvocations" : false
 }

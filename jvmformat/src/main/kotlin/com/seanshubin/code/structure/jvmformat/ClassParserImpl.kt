@@ -7,7 +7,7 @@ class ClassParserImpl(
     private val relativeToDir: Path,
     private val byteSequenceLoader: ByteSequenceLoader,
     private val classInfoLoader: ClassInfoLoader,
-    private val includeDynamicInvocations: Boolean
+    private val includeJvmDynamicInvocations: Boolean
 ) : ClassParser {
     override fun parseDependencies(path: Path, rawNames: List<String>): List<RelationDetail> {
         val names = rawNames.map { it.formatClassName() }
@@ -28,7 +28,7 @@ class ClassParserImpl(
         names: List<String>
     ): RelationDetail {
         val name = jvmClass.thisClassName.formatClassName()
-        val allDependencyNames = if (includeDynamicInvocations) {
+        val allDependencyNames = if (includeJvmDynamicInvocations) {
             jvmClass.constantPool.filterIsInstance<ConstantPoolInfo.Companion.Utf8Info>().map { it.value }
                 .map { it.formatClassName() }
         } else {

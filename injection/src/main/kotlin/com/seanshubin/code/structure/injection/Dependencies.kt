@@ -64,7 +64,7 @@ class Dependencies(integrations: Integrations) {
     private val inputDir = config.load(listOf("inputDir"), ".").coerceToPath()
     private val outputDir = config.load(listOf("outputDir"), "generated/code-structure").coerceToPath()
     private val useObservationsCache = config.load(listOf("useObservationsCache"), false).coerceToBoolean()
-    private val includeDynamicInvocations = config.load(listOf("includeDynamicInvocations"), false).coerceToBoolean()
+    private val includeJvmDynamicInvocations = config.load(listOf("includeJvmDynamicInvocations"), false).coerceToBoolean()
     private val sourcePrefix = config.load(listOf("sourcePrefix"), "prefix for link to source code").coerceToString()
     private val sourceFileIncludeRegexPatterns: List<String> =
         config.load(listOf("sourceFileRegexPatterns", "include"), emptyList<String>()).coerceToListOfString()
@@ -102,7 +102,7 @@ class Dependencies(integrations: Integrations) {
     )
     private val classInfoLoader: ClassInfoLoaderImpl = ClassInfoLoaderImpl()
     private val classParser: ClassParser =
-        ClassParserImpl(inputDir, byteSequenceLoader, classInfoLoader, includeDynamicInvocations)
+        ClassParserImpl(inputDir, byteSequenceLoader, classInfoLoader, includeJvmDynamicInvocations)
     private val beamParser: BeamParser = BeamParserImpl(files, inputDir)
     private val typeScriptRelationParser: TypeScriptRelationParser = TypeScriptRelationParserImpl(
         files, charset
