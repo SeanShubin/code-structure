@@ -14,12 +14,12 @@ class TableOfContentsReport : Report {
             Page.groups,
             annotateWithNumber(Page.entryPoints, validated.analysis.global.entryPoints.size),
             annotateWithNumber(
-                Page.directCycles,
-                validated.analysis.summary.errors.getValue(ErrorType.DIRECT_CYCLE).count
+                Page.inDirectCycle,
+                validated.analysis.summary.errors.getValue(ErrorType.IN_DIRECT_CYCLE).count
             ),
             annotateWithNumber(
-                Page.groupCycles,
-                validated.analysis.summary.errors.getValue(ErrorType.GROUP_CYCLE).count
+                Page.inGroupCycle,
+                validated.analysis.summary.errors.getValue(ErrorType.IN_GROUP_CYCLE).count
             ),
             annotateWithNumber(
                 Page.lineageAncestorDescendant,

@@ -12,8 +12,8 @@ class DirectCycleReport(private val nodeLimitForGraph: Int) : Report {
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
         val htmlInsideBody = generateHtml(validated)
-        val html = ReportHelper.wrapInTopLevelHtml(Page.directCycles.caption, htmlInsideBody, parents)
-        val path = reportDir.resolve(Page.directCycles.file)
+        val html = ReportHelper.wrapInTopLevelHtml(Page.inDirectCycle.caption, htmlInsideBody, parents)
+        val path = reportDir.resolve(Page.inDirectCycle.file)
         val lines = html.toLines()
         val topCommand = CreateFileCommand(reportName, path, lines)
         val graphCommands = commandsForAllCycleGraphs(reportDir, validated.analysis.global, parents)
@@ -25,7 +25,7 @@ class DirectCycleReport(private val nodeLimitForGraph: Int) : Report {
         analysis: ScopedAnalysis,
         parents: List<Page>
     ): List<Command> {
-        val parentsForCycle = parents + listOf(Page.directCycles)
+        val parentsForCycle = parents + listOf(Page.inDirectCycle)
         return analysis.cycleDetails.flatMapIndexed { index, cycleDetail ->
             commandsForCycleGraph(reportDir, index, cycleDetail, parentsForCycle)
         }

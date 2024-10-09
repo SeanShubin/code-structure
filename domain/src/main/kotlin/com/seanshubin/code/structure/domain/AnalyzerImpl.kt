@@ -106,8 +106,8 @@ class AnalyzerImpl(
             val descendantDependsOnAncestorCount = descendantToAncestor.size
             return Summary(
                 mapOf(
-                    ErrorType.DIRECT_CYCLE to ErrorSummaryItem(directCycleCount, countAsErrors.directCycle),
-                    ErrorType.GROUP_CYCLE to ErrorSummaryItem(inGroupCycleCount, countAsErrors.groupCycle),
+                    ErrorType.IN_DIRECT_CYCLE to ErrorSummaryItem(directCycleCount, countAsErrors.inDirectCycle),
+                    ErrorType.IN_GROUP_CYCLE to ErrorSummaryItem(inGroupCycleCount, countAsErrors.inGroupCycle),
                     ErrorType.ANCESTOR_DEPENDS_ON_DESCENDANT to ErrorSummaryItem(
                         ancestorDependsOnDescendantCount,
                         countAsErrors.ancestorDependsOnDescendant

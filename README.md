@@ -36,8 +36,8 @@ Example configuration:
     "exclude" : [ ]
   },
   "countAsErrors" : {
-    "directCycle" : true,
-    "groupCycle" : true,
+    "inDirectCycle" : true,
+    "inGroupCycle" : true,
     "ancestorDependsOnDescendant" : true,
     "descendantDependsOnAncestor" : true
   },

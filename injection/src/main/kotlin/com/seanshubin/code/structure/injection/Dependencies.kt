@@ -51,10 +51,10 @@ class Dependencies(integrations: Integrations) {
     private val config: Configuration = JsonFileConfiguration(files, configFile)
     private val clock: Clock = integrations.clock
     private val countAsErrors: CountAsErrors = CountAsErrors(
-        directCycle =
-        config.load(listOf("countAsErrors", "directCycle"), true).coerceToBoolean(),
-        groupCycle =
-        config.load(listOf("countAsErrors", "groupCycle"), true).coerceToBoolean(),
+        inDirectCycle =
+        config.load(listOf("countAsErrors", "inDirectCycle"), true).coerceToBoolean(),
+        inGroupCycle =
+        config.load(listOf("countAsErrors", "inGroupCycle"), true).coerceToBoolean(),
         ancestorDependsOnDescendant =
         config.load(listOf("countAsErrors", "ancestorDependsOnDescendant"), true).coerceToBoolean(),
         descendantDependsOnAncestor =

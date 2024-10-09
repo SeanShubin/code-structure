@@ -96,8 +96,8 @@ object ProjectGenerator {
         val codeStructureConfigLines = """
             {
               "countAsErrors" : {
-                "directCycle" : true,
-                "groupCycle" : true,
+                "inDirectCycle" : true,
+                "inGroupCycle" : true,
                 "ancestorDependsOnDescendant" : true,
                 "descendantDependsOnAncestor" : true
               },

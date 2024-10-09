@@ -14,8 +14,8 @@ class GroupCycleReport(private val nodeLimitForGraph: Int) : Report {
         val parents = listOf(Page.tableOfContents)
         val groupCycleList = groupCycleList(validated.analysis.groupScopedAnalysisList)
         val htmlInsideBody = generateHtml(groupCycleList)
-        val html = ReportHelper.wrapInTopLevelHtml(Page.groupCycles.caption, htmlInsideBody, parents)
-        val path = reportDir.resolve(Page.groupCycles.file)
+        val html = ReportHelper.wrapInTopLevelHtml(Page.inGroupCycle.caption, htmlInsideBody, parents)
+        val path = reportDir.resolve(Page.inGroupCycle.file)
         val lines = html.toLines()
         val topCommand = CreateFileCommand(reportName, path, lines)
         val graphCommands = commandsForAllCycleGraphs(reportDir, groupCycleList, parents)
@@ -35,7 +35,7 @@ class GroupCycleReport(private val nodeLimitForGraph: Int) : Report {
         groupCycleList: List<GroupCycle>,
         parents: List<Page>
     ): List<Command> {
-        val parentsForCycle = parents + listOf(Page.groupCycles)
+        val parentsForCycle = parents + listOf(Page.inGroupCycle)
         return groupCycleList.flatMapIndexed { index, groupCycle ->
             commandsForCycleGraph(reportDir, index, groupCycle, parentsForCycle)
         }
