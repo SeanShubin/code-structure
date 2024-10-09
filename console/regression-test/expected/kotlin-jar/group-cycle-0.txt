@@ -1,8 +1,8 @@
 digraph detangled {
   bgcolor=lightgray
-  "packagec" [fontcolor="blue" URL="group-packagec.html" label="packagec"]
-  "packagee" [fontcolor="blue" URL="group-packagee.html" label="packagee"]
-  "packageg" [fontcolor="blue" URL="group-packageg.html" label="packageg"]
+  "packagec" [label="packagec"]
+  "packagee" [label="packagee"]
+  "packageg" [label="packageg"]
   "packagec" -> "packagee"
   "packagee" -> "packageg"
   "packageg" -> "packagec"

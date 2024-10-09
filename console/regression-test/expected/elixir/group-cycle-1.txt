@@ -1,8 +1,8 @@
 digraph detangled {
   bgcolor=lightgray
-  "PathI" [fontcolor="blue" URL="group-PathI.html" label="PathI"]
-  "PathP" [fontcolor="blue" URL="group-PathP.html" label="PathP"]
-  "PathR" [fontcolor="blue" URL="group-PathR.html" label="PathR"]
+  "PathI" [label="PathI"]
+  "PathP" [label="PathP"]
+  "PathR" [label="PathR"]
   "PathI" -> "PathP"
   "PathP" -> "PathR"
   "PathR" -> "PathI"

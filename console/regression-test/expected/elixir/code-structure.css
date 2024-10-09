@@ -79,17 +79,3 @@ table {
     grid-column-gap: 0.5rem;
     justify-content: start;
 }
-
-.column-3 {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    grid-row-gap: 0.5rem;
-    grid-column-gap: 0.5rem;
-    justify-content: start;
-}
-
-.big-list > * {
-}
-
-.two-column > * {
-}

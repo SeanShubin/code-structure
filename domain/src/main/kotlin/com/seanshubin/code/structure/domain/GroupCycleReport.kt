@@ -69,7 +69,7 @@ class GroupCycleReport(private val nodeLimitForGraph: Int) : Report {
         DotNode(
             id = name,
             text = name,
-            link = name.toCodeUnit().toUriName("group", ".html"),
+            link = null,
             color = "blue",
             bold = false
         )

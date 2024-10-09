@@ -12,20 +12,14 @@
 <!-- ModuleL -->
 <g id="node1" class="node">
 <title>ModuleL</title>
-<g id="a_node1"><a xlink:href="group-ModuleL.html" xlink:title="ModuleL">
 <ellipse fill="none" stroke="black" cx="86.79" cy="-162" rx="45.72" ry="18"/>
-<text text-anchor="middle" x="86.79" y="-156.95" font-family="Times,serif" font-size="14.00" fill="blue">ModuleL</text>
-</a>
-</g>
+<text text-anchor="middle" x="86.79" y="-156.95" font-family="Times,serif" font-size="14.00">ModuleL</text>
 </g>
 <!-- ModuleM -->
 <g id="node2" class="node">
 <title>ModuleM</title>
-<g id="a_node2"><a xlink:href="group-ModuleM.html" xlink:title="ModuleM">
 <ellipse fill="none" stroke="black" cx="48.79" cy="-90" rx="48.79" ry="18"/>
-<text text-anchor="middle" x="48.79" y="-84.95" font-family="Times,serif" font-size="14.00" fill="blue">ModuleM</text>
-</a>
-</g>
+<text text-anchor="middle" x="48.79" y="-84.95" font-family="Times,serif" font-size="14.00">ModuleM</text>
 </g>
 <!-- ModuleL&#45;&gt;ModuleM -->
 <g id="edge1" class="edge">
@@ -36,11 +30,8 @@
 <!-- ModuleN -->
 <g id="node3" class="node">
 <title>ModuleN</title>
-<g id="a_node3"><a xlink:href="group-ModuleN.html" xlink:title="ModuleN">
 <ellipse fill="none" stroke="black" cx="86.79" cy="-18" rx="46.75" ry="18"/>
-<text text-anchor="middle" x="86.79" y="-12.95" font-family="Times,serif" font-size="14.00" fill="blue">ModuleN</text>
-</a>
-</g>
+<text text-anchor="middle" x="86.79" y="-12.95" font-family="Times,serif" font-size="14.00">ModuleN</text>
 </g>
 <!-- ModuleM&#45;&gt;ModuleN -->
 <g id="edge2" class="edge">

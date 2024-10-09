@@ -1,8 +1,8 @@
 digraph detangled {
   bgcolor=lightgray
-  "ModuleL" [fontcolor="blue" URL="group-ModuleL.html" label="ModuleL"]
-  "ModuleM" [fontcolor="blue" URL="group-ModuleM.html" label="ModuleM"]
-  "ModuleN" [fontcolor="blue" URL="group-ModuleN.html" label="ModuleN"]
+  "ModuleL" [label="ModuleL"]
+  "ModuleM" [label="ModuleM"]
+  "ModuleN" [label="ModuleN"]
   "ModuleL" -> "ModuleM"
   "ModuleM" -> "ModuleN"
   "ModuleN" -> "ModuleL"
