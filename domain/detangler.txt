@@ -2,7 +2,7 @@
   reportDir domain/target/detangled
   searchPaths
   [
-    ./domain/target/code-structure-domain-1.0.0-SNAPSHOT.jar
+    ./domain/target/code-structure-domain-0.9.0.jar
   ]
   level 2
   startsWith
