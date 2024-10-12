@@ -103,7 +103,7 @@ Example configuration:
 <plugin>
     <groupId>com.seanshubin.code.structure</groupId>
     <artifactId>code-structure-parent</artifactId>
-    <version>0.1.0</version>
+    <version>1.0.0</version>
     <configuration>
         <configBaseName>code-structure</configBaseName>
     </configuration>
@@ -160,17 +160,3 @@ dot - graphviz version 12.0.0 (20240704.0754)
 ./scripts/build.sh
 ./scripts/run.sh
 ```
-
-## Work in Progress
-
-- optionally turn off direct cycle checking
-- failure based on quantity
-- maven plugin
-- spaghettification number
-- summary report
-- error report
-- make local report optional
-- ConfigHelp
-- EnumUtil
-- RelationParserRepository
-- BytecodeFormat

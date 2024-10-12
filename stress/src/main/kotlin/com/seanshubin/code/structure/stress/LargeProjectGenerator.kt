@@ -8,12 +8,13 @@ class LargeProjectGenerator(
     alphabet: List<String>,
     val random: Random
 ) {
-    private val backwardsRelationsCount = depth * breadth
     private val words = alphabet.take(breadth)
     private val multiplier = words.map { listOf(it) }
     fun createNames(): List<String> = wordLists().map(::wordsToName)
     fun createRelations(names: List<String>, relationsPerName: Int): List<Pair<String, String>> {
         val size = names.size
+        val maxBackwardsDistance = size / 20
+        val backwardsRelationsCount = size / 5
         val totalRelations = relationsPerName * size
         val forwardRelations = (1..totalRelations).map {
             random.nextInt(size) to random.nextInt(size)
@@ -24,7 +25,9 @@ class LargeProjectGenerator(
             names[first] to names[second]
         }
         val backwardsRelations = (1..backwardsRelationsCount).map {
-            random.nextInt(size) to random.nextInt(size)
+            val second = random.nextInt(size - maxBackwardsDistance)
+            val first  = second + random.nextInt(maxBackwardsDistance)
+            first to second
         }.filter { (first, second) -> first != second }.map { (first, second) ->
             if (first < second) second to first
             else first to second
