@@ -160,3 +160,6 @@ dot - graphviz version 12.0.0 (20240704.0754)
 ./scripts/build.sh
 ./scripts/run.sh
 ```
+
+## References
+- https://kotlinlang.org/docs/dokka-maven.html
