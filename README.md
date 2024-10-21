@@ -121,6 +121,29 @@ see how your code is affected by diligently following these rules.
 See a more thorough description in the
 [naming](/docs/naming.md) document
 
+## Why check the quantity of errors rather than checking the errors individually
+In a similar project I recorded the individual errors rather than the quantity of errors.
+
+In practice, I found the following disadvantages.
+
+- (minor) the error list would have to be updated for refactorings that moved code around without making anything worse
+- (major) users got used to updating the error list even when the code was worse off, as there was no easy to tell the difference between code getting better or worse
+
+The solution here is to maintain an error count rather than an error list, with the following effects.
+
+- (minor) no need to maintain a list of errors
+- (minor) no need to update anything when just moving code around
+- (major) anyone who makes the problem worse has to increase the maximumAllowedErrorCount, advertising their shame in version control for all eternity 
+
+Recommended policy that a unit of work is not considered done until one of 3 situations are true
+
+- error count goes up
+  - An error metric has been introduced that was not there before, such as this application.  While the error count has gone up the errors have not, they were always there, just not detected
+- error count goes down
+  - An error has been fixed such that the error count has gone down by at least one 
+- error count is zero
+  - There are no unfixed errors, and there are no other available metrics to add
+
 ## Prerequisites
 
 Tested with versions
