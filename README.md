@@ -127,7 +127,7 @@ In a similar project I recorded the individual errors rather than the quantity o
 In practice, I found the following disadvantages.
 
 - (minor) the error list would have to be updated for refactorings that moved code around without making anything worse
-- (major) users got used to updating the error list even when the code was worse off, as there was no easy to tell the difference between code getting better or worse
+- (major) users got used to updating the error list even when the code was worse off, as there was no easy way for others to tell the difference between code getting better or worse
 
 The solution here is to maintain an error count rather than an error list, with the following effects.
 
