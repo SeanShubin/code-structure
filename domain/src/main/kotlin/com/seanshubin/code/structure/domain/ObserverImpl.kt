@@ -49,7 +49,7 @@ class ObserverImpl(
         val binaryDetailList = binaryFiles.flatMap {
             relationParser.parseDependencies(it, names)
         }.sorted()
-        val binaryDetailNames = binaryDetailList.map { it.name }
+        val binaryDetailNames = binaryDetailList.map { it.name }.distinct().sorted()
         val (namesInBinary, namesNotInBinary) = names.partition { name ->
             binaryDetailNames.contains(name)
         }
