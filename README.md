@@ -5,7 +5,7 @@
 - Check the "Prerequisites" section
 - Install, either by building from source or fetching it from a maven repo url
   - Build from source `./scripts/clean-install-skip-tests.sh`
-  - Fetch from a repo at MAVEN_REPO_URL `./scripts/fetch-from-maven-repo-url.sh` 
+  - Fetch from a repo at MAVEN_SNAPSHOT_URL `./scripts/fetch-from-maven-repo-url.sh` 
 - Run on your project with no parameters, this will create the default configuration file
   - java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.0.0-SNAPSHOT/code-structure-console-1.0.0-SNAPSHOT.jar
   - If you need multiple configuration files, specify the base name of the configuration file as the first parameter
