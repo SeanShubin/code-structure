@@ -108,6 +108,7 @@
     console com.seanshubin.code.structure.console.EntryPoint
     stress  com.seanshubin.code.structure.stress.LargeProjectGeneratorApp
   }
+  mavenPlugin [ maven ]
   javaVersion 17
   deployableToMavenCentral true
 }

@@ -99,15 +99,30 @@ Example configuration:
 
 ## Maven Plugin Configuration
 
+Will run during the "verify" phase of the [maven lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)
+
 ```xml
-<plugin>
-    <groupId>com.seanshubin.code.structure</groupId>
-    <artifactId>code-structure-parent</artifactId>
-    <version>1.0.0</version>
-    <configuration>
-        <configBaseName>code-structure</configBaseName>
-    </configuration>
-</plugin>
+<project>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.seanshubin.code.structure</groupId>
+                <artifactId>code-structure-maven</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>code-structure</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <configBaseName>code-structure</configBaseName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
 ```
 
 ## Why these metrics fail the build

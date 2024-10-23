@@ -4,6 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>code-structure-maven</artifactId>
+    <packaging>maven-plugin</packaging>
     <dependencies>
         <dependency>
             <groupId>com.seanshubin.code.structure</groupId>
@@ -33,5 +34,32 @@
         <artifactId>code-structure-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>3.15.0</version>
+                <configuration>
+                    <goalPrefix>plugin</goalPrefix>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-descriptor</id>
+                        <goals>
+                            <goal>descriptor</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                    </execution>
+                    <execution>
+                        <id>help-descriptor</id>
+                        <goals>
+                            <goal>helpmojo</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
     <name>${project.groupId}:${project.artifactId}</name>
 </project>
