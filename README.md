@@ -3,8 +3,11 @@
 ## Getting started
 
 - Check the "Prerequisites" section
-- Run on self with `./scripts/clean-build-run-skip-tests.sh`
+- Install, either by building from source or fetching it from a maven repo url
+  - Build from source `./scripts/clean-install-skip-tests.sh`
+  - Fetch from a repo at MAVEN_REPO_URL `./scripts/fetch-from-maven-repo-url.sh` 
 - Run on your project with no parameters, this will create the default configuration file
+  - java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.0.0-SNAPSHOT/code-structure-console-1.0.0-SNAPSHOT.jar
   - If you need multiple configuration files, specify the base name of the configuration file as the first parameter
 - Add regular expressions to the sourceFileRegexPatterns sections in the default configuration file so that all of your sources are included (see examples)
   - Run the application again
@@ -96,6 +99,13 @@ Example configuration:
         - Clojure invokes methods dynamically, so the class dependency won't show up as a class in the constant pool (CONSTANT_Class - 7)
         - However, the class name will still show up as a string, so we can get it as a string in the constant pool (CONSTANT_Utf8 - 1)
         - Reading the string constants instead of class constants will also catch instances of Class.forName, but only if the completed string exists in the constant pool, it will not be able to detect it in cases where the string is constructed at runtime.
+
+## Command Line
+
+`java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.0.0-SNAPSHOT/code-structure-console-1.0.0-SNAPSHOT.jar`
+
+First parameter is the base name for your configuration file.
+Default is "code-structure", which will result in a configuration file named "code-structure-config.json"
 
 ## Maven Plugin Configuration
 

@@ -3,7 +3,7 @@
 date
 time \
 ./scripts/_clean.sh && \
-./scripts/_build_skip_tests.sh && \
+./scripts/_build-skip-tests.sh && \
 ./scripts/_run.sh
 date
 say "done with clean test build run skip tests"

@@ -4,7 +4,7 @@ set -e
 
 date
 time \
-./scripts/_build_skip_tests.sh && \
+./scripts/_build-skip-tests.sh && \
 ./scripts/_stress.sh "$@"
 date
 
