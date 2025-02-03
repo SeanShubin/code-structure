@@ -8,6 +8,7 @@ class JavaParserImpl(private val relativeToDir: Path) : JavaParser {
     private val packageRegex = Regex("""^(?:[^\n ].*)?package +([.\w]*)""", RegexOption.MULTILINE)
     private val interfaceRegex = Regex("""^(?:[^\n ].*)?interface +([.\w]*)""", RegexOption.MULTILINE)
     private val classRegex = Regex("""^(?:[^\n ].*)?class +([.\w]*)""", RegexOption.MULTILINE)
+    private val recordRegex = Regex("""^(?:[^\n ].*)?record +([.\w]*)""", RegexOption.MULTILINE)
     override fun parseName(path: Path, content: String): NameDetail {
         val relativePath = relativeToDir.relativize(path)
         val language = "java"
@@ -26,9 +27,10 @@ class JavaParserImpl(private val relativeToDir: Path) : JavaParser {
             )
         }
         val classes = RegexUtil.findRegex(classRegex, content)
+        val records = RegexUtil.findRegex(recordRegex, content)
         val interfaces = RegexUtil.findRegex(interfaceRegex, content)
         val prefix = if (packages.isEmpty()) "" else packages[0] + "."
-        val names = classes + interfaces
+        val names = classes + interfaces + records
         val qualifiedNames = names.map {
             "$prefix$it"
         }
