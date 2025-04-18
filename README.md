@@ -7,7 +7,7 @@
   - Build from source `./scripts/clean-install-skip-tests.sh`
   - Fetch from a repo at MAVEN_SNAPSHOT_URL `./scripts/fetch-from-maven-repo-url.sh` 
 - Run on your project with no parameters, this will create the default configuration file
-  - java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.0.0-SNAPSHOT/code-structure-console-1.0.0-SNAPSHOT.jar
+  - java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.0.0/code-structure-console-1.0.0.jar
   - If you need multiple configuration files, specify the base name of the configuration file as the first parameter
 - Add regular expressions to the sourceFileRegexPatterns sections in the default configuration file so that all of your sources are included (see examples)
   - Run the application again
@@ -102,7 +102,7 @@ Example configuration:
 
 ## Command Line
 
-`java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.0.0-SNAPSHOT/code-structure-console-1.0.0-SNAPSHOT.jar`
+`java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.0.0/code-structure-console-1.0.0.jar`
 
 First parameter is the base name for your configuration file.
 Default is "code-structure", which will result in a configuration file named "code-structure-config.json"
@@ -118,7 +118,7 @@ Will run during the "verify" phase of the [maven lifecycle](https://maven.apache
             <plugin>
                 <groupId>com.seanshubin.code.structure</groupId>
                 <artifactId>code-structure-maven</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.0</version>
                 <executions>
                     <execution>
                         <goals>
