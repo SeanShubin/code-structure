@@ -25,7 +25,7 @@ are:
 
 ### example: direct cycles
 
-The stable dependencies principle is that software components should only depend on other software components more stable than they are.
+The stable dependencies principle is that software components should only depend on other software components that are more stable than they are.
 Code that is likely to have a lot of other code depending on it should rarely break backwards compatibility (be stable).
 Code that needs the flexibility to break backwards compatibility (not stable) should not have a lot of other code depending on it.
 While this tool does not attempt to measure how stable any particular code is, it can detect violations of the stable dependency principle with absolute certainty and decent precision.
