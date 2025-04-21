@@ -12,7 +12,7 @@ concepts.
 
 Names are a tool used to communicate meaning to humans. Class names focus on the specific, while package names create
 categories and hierarchies of categories. Since humans can only keep track of so many classes and their relationships at
-a time, filtering names by package allows humans to focus on only a particular subset of names. Every bit of code as an
+a time, filtering names by package allows humans to focus on only a particular subset of names. Every bit of code is an
 address, starting with the package name, continuing to the class name, and ending with the method name. While dependency
 analysis can not tell you what good names are, it can tell you if something is wrong with where your methods and classes
 are located within your hierarchy. This analysis is useful at several levels of detail, which in order of importance
@@ -24,6 +24,14 @@ are:
 - Descendants depend on ancestors
 
 ### example: direct cycles
+
+The stable dependencies principle is that software components should only depend on other software components more stable than they are.
+Code that is likely to have a lot of other code depending on it should rarely break backwards compatibility (be stable).
+Code that needs the flexibility to break backwards compatibility (not stable) should not have a lot of other code depending on it.
+While this tool does not attempt to measure how stable any particular code is, it can detect violations of the stable dependency principle with absolute certainty and decent precision.
+If you have a direct cycle, you know that there must be a violation of the stable dependency principle.
+While this tool can not tell you which dependency is going in the wrong direction, it can narrow the culprits down to one of the dependencies participating in the direct cycle. 
+Once the culprits are narrowed down like this, it is easy for a software engineer to determine where the problem specifically lies and how to fix it. 
 
 Say you have the following dependency structure:
 
@@ -55,6 +63,13 @@ digraph dependencies {
 ![direct cycle 2](/docs/direct-cycle-2.svg)
 
 ### example: group cycles
+
+If you apply the same reasoning for avoiding cycles among classes to packages, you can make the code more comprehensible.
+Software engineers rarely leverage the power of a well organized name hierarchy, but I do not believe this is a skill issue.
+It is a human limitation issue, a human can only keep so many names in their head at one time.
+The solution is tooling, such as this application.
+Cycles detected at the package level provides an objective alert that something is wrong, without burdening the human with keeping track of every name.
+Once attention is drawn to the proper place, the human can decide to break up packages or consolidate packages as appropriate.
 
 Say you have the following dependency structure:
 
@@ -106,6 +121,17 @@ digraph dependencies {
 ![group cycle 4](/docs/group-cycle-4.svg)
 
 ### example: ancestors depend on descendants
+
+When a package gets too big, it makes sense to break it up into subpackages, giving each subpackage a more specific name to add more detailed context.
+However, when you only move some code into subpackages, and leave some code in the parent package, you have given more qualified names to some code and not other code.
+Within the context of the parent package, it is now harder to reason about the dependency structure, because you have left the context for the parent package unnamed.
+The solution is to avoid this half measure, and give all code a more qualified context.
+This forces you to think about good context names for all code in the package, and will lead you to more precise and well named categorization than otherwise.
+Now the dependency structure is easier to reason about at the higher level, because each sub-package has a name.
+Effectively this means you only have two types of packages.
+Organizing packages, which contain no direct code, but rather organize other packages.
+Code packages, which contain no sub-packages, only code.
+This tool will detect an ancestor depending on a descendant, so that the software engineer can push the ancestor code down to a more qualified package.
 
 Say you have the following dependency structure:
 
@@ -184,6 +210,9 @@ digraph dependencies {
 ![ancestry 4](/docs/ancestry-4.svg)
 
 ### example: descendants depend on ancestors
+
+The same rationale for detecting when an ancestor depends on a descendant, also applies to when a descendant depends on an ancestor.
+This tool will detect a descendant depending on an ancestor, so that the software engineer can push the ancestor code down to a more qualified package.
 
 At the end of the previous example, we are in pretty good shape. These examples are listed in order of importance.
 However, we can still do better. The idea behind this last example is that categorization and dependency structure are
