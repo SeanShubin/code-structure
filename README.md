@@ -108,7 +108,7 @@ mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get \
     -DrepoUrl=https://repo1.maven.org/maven2 \
     -Dartifact=com.seanshubin.code.structure:code-structure-console:1.0.0
 ```
-`java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.0.0/code-structure-console-1.0.0.jar`
+
 
 Run the code structure application
 ```
