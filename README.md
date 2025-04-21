@@ -102,7 +102,18 @@ Example configuration:
 
 ## Command Line
 
+Fetch the artifact to your local maven repository
+```
+mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get \
+    -DrepoUrl=https://repo1.maven.org/maven2 \
+    -Dartifact=com.seanshubin.code.structure:code-structure-console:1.0.0
+```
 `java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.0.0/code-structure-console-1.0.0.jar`
+
+Run the code structure application
+```
+java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.0.0/code-structure-console-1.0.0.jar
+```
 
 First parameter is the base name for your configuration file.
 Default is "code-structure", which will result in a configuration file named "code-structure-config.json"
