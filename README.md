@@ -1,5 +1,9 @@
 # Code Structure
 
+## Tips
+- In practice, you can fix EVERY problem this tool detects except for direct cycles without changing any logic, you just have to move files around to organize your code in a more internally consistent manner.
+- I usually start by placing everything in the same package, and only split into subpackages when the package gets too large.  However, I don't do this split half way, everything gets a child package or nothing does, that way, every subpackage has a name. 
+
 ## Getting started
 
 - Check the "Prerequisites" section
