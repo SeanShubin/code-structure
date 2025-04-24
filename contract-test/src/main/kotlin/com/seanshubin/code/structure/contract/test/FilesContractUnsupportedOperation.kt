@@ -12,7 +12,7 @@ import java.nio.file.attribute.*
 import java.util.function.BiPredicate
 import java.util.stream.Stream
 
-abstract class FilesNotImplemented : FilesContract {
+interface FilesContractUnsupportedOperation : FilesContract {
     override fun newInputStream(path: Path, vararg options: OpenOption): InputStream {
         throw UnsupportedOperationException("not implemented")
     }
@@ -21,11 +21,7 @@ abstract class FilesNotImplemented : FilesContract {
         throw UnsupportedOperationException("not implemented")
     }
 
-    override fun newByteChannel(
-        path: Path,
-        options: Set<OpenOption>,
-        vararg attrs: FileAttribute<*>
-    ): SeekableByteChannel {
+    override fun newByteChannel(path: Path, options: Set<OpenOption>, vararg attrs: FileAttribute<*>): SeekableByteChannel {
         throw UnsupportedOperationException("not implemented")
     }
 
@@ -109,10 +105,6 @@ abstract class FilesNotImplemented : FilesContract {
         throw UnsupportedOperationException("not implemented")
     }
 
-    override fun mismatch(path: Path, path2: Path): Long {
-        throw UnsupportedOperationException("not implemented")
-    }
-
     override fun isHidden(path: Path): Boolean {
         throw UnsupportedOperationException("not implemented")
     }
@@ -121,11 +113,7 @@ abstract class FilesNotImplemented : FilesContract {
         throw UnsupportedOperationException("not implemented")
     }
 
-    override fun <V : FileAttributeView> getFileAttributeView(
-        path: Path,
-        type: Class<V>,
-        vararg options: LinkOption
-    ): V {
+    override fun <V : FileAttributeView> getFileAttributeView(path: Path, type: Class<V>, vararg options: LinkOption): V? {
         throw UnsupportedOperationException("not implemented")
     }
 
@@ -205,12 +193,7 @@ abstract class FilesNotImplemented : FilesContract {
         throw UnsupportedOperationException("not implemented")
     }
 
-    override fun walkFileTree(
-        start: Path,
-        options: Set<FileVisitOption>,
-        maxDepth: Int,
-        visitor: FileVisitor<in Path>
-    ): Path {
+    override fun walkFileTree(start: Path, options: Set<FileVisitOption>, maxDepth: Int, visitor: FileVisitor<in Path>): Path {
         throw UnsupportedOperationException("not implemented")
     }
 
@@ -219,6 +202,10 @@ abstract class FilesNotImplemented : FilesContract {
     }
 
     override fun newBufferedReader(path: Path, cs: Charset): BufferedReader {
+        throw UnsupportedOperationException("not implemented")
+    }
+
+    override fun newBufferedReader(path: Path): BufferedReader {
         throw UnsupportedOperationException("not implemented")
     }
 
@@ -242,11 +229,19 @@ abstract class FilesNotImplemented : FilesContract {
         throw UnsupportedOperationException("not implemented")
     }
 
+    override fun readString(path: Path): String {
+        throw UnsupportedOperationException("not implemented")
+    }
+
     override fun readString(path: Path, cs: Charset): String {
         throw UnsupportedOperationException("not implemented")
     }
 
     override fun readAllLines(path: Path, cs: Charset): List<String> {
+        throw UnsupportedOperationException("not implemented")
+    }
+
+    override fun readAllLines(path: Path): List<String> {
         throw UnsupportedOperationException("not implemented")
     }
 
@@ -274,24 +269,23 @@ abstract class FilesNotImplemented : FilesContract {
         throw UnsupportedOperationException("not implemented")
     }
 
-    override fun walk(start: Path, maxDepth: Int, vararg options: FileVisitOption): Stream<Path> {
-        throw UnsupportedOperationException("not implemented")
-    }
-
     override fun walk(start: Path, vararg options: FileVisitOption): Stream<Path> {
         throw UnsupportedOperationException("not implemented")
     }
 
-    override fun find(
-        start: Path,
-        maxDepth: Int,
-        matcher: BiPredicate<Path, BasicFileAttributes>,
-        vararg options: FileVisitOption
-    ): Stream<Path> {
+    override fun walk(start: Path, maxDepth: Int, vararg options: FileVisitOption): Stream<Path> {
+        throw UnsupportedOperationException("not implemented")
+    }
+
+    override fun find(start: Path, maxDepth: Int, matcher: BiPredicate<Path, BasicFileAttributes>, vararg options: FileVisitOption): Stream<Path> {
         throw UnsupportedOperationException("not implemented")
     }
 
     override fun lines(path: Path, cs: Charset): Stream<String> {
+        throw UnsupportedOperationException("not implemented")
+    }
+
+    override fun lines(path: Path): Stream<String> {
         throw UnsupportedOperationException("not implemented")
     }
 }

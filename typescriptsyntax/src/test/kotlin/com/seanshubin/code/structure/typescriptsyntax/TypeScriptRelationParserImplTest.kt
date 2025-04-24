@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.typescriptsyntax
 
-import com.seanshubin.code.structure.contract.test.FilesNotImplemented
+import com.seanshubin.code.structure.contract.test.FilesContractUnsupportedOperation
 import com.seanshubin.code.structure.relationparser.RelationDetail
 import org.junit.Test
 import java.nio.charset.Charset
@@ -59,7 +59,7 @@ class TypeScriptRelationParserImplTest {
         val typeScriptRelationParser = TypeScriptRelationParserImpl(files, charset)
     }
 
-    class FilesStub(val contentAtPath: Map<String, String>) : FilesNotImplemented() {
+    class FilesStub(val contentAtPath: Map<String, String>) : FilesContractUnsupportedOperation {
         override fun readString(path: Path, cs: Charset): String {
             return contentAtPath.getValue(path.toString())
         }

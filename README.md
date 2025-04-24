@@ -1,7 +1,7 @@
 # Code Structure
 
 ## Tips
-- In practice, you can fix EVERY problem this tool detects except for direct cycles without changing any logic, you just have to move files around to organize your code in a more internally consistent manner.
+- In practice, you can fix every problem this tool detects except for direct cycles without changing any logic, you just have to move files around to organize your code in a more internally consistent manner.
 - I usually start by placing everything in the same package, and only split into subpackages when the package gets too large.  However, I don't do this split half way, everything gets a child package or nothing does, that way, every subpackage has a name. 
 
 ## Getting started
@@ -20,27 +20,37 @@
   - Run the application again
 - If your source language is Clojure, set includeJvmDynamicInvocations to true
 
+## Command Line Arguments
+- one argument, the prefix for the config file, default is `code-structure`
+- this causes it to use `code-structure-config.json` as the main configuration file
+
 ## Configuration Explained
 
-Example configuration:
+Any missing elements in the configuration will be generated with default values, including the documentation.
+There is a generated "documentation" element in the configuration, which explains each configuration element.
+Here is an example generated from an earlier version of this project running on itself.
 
 ```json
 {
   "inputDir" : ".",
   "outputDir" : "generated/self",
-  "nodeLimitForGraph" : 50,
+  "nodeLimitForGraph" : 100,
   "sourcePrefix" : "https://github.com/SeanShubin/code-structure/blob/master/",
   "sourceFileRegexPatterns" : {
     "include" : [
-      ".*\\.kt$"
+      ".*/src/main/kotlin/.*\\.kt$"
     ],
-    "exclude" : [ ]
+    "exclude" : [
+      "generated/.*"
+    ]
   },
   "binaryFileRegexPatterns" : {
     "include" : [
-      ".*/code-structure-console.jar$"
+      ".*/target/classes/.*\\.class"
     ],
-    "exclude" : [ ]
+    "exclude" : [
+      "generated/.*"
+    ]
   },
   "countAsErrors" : {
     "inDirectCycle" : true,
@@ -49,60 +59,134 @@ Example configuration:
     "descendantDependsOnAncestor" : true
   },
   "maximumAllowedErrorCount" : 0,
-  "useObservationsCache": false,
-  "includeJvmDynamicInvocations" : false
+  "useObservationsCache" : false,
+  "includeJvmDynamicInvocations" : false,
+  "documentation" : {
+    "countAsErrors" : {
+      "inDirectCycle" : [
+        "path: countAsErrors.inDirectCycle",
+        "default value: true",
+        "default value type: Boolean",
+        "Whether to include the number of code units in a direct cycle in the error count",
+        "Direct cycles typically require changes in logic to fix, so they are riskier than the other metrics",
+        "Set this to false if you want to focus on metrics that are easier to fix first"
+      ],
+      "inGroupCycle" : [
+        "path: countAsErrors.inGroupCycle",
+        "default value: true",
+        "default value type: Boolean",
+        "Whether to include the number of group cycles in the error count",
+        "Groups are packages in java, modules in elixir"
+      ],
+      "ancestorDependsOnDescendant" : [
+        "path: countAsErrors.ancestorDependsOnDescendant",
+        "default value: true",
+        "default value type: Boolean",
+        "Whether to include the number cases where an ancestor depends on a descendant in error count",
+        "Dependencies between super-categories and sub-categories indicate that files in the super-category weren't placed in a properly named sub-category",
+        "Instead, organize your directory structure such that each directory either only contains other directories following the same rules, or only contains files"
+      ],
+      "descendantDependsOnAncestor" : [
+        "path: countAsErrors.descendantDependsOnAncestor",
+        "default value: true",
+        "default value type: Boolean",
+        "Whether to include the number cases where a descendant depends on a ancestor in error count",
+        "Dependencies between super-categories and sub-categories indicate that files in the super-category weren't placed in a properly named sub-category",
+        "Instead, organize your directory structure such that each directory either only contains other directories following the same rules, or only contains files"
+      ]
+    },
+    "maximumAllowedErrorCount" : [
+      "path: maximumAllowedErrorCount",
+      "default value: 0",
+      "default value type: Integer",
+      "if the number of errors exceeds this number, the build will fail"
+    ],
+    "inputDir" : [
+      "path: inputDir",
+      "default value: .",
+      "default value type: String",
+      "the directory from which to start scanning"
+    ],
+    "outputDir" : [
+      "path: outputDir",
+      "default value: generated/code-structure",
+      "default value type: String",
+      "the directory to place the report"
+    ],
+    "useObservationsCache" : [
+      "path: useObservationsCache",
+      "default value: false",
+      "default value type: Boolean",
+      "if the observations file exists, use that instead of scanning the sources and binaries",
+      "this is useful if you want to run 'what if' scenarios by manually changing the observations file"
+    ],
+    "includeJvmDynamicInvocations" : [
+      "path: includeJvmDynamicInvocations",
+      "default value: false",
+      "default value type: Boolean",
+      "Clojure invokes methods dynamically, so the class dependency won't show up as a class in the constant pool (CONSTANT_Class - 7)",
+      "However, the class name will still show up as a string, so we can get it as a string in the constant pool (CONSTANT_Utf8 - 1)",
+      "Reading the string constants instead of class constants will also catch instances of Class.forName, but only if the completed string exists in the constant pool, it will not be able to detect it in cases where the string is constructed at runtime."
+    ],
+    "sourcePrefix" : [
+      "path: sourcePrefix",
+      "default value: prefix for link to source code",
+      "default value type: String",
+      "pre-pended to links in the report, so you can navigate directly to the source code from the report"
+    ],
+    "sourceFileRegexPatterns" : {
+      "include" : [
+        "path: sourceFileRegexPatterns.include",
+        "default value: []",
+        "default value type: EmptyList",
+        "what file names constitute a source file, relative to the 'inputDir' configuration item",
+        "used to determine names",
+        "list of regular expression patterns to include",
+        "to be included, a file must match at least one include pattern, without matching any exclude patterns"
+      ],
+      "exclude" : [
+        "path: sourceFileRegexPatterns.exclude",
+        "default value: []",
+        "default value type: EmptyList",
+        "what file names constitute a source file, relative to the 'inputDir' configuration item",
+        "used to determine names",
+        "list of regular expression patterns to exclude",
+        "list of regular expression patterns to include",
+        "to be included, a file must match at least one include pattern, without matching any exclude patterns"
+      ]
+    },
+    "nodeLimitForGraph" : [
+      "path: nodeLimitForGraph",
+      "default value: 50",
+      "default value type: Integer",
+      "the higher the number of files, the longer the graph takes to generate and the more useless it is",
+      " if this limit is exceeded, the graph is not generated"
+    ],
+    "binaryFileRegexPatterns" : {
+      "include" : [
+        "path: binaryFileRegexPatterns.include",
+        "default value: []",
+        "default value type: EmptyList",
+        "what file name constitutes a binary file, relative to the 'inputDir' configuration item",
+        "used to determine dependency relationships between names",
+        "list of regular expression patterns to include",
+        "list of regular expression patterns to include",
+        "to be included, a file must match at least one include pattern, without matching any exclude patterns"
+      ],
+      "exclude" : [
+        "path: binaryFileRegexPatterns.exclude",
+        "default value: []",
+        "default value type: EmptyList",
+        "what file name constitutes a binary file, relative to the 'inputDir' configuration item",
+        "used to determine dependency relationships between names",
+        "list of regular expression patterns to exclude",
+        "list of regular expression patterns to include",
+        "to be included, a file must match at least one include pattern, without matching any exclude patterns"
+      ]
+    }
+  }
 }
 ```
-
-- command line arguments
-    - one argument, the prefix for the config file, default is `code-structure`
-    - this causes it to use `code-structure-config.json` as the main configuration file
-- config file
-    - inputDir
-        - path, the directory from which to start scanning
-    - outputDir
-        - path, the directory to place the report
-    - nodeLimitForGraph
-        - the higher the number of files, the longer the graph takes to generate and the more useless it is
-        - if this limit is exceeded, the graph is not generated
-    - bytecodeFormat
-        - the compiled language
-        - used to determine the dependency structure
-        - only considers what we have sources for
-        - currently only "class" and "beam" are supported
-    - sourcePrefix
-        - pre-pended to links in the report, so you can navigate directly to the source code from the report
-    - sourceFileRegexPatterns
-        - what file names constitute a source file, relative to the `inputDir` configuration item
-        - used to determine names
-        - list of regex patterns to include, and list of regex patterns to exclude
-        - to be included, a file must match at least one include pattern, without matching any exclude patterns
-    - binaryFileRegexPatterns
-        - what file name constitutes a binary file, relative to the `inputDir` configuration item
-        - used to determine dependency relationships between names
-    - countAsErrors
-        - if true, will return a non-zero exit code if any new items show up in these categories
-        - items in the file ending with `-existing-errors.json` do not count as new items
-        - fail conditions are, from most important to least important, directCycle, groupCycle,
-          ancestorDependsOnDescendant, descendantDependsOnAncestor
-    - countAsErrors
-        - directCycle
-            - fail if there is a new cycle between the bottom level items, classes for kotlin and modules for elixir
-        - groupCycle
-            - fail if there is a new cycle at the group level, pacakges for kotlin and paths for elixir
-        - ancestorDependsOnDescendant
-            - fail if there is a new dependency going from the upper to lower levels of the hierarchy
-        - descendantDependsOnAncestor
-            - fail if there is a new dependency going from the lower to the upper level of the hierarchy
-    - useObservationsCache
-        - if the observations file exists, use that instead of scanning the sources and binaries
-        - this is useful if you want to run "what if" scenarios by manually changing the observations file
-    - maximumAllowedErrorCount
-        - if the number of errors exceeds this number, the build will fail
-    - includeJvmDynamicInvocations
-        - Clojure invokes methods dynamically, so the class dependency won't show up as a class in the constant pool (CONSTANT_Class - 7)
-        - However, the class name will still show up as a string, so we can get it as a string in the constant pool (CONSTANT_Utf8 - 1)
-        - Reading the string constants instead of class constants will also catch instances of Class.forName, but only if the completed string exists in the constant pool, it will not be able to detect it in cases where the string is constructed at runtime.
 
 ## Command Line
 
@@ -188,31 +272,29 @@ Recommended policy that a unit of work is not considered done until one of 3 sit
 
 Tested with versions
 
-[Java 17]( https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html )
-
+[Java]( https://aws.amazon.com/corretto )
 ```
 java -version
-openjdk version "17.0.1" 2021-10-19 LTS
-OpenJDK Runtime Environment Corretto-17.0.1.12.1 (build 17.0.1+12-LTS)
-OpenJDK 64-Bit Server VM Corretto-17.0.1.12.1 (build 17.0.1+12-LTS, mixed mode, sharing)
+openjdk version "21.0.6" 2025-01-21 LTS
+OpenJDK Runtime Environment Corretto-21.0.6.7.1 (build 21.0.6+7-LTS)
+OpenJDK 64-Bit Server VM Corretto-21.0.6.7.1 (build 21.0.6+7-LTS, mixed mode, sharing)
 ```
 
 [Maven]( https://maven.apache.org/ )
 
 ```
 mvn -version
-Apache Maven 3.9.1 (2e178502fcdbffc201671fb2537d0cb4b4cc58f8)
-Maven home: /usr/local/Cellar/maven/3.9.1/libexec
-Java version: 17.0.1, vendor: Amazon.com Inc., runtime: /Library/Java/JavaVirtualMachines/amazon-corretto-17.jdk/Contents/Home
+Apache Maven 3.9.9 (8e8579a9e76f7d015ee5ec7bfcdc97d260186937)
+Maven home: /opt/homebrew/Cellar/maven/3.9.9/libexec
+Java version: 23.0.2, vendor: Homebrew, runtime: /opt/homebrew/Cellar/openjdk/23.0.2/libexec/openjdk.jdk/Contents/Home
 Default locale: en_US, platform encoding: UTF-8
-OS name: "mac os x", version: "12.6.8", arch: "x86_64", family: "mac"
+OS name: "mac os x", version: "15.3.2", arch: "aarch64", family: "mac"
 ```
 
 [graphviz]( https://graphviz.org/ )
-
 ```
 dot --version
-dot - graphviz version 12.0.0 (20240704.0754)
+dot - graphviz version 12.2.1 (20241206.2353)
 ```
 
 ## Scripts
@@ -223,6 +305,3 @@ dot - graphviz version 12.0.0 (20240704.0754)
 ./scripts/build.sh
 ./scripts/run.sh
 ```
-
-## References
-- https://kotlinlang.org/docs/dokka-maven.html

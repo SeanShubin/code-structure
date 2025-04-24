@@ -4,8 +4,10 @@ import com.seanshubin.code.structure.beamformat.BeamParser
 import com.seanshubin.code.structure.beamformat.BeamParserImpl
 import com.seanshubin.code.structure.clojuresyntax.ClojureParser
 import com.seanshubin.code.structure.clojuresyntax.ClojureParserImpl
-import com.seanshubin.code.structure.config.Configuration
-import com.seanshubin.code.structure.config.JsonFileConfiguration
+import com.seanshubin.code.structure.config.JsonFileKeyValueStore
+import com.seanshubin.code.structure.config.KeyValueStore
+import com.seanshubin.code.structure.config.KeyValueStoreWithDocumentation
+import com.seanshubin.code.structure.config.KeyValueStoreWithDocumentationDelegate
 import com.seanshubin.code.structure.config.TypeUtil.coerceToBoolean
 import com.seanshubin.code.structure.config.TypeUtil.coerceToInt
 import com.seanshubin.code.structure.config.TypeUtil.coerceToListOfString
@@ -36,6 +38,7 @@ import com.seanshubin.code.structure.typescriptsyntax.TypeScriptNameParser
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptNameParserImpl
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptRelationParser
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptRelationParserImpl
+import java.io.ObjectInputFilter.Config
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
@@ -48,39 +51,41 @@ class Dependencies(integrations: Integrations) {
     private val configBaseName: String = integrations.configBaseName
     private val configFile = Paths.get("$configBaseName-config.json")
     private val files: FilesContract = FilesDelegate
-    private val config: Configuration = JsonFileConfiguration(files, configFile)
+    private val keyValueStore:KeyValueStore = JsonFileKeyValueStore(configFile, files)
+    private val documentationPrefix:List<String> = listOf("documentation")
+    private val config: KeyValueStoreWithDocumentation = KeyValueStoreWithDocumentationDelegate(keyValueStore, documentationPrefix)
     private val clock: Clock = integrations.clock
     private val countAsErrors: CountAsErrors = CountAsErrors(
         inDirectCycle =
-        config.load(listOf("countAsErrors", "inDirectCycle"), true).coerceToBoolean(),
+        config.load(listOf("countAsErrors", "inDirectCycle"), true, ConfigDocumentation.inDirectCycle).coerceToBoolean(),
         inGroupCycle =
-        config.load(listOf("countAsErrors", "inGroupCycle"), true).coerceToBoolean(),
+        config.load(listOf("countAsErrors", "inGroupCycle"), true, ConfigDocumentation.inGroupCycle).coerceToBoolean(),
         ancestorDependsOnDescendant =
-        config.load(listOf("countAsErrors", "ancestorDependsOnDescendant"), true).coerceToBoolean(),
+        config.load(listOf("countAsErrors", "ancestorDependsOnDescendant"), true, ConfigDocumentation.ancestorDependsOnDescendant).coerceToBoolean(),
         descendantDependsOnAncestor =
-        config.load(listOf("countAsErrors", "descendantDependsOnAncestor"), true).coerceToBoolean(),
+        config.load(listOf("countAsErrors", "descendantDependsOnAncestor"), true, ConfigDocumentation.descendantDependsOnAncestor).coerceToBoolean(),
     )
-    private val maximumAllowedErrorCount: Int = config.load(listOf("maximumAllowedErrorCount"), 0).coerceToInt()
-    private val inputDir = config.load(listOf("inputDir"), ".").coerceToPath()
-    private val outputDir = config.load(listOf("outputDir"), "generated/code-structure").coerceToPath()
-    private val useObservationsCache = config.load(listOf("useObservationsCache"), false).coerceToBoolean()
+    private val maximumAllowedErrorCount: Int = config.load(listOf("maximumAllowedErrorCount"), 0, ConfigDocumentation.maximumAllowedErrorCount).coerceToInt()
+    private val inputDir = config.load(listOf("inputDir"), ".", ConfigDocumentation.inputDir).coerceToPath()
+    private val outputDir = config.load(listOf("outputDir"), "generated/code-structure", ConfigDocumentation.outputDir).coerceToPath()
+    private val useObservationsCache = config.load(listOf("useObservationsCache"), false, ConfigDocumentation.useObservationsCache).coerceToBoolean()
     private val includeJvmDynamicInvocations =
-        config.load(listOf("includeJvmDynamicInvocations"), false).coerceToBoolean()
-    private val sourcePrefix = config.load(listOf("sourcePrefix"), "prefix for link to source code").coerceToString()
+        config.load(listOf("includeJvmDynamicInvocations"), false, ConfigDocumentation.includeJvmDynamicInvocations).coerceToBoolean()
+    private val sourcePrefix = config.load(listOf("sourcePrefix"), "prefix for link to source code", ConfigDocumentation.sourcePrefix).coerceToString()
     private val sourceFileIncludeRegexPatterns: List<String> =
-        config.load(listOf("sourceFileRegexPatterns", "include"), emptyList<String>()).coerceToListOfString()
+        config.load(listOf("sourceFileRegexPatterns", "include"), emptyList<String>(), ConfigDocumentation.sourceFileRegexPatternsInclude).coerceToListOfString()
     private val sourceFileExcludeRegexPatterns: List<String> =
-        config.load(listOf("sourceFileRegexPatterns", "exclude"), emptyList<String>()).coerceToListOfString()
+        config.load(listOf("sourceFileRegexPatterns", "exclude"), emptyList<String>(), ConfigDocumentation.sourceFileRegexPatternsExclude).coerceToListOfString()
     private val isSourceFile: (Path) -> Boolean = RegexFileMatcher(
         inputDir,
         sourceFileIncludeRegexPatterns,
         sourceFileExcludeRegexPatterns
     )
-    private val nodeLimitForGraph: Int = config.load(listOf("nodeLimitForGraph"), 50).coerceToInt()
+    private val nodeLimitForGraph: Int = config.load(listOf("nodeLimitForGraph"), 50, ConfigDocumentation.nodeLimitForGraph).coerceToInt()
     private val binaryFileIncludeRegexPatterns: List<String> =
-        config.load(listOf("binaryFileRegexPatterns", "include"), emptyList<String>()).coerceToListOfString()
+        config.load(listOf("binaryFileRegexPatterns", "include"), emptyList<String>(), ConfigDocumentation.binaryFileRegexPatternsInclude).coerceToListOfString()
     private val binaryFileExcludeRegexPatterns: List<String> =
-        config.load(listOf("binaryFileRegexPatterns", "exclude"), emptyList<String>()).coerceToListOfString()
+        config.load(listOf("binaryFileRegexPatterns", "exclude"), emptyList<String>(), ConfigDocumentation.binaryFileRegexPatternsExclude).coerceToListOfString()
     private val isBinaryFile: (Path) -> Boolean = RegexFileMatcher(
         inputDir,
         binaryFileIncludeRegexPatterns,

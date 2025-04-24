@@ -85,9 +85,6 @@ object FilesDelegate : FilesContract {
     override fun isSameFile(path: Path, path2: Path): Boolean =
         Files.isSameFile(path, path2)
 
-    override fun mismatch(path: Path, path2: Path): Long =
-        Files.mismatch(path, path2)
-
     override fun isHidden(path: Path): Boolean =
         Files.isHidden(path)
 
@@ -98,14 +95,9 @@ object FilesDelegate : FilesContract {
         path: Path,
         type: Class<V>,
         vararg options: LinkOption
-    ): V =
-        Files.getFileAttributeView(path, type, *options)
+    ): V? = Files.getFileAttributeView(path, type, *options)
 
-    override fun <A : BasicFileAttributes> readAttributes(
-        path: Path,
-        type: Class<A>,
-        vararg options: LinkOption
-    ): A =
+    override fun <A : BasicFileAttributes> readAttributes(path: Path, type: Class<A>, vararg options: LinkOption): A =
         Files.readAttributes(path, type, *options)
 
     override fun setAttribute(path: Path, attribute: String, value: Any, vararg options: LinkOption): Path =
@@ -176,6 +168,9 @@ object FilesDelegate : FilesContract {
     override fun newBufferedReader(path: Path, cs: Charset): BufferedReader =
         Files.newBufferedReader(path, cs)
 
+    override fun newBufferedReader(path: Path): BufferedReader =
+        Files.newBufferedReader(path)
+
     override fun newBufferedWriter(path: Path, cs: Charset, vararg options: OpenOption): BufferedWriter =
         Files.newBufferedWriter(path, cs, *options)
 
@@ -191,11 +186,17 @@ object FilesDelegate : FilesContract {
     override fun readAllBytes(path: Path): ByteArray =
         Files.readAllBytes(path)
 
+    override fun readString(path: Path): String =
+        Files.readString(path)
+
     override fun readString(path: Path, cs: Charset): String =
         Files.readString(path, cs)
 
     override fun readAllLines(path: Path, cs: Charset): List<String> =
         Files.readAllLines(path, cs)
+
+    override fun readAllLines(path: Path): List<String> =
+        Files.readAllLines(path)
 
     override fun write(path: Path, bytes: ByteArray, vararg options: OpenOption): Path =
         Files.write(path, bytes, *options)
@@ -215,11 +216,11 @@ object FilesDelegate : FilesContract {
     override fun list(dir: Path): Stream<Path> =
         Files.list(dir)
 
-    override fun walk(start: Path, maxDepth: Int, vararg options: FileVisitOption): Stream<Path> =
-        Files.walk(start, maxDepth, *options)
-
     override fun walk(start: Path, vararg options: FileVisitOption): Stream<Path> =
         Files.walk(start, *options)
+
+    override fun walk(start: Path, maxDepth: Int, vararg options: FileVisitOption): Stream<Path> =
+        Files.walk(start, maxDepth, *options)
 
     override fun find(
         start: Path,
@@ -231,4 +232,7 @@ object FilesDelegate : FilesContract {
 
     override fun lines(path: Path, cs: Charset): Stream<String> =
         Files.lines(path, cs)
+
+    override fun lines(path: Path): Stream<String> =
+        Files.lines(path)
 }

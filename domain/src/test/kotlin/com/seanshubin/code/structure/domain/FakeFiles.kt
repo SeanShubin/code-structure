@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.domain
 
-import com.seanshubin.code.structure.contract.test.FilesNotImplemented
+import com.seanshubin.code.structure.contract.test.FilesContractUnsupportedOperation
 import com.seanshubin.code.structure.tree.Tree
 import java.nio.charset.Charset
 import java.nio.file.*
@@ -9,7 +9,7 @@ import java.nio.file.attribute.FileAttribute
 import java.util.function.BiPredicate
 import java.util.stream.Stream
 
-class FakeFiles : FilesNotImplemented() {
+class FakeFiles : FilesContractUnsupportedOperation {
     var root: Tree<String, String> = Tree.empty()
     fun fakeAddFile(pathName: String, contents: String) {
         val path = Paths.get(pathName)
