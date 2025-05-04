@@ -48,10 +48,12 @@ abstract class NameDetailReport : Report {
     private fun tbody(observations: Observations): HtmlElement {
         val sourcePrefix = observations.sourcePrefix
         val sourceFiles = lookupSourceFiles(observations)
-        val rows = sourceFiles.map { sourceDetail ->
+        val rows = sourceFiles.flatMap { sourceDetail ->
             val tdLink = tdLink(sourcePrefix, sourceDetail.path)
-            val tdSourceDetail = tdSourceDetail(sourceDetail)
-            Tag("tr", tdLink, tdSourceDetail)
+            sourceDetail.modules.sorted().map {
+                val tdSourceDetail = tdSourceDetail(it)
+                Tag("tr", tdLink, tdSourceDetail)
+            }
         }
         return Tag("tbody", rows)
     }
@@ -64,13 +66,8 @@ abstract class NameDetailReport : Report {
         return td
     }
 
-    private fun tdSourceDetail(nameDetail: NameDetail): HtmlElement {
-        val names = if (nameDetail.modules.size == 1) {
-            nameDetail.modules[0]
-        } else {
-            nameDetail.modules.joinToString(", ", "[", "]")
-        }
-        val text = Text(names)
+    private fun tdSourceDetail(name:String): HtmlElement {
+        val text = Text(name)
         val td = Tag("td", text)
         return td
     }
