@@ -20,14 +20,20 @@
 <!-- ClassE -->
 <g id="node1" class="node">
 <title>ClassE</title>
+<g id="a_node1"><a xlink:href="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/ClassE.kt" xlink:title="ClassE">
 <ellipse fill="none" stroke="black" cx="290" cy="-306" rx="36.51" ry="18"/>
-<text text-anchor="middle" x="290" y="-300.95" font-family="Times,serif" font-size="14.00">ClassE</text>
+<text text-anchor="middle" x="290" y="-300.95" font-family="Times,serif" font-size="14.00" fill="blue">ClassE</text>
+</a>
+</g>
 </g>
 <!-- ClassP -->
 <g id="node2" class="node">
 <title>ClassP</title>
+<g id="a_node2"><a xlink:href="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/ClassP.kt" xlink:title="ClassP">
 <ellipse fill="none" stroke="black" cx="36" cy="-234" rx="36" ry="18"/>
-<text text-anchor="middle" x="36" y="-228.95" font-family="Times,serif" font-size="14.00">ClassP</text>
+<text text-anchor="middle" x="36" y="-228.95" font-family="Times,serif" font-size="14.00" fill="blue">ClassP</text>
+</a>
+</g>
 </g>
 <!-- packagep -->
 <g id="node8" class="node">

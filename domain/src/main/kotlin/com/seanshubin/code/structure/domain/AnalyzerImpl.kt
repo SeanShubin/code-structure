@@ -2,9 +2,15 @@ package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.collection.ComparatorUtil.pairComparator
 import com.seanshubin.code.structure.collection.ListUtil
+import com.seanshubin.code.structure.collection.MapUtil
 import com.seanshubin.code.structure.cycle.CycleAlgorithm
 import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
+import com.seanshubin.code.structure.nameparser.NameDetail
 import com.seanshubin.code.structure.relationparser.RelationDetail
+import java.nio.charset.StandardCharsets
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 
 class AnalyzerImpl(
     private val timer: Timer,
@@ -17,6 +23,7 @@ class AnalyzerImpl(
         val qualifiedNames = observations.sources.flatMap { it.modules }.sorted().distinct()
         val qualifiedIds = qualifiedNames.map { it.toCodeUnit().parts }
         val commonPrefix = ListUtil.commonPrefix(qualifiedIds)
+        val sourceByName = observations.sources.fold(emptyMap(), addNameDetailToSourceByName(commonPrefix))
         val names = timer.monitor(sourceName, "analysis.names") {
             qualifiedNames.map { it.toName(commonPrefix) }
         }
@@ -78,7 +85,7 @@ class AnalyzerImpl(
                 descendantToAncestor
             )
         }
-        return Analysis(global, nameUriList, lineage, groupScopedAnalysisList, summary)
+        return Analysis(global, sourceByName, nameUriList, lineage, groupScopedAnalysisList, summary)
     }
 
     private fun bothPartsOfReferenceInList(list: List<String>): (Pair<String, String>) -> Boolean = { reference ->
@@ -89,6 +96,14 @@ class AnalyzerImpl(
         private val listSizeComparator = Comparator<List<String>> { o1, o2 -> o1.size.compareTo(o2.size) }
         private val firstInListComparator = Comparator<List<String>> { o1, o2 -> o1[0].compareTo(o2[0]) }
         private val sizeThenFirstComparator = listSizeComparator.reversed().then(firstInListComparator)
+
+        fun addNameDetailToSourceByName(
+            commonPrefix:List<String>
+        ): (Map<String, List<Path>>,NameDetail) -> Map<String, List<Path>> = { sourceByName, nameDetail ->
+            nameDetail.modules.map { qualifiedName ->
+                qualifiedName.toName(commonPrefix) to nameDetail.path
+            }.fold(sourceByName, MapUtil::mapAddToList)
+        }
 
         private fun composeSummary(
             countAsErrors: CountAsErrors,

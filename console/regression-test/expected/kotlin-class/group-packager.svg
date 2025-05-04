@@ -12,8 +12,11 @@
 <!-- ClassS -->
 <g id="node1" class="node">
 <title>ClassS</title>
+<g id="a_node1"><a xlink:href="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packager/ClassS.kt" xlink:title="ClassS">
 <ellipse fill="none" stroke="black" cx="36" cy="-18" rx="36" ry="18"/>
-<text text-anchor="middle" x="36" y="-12.95" font-family="Times,serif" font-size="14.00">ClassS</text>
+<text text-anchor="middle" x="36" y="-12.95" font-family="Times,serif" font-size="14.00" fill="blue">ClassS</text>
+</a>
+</g>
 </g>
 </g>
 </svg>

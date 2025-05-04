@@ -12,8 +12,11 @@
 <!-- ModuleU -->
 <g id="node1" class="node">
 <title>ModuleU</title>
+<g id="a_node1"><a xlink:href="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/path_t/module_u.ex" xlink:title="ModuleU">
 <ellipse fill="none" stroke="black" cx="46.75" cy="-18" rx="46.75" ry="18"/>
-<text text-anchor="middle" x="46.75" y="-12.95" font-family="Times,serif" font-size="14.00">ModuleU</text>
+<text text-anchor="middle" x="46.75" y="-12.95" font-family="Times,serif" font-size="14.00" fill="blue">ModuleU</text>
+</a>
+</g>
 </g>
 </g>
 </svg>

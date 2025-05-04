@@ -16,14 +16,20 @@
 <!-- ClassK -->
 <g id="node1" class="node">
 <title>ClassK</title>
+<g id="a_node1"><a xlink:href="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassK.kt" xlink:title="ClassK">
 <ellipse fill="none" stroke="black" cx="67" cy="-306" rx="37.53" ry="18"/>
-<text text-anchor="middle" x="67" y="-300.95" font-family="Times,serif" font-size="14.00">ClassK</text>
+<text text-anchor="middle" x="67" y="-300.95" font-family="Times,serif" font-size="14.00" fill="blue">ClassK</text>
+</a>
+</g>
 </g>
 <!-- ClassL -->
 <g id="node2" class="node">
 <title>ClassL</title>
+<g id="a_node2"><a xlink:href="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassL.kt" xlink:title="ClassL">
 <ellipse fill="none" stroke="black" cx="67" cy="-234" rx="36.51" ry="18"/>
-<text text-anchor="middle" x="67" y="-228.95" font-family="Times,serif" font-size="14.00">ClassL</text>
+<text text-anchor="middle" x="67" y="-228.95" font-family="Times,serif" font-size="14.00" fill="blue">ClassL</text>
+</a>
+</g>
 </g>
 <!-- ClassK&#45;&gt;ClassL -->
 <g id="edge1" class="edge">
@@ -34,8 +40,11 @@
 <!-- ClassM -->
 <g id="node3" class="node">
 <title>ClassM</title>
+<g id="a_node3"><a xlink:href="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassM.kt" xlink:title="ClassM">
 <ellipse fill="none" stroke="black" cx="56" cy="-162" rx="39.58" ry="18"/>
-<text text-anchor="middle" x="56" y="-156.95" font-family="Times,serif" font-size="14.00">ClassM</text>
+<text text-anchor="middle" x="56" y="-156.95" font-family="Times,serif" font-size="14.00" fill="blue">ClassM</text>
+</a>
+</g>
 </g>
 <!-- ClassL&#45;&gt;ClassM -->
 <g id="edge3" class="edge">
@@ -46,8 +55,11 @@
 <!-- ClassN -->
 <g id="node4" class="node">
 <title>ClassN</title>
+<g id="a_node4"><a xlink:href="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassN.kt" xlink:title="ClassN">
 <ellipse fill="none" stroke="black" cx="67" cy="-90" rx="37.53" ry="18"/>
-<text text-anchor="middle" x="67" y="-84.95" font-family="Times,serif" font-size="14.00">ClassN</text>
+<text text-anchor="middle" x="67" y="-84.95" font-family="Times,serif" font-size="14.00" fill="blue">ClassN</text>
+</a>
+</g>
 </g>
 <!-- ClassM&#45;&gt;ClassN -->
 <g id="edge4" class="edge">
@@ -64,8 +76,11 @@
 <!-- ClassO -->
 <g id="node5" class="node">
 <title>ClassO</title>
+<g id="a_node5"><a xlink:href="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassO.kt" xlink:title="ClassO">
 <ellipse fill="none" stroke="black" cx="67" cy="-18" rx="37.53" ry="18"/>
-<text text-anchor="middle" x="67" y="-12.95" font-family="Times,serif" font-size="14.00">ClassO</text>
+<text text-anchor="middle" x="67" y="-12.95" font-family="Times,serif" font-size="14.00" fill="blue">ClassO</text>
+</a>
+</g>
 </g>
 <!-- ClassN&#45;&gt;ClassO -->
 <g id="edge2" class="edge">

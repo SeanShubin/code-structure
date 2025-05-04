@@ -1,4 +1,4 @@
 digraph detangled {
   bgcolor=lightgray
-  "ClassS" [label="ClassS"]
+  "ClassS" [fontcolor="blue" URL="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packager/ClassS.kt" label="ClassS"]
 }

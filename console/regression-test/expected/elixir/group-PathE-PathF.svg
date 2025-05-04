@@ -16,14 +16,20 @@
 <!-- ModuleK -->
 <g id="node1" class="node">
 <title>ModuleK</title>
+<g id="a_node1"><a xlink:href="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/path_e/path_f/module_k.ex" xlink:title="ModuleK">
 <ellipse fill="none" stroke="black" cx="76" cy="-306" rx="46.75" ry="18"/>
-<text text-anchor="middle" x="76" y="-300.95" font-family="Times,serif" font-size="14.00">ModuleK</text>
+<text text-anchor="middle" x="76" y="-300.95" font-family="Times,serif" font-size="14.00" fill="blue">ModuleK</text>
+</a>
+</g>
 </g>
 <!-- ModuleL -->
 <g id="node2" class="node">
 <title>ModuleL</title>
+<g id="a_node2"><a xlink:href="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/path_e/path_f/module_l.ex" xlink:title="ModuleL">
 <ellipse fill="none" stroke="black" cx="76" cy="-234" rx="45.72" ry="18"/>
-<text text-anchor="middle" x="76" y="-228.95" font-family="Times,serif" font-size="14.00">ModuleL</text>
+<text text-anchor="middle" x="76" y="-228.95" font-family="Times,serif" font-size="14.00" fill="blue">ModuleL</text>
+</a>
+</g>
 </g>
 <!-- ModuleK&#45;&gt;ModuleL -->
 <g id="edge1" class="edge">
@@ -34,8 +40,11 @@
 <!-- ModuleM -->
 <g id="node3" class="node">
 <title>ModuleM</title>
+<g id="a_node3"><a xlink:href="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/path_e/path_f/module_m.ex" xlink:title="ModuleM">
 <ellipse fill="none" stroke="black" cx="65" cy="-162" rx="48.79" ry="18"/>
-<text text-anchor="middle" x="65" y="-156.95" font-family="Times,serif" font-size="14.00">ModuleM</text>
+<text text-anchor="middle" x="65" y="-156.95" font-family="Times,serif" font-size="14.00" fill="blue">ModuleM</text>
+</a>
+</g>
 </g>
 <!-- ModuleL&#45;&gt;ModuleM -->
 <g id="edge3" class="edge">
@@ -46,8 +55,11 @@
 <!-- ModuleN -->
 <g id="node4" class="node">
 <title>ModuleN</title>
+<g id="a_node4"><a xlink:href="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/path_e/path_f/module_n.ex" xlink:title="ModuleN">
 <ellipse fill="none" stroke="black" cx="76" cy="-90" rx="46.75" ry="18"/>
-<text text-anchor="middle" x="76" y="-84.95" font-family="Times,serif" font-size="14.00">ModuleN</text>
+<text text-anchor="middle" x="76" y="-84.95" font-family="Times,serif" font-size="14.00" fill="blue">ModuleN</text>
+</a>
+</g>
 </g>
 <!-- ModuleM&#45;&gt;ModuleN -->
 <g id="edge4" class="edge">
@@ -64,8 +76,11 @@
 <!-- ModuleO -->
 <g id="node5" class="node">
 <title>ModuleO</title>
+<g id="a_node5"><a xlink:href="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/path_e/path_f/module_o.ex" xlink:title="ModuleO">
 <ellipse fill="none" stroke="black" cx="76" cy="-18" rx="46.75" ry="18"/>
-<text text-anchor="middle" x="76" y="-12.95" font-family="Times,serif" font-size="14.00">ModuleO</text>
+<text text-anchor="middle" x="76" y="-12.95" font-family="Times,serif" font-size="14.00" fill="blue">ModuleO</text>
+</a>
+</g>
 </g>
 <!-- ModuleN&#45;&gt;ModuleO -->
 <g id="edge2" class="edge">

@@ -13,12 +13,13 @@ class GroupReport(
     override val reportName: String = "groups"
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         return validated.analysis.groupScopedAnalysisList.flatMap { (groupPath, groupAnalysis) ->
-            singleGroupReport(reportDir, groupPath, validated.analysis, groupAnalysis)
+            singleGroupReport(reportDir, validated.observations.sourcePrefix, groupPath, validated.analysis, groupAnalysis)
         }
     }
 
     private fun singleGroupReport(
         reportDir: Path,
+        sourcePrefix:String,
         groupPath: List<String>,
         analysis: Analysis,
         groupAnalysis: ScopedAnalysis
@@ -27,7 +28,7 @@ class GroupReport(
         val baseName = basePage.id
         val parents = composeParents(groupPath)
         val nodes = groupAnalysis.names.map { name ->
-            toDotNode(name, groupPath + name, analysis)
+            toDotNode(name, sourcePrefix,groupPath + name, analysis)
         }
         val dependencyTable = dependencyTable(groupAnalysis)
         return ReportHelper.graphCommands(
@@ -67,7 +68,8 @@ class GroupReport(
     }
 
     private fun toDotNode(
-        name: String,
+        leafName: String,
+        sourcePrefix:String,
         groupPath: List<String>,
         analysis: Analysis
     ): DotNode {
@@ -75,12 +77,21 @@ class GroupReport(
         val hasChildren = analysis.containsGroup(groupPath)
         val link =
             if (hasChildren) CodeUnit(groupPath).toUriName("group", ".html")
-            else null
+            else {
+                val codeUnit = CodeUnit(groupPath)
+                val qualifiedName = codeUnit.toName()
+                val sources = analysis.sourceByName.getValue(qualifiedName)
+                when(sources.size){
+                    1 -> sourcePrefix + sources[0].toString()
+                    0 -> throw RuntimeException("No source found for $qualifiedName")
+                    else -> null
+                }
+            }
         val text =
-            if (hasChildren) "$name ($descendantCount)"
-            else name
+            if (hasChildren) "$leafName ($descendantCount)"
+            else leafName
         return DotNode(
-            id = name,
+            id = leafName,
             text = text,
             link = link,
             color = "blue",

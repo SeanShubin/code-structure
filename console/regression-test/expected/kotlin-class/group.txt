@@ -1,7 +1,7 @@
 digraph detangled {
   bgcolor=lightgray
-  "ClassE" [label="ClassE"]
-  "ClassP" [label="ClassP"]
+  "ClassE" [fontcolor="blue" URL="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/ClassE.kt" label="ClassE"]
+  "ClassP" [fontcolor="blue" URL="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/ClassP.kt" label="ClassP"]
   "packagea" [fontcolor="blue" URL="group-packagea.html" label="packagea (1)"]
   "packagec" [fontcolor="blue" URL="group-packagec.html" label="packagec (1)"]
   "packagee" [fontcolor="blue" URL="group-packagee.html" label="packagee (6)"]

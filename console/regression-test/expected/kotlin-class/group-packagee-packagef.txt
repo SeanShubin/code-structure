@@ -1,10 +1,10 @@
 digraph detangled {
   bgcolor=lightgray
-  "ClassK" [label="ClassK"]
-  "ClassL" [label="ClassL"]
-  "ClassM" [label="ClassM"]
-  "ClassN" [label="ClassN"]
-  "ClassO" [label="ClassO"]
+  "ClassK" [fontcolor="blue" URL="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassK.kt" label="ClassK"]
+  "ClassL" [fontcolor="blue" URL="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassL.kt" label="ClassL"]
+  "ClassM" [fontcolor="blue" URL="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassM.kt" label="ClassM"]
+  "ClassN" [fontcolor="blue" URL="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassN.kt" label="ClassN"]
+  "ClassO" [fontcolor="blue" URL="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassO.kt" label="ClassO"]
   "ClassK" -> "ClassL"
   "ClassN" -> "ClassO"
   subgraph cluster_0 {

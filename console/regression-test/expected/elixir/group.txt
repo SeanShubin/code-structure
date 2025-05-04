@@ -1,7 +1,7 @@
 digraph detangled {
   bgcolor=lightgray
-  "ModuleE" [label="ModuleE"]
-  "ModuleP" [label="ModuleP"]
+  "ModuleE" [fontcolor="blue" URL="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/module_e.ex" label="ModuleE"]
+  "ModuleP" [fontcolor="blue" URL="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/module_p.ex" label="ModuleP"]
   "PathA" [fontcolor="blue" URL="group-PathA.html" label="PathA (1)"]
   "PathC" [fontcolor="blue" URL="group-PathC.html" label="PathC (1)"]
   "PathE" [fontcolor="blue" URL="group-PathE.html" label="PathE (6)"]

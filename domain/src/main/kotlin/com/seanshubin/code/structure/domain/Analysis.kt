@@ -1,9 +1,11 @@
 package com.seanshubin.code.structure.domain
 
 import com.seanshubin.code.structure.collection.ListUtil.startsWith
+import java.nio.file.Path
 
 data class Analysis(
     val global: ScopedAnalysis,
+    val sourceByName:Map<String, List<Path>>,
     val nameUriList: List<Pair<String, String>>,
     val lineage: Lineage,
     val groupScopedAnalysisList: List<Pair<List<String>, ScopedAnalysis>>,

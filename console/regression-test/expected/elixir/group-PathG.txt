@@ -1,4 +1,4 @@
 digraph detangled {
   bgcolor=lightgray
-  "ModuleH" [label="ModuleH"]
+  "ModuleH" [fontcolor="blue" URL="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/path_g/module_h.ex" label="ModuleH"]
 }
