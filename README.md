@@ -11,7 +11,7 @@
   - Build from source `./scripts/clean-install-skip-tests.sh`
   - Fetch from a repo at MAVEN_SNAPSHOT_URL `./scripts/fetch-from-maven-repo-url.sh` 
 - Run on your project with no parameters, this will create the default configuration file
-  - java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.0.0/code-structure-console-1.0.0.jar
+  - java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.0.1/code-structure-console-1.0.1.jar
   - If you need multiple configuration files, specify the base name of the configuration file as the first parameter
 - Add regular expressions to the sourceFileRegexPatterns sections in the default configuration file so that all of your sources are included (see examples)
   - Run the application again
@@ -194,13 +194,13 @@ Fetch the artifact to your local maven repository
 ```
 mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get \
     -DrepoUrl=https://repo1.maven.org/maven2 \
-    -Dartifact=com.seanshubin.code.structure:code-structure-console:1.0.0
+    -Dartifact=com.seanshubin.code.structure:code-structure-console:1.0.1
 ```
 
 
 Run the code structure application
 ```
-java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.0.0/code-structure-console-1.0.0.jar
+java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.0.1/code-structure-console-1.0.1.jar
 ```
 
 First parameter is the base name for your configuration file.
@@ -217,7 +217,7 @@ Will run during the "verify" phase of the [maven lifecycle](https://maven.apache
             <plugin>
                 <groupId>com.seanshubin.code.structure</groupId>
                 <artifactId>code-structure-maven</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.1</version>
                 <executions>
                     <execution>
                         <goals>
