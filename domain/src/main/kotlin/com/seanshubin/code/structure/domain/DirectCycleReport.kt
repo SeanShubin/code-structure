@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.domain
 
+import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.BigListClassName
 import com.seanshubin.code.structure.html.HtmlElement
@@ -16,18 +17,27 @@ class DirectCycleReport(private val nodeLimitForGraph: Int) : Report {
         val path = reportDir.resolve(Page.inDirectCycle.file)
         val lines = html.toLines()
         val topCommand = CreateFileCommand(reportName, path, lines)
-        val graphCommands = commandsForAllCycleGraphs(reportDir, validated.analysis.global, parents)
+        val sourcePrefix = validated.observations.sourcePrefix
+        val sourceByName = validated.analysis.sourceByName
+        val graphCommands = commandsForAllCycleGraphs(
+            reportDir,
+            validated.analysis.global,
+            parents,
+            sourcePrefix,
+            sourceByName)
         return listOf(topCommand) + graphCommands
     }
 
     private fun commandsForAllCycleGraphs(
         reportDir: Path,
         analysis: ScopedAnalysis,
-        parents: List<Page>
+        parents: List<Page>,
+        sourcePrefix: String,
+        sourceByName: Map<String, List<Path>>
     ): List<Command> {
         val parentsForCycle = parents + listOf(Page.inDirectCycle)
         return analysis.cycleDetails.flatMapIndexed { index, cycleDetail ->
-            commandsForCycleGraph(reportDir, index, cycleDetail, parentsForCycle)
+            commandsForCycleGraph(reportDir, index, cycleDetail, parentsForCycle, sourcePrefix, sourceByName)
         }
     }
 
@@ -35,9 +45,11 @@ class DirectCycleReport(private val nodeLimitForGraph: Int) : Report {
         reportDir: Path,
         index: Int,
         detail: CycleDetail,
-        parents: List<Page>
+        parents: List<Page>,
+        sourcePrefix: String,
+        sourceByName: Map<String, List<Path>>
     ): List<Command> {
-        val nodes = detail.names.map { toDotNode(it) }
+        val nodes = detail.names.map { toDotNode(it.toCodeUnit(), sourcePrefix, sourceByName) }
         return ReportHelper.graphCommands(
             reportName,
             reportDir,
@@ -55,14 +67,16 @@ class DirectCycleReport(private val nodeLimitForGraph: Int) : Report {
         return parts.joinToString("-")
     }
 
-    private fun toDotNode(name: String): DotNode =
-        DotNode(
-            id = name,
-            text = name,
-            link = null,
+    private fun toDotNode(codeUnit: CodeUnit, sourcePrefix: String, sourceByName: Map<String, List<Path>>): DotNode {
+        val link = codeUnit.toSourceLink(sourcePrefix, sourceByName)
+        return DotNode(
+            id = codeUnit.toName(),
+            text = codeUnit.toName(),
+            link = link,
             color = "blue",
             bold = false
         )
+    }
 
     private fun generateHtml(validated: Validated): List<HtmlElement> {
         val cycles = validated.analysis.global.cycles

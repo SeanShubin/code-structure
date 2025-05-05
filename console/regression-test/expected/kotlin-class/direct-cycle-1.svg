@@ -12,14 +12,20 @@
 <!-- packagei.ClassJ -->
 <g id="node1" class="node">
 <title>packagei.ClassJ</title>
+<g id="a_node1"><a xlink:href="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagei/ClassJ.kt" xlink:title="packagei.ClassJ">
 <ellipse fill="none" stroke="black" cx="125.89" cy="-162" rx="69.78" ry="18"/>
-<text text-anchor="middle" x="125.89" y="-156.95" font-family="Times,serif" font-size="14.00">packagei.ClassJ</text>
+<text text-anchor="middle" x="125.89" y="-156.95" font-family="Times,serif" font-size="14.00" fill="blue">packagei.ClassJ</text>
+</a>
+</g>
 </g>
 <!-- packagep.ClassQ -->
 <g id="node2" class="node">
 <title>packagep.ClassQ</title>
+<g id="a_node2"><a xlink:href="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packagep/ClassQ.kt" xlink:title="packagep.ClassQ">
 <ellipse fill="none" stroke="black" cx="74.89" cy="-90" rx="74.89" ry="18"/>
-<text text-anchor="middle" x="74.89" y="-84.95" font-family="Times,serif" font-size="14.00">packagep.ClassQ</text>
+<text text-anchor="middle" x="74.89" y="-84.95" font-family="Times,serif" font-size="14.00" fill="blue">packagep.ClassQ</text>
+</a>
+</g>
 </g>
 <!-- packagei.ClassJ&#45;&gt;packagep.ClassQ -->
 <g id="edge1" class="edge">
@@ -30,8 +36,11 @@
 <!-- packager.ClassS -->
 <g id="node3" class="node">
 <title>packager.ClassS</title>
+<g id="a_node3"><a xlink:href="https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/packager/ClassS.kt" xlink:title="packager.ClassS">
 <ellipse fill="none" stroke="black" cx="125.89" cy="-18" rx="71.31" ry="18"/>
-<text text-anchor="middle" x="125.89" y="-12.95" font-family="Times,serif" font-size="14.00">packager.ClassS</text>
+<text text-anchor="middle" x="125.89" y="-12.95" font-family="Times,serif" font-size="14.00" fill="blue">packager.ClassS</text>
+</a>
+</g>
 </g>
 <!-- packagep.ClassQ&#45;&gt;packager.ClassS -->
 <g id="edge2" class="edge">

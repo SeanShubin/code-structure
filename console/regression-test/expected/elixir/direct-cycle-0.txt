@@ -1,10 +1,10 @@
 digraph detangled {
   bgcolor=lightgray
-  "PathC.ModuleD" [label="PathC.ModuleD"]
-  "PathE.PathF.ModuleL" [label="PathE.PathF.ModuleL"]
-  "PathE.PathF.ModuleM" [label="PathE.PathF.ModuleM"]
-  "PathE.PathF.ModuleN" [label="PathE.PathF.ModuleN"]
-  "PathG.ModuleH" [label="PathG.ModuleH"]
+  "PathC.ModuleD" [fontcolor="blue" URL="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/path_c/module_d.ex" label="PathC.ModuleD"]
+  "PathE.PathF.ModuleL" [fontcolor="blue" URL="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/path_e/path_f/module_l.ex" label="PathE.PathF.ModuleL"]
+  "PathE.PathF.ModuleM" [fontcolor="blue" URL="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/path_e/path_f/module_m.ex" label="PathE.PathF.ModuleM"]
+  "PathE.PathF.ModuleN" [fontcolor="blue" URL="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/path_e/path_f/module_n.ex" label="PathE.PathF.ModuleN"]
+  "PathG.ModuleH" [fontcolor="blue" URL="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/path_g/module_h.ex" label="PathG.ModuleH"]
   "PathC.ModuleD" -> "PathE.PathF.ModuleL"
   "PathE.PathF.ModuleL" -> "PathE.PathF.ModuleM"
   "PathE.PathF.ModuleM" -> "PathE.PathF.ModuleN"

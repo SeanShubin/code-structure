@@ -1,8 +1,8 @@
 digraph detangled {
   bgcolor=lightgray
-  "PathI.ModuleJ" [label="PathI.ModuleJ"]
-  "PathP.ModuleQ" [label="PathP.ModuleQ"]
-  "PathR.ModuleS" [label="PathR.ModuleS"]
+  "PathI.ModuleJ" [fontcolor="blue" URL="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/path_i/module_j.ex" label="PathI.ModuleJ"]
+  "PathP.ModuleQ" [fontcolor="blue" URL="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/path_p/module_q.ex" label="PathP.ModuleQ"]
+  "PathR.ModuleS" [fontcolor="blue" URL="https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/lib/path_r/module_s.ex" label="PathR.ModuleS"]
   "PathI.ModuleJ" -> "PathP.ModuleQ"
   "PathP.ModuleQ" -> "PathR.ModuleS"
   "PathR.ModuleS" -> "PathI.ModuleJ"

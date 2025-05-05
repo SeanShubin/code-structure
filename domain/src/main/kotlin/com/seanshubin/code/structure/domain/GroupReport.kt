@@ -75,18 +75,10 @@ class GroupReport(
     ): DotNode {
         val descendantCount = analysis.descendantCount(groupPath)
         val hasChildren = analysis.containsGroup(groupPath)
+        val codeUnit = CodeUnit(groupPath)
         val link =
-            if (hasChildren) CodeUnit(groupPath).toUriName("group", ".html")
-            else {
-                val codeUnit = CodeUnit(groupPath)
-                val qualifiedName = codeUnit.toName()
-                val sources = analysis.sourceByName.getValue(qualifiedName)
-                when(sources.size){
-                    1 -> sourcePrefix + sources[0].toString()
-                    0 -> throw RuntimeException("No source found for $qualifiedName")
-                    else -> null
-                }
-            }
+            if (hasChildren) codeUnit.toUriName("group", ".html")
+            else codeUnit.toSourceLink(sourcePrefix, analysis.sourceByName)
         val text =
             if (hasChildren) "$leafName ($descendantCount)"
             else leafName
