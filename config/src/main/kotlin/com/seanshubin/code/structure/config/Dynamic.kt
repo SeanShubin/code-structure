@@ -73,9 +73,13 @@ data class Dynamic(val o: Any?) {
         if (path.isEmpty()) return true
         return if (o is Map<*, *>) {
             val key = path.first()
-            val subPath = path.drop(1)
-            val subTree = Dynamic(o[key])
-            subTree.exists(subPath)
+            if(o.containsKey(key)) {
+                val subPath = path.drop(1)
+                val subTree = Dynamic(o[key])
+                subTree.exists(subPath)
+            } else {
+                false
+            }
         } else {
             false
         }

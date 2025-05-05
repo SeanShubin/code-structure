@@ -6,7 +6,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class DynamicUtilTest {
-    @org.junit.Test
+    @Test
     fun simpleOperations() {
         val path = listOf("a", "b", "c")
         val value = 123
@@ -17,7 +17,13 @@ class DynamicUtilTest {
         assertEquals(value, DynamicUtil.get(after, path))
     }
 
-    @org.junit.Test
+    @Test
+    fun exists(){
+        val value = mapOf("a" to 1)
+        assertFalse(DynamicUtil.exists(value, listOf("b")))
+    }
+
+    @Test
     fun flattenListAt() {
         val input = mapOf(
             "a" to 1,
@@ -47,7 +53,7 @@ class DynamicUtilTest {
         assertEquals(expected, actual)
     }
 
-    @org.junit.Test
+    @Test
     fun flattenListWithIndex() {
         val input = mapOf(
             "a" to 1,
@@ -86,7 +92,7 @@ class DynamicUtilTest {
         assertEquals(expected, actual)
     }
 
-    @org.junit.Test
+    @Test
     fun flattenMap() {
         val input = mapOf("a" to mapOf("b" to "c"), "d" to mapOf("e" to "f"))
         val expected = mapOf("a.b" to "c", "d.e" to "f")
@@ -95,7 +101,7 @@ class DynamicUtilTest {
         assertEquals(expected, actual)
     }
 
-    @org.junit.Test
+    @Test
     fun flattenMap2() {
         val input = mapOf("a" to mapOf("b" to mapOf("c" to 1)), "d" to mapOf("e" to mapOf("f" to 2)))
         val expected = mapOf("a.b.c" to 1, "d.e.f" to 2)
@@ -104,7 +110,7 @@ class DynamicUtilTest {
         assertEquals(expected, actual)
     }
 
-    @org.junit.Test
+    @Test
     fun flattenMap3() {
         val input = mapOf(
             "a" to listOf(1, 2),
@@ -121,7 +127,7 @@ class DynamicUtilTest {
         assertEquals(expected, actual)
     }
 
-    @org.junit.Test
+    @Test
     fun update() {
         val increment = { a: Any? ->
             a as Int
@@ -136,7 +142,7 @@ class DynamicUtilTest {
         assertEquals(expected, third)
     }
 
-    @org.junit.Test
+    @Test
     fun typeHistogram() {
         val o = mapOf("a" to listOf(1, "a", 'b', 2.34, null, false), "b" to true, "c" to null, "d" to 1.23, "e" to 123)
         val expected = mapOf(
@@ -155,7 +161,7 @@ class DynamicUtilTest {
         assertEquals(expected, actual)
     }
 
-    @org.junit.Test
+    @Test
     fun accumulateTypes() {
         val a = mapOf("a" to 1, "b" to mapOf("c" to true, "d" to 123), "c" to listOf("e", 1.23))
         val b = mapOf("a" to 1, "b" to mapOf("d" to 123), "c" to listOf("e", 1.23), "d" to mapOf("e" to "f"))
@@ -188,7 +194,7 @@ class DynamicUtilTest {
         assertEquals(expected, actual)
     }
 
-    @org.junit.Test
+    @Test
     fun setArray() {
         val path = listOf("a", 2, "b", 3)
         val arrayDefaults = listOf(-1, -2)
@@ -201,7 +207,7 @@ class DynamicUtilTest {
         assertEquals(expected, after)
     }
 
-    @org.junit.Test
+    @Test
     fun updateArray() {
         val path = listOf("a", 2, "b", 3)
         val arrayDefaults = listOf(-1, -2)
