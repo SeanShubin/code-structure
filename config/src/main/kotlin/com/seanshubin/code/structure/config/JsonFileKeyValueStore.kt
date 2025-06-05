@@ -26,13 +26,18 @@ class JsonFileKeyValueStore(val path: Path, val files: FilesContract) : KeyValue
     }
 
     private fun loadJsonObject(): Any? {
-        val text = files.readString(path, jsonCharset)
-        val jsonText = text.ifBlank { "{}" }
+        val text = if(files.exists(path)) {
+            files.readString(path, jsonCharset)
+        } else {
+            DEFAULT_JSON_TEXT
+        }
+        val jsonText = text.ifBlank { DEFAULT_JSON_TEXT }
         val jsonObject = JsonMappers.parser.readValue<Any?>(jsonText)
         return jsonObject
     }
 
     companion object {
         private val jsonCharset = StandardCharsets.UTF_8
+        private const val DEFAULT_JSON_TEXT = "{}"
     }
 }
