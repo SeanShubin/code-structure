@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.elixirsyntax
 
 import com.seanshubin.code.structure.nameparser.NameDetail
-import com.seanshubin.code.structure.nameparser.RegexUtil.findRegex
+import com.seanshubin.code.structure.nameparser.RegexUtil.findAllByRegex
 import java.nio.file.Path
 
 class ElixirParserImpl(private val relativeToDir: Path) : ElixirParser {
@@ -9,7 +9,7 @@ class ElixirParserImpl(private val relativeToDir: Path) : ElixirParser {
     override fun parseName(path: Path, content: String): NameDetail {
         val relativePath = relativeToDir.relativize(path)
         val language = "elixir"
-        val modules = findRegex(moduleRegex, content)
+        val modules = findAllByRegex(moduleRegex, content)
         val errorLines = mutableListOf<String>()
         if (modules.size > 1) {
             errorLines.add("too many modules in $relativePath, found ${modules.size}")

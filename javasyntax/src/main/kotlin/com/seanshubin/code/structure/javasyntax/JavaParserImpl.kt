@@ -12,7 +12,7 @@ class JavaParserImpl(private val relativeToDir: Path) : JavaParser {
     override fun parseName(path: Path, content: String): NameDetail {
         val relativePath = relativeToDir.relativize(path)
         val language = "java"
-        val packages = RegexUtil.findRegex(packageRegex, content)
+        val packages = RegexUtil.findAllByRegex(packageRegex, content)
         val errorLines = mutableListOf<String>()
         if (packages.size > 1) {
             errorLines.add("too many packages in $relativePath, found ${packages.size}")
@@ -26,9 +26,9 @@ class JavaParserImpl(private val relativeToDir: Path) : JavaParser {
                 errorLines
             )
         }
-        val classes = RegexUtil.findRegex(classRegex, content)
-        val records = RegexUtil.findRegex(recordRegex, content)
-        val interfaces = RegexUtil.findRegex(interfaceRegex, content)
+        val classes = RegexUtil.findAllByRegex(classRegex, content)
+        val records = RegexUtil.findAllByRegex(recordRegex, content)
+        val interfaces = RegexUtil.findAllByRegex(interfaceRegex, content)
         val prefix = if (packages.isEmpty()) "" else packages[0] + "."
         val names = classes + interfaces + records
         val qualifiedNames = names.map {

@@ -9,7 +9,7 @@ class ClojureParserImpl(private val relativeToDir: Path) : ClojureParser {
     override fun parseName(path: Path, content: String): NameDetail {
         val relativePath = relativeToDir.relativize(path)
         val language = "java"
-        val names = RegexUtil.findRegex(namespaceRegex, content).map { it.replace("-", "_") }
+        val names = RegexUtil.findAllByRegex(namespaceRegex, content).map { it.replace("-", "_") }
         return NameDetail(relativePath, language, names, emptyList())
     }
 }

@@ -9,13 +9,13 @@ class ClassParserImpl(
     private val classInfoLoader: ClassInfoLoader,
     private val includeJvmDynamicInvocations: Boolean
 ) : ClassParser {
-    override fun parseDependencies(path: Path, rawNames: List<String>): List<RelationDetail> {
-        val names = rawNames.map { it.formatClassName() }
+    override fun parseDependencies(path: Path, names: List<String>): List<RelationDetail> {
+        val formattedNames = names.map { it.formatClassName() }
         val relativeDir = relativeToDir.relativize(path)
-        val byteSequences = byteSequenceLoader.loadByteSequences(path, names)
+        val byteSequences = byteSequenceLoader.loadByteSequences(path, formattedNames)
         val binaryDetailList = byteSequences.map { byteSequence ->
             val jvmClass = classInfoLoader.fromBytes(byteSequence.bytes)
-            val binaryDetail = toBinaryDetail(relativeDir, byteSequence.pathInFile, jvmClass, names)
+            val binaryDetail = toBinaryDetail(relativeDir, byteSequence.pathInFile, jvmClass, formattedNames)
             binaryDetail
         }
         return binaryDetailList
@@ -27,7 +27,7 @@ class ClassParserImpl(
         jvmClass: JvmClass,
         names: List<String>
     ): RelationDetail {
-        val name = jvmClass.thisClassName.formatClassName()
+        val name = jvmClass.nameWithoutKotlinSuffix()
         val allDependencyNames = if (includeJvmDynamicInvocations) {
             jvmClass.constantPool.filterIsInstance<ConstantPoolInfo.Companion.Utf8Info>().map { it.value }
                 .map { it.formatClassName() }
@@ -48,5 +48,14 @@ class ClassParserImpl(
             this.substring(0, dollarIndex)
         }
         return dollarRemoved.replace('/', '.').replace('-', '_')
+    }
+
+    private fun JvmClass.nameWithoutKotlinSuffix():String {
+        val initialName = thisClassName.formatClassName()
+        return if(initialName.endsWith("Kt")){
+            initialName.substring(0, initialName.length - 2)
+        } else {
+            initialName
+        }
     }
 }
