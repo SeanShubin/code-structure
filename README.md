@@ -305,3 +305,6 @@ dot - graphviz version 12.2.1 (20241206.2353)
 ./scripts/build.sh
 ./scripts/run.sh
 ```
+
+## Publishing to maven
+- https://central.sonatype.com/publishing/deployments
