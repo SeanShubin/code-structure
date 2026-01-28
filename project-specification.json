@@ -1,0 +1,166 @@
+{
+  "prefix": [
+    "com",
+    "seanshubin"
+  ],
+  "name": [
+    "code",
+    "structure"
+  ],
+  "description": "Dependency Structure For Code",
+  "version": "1.0.3",
+  "language": "kotlin",
+  "developer": {
+    "name": "Sean Shubin",
+    "githubName": "SeanShubin",
+    "mavenUserName": "SeanShubin",
+    "organization": "Sean Shubin",
+    "url": "http://seanshubin.com/"
+  },
+  "global": [
+    "stdlib",
+    "test"
+  ],
+  "dependencies": {
+    "stdlib": {
+      "group": "org.jetbrains.kotlin",
+      "artifact": "kotlin-stdlib-jdk8"
+    },
+    "coroutines": {
+      "group": "org.jetbrains.kotlinx",
+      "artifact": "kotlinx-coroutines-core"
+    },
+    "test": {
+      "group": "org.jetbrains.kotlin",
+      "artifact": "kotlin-test-junit",
+      "scope": "test"
+    },
+    "arrow": {
+      "group": "io.arrow-kt",
+      "artifact": "arrow-core"
+    },
+    "jackson": {
+      "group": "com.fasterxml.jackson.module",
+      "artifact": "jackson-module-kotlin"
+    },
+    "jackson-time": {
+      "group": "com.fasterxml.jackson.datatype",
+      "artifact": "jackson-datatype-jsr310"
+    },
+    "maven-plugin-api": {
+      "group": "org.apache.maven",
+      "artifact": "maven-plugin-api"
+    },
+    "maven-project": {
+      "group": "org.apache.maven",
+      "artifact": "maven-project"
+    },
+    "maven-plugin-annotations": {
+      "group": "org.apache.maven.plugin-tools",
+      "artifact": "maven-plugin-annotations"
+    }
+  },
+  "versionOverrides": [],
+  "modules": {
+    "console": [
+      "injection"
+    ],
+    "maven": [
+      "injection",
+      "maven-project",
+      "maven-plugin-api",
+      "maven-plugin-annotations",
+      "domain"
+    ],
+    "injection": [
+      "domain"
+    ],
+    "domain": [
+      "durationformat",
+      "filefinder",
+      "config",
+      "contract-test",
+      "tree",
+      "html",
+      "io",
+      "jvmformat",
+      "beamformat",
+      "kotlinsyntax",
+      "elixirsyntax",
+      "scalasyntax",
+      "javasyntax",
+      "typescriptsyntax",
+      "clojuresyntax",
+      "cycle",
+      "dot",
+      "exec",
+      "collection"
+    ],
+    "filefinder": [
+      "contract-delegate"
+    ],
+    "contract-delegate": [],
+    "contract-test": [
+      "contract-delegate"
+    ],
+    "json": [
+      "jackson",
+      "jackson-time"
+    ],
+    "config": [
+      "contract-delegate",
+      "json",
+      "contract-test"
+    ],
+    "zip": [],
+    "relationparser": [],
+    "nameparser": [],
+    "jvmformat": [
+      "relationparser",
+      "contract-delegate"
+    ],
+    "beamformat": [
+      "relationparser",
+      "contract-delegate"
+    ],
+    "kotlinsyntax": [
+      "nameparser"
+    ],
+    "elixirsyntax": [
+      "nameparser"
+    ],
+    "scalasyntax": [
+      "nameparser"
+    ],
+    "javasyntax": [
+      "nameparser"
+    ],
+    "clojuresyntax": [
+      "nameparser"
+    ],
+    "typescriptsyntax": [
+      "relationparser",
+      "nameparser",
+      "contract-delegate",
+      "contract-test"
+    ],
+    "html": [],
+    "io": [],
+    "string": [],
+    "collection": [],
+    "dot": [],
+    "log": [],
+    "durationformat": [],
+    "tree": [],
+    "cycle": [],
+    "exec": [],
+    "stress": [
+      "durationformat"
+    ]
+  },
+  "javaVersion": "17",
+  "entryPoints": {
+    "console": "com.seanshubin.code.structure.console.EntryPoint",
+    "stress": "com.seanshubin.code.structure.stress.LargeProjectGeneratorApp"
+  }
+}
