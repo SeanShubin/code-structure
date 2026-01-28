@@ -1,9 +1,0 @@
-digraph detangled {
-  bgcolor=lightgray
-  "ModuleL" [label="ModuleL"]
-  "ModuleM" [label="ModuleM"]
-  "ModuleN" [label="ModuleN"]
-  "ModuleL" -> "ModuleM"
-  "ModuleM" -> "ModuleN"
-  "ModuleN" -> "ModuleL"
-}

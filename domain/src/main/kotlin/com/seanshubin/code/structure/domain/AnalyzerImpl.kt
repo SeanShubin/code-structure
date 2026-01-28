@@ -7,10 +7,7 @@ import com.seanshubin.code.structure.cycle.CycleAlgorithm
 import com.seanshubin.code.structure.domain.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.nameparser.NameDetail
 import com.seanshubin.code.structure.relationparser.RelationDetail
-import java.nio.charset.StandardCharsets
-import java.nio.file.Files
 import java.nio.file.Path
-import java.nio.file.Paths
 
 class AnalyzerImpl(
     private val timer: Timer,
@@ -40,13 +37,15 @@ class AnalyzerImpl(
                 }
                 .distinct()
         }
-        val globalReferenceReasons = references.map { it to emptyList<Pair<String, String>>() }.toMap()
+        val globalReferenceReasons = references.associateWith { emptyList<Pair<String, String>>() }
         val global = timer.monitor(sourceName, "analysis.global") {
+            val globalIsLeafGroup = false
             analyze(
                 sourceName,
                 names,
                 globalReferenceReasons,
                 cycleAlgorithm,
+                globalIsLeafGroup,
                 timer
             )
         }
@@ -66,11 +65,17 @@ class AnalyzerImpl(
             timer.monitor(sourceName, "analysis.lineage") { Lineage(ancestorToDescendant, descendantToAncestor) }
         val groupScopedAnalysisList = timer.monitor(sourceName, "analysis.groupScopedAnalysisList") {
             val scopedObservationsList = ScopedObservations.create(names, references)
-            scopedObservationsList.map {
+            val allGroups = scopedObservationsList.map { it.groupPath }
+            scopedObservationsList.map { scopedObservations ->
+                val isLeafGroup = !allGroups.any { otherGroup ->
+                    otherGroup.size > scopedObservations.groupPath.size &&
+                            otherGroup.take(scopedObservations.groupPath.size) == scopedObservations.groupPath
+                }
                 composeGroupScopedAnalysisList(
                     sourceName,
-                    it,
+                    scopedObservations,
                     cycleAlgorithm,
+                    isLeafGroup,
                     timer
                 )
             }
@@ -114,7 +119,10 @@ class AnalyzerImpl(
             descendantToAncestor: List<Pair<String, String>>
         ): Summary {
             val directCycleCount = global.cycles.sumOf { it.size }
-            val inGroupCycleCount = groupScopedAnalysisList.map { it.second }.sumOf { scopedAnalysis ->
+            val inGroupCycleCount = groupScopedAnalysisList
+                .filter { !it.second.isLeafGroup }
+                .map { it.second }
+                .sumOf { scopedAnalysis ->
                 scopedAnalysis.cycles.sumOf { cycles -> cycles.size }
             }
             val ancestorDependsOnDescendantCount = ancestorToDescendant.size
@@ -155,6 +163,7 @@ class AnalyzerImpl(
             names: List<String>,
             referenceReasons: Map<Pair<String, String>, List<Pair<String, String>>>,
             cycleAlgorithm: CycleAlgorithm,
+            isLeafGroup: Boolean,
             timer: Timer
         ): ScopedAnalysis {
             val references = referenceReasons.keys.toList()
@@ -169,7 +178,8 @@ class AnalyzerImpl(
                 referenceReasons,
                 entryPoints,
                 cycleDetails,
-                details
+                details,
+                isLeafGroup
             )
         }
 
@@ -261,11 +271,12 @@ class AnalyzerImpl(
             sourceName: String,
             scopedObservations: ScopedObservations,
             cycleAlgorithm: CycleAlgorithm,
+            isLeafGroup: Boolean,
             timer: Timer
         ): Pair<List<String>, ScopedAnalysis> {
             val names = scopedObservations.unqualifiedNames()
             val referenceReasons = scopedObservations.unqualifiedReferenceQualifiedReasons()
-            val topAnalysis = analyze(sourceName, names, referenceReasons, cycleAlgorithm, timer)
+            val topAnalysis = analyze(sourceName, names, referenceReasons, cycleAlgorithm, isLeafGroup, timer)
             val topEntry = scopedObservations.groupPath to topAnalysis
             return topEntry
         }

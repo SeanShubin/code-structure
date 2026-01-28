@@ -22,7 +22,9 @@ class GroupCycleReport(private val nodeLimitForGraph: Int) : Report {
     }
 
     private fun groupCycleList(groupScopedAnalysisList: List<Pair<List<String>, ScopedAnalysis>>): List<GroupCycle> {
-        return groupScopedAnalysisList.flatMap { (group, scopedAnalysis) ->
+        return groupScopedAnalysisList
+            .filter { !it.second.isLeafGroup }
+            .flatMap { (group, scopedAnalysis) ->
             scopedAnalysis.cycleDetails.map {
                 GroupCycle(group, it.names, it.references)
             }

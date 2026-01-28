@@ -6,5 +6,6 @@ data class ScopedAnalysis(
     val referenceReasons: Map<Pair<String, String>, List<Pair<String, String>>>,
     val entryPoints: List<String>,
     val cycleDetails: List<CycleDetail>,
-    val details: List<Detail>
+    val details: List<Detail>,
+    val isLeafGroup: Boolean
 )

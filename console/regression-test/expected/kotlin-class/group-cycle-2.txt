@@ -1,9 +1,0 @@
-digraph detangled {
-  bgcolor=lightgray
-  "ClassL" [label="ClassL"]
-  "ClassM" [label="ClassM"]
-  "ClassN" [label="ClassN"]
-  "ClassL" -> "ClassM"
-  "ClassM" -> "ClassN"
-  "ClassN" -> "ClassL"
-}
