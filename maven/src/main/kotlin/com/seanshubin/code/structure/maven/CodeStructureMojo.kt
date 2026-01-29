@@ -9,7 +9,7 @@ import org.apache.maven.plugins.annotations.Mojo
 import org.apache.maven.plugins.annotations.Parameter
 import java.time.Clock
 
-@Mojo(name = "code-structure", defaultPhase = LifecyclePhase.VERIFY)
+@Mojo(name = "analyze", defaultPhase = LifecyclePhase.VERIFY, aggregator = true)
 class CodeStructureMojo : AbstractMojo() {
     @Parameter(property = "scope")
     var configBaseName: String? = null
