@@ -1,23 +1,19 @@
 {
   "inputDir" : ".",
-  "outputDir" : "generated/self",
+  "outputDir" : "generated/code-structure",
   "nodeLimitForGraph" : 100,
   "sourcePrefix" : "https://github.com/SeanShubin/code-structure/blob/master/",
   "sourceFileRegexPatterns" : {
     "include" : [
-      ".*/src/main/kotlin/.*\\.kt$"
+      ".*/src/main/kotlin/.*\\.kt"
     ],
-    "exclude" : [
-      "generated/.*"
-    ]
+    "exclude" : [ ]
   },
   "binaryFileRegexPatterns" : {
     "include" : [
-      ".*/target/classes/.*\\.class"
+      ".*/target/.*\\.class"
     ],
-    "exclude" : [
-      "generated/.*"
-    ]
+    "exclude" : [ ]
   },
   "countAsErrors" : {
     "inDirectCycle" : true,

@@ -2,7 +2,7 @@
   prefix [com seanshubin]
   name [code structure]
   description 'Dependency Structure For Code'
-  version 1.0.3
+  version 1.0.4
   language kotlin
   developer {
     name 'Sean Shubin'
