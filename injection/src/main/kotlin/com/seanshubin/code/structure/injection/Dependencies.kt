@@ -38,7 +38,6 @@ import com.seanshubin.code.structure.typescriptsyntax.TypeScriptNameParser
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptNameParserImpl
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptRelationParser
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptRelationParserImpl
-import java.io.ObjectInputFilter.Config
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
@@ -50,10 +49,12 @@ class Dependencies(integrations: Integrations) {
     private val charset: Charset = StandardCharsets.UTF_8
     private val configBaseName: String = integrations.configBaseName
     private val configFile = Paths.get("$configBaseName-config.json")
+    private val configDocumentationFile = Paths.get("$configBaseName-documentation.json")
     private val files: FilesContract = FilesDelegate
     private val keyValueStore:KeyValueStore = JsonFileKeyValueStore(configFile, files)
-    private val documentationPrefix:List<String> = listOf("documentation")
-    private val config: KeyValueStoreWithDocumentation = KeyValueStoreWithDocumentationDelegate(keyValueStore, documentationPrefix)
+    private val documentationKeyValueStore: KeyValueStore = JsonFileKeyValueStore(configDocumentationFile, files)
+    private val config: KeyValueStoreWithDocumentation =
+        KeyValueStoreWithDocumentationDelegate(keyValueStore, documentationKeyValueStore)
     private val clock: Clock = integrations.clock
     private val countAsErrors: CountAsErrors = CountAsErrors(
         inDirectCycle =
