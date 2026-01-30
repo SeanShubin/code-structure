@@ -241,6 +241,9 @@ Will run during the "verify" phase of the [maven lifecycle](https://maven.apache
 </project>
 ```
 
+Once the plugin is installed, you can run it manually
+`mvn code-structure:analyze`
+
 ## Why these metrics fail the build
 
 Although these metrics may seem arbitrary if you are not used to them, they exist for very good reasons. Your first
