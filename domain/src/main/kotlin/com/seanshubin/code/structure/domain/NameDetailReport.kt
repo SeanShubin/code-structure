@@ -66,7 +66,7 @@ abstract class NameDetailReport : Report {
         return td
     }
 
-    private fun tdSourceDetail(name:String): HtmlElement {
+    private fun tdSourceDetail(name: String): HtmlElement {
         val text = Text(name)
         val td = Tag("td", text)
         return td

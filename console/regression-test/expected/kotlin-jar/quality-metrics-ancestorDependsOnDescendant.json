@@ -1,0 +1,6 @@
+[
+  {
+    "ancestor" : "ClassP",
+    "descendant" : "packagep.ClassQ"
+  }
+]

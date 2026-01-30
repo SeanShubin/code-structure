@@ -90,7 +90,14 @@ class AnalyzerImpl(
                 descendantToAncestor
             )
         }
-        return Analysis(global, sourceByName, nameUriList, lineage, groupScopedAnalysisList, summary)
+        val groupCycles = groupScopedAnalysisList
+            .filter { !it.second.isLeafGroup }
+            .flatMap { (group, scopedAnalysis) ->
+                scopedAnalysis.cycleDetails.map { cycleDetail ->
+                    group to cycleDetail
+                }
+            }
+        return Analysis(global, sourceByName, nameUriList, lineage, groupScopedAnalysisList, groupCycles, summary)
     }
 
     private fun bothPartsOfReferenceInList(list: List<String>): (Pair<String, String>) -> Boolean = { reference ->
@@ -103,8 +110,8 @@ class AnalyzerImpl(
         private val sizeThenFirstComparator = listSizeComparator.reversed().then(firstInListComparator)
 
         fun addNameDetailToSourceByName(
-            commonPrefix:List<String>
-        ): (Map<String, List<Path>>,NameDetail) -> Map<String, List<Path>> = { sourceByName, nameDetail ->
+            commonPrefix: List<String>
+        ): (Map<String, List<Path>>, NameDetail) -> Map<String, List<Path>> = { sourceByName, nameDetail ->
             nameDetail.modules.map { qualifiedName ->
                 qualifiedName.toName(commonPrefix) to nameDetail.path
             }.fold(sourceByName, MapUtil::mapAddToList)
@@ -123,8 +130,8 @@ class AnalyzerImpl(
                 .filter { !it.second.isLeafGroup }
                 .map { it.second }
                 .sumOf { scopedAnalysis ->
-                scopedAnalysis.cycles.sumOf { cycles -> cycles.size }
-            }
+                    scopedAnalysis.cycles.sumOf { cycles -> cycles.size }
+                }
             val ancestorDependsOnDescendantCount = ancestorToDescendant.size
             val descendantDependsOnAncestorCount = descendantToAncestor.size
             return Summary(

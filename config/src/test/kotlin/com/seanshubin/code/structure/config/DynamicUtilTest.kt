@@ -18,7 +18,7 @@ class DynamicUtilTest {
     }
 
     @Test
-    fun exists(){
+    fun exists() {
         val value = mapOf("a" to 1)
         assertFalse(DynamicUtil.exists(value, listOf("b")))
     }

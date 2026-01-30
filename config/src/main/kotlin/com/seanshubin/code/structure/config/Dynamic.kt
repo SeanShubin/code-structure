@@ -8,7 +8,7 @@ data class Dynamic(val o: Any?) {
             val subPath = path.drop(1)
             val subTree = Dynamic(o[key])
             subTree.get(subPath)
-        } else if(o is List<*> && key is Int) {
+        } else if (o is List<*> && key is Int) {
             val subPath = path.drop(1)
             val subTree = Dynamic(o[key])
             subTree.get(subPath)
@@ -36,7 +36,7 @@ data class Dynamic(val o: Any?) {
         val key = path.first()
         return if (key is Int) {
             val defaultValue = arrayDefaults.first()
-            if(o is List<*>){
+            if (o is List<*>) {
                 val oldSubTree = Dynamic(o.getOrNull(key))
                 val newSubTree = oldSubTree.setWithArrays(path.drop(1), value, arrayDefaults.drop(1))
                 val newValue = updateArray(o, key, defaultValue, newSubTree.o)
@@ -44,28 +44,28 @@ data class Dynamic(val o: Any?) {
             } else {
                 Dynamic(emptyList<Any?>()).setWithArrays(path, value, arrayDefaults)
             }
-        } else if(o is Map<*, *>) {
+        } else if (o is Map<*, *>) {
             val oldSubTree = Dynamic(o[key])
             val subPath = path.drop(1)
             val newSubTree = oldSubTree.setWithArrays(subPath, value, arrayDefaults)
             val entry = key to newSubTree.o
             Dynamic(o + entry)
         } else {
-            Dynamic(emptyMap<Any?, Any?>()).setWithArrays(path, value,arrayDefaults)
+            Dynamic(emptyMap<Any?, Any?>()).setWithArrays(path, value, arrayDefaults)
         }
     }
 
-    private fun updateArray(o:Any?, index:Int, defaultValue:Any?, value:Any?):List<Any?> {
-        if(o is List<*>) {
-            if(o.size < index) {
-                return o + (o.size until index).map{defaultValue} + value
+    private fun updateArray(o: Any?, index: Int, defaultValue: Any?, value: Any?): List<Any?> {
+        if (o is List<*>) {
+            if (o.size < index) {
+                return o + (o.size until index).map { defaultValue } + value
             } else {
                 val before = o.take(index)
                 val after = o.drop(index + 1)
                 return before + listOf(value) + after
             }
         } else {
-            return (0 until index).map{defaultValue} + value
+            return (0 until index).map { defaultValue } + value
         }
     }
 
@@ -73,7 +73,7 @@ data class Dynamic(val o: Any?) {
         if (path.isEmpty()) return true
         return if (o is Map<*, *>) {
             val key = path.first()
-            if(o.containsKey(key)) {
+            if (o.containsKey(key)) {
                 val subPath = path.drop(1)
                 val subTree = Dynamic(o[key])
                 subTree.exists(subPath)

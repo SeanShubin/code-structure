@@ -24,7 +24,8 @@ class DirectCycleReport(private val nodeLimitForGraph: Int) : Report {
             validated.analysis.global,
             parents,
             sourcePrefix,
-            sourceByName)
+            sourceByName
+        )
         return listOf(topCommand) + graphCommands
     }
 

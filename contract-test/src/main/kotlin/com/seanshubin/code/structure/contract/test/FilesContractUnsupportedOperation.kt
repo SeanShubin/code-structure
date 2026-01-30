@@ -21,7 +21,11 @@ interface FilesContractUnsupportedOperation : FilesContract {
         throw UnsupportedOperationException("not implemented")
     }
 
-    override fun newByteChannel(path: Path, options: Set<OpenOption>, vararg attrs: FileAttribute<*>): SeekableByteChannel {
+    override fun newByteChannel(
+        path: Path,
+        options: Set<OpenOption>,
+        vararg attrs: FileAttribute<*>
+    ): SeekableByteChannel {
         throw UnsupportedOperationException("not implemented")
     }
 
@@ -113,7 +117,11 @@ interface FilesContractUnsupportedOperation : FilesContract {
         throw UnsupportedOperationException("not implemented")
     }
 
-    override fun <V : FileAttributeView> getFileAttributeView(path: Path, type: Class<V>, vararg options: LinkOption): V? {
+    override fun <V : FileAttributeView> getFileAttributeView(
+        path: Path,
+        type: Class<V>,
+        vararg options: LinkOption
+    ): V? {
         throw UnsupportedOperationException("not implemented")
     }
 
@@ -193,7 +201,12 @@ interface FilesContractUnsupportedOperation : FilesContract {
         throw UnsupportedOperationException("not implemented")
     }
 
-    override fun walkFileTree(start: Path, options: Set<FileVisitOption>, maxDepth: Int, visitor: FileVisitor<in Path>): Path {
+    override fun walkFileTree(
+        start: Path,
+        options: Set<FileVisitOption>,
+        maxDepth: Int,
+        visitor: FileVisitor<in Path>
+    ): Path {
         throw UnsupportedOperationException("not implemented")
     }
 
@@ -277,7 +290,12 @@ interface FilesContractUnsupportedOperation : FilesContract {
         throw UnsupportedOperationException("not implemented")
     }
 
-    override fun find(start: Path, maxDepth: Int, matcher: BiPredicate<Path, BasicFileAttributes>, vararg options: FileVisitOption): Stream<Path> {
+    override fun find(
+        start: Path,
+        maxDepth: Int,
+        matcher: BiPredicate<Path, BasicFileAttributes>,
+        vararg options: FileVisitOption
+    ): Stream<Path> {
         throw UnsupportedOperationException("not implemented")
     }
 

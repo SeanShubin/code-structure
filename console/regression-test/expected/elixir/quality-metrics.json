@@ -1,0 +1,6 @@
+{
+  "inDirectCycle" : 8,
+  "inGroupCycle" : 6,
+  "ancestorDependsOnDescendant" : 1,
+  "descendantDependsOnAncestor" : 1
+}

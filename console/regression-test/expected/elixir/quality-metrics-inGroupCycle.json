@@ -1,0 +1,18 @@
+[
+  {
+    "group" : [ ],
+    "cycle" : [
+      "PathC",
+      "PathE",
+      "PathG"
+    ]
+  },
+  {
+    "group" : [ ],
+    "cycle" : [
+      "PathI",
+      "PathP",
+      "PathR"
+    ]
+  }
+]

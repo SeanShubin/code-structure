@@ -13,13 +13,19 @@ class GroupReport(
     override val reportName: String = "groups"
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         return validated.analysis.groupScopedAnalysisList.flatMap { (groupPath, groupAnalysis) ->
-            singleGroupReport(reportDir, validated.observations.sourcePrefix, groupPath, validated.analysis, groupAnalysis)
+            singleGroupReport(
+                reportDir,
+                validated.observations.sourcePrefix,
+                groupPath,
+                validated.analysis,
+                groupAnalysis
+            )
         }
     }
 
     private fun singleGroupReport(
         reportDir: Path,
-        sourcePrefix:String,
+        sourcePrefix: String,
         groupPath: List<String>,
         analysis: Analysis,
         groupAnalysis: ScopedAnalysis
@@ -28,7 +34,7 @@ class GroupReport(
         val baseName = basePage.id
         val parents = composeParents(groupPath)
         val nodes = groupAnalysis.names.map { name ->
-            toDotNode(name, sourcePrefix,groupPath + name, analysis)
+            toDotNode(name, sourcePrefix, groupPath + name, analysis)
         }
         val dependencyTable = dependencyTable(groupAnalysis)
         return ReportHelper.graphCommands(
@@ -69,7 +75,7 @@ class GroupReport(
 
     private fun toDotNode(
         leafName: String,
-        sourcePrefix:String,
+        sourcePrefix: String,
         groupPath: List<String>,
         analysis: Analysis
     ): DotNode {

@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 
 class MapUtilTest {
     @Test
-    fun mergeValuesForDuplicateKeysIntoList(){
+    fun mergeValuesForDuplicateKeysIntoList() {
         val empty = emptyMap<String, List<Int>>()
         val actual = empty
             .addToList("a" to 1)
@@ -18,7 +18,8 @@ class MapUtilTest {
         val expected = mapOf(
             "a" to listOf(1),
             "b" to listOf(2, 4, 2),
-            "c" to listOf(3))
+            "c" to listOf(3)
+        )
 
         assertEquals(expected, actual)
     }

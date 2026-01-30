@@ -26,7 +26,7 @@ class LargeProjectGenerator(
         }
         val backwardsRelations = (1..backwardsRelationsCount).map {
             val second = random.nextInt(size - maxBackwardsDistance)
-            val first  = second + random.nextInt(maxBackwardsDistance)
+            val first = second + random.nextInt(maxBackwardsDistance)
             first to second
         }.filter { (first, second) -> first != second }.map { (first, second) ->
             if (first < second) second to first

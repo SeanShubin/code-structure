@@ -5,7 +5,8 @@ object DynamicUtil {
 
     fun set(o: Any?, path: List<Any?>, value: Any?): Any? = Dynamic(o).set(path, value).o
 
-    fun setWithArrays(o: Any?, path: List<Any?>, value: Any?, arrayDefaults:List<Any?>): Any? = Dynamic(o).setWithArrays(path, value, arrayDefaults).o
+    fun setWithArrays(o: Any?, path: List<Any?>, value: Any?, arrayDefaults: List<Any?>): Any? =
+        Dynamic(o).setWithArrays(path, value, arrayDefaults).o
 
     fun exists(o: Any?, path: List<Any?>): Boolean = Dynamic(o).exists(path)
 

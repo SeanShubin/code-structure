@@ -1,5 +1,5 @@
 {
-  "inputDir": "src/test/resources/samples/elixir-sample",
+  "inputDir" : "src/test/resources/samples/elixir-sample",
   "sourcePrefix" : "https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/",
   "sourceFiles" : [
     "lib/module_e.ex",

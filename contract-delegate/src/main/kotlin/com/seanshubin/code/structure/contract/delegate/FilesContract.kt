@@ -1,6 +1,9 @@
 package com.seanshubin.code.structure.contract.delegate
 
-import java.io.*
+import java.io.BufferedReader
+import java.io.BufferedWriter
+import java.io.InputStream
+import java.io.OutputStream
 import java.nio.channels.SeekableByteChannel
 import java.nio.charset.Charset
 import java.nio.file.*

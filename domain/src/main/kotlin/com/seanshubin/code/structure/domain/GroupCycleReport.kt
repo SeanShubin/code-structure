@@ -11,7 +11,7 @@ class GroupCycleReport(private val nodeLimitForGraph: Int) : Report {
     override val reportName: String = "group-cycles"
     override fun generate(reportDir: Path, validated: Validated): List<Command> {
         val parents = listOf(Page.tableOfContents)
-        val groupCycleList = groupCycleList(validated.analysis.groupScopedAnalysisList)
+        val groupCycleList = groupCycleList(validated.analysis)
         val htmlInsideBody = generateHtml(groupCycleList)
         val html = ReportHelper.wrapInTopLevelHtml(Page.inGroupCycle.caption, htmlInsideBody, parents)
         val path = reportDir.resolve(Page.inGroupCycle.file)
@@ -21,13 +21,9 @@ class GroupCycleReport(private val nodeLimitForGraph: Int) : Report {
         return listOf(topCommand) + graphCommands
     }
 
-    private fun groupCycleList(groupScopedAnalysisList: List<Pair<List<String>, ScopedAnalysis>>): List<GroupCycle> {
-        return groupScopedAnalysisList
-            .filter { !it.second.isLeafGroup }
-            .flatMap { (group, scopedAnalysis) ->
-            scopedAnalysis.cycleDetails.map {
-                GroupCycle(group, it.names, it.references)
-            }
+    private fun groupCycleList(analysis: Analysis): List<GroupCycle> {
+        return analysis.groupCycles.map { (group, cycleDetail) ->
+            GroupCycle(group, cycleDetail.names, cycleDetail.references)
         }
     }
 

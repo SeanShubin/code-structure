@@ -1,0 +1,18 @@
+[
+  {
+    "group" : [ ],
+    "cycle" : [
+      "packagec",
+      "packagee",
+      "packageg"
+    ]
+  },
+  {
+    "group" : [ ],
+    "cycle" : [
+      "packagei",
+      "packagep",
+      "packager"
+    ]
+  }
+]

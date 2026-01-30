@@ -5,10 +5,11 @@ import java.nio.file.Path
 
 data class Analysis(
     val global: ScopedAnalysis,
-    val sourceByName:Map<String, List<Path>>,
+    val sourceByName: Map<String, List<Path>>,
     val nameUriList: List<Pair<String, String>>,
     val lineage: Lineage,
     val groupScopedAnalysisList: List<Pair<List<String>, ScopedAnalysis>>,
+    val groupCycles: List<Pair<List<String>, CycleDetail>>,
     val summary: Summary
 ) {
     private val scopedAnalysisByGroup = groupScopedAnalysisList.associateBy { it.first }

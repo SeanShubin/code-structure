@@ -8,9 +8,9 @@ object RegexUtil {
         return matches
     }
 
-    fun findByRegex(regex:Regex, content:String):String {
+    fun findByRegex(regex: Regex, content: String): String {
         val matchResult = regex.find(content)
-        if(matchResult == null){
+        if (matchResult == null) {
             throw RuntimeException("Content '$content' did not match pattern '$regex'")
         } else {
             return matchResult.groupValues[1]

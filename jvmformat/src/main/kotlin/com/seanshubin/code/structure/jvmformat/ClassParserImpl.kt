@@ -50,9 +50,9 @@ class ClassParserImpl(
         return dollarRemoved.replace('/', '.').replace('-', '_')
     }
 
-    private fun JvmClass.nameWithoutKotlinSuffix():String {
+    private fun JvmClass.nameWithoutKotlinSuffix(): String {
         val initialName = thisClassName.formatClassName()
-        return if(initialName.endsWith("Kt")){
+        return if (initialName.endsWith("Kt")) {
             initialName.substring(0, initialName.length - 2)
         } else {
             initialName

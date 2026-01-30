@@ -26,7 +26,7 @@ class JsonFileKeyValueStore(val path: Path, val files: FilesContract) : KeyValue
     }
 
     private fun loadJsonObject(): Any? {
-        val text = if(files.exists(path)) {
+        val text = if (files.exists(path)) {
             files.readString(path, jsonCharset)
         } else {
             DEFAULT_JSON_TEXT

@@ -3,7 +3,8 @@ package com.seanshubin.code.structure.injection
 object ConfigDocumentation {
     val inputDir = listOf("the directory from which to start scanning")
     val outputDir = listOf("the directory to place the report")
-    val sourcePrefix = listOf("pre-pended to links in the report, so you can navigate directly to the source code from the report")
+    val sourcePrefix =
+        listOf("pre-pended to links in the report, so you can navigate directly to the source code from the report")
     val localDepth = listOf("How far to draw the dependency graph for a single ")
     val useObservationsCache = listOf(
         "if the observations file exists, use that instead of scanning the sources and binaries",
@@ -18,7 +19,7 @@ object ConfigDocumentation {
     val nodeLimitForGraph = listOf(
         "the higher the number of files, the longer the graph takes to generate and the more useless it is",
         " if this limit is exceeded, the graph is not generated"
-        )
+    )
     private val regexSuffix = listOf(
         "list of regular expression patterns to include",
         "to be included, a file must match at least one include pattern, without matching any exclude patterns",

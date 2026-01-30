@@ -1,0 +1,6 @@
+[
+  {
+    "descendant" : "PathE.PathF.ModuleM",
+    "ancestor" : "ModuleE"
+  }
+]

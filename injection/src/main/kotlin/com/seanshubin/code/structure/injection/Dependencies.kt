@@ -51,32 +51,56 @@ class Dependencies(integrations: Integrations) {
     private val configFile = Paths.get("$configBaseName-config.json")
     private val configDocumentationFile = Paths.get("$configBaseName-documentation.json")
     private val files: FilesContract = FilesDelegate
-    private val keyValueStore:KeyValueStore = JsonFileKeyValueStore(configFile, files)
+    private val keyValueStore: KeyValueStore = JsonFileKeyValueStore(configFile, files)
     private val documentationKeyValueStore: KeyValueStore = JsonFileKeyValueStore(configDocumentationFile, files)
     private val config: KeyValueStoreWithDocumentation =
         KeyValueStoreWithDocumentationDelegate(keyValueStore, documentationKeyValueStore)
     private val clock: Clock = integrations.clock
     private val countAsErrors: CountAsErrors = CountAsErrors(
         inDirectCycle =
-        config.load(listOf("countAsErrors", "inDirectCycle"), true, ConfigDocumentation.inDirectCycle).coerceToBoolean(),
+            config.load(listOf("countAsErrors", "inDirectCycle"), true, ConfigDocumentation.inDirectCycle)
+                .coerceToBoolean(),
         inGroupCycle =
-        config.load(listOf("countAsErrors", "inGroupCycle"), true, ConfigDocumentation.inGroupCycle).coerceToBoolean(),
+            config.load(listOf("countAsErrors", "inGroupCycle"), true, ConfigDocumentation.inGroupCycle)
+                .coerceToBoolean(),
         ancestorDependsOnDescendant =
-        config.load(listOf("countAsErrors", "ancestorDependsOnDescendant"), true, ConfigDocumentation.ancestorDependsOnDescendant).coerceToBoolean(),
+            config.load(
+                listOf("countAsErrors", "ancestorDependsOnDescendant"),
+                true,
+                ConfigDocumentation.ancestorDependsOnDescendant
+            ).coerceToBoolean(),
         descendantDependsOnAncestor =
-        config.load(listOf("countAsErrors", "descendantDependsOnAncestor"), true, ConfigDocumentation.descendantDependsOnAncestor).coerceToBoolean(),
+            config.load(
+                listOf("countAsErrors", "descendantDependsOnAncestor"),
+                true,
+                ConfigDocumentation.descendantDependsOnAncestor
+            ).coerceToBoolean(),
     )
-    private val maximumAllowedErrorCount: Int = config.load(listOf("maximumAllowedErrorCount"), 0, ConfigDocumentation.maximumAllowedErrorCount).coerceToInt()
+    private val maximumAllowedErrorCount: Int =
+        config.load(listOf("maximumAllowedErrorCount"), 0, ConfigDocumentation.maximumAllowedErrorCount).coerceToInt()
     private val inputDir = config.load(listOf("inputDir"), ".", ConfigDocumentation.inputDir).coerceToPath()
-    private val outputDir = config.load(listOf("outputDir"), "generated/code-structure", ConfigDocumentation.outputDir).coerceToPath()
-    private val useObservationsCache = config.load(listOf("useObservationsCache"), false, ConfigDocumentation.useObservationsCache).coerceToBoolean()
+    private val outputDir =
+        config.load(listOf("outputDir"), "generated/code-structure", ConfigDocumentation.outputDir).coerceToPath()
+    private val useObservationsCache =
+        config.load(listOf("useObservationsCache"), false, ConfigDocumentation.useObservationsCache).coerceToBoolean()
     private val includeJvmDynamicInvocations =
-        config.load(listOf("includeJvmDynamicInvocations"), false, ConfigDocumentation.includeJvmDynamicInvocations).coerceToBoolean()
-    private val sourcePrefix = config.load(listOf("sourcePrefix"), "prefix for link to source code", ConfigDocumentation.sourcePrefix).coerceToString()
+        config.load(listOf("includeJvmDynamicInvocations"), false, ConfigDocumentation.includeJvmDynamicInvocations)
+            .coerceToBoolean()
+    private val sourcePrefix =
+        config.load(listOf("sourcePrefix"), "prefix for link to source code", ConfigDocumentation.sourcePrefix)
+            .coerceToString()
     private val sourceFileIncludeRegexPatterns: List<String> =
-        config.load(listOf("sourceFileRegexPatterns", "include"), emptyList<String>(), ConfigDocumentation.sourceFileRegexPatternsInclude).coerceToListOfString()
+        config.load(
+            listOf("sourceFileRegexPatterns", "include"),
+            emptyList<String>(),
+            ConfigDocumentation.sourceFileRegexPatternsInclude
+        ).coerceToListOfString()
     private val sourceFileExcludeRegexPatterns: List<String> =
-        config.load(listOf("sourceFileRegexPatterns", "exclude"), emptyList<String>(), ConfigDocumentation.sourceFileRegexPatternsExclude).coerceToListOfString()
+        config.load(
+            listOf("sourceFileRegexPatterns", "exclude"),
+            emptyList<String>(),
+            ConfigDocumentation.sourceFileRegexPatternsExclude
+        ).coerceToListOfString()
     private val isSourceFile: (Path) -> Boolean = RegexFileMatcher(
         inputDir,
         sourceFileIncludeRegexPatterns,
@@ -85,9 +109,17 @@ class Dependencies(integrations: Integrations) {
     private val nodeLimitForGraph: Int =
         config.load(listOf("nodeLimitForGraph"), 100, ConfigDocumentation.nodeLimitForGraph).coerceToInt()
     private val binaryFileIncludeRegexPatterns: List<String> =
-        config.load(listOf("binaryFileRegexPatterns", "include"), emptyList<String>(), ConfigDocumentation.binaryFileRegexPatternsInclude).coerceToListOfString()
+        config.load(
+            listOf("binaryFileRegexPatterns", "include"),
+            emptyList<String>(),
+            ConfigDocumentation.binaryFileRegexPatternsInclude
+        ).coerceToListOfString()
     private val binaryFileExcludeRegexPatterns: List<String> =
-        config.load(listOf("binaryFileRegexPatterns", "exclude"), emptyList<String>(), ConfigDocumentation.binaryFileRegexPatternsExclude).coerceToListOfString()
+        config.load(
+            listOf("binaryFileRegexPatterns", "exclude"),
+            emptyList<String>(),
+            ConfigDocumentation.binaryFileRegexPatternsExclude
+        ).coerceToListOfString()
     private val isBinaryFile: (Path) -> Boolean = RegexFileMatcher(
         inputDir,
         binaryFileIncludeRegexPatterns,
@@ -163,6 +195,13 @@ class Dependencies(integrations: Integrations) {
     private val timingReport: Report = TimingReport(timer)
     private val entryPointsReport: Report = EntryPointsReport()
     private val groupReport: Report = GroupReport(nodeLimitForGraph)
+    private val qualityMetricsReport: Report = QualityMetricsReport()
+    private val qualityMetricsInDirectCycleReport: Report = QualityMetricsInDirectCycleReport()
+    private val qualityMetricsInGroupCycleReport: Report = QualityMetricsInGroupCycleReport()
+    private val qualityMetricsAncestorDependsOnDescendantReport: Report =
+        QualityMetricsAncestorDependsOnDescendantReport()
+    private val qualityMetricsDescendantDependsOnAncestorReport: Report =
+        QualityMetricsDescendantDependsOnAncestorReport()
     private val reports: List<Report> = listOf(
         staticContentReport,
         tableOfContentsReport,
@@ -177,7 +216,12 @@ class Dependencies(integrations: Integrations) {
         lineageReportAncestorDescendant,
         lineageReportDescendantAncestor,
         codeUnitsReport,
-        graphReport
+        graphReport,
+        qualityMetricsReport,
+        qualityMetricsInDirectCycleReport,
+        qualityMetricsInGroupCycleReport,
+        qualityMetricsAncestorDependsOnDescendantReport,
+        qualityMetricsDescendantDependsOnAncestorReport
     )
     private val finalReports: List<Report> = listOf(
         timingReport
