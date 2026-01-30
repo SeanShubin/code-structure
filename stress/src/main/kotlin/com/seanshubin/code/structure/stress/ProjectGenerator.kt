@@ -111,7 +111,7 @@ object ProjectGenerator {
                 "include" : [ ".*\\.java"],
                 "exclude" : [ ]
               },
-              "nodeLimitForGraph" : 50,
+              "nodeLimitForGraph" : 100,
               "binaryFileRegexPatterns" : {
                 "include" : [ ".*\\.class" ],
                 "exclude" : [ ]

@@ -82,7 +82,8 @@ class Dependencies(integrations: Integrations) {
         sourceFileIncludeRegexPatterns,
         sourceFileExcludeRegexPatterns
     )
-    private val nodeLimitForGraph: Int = config.load(listOf("nodeLimitForGraph"), 50, ConfigDocumentation.nodeLimitForGraph).coerceToInt()
+    private val nodeLimitForGraph: Int =
+        config.load(listOf("nodeLimitForGraph"), 100, ConfigDocumentation.nodeLimitForGraph).coerceToInt()
     private val binaryFileIncludeRegexPatterns: List<String> =
         config.load(listOf("binaryFileRegexPatterns", "include"), emptyList<String>(), ConfigDocumentation.binaryFileRegexPatternsInclude).coerceToListOfString()
     private val binaryFileExcludeRegexPatterns: List<String> =

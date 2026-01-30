@@ -94,7 +94,7 @@
   },
   "nodeLimitForGraph": [
     "path: nodeLimitForGraph",
-    "default value: 50",
+    "default value: 100",
     "default value type: Integer",
     "the higher the number of files, the longer the graph takes to generate and the more useless it is",
     " if this limit is exceeded, the graph is not generated"
