@@ -1,5 +1,5 @@
 {
-  "inputDir" : "../../code_structure_sample_elixir",
+  "inputDir": "src/test/resources/samples/elixir-sample",
   "outputDir" : "target/regression-test/elixir",
   "localDepth" : 2,
   "sourcePrefix" : "https://github.com/SeanShubin/code_structure_sample_elixir/blob/master/",

@@ -1,5 +1,5 @@
 {
-  "inputDir" : "../../code-structure-sample-kotlin",
+  "inputDir": "src/test/resources/samples/kotlin-sample",
   "outputDir" : "target/regression-test/kotlin-class",
   "localDepth" : 2,
   "sourcePrefix" : "https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/",

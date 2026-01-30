@@ -13,7 +13,9 @@
     "include": [
       ".*/target/.*\\.class"
     ],
-    "exclude" : [ ]
+    "exclude": [
+      ".*/samples/.*"
+    ]
   },
   "countAsErrors" : {
     "inDirectCycle" : true,
