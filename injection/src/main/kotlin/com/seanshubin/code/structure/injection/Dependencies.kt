@@ -199,9 +199,20 @@ class Dependencies(integrations: Integrations) {
     private val qualityMetricsInDirectCycleReport: Report = QualityMetricsInDirectCycleReport()
     private val qualityMetricsInGroupCycleReport: Report = QualityMetricsInGroupCycleReport()
     private val qualityMetricsAncestorDependsOnDescendantReport: Report =
-        QualityMetricsAncestorDependsOnDescendantReport()
+        QualityMetricsLineageReport(
+            "ancestorDependsOnDescendant",
+            { it.ancestorDependsOnDescendant }
+        ) { ancestor, descendant ->
+            mapOf("ancestor" to ancestor, "descendant" to descendant)
+        }
+
     private val qualityMetricsDescendantDependsOnAncestorReport: Report =
-        QualityMetricsDescendantDependsOnAncestorReport()
+        QualityMetricsLineageReport(
+            "descendantDependsOnAncestor",
+            { it.descendantDependsOnAncestor }
+        ) { descendant, ancestor ->
+            mapOf("descendant" to descendant, "ancestor" to ancestor)
+        }
     private val reports: List<Report> = listOf(
         staticContentReport,
         tableOfContentsReport,
