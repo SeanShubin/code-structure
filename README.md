@@ -1,14 +1,33 @@
 # Code Structure
 
-## Read before building
+Analyzes dependency structure.
+Names are pulled out of source files.
+Dependency relationships are pulled out of byte code.
+Names are considered unique at the code unit level, so this means that dependencies detected in inner classes, anonymous classes, local classes, lambda expressions, synthetic classes, and so on, are folded into the class they belong to.
+This is done mechanically by truncating the name of all classes at the first `$` character (remind AI Assistants of this if they get confused when trying to remove a cycle).
+For example, to remove the cycles on a "state" pattern where the cycle is legitimate business logic, you can make the states inner classes of the same class, and have them delegate to logic in a helper class.
+A dependency relationship is inferred by class constant pool entries, also truncated at the first `$` character.
+This means that dynamic method invocations (such as Class.forName) don't flag a dependency.
+It also means that data structures don't flag a dependency until one invokes a method on the other.
+For example, no dependency relationship will be observed between the following classes.
+```kotlin
+class Foo {
+    val bar: Bar? = null
+}
+class Bar {
+    var foo: Foo? = null
+}
+```
+In practice this means that cyclic data structures are ok, so long as the logic responsibilities only flow in one direction. 
 
-- Bump the version of this build after pushing to maven central
-- Otherwise, you will get a maven cyclic dependency
-- This happens because this project analyzes itself
+## Read before building
+As the code structure project runs on itself,
+you will need to make sure the build version does not match the plugin version.
+The best way to do this is to keep the plugin version pointed to the latest version in maven central, and bump the build version locally after each deploy to maven central.
 
 ## Tips
 - In practice, you can fix every problem this tool detects except for direct cycles without changing any logic, you just have to move files around to organize your code in a more internally consistent manner.
-- I usually start by placing everything in the same package, and only split into subpackages when the package gets too large.  However, I don't do this split half way, everything gets a child package or nothing does, that way, every subpackage has a name. 
+- I usually start by placing everything in the same package, and only split into subpackages when the package gets too large.  However, I don't do this split half way, everything gets a child package or nothing does, that way, every subpackage has a name.
 
 ## Getting started
 
@@ -33,30 +52,27 @@
 
 ## Configuration Explained
 
-Any missing elements in the configuration will be generated with default values, including the documentation.
-There is a generated "documentation" element in the configuration, which explains each configuration element.
+Any missing elements in the configuration will be generated with default values.
 Here is an example generated from an earlier version of this project running on itself.
 
 ```json
 {
   "inputDir" : ".",
-  "outputDir" : "generated/self",
+  "outputDir" : "generated/code-structure",
   "nodeLimitForGraph" : 100,
   "sourcePrefix" : "https://github.com/SeanShubin/code-structure/blob/master/",
   "sourceFileRegexPatterns" : {
     "include" : [
-      ".*/src/main/kotlin/.*\\.kt$"
+      ".*/src/main/kotlin/.*\\.kt"
     ],
-    "exclude" : [
-      "generated/.*"
-    ]
+    "exclude" : [ ]
   },
   "binaryFileRegexPatterns" : {
     "include" : [
-      ".*/target/classes/.*\\.class"
+      ".*/target/.*\\.class"
     ],
     "exclude" : [
-      "generated/.*"
+      ".*/samples/.*"
     ]
   },
   "countAsErrors" : {
@@ -67,130 +83,133 @@ Here is an example generated from an earlier version of this project running on 
   },
   "maximumAllowedErrorCount" : 0,
   "useObservationsCache" : false,
-  "includeJvmDynamicInvocations" : false,
-  "documentation" : {
-    "countAsErrors" : {
-      "inDirectCycle" : [
-        "path: countAsErrors.inDirectCycle",
-        "default value: true",
-        "default value type: Boolean",
-        "Whether to include the number of code units in a direct cycle in the error count",
-        "Direct cycles typically require changes in logic to fix, so they are riskier than the other metrics",
-        "Set this to false if you want to focus on metrics that are easier to fix first"
-      ],
-      "inGroupCycle" : [
-        "path: countAsErrors.inGroupCycle",
-        "default value: true",
-        "default value type: Boolean",
-        "Whether to include the number of group cycles in the error count",
-        "Groups are packages in java, modules in elixir"
-      ],
-      "ancestorDependsOnDescendant" : [
-        "path: countAsErrors.ancestorDependsOnDescendant",
-        "default value: true",
-        "default value type: Boolean",
-        "Whether to include the number cases where an ancestor depends on a descendant in error count",
-        "Dependencies between super-categories and sub-categories indicate that files in the super-category weren't placed in a properly named sub-category",
-        "Instead, organize your directory structure such that each directory either only contains other directories following the same rules, or only contains files"
-      ],
-      "descendantDependsOnAncestor" : [
-        "path: countAsErrors.descendantDependsOnAncestor",
-        "default value: true",
-        "default value type: Boolean",
-        "Whether to include the number cases where a descendant depends on a ancestor in error count",
-        "Dependencies between super-categories and sub-categories indicate that files in the super-category weren't placed in a properly named sub-category",
-        "Instead, organize your directory structure such that each directory either only contains other directories following the same rules, or only contains files"
-      ]
-    },
-    "maximumAllowedErrorCount" : [
-      "path: maximumAllowedErrorCount",
-      "default value: 0",
-      "default value type: Integer",
-      "if the number of errors exceeds this number, the build will fail"
-    ],
-    "inputDir" : [
-      "path: inputDir",
-      "default value: .",
-      "default value type: String",
-      "the directory from which to start scanning"
-    ],
-    "outputDir" : [
-      "path: outputDir",
-      "default value: generated/code-structure",
-      "default value type: String",
-      "the directory to place the report"
-    ],
-    "useObservationsCache" : [
-      "path: useObservationsCache",
-      "default value: false",
+  "includeJvmDynamicInvocations" : false
+}
+```
+A companion configuration documentation file is also generated, here is an example:
+```json
+{
+  "countAsErrors" : {
+    "inDirectCycle" : [
+      "path: countAsErrors.inDirectCycle",
+      "default value: true",
       "default value type: Boolean",
-      "if the observations file exists, use that instead of scanning the sources and binaries",
-      "this is useful if you want to run 'what if' scenarios by manually changing the observations file"
+      "Whether to include the number of code units in a direct cycle in the error count",
+      "Direct cycles typically require changes in logic to fix, so they are riskier than the other metrics",
+      "Set this to false if you want to focus on metrics that are easier to fix first"
     ],
-    "includeJvmDynamicInvocations" : [
-      "path: includeJvmDynamicInvocations",
-      "default value: false",
+    "inGroupCycle" : [
+      "path: countAsErrors.inGroupCycle",
+      "default value: true",
       "default value type: Boolean",
-      "Clojure invokes methods dynamically, so the class dependency won't show up as a class in the constant pool (CONSTANT_Class - 7)",
-      "However, the class name will still show up as a string, so we can get it as a string in the constant pool (CONSTANT_Utf8 - 1)",
-      "Reading the string constants instead of class constants will also catch instances of Class.forName, but only if the completed string exists in the constant pool, it will not be able to detect it in cases where the string is constructed at runtime."
+      "Whether to include the number of group cycles in the error count",
+      "Groups are packages in java, modules in elixir"
     ],
-    "sourcePrefix" : [
-      "path: sourcePrefix",
-      "default value: prefix for link to source code",
-      "default value type: String",
-      "pre-pended to links in the report, so you can navigate directly to the source code from the report"
+    "ancestorDependsOnDescendant" : [
+      "path: countAsErrors.ancestorDependsOnDescendant",
+      "default value: true",
+      "default value type: Boolean",
+      "Whether to include the number cases where an ancestor depends on a descendant in error count",
+      "Dependencies between super-categories and sub-categories indicate that files in the super-category weren't placed in a properly named sub-category",
+      "Instead, organize your directory structure such that each directory either only contains other directories following the same rules, or only contains files"
     ],
-    "sourceFileRegexPatterns" : {
-      "include" : [
-        "path: sourceFileRegexPatterns.include",
-        "default value: []",
-        "default value type: EmptyList",
-        "what file names constitute a source file, relative to the 'inputDir' configuration item",
-        "used to determine names",
-        "list of regular expression patterns to include",
-        "to be included, a file must match at least one include pattern, without matching any exclude patterns"
-      ],
-      "exclude" : [
-        "path: sourceFileRegexPatterns.exclude",
-        "default value: []",
-        "default value type: EmptyList",
-        "what file names constitute a source file, relative to the 'inputDir' configuration item",
-        "used to determine names",
-        "list of regular expression patterns to exclude",
-        "list of regular expression patterns to include",
-        "to be included, a file must match at least one include pattern, without matching any exclude patterns"
-      ]
-    },
-    "nodeLimitForGraph" : [
-      "path: nodeLimitForGraph",
-      "default value: 50",
-      "default value type: Integer",
-      "the higher the number of files, the longer the graph takes to generate and the more useless it is",
-      " if this limit is exceeded, the graph is not generated"
+    "descendantDependsOnAncestor" : [
+      "path: countAsErrors.descendantDependsOnAncestor",
+      "default value: true",
+      "default value type: Boolean",
+      "Whether to include the number cases where a descendant depends on a ancestor in error count",
+      "Dependencies between super-categories and sub-categories indicate that files in the super-category weren't placed in a properly named sub-category",
+      "Instead, organize your directory structure such that each directory either only contains other directories following the same rules, or only contains files"
+    ]
+  },
+  "maximumAllowedErrorCount" : [
+    "path: maximumAllowedErrorCount",
+    "default value: 0",
+    "default value type: Integer",
+    "if the number of errors exceeds this number, the build will fail"
+  ],
+  "inputDir" : [
+    "path: inputDir",
+    "default value: .",
+    "default value type: String",
+    "the directory from which to start scanning"
+  ],
+  "outputDir" : [
+    "path: outputDir",
+    "default value: generated/code-structure",
+    "default value type: String",
+    "the directory to place the report"
+  ],
+  "useObservationsCache" : [
+    "path: useObservationsCache",
+    "default value: false",
+    "default value type: Boolean",
+    "if the observations file exists, use that instead of scanning the sources and binaries",
+    "this is useful if you want to run 'what if' scenarios by manually changing the observations file"
+  ],
+  "includeJvmDynamicInvocations" : [
+    "path: includeJvmDynamicInvocations",
+    "default value: false",
+    "default value type: Boolean",
+    "Clojure invokes methods dynamically, so the class dependency won't show up as a class in the constant pool (CONSTANT_Class - 7)",
+    "However, the class name will still show up as a string, so we can get it as a string in the constant pool (CONSTANT_Utf8 - 1)",
+    "Reading the string constants instead of class constants will also catch instances of Class.forName, but only if the completed string exists in the constant pool, it will not be able to detect it in cases where the string is constructed at runtime."
+  ],
+  "sourcePrefix" : [
+    "path: sourcePrefix",
+    "default value: prefix for link to source code",
+    "default value type: String",
+    "pre-pended to links in the report, so you can navigate directly to the source code from the report"
+  ],
+  "sourceFileRegexPatterns" : {
+    "include" : [
+      "path: sourceFileRegexPatterns.include",
+      "default value: []",
+      "default value type: EmptyList",
+      "what file names constitute a source file, relative to the 'inputDir' configuration item",
+      "used to determine names",
+      "list of regular expression patterns to include",
+      "to be included, a file must match at least one include pattern, without matching any exclude patterns"
     ],
-    "binaryFileRegexPatterns" : {
-      "include" : [
-        "path: binaryFileRegexPatterns.include",
-        "default value: []",
-        "default value type: EmptyList",
-        "what file name constitutes a binary file, relative to the 'inputDir' configuration item",
-        "used to determine dependency relationships between names",
-        "list of regular expression patterns to include",
-        "list of regular expression patterns to include",
-        "to be included, a file must match at least one include pattern, without matching any exclude patterns"
-      ],
-      "exclude" : [
-        "path: binaryFileRegexPatterns.exclude",
-        "default value: []",
-        "default value type: EmptyList",
-        "what file name constitutes a binary file, relative to the 'inputDir' configuration item",
-        "used to determine dependency relationships between names",
-        "list of regular expression patterns to exclude",
-        "list of regular expression patterns to include",
-        "to be included, a file must match at least one include pattern, without matching any exclude patterns"
-      ]
-    }
+    "exclude" : [
+      "path: sourceFileRegexPatterns.exclude",
+      "default value: []",
+      "default value type: EmptyList",
+      "what file names constitute a source file, relative to the 'inputDir' configuration item",
+      "used to determine names",
+      "list of regular expression patterns to exclude",
+      "list of regular expression patterns to include",
+      "to be included, a file must match at least one include pattern, without matching any exclude patterns"
+    ]
+  },
+  "nodeLimitForGraph" : [
+    "path: nodeLimitForGraph",
+    "default value: 100",
+    "default value type: Integer",
+    "the higher the number of files, the longer the graph takes to generate and the more useless it is",
+    " if this limit is exceeded, the graph is not generated"
+  ],
+  "binaryFileRegexPatterns" : {
+    "include" : [
+      "path: binaryFileRegexPatterns.include",
+      "default value: []",
+      "default value type: EmptyList",
+      "what file name constitutes a binary file, relative to the 'inputDir' configuration item",
+      "used to determine dependency relationships between names",
+      "list of regular expression patterns to include",
+      "list of regular expression patterns to include",
+      "to be included, a file must match at least one include pattern, without matching any exclude patterns"
+    ],
+    "exclude" : [
+      "path: binaryFileRegexPatterns.exclude",
+      "default value: []",
+      "default value type: EmptyList",
+      "what file name constitutes a binary file, relative to the 'inputDir' configuration item",
+      "used to determine dependency relationships between names",
+      "list of regular expression patterns to exclude",
+      "list of regular expression patterns to include",
+      "to be included, a file must match at least one include pattern, without matching any exclude patterns"
+    ]
   }
 }
 ```
