@@ -4,9 +4,7 @@
   "nodeLimitForGraph" : 100,
   "sourcePrefix" : "https://github.com/SeanShubin/code-structure/blob/master/",
   "sourceFileRegexPatterns" : {
-    "include" : [
-      ".*/src/main/kotlin/.*\\.kt"
-    ],
+    "include" : [ ".*/src/main/(kotlin|java)/.*\\.(kt|java)" ],
     "exclude" : [ ]
   },
   "binaryFileRegexPatterns" : {
@@ -14,7 +12,8 @@
       ".*/target/.*\\.class"
     ],
     "exclude" : [
-      ".*/samples/.*"
+      ".*/samples/.*",
+      ".*/generated/.*"
     ]
   },
   "countAsErrors" : {
