@@ -5,8 +5,10 @@ import java.nio.file.Path
 
 class QualityMetricsReport : Report {
     override val reportName: String = "quality-metrics"
+    override val category: ReportCategory = ReportCategory.COUNT
 
-    override fun generate(reportDir: Path, validated: Validated): List<Command> {
+    override fun generate(baseReportDir: Path, validated: Validated): List<Command> {
+        val reportDir = baseReportDir.resolve(category.directory)
         val metrics = mapOf(
             "inDirectCycle" to (validated.analysis.summary.errors[ErrorType.IN_DIRECT_CYCLE]?.count ?: 0),
             "inGroupCycle" to (validated.analysis.summary.errors[ErrorType.IN_GROUP_CYCLE]?.count ?: 0),

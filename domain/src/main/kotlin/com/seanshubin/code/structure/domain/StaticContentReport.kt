@@ -7,7 +7,10 @@ import java.nio.file.Path
 class StaticContentReport : Report {
     private val classLoader = javaClass.classLoader
     override val reportName: String = "static-content"
-    override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
+    override val category: ReportCategory = ReportCategory.BROWSE
+
+    override fun generate(baseReportDir: Path, validated: Validated): List<CreateFileCommand> {
+        val reportDir = baseReportDir.resolve(category.directory)
         return listOf(
             fromResource(reportDir, "reset.css"),
             fromResource(reportDir, "code-structure.css"),

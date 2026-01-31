@@ -9,8 +9,10 @@ class QualityMetricsLineageReport(
     private val toViolation: (String, String) -> Any
 ) : Report {
     override val reportName: String = "quality-metrics-$fileName"
+    override val category: ReportCategory = ReportCategory.DIFF
 
-    override fun generate(reportDir: Path, validated: Validated): List<Command> {
+    override fun generate(baseReportDir: Path, validated: Validated): List<Command> {
+        val reportDir = baseReportDir.resolve(category.directory)
         val lineage: List<Pair<String, String>> = direction(validated.analysis.lineage)
         val violations = lineage
             .map { (first, second) -> toViolation(first, second) }

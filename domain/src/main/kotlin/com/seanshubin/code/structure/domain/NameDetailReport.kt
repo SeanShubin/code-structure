@@ -10,7 +10,8 @@ import java.nio.file.Path
 abstract class NameDetailReport : Report {
     abstract val page: Page
     abstract fun lookupSourceFiles(observations: Observations): List<NameDetail>
-    override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
+    override fun generate(baseReportDir: Path, validated: Validated): List<CreateFileCommand> {
+        val reportDir = baseReportDir.resolve(category.directory)
         val parents = listOf(Page.tableOfContents)
         val observations = validated.observations
         val htmlInsideBody = generateHtml(observations)

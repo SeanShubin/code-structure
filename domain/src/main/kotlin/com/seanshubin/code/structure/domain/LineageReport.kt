@@ -10,7 +10,9 @@ class LineageReport(
     private val direction: (Lineage) -> List<Pair<String, String>>
 ) : Report {
     override val reportName: String = "lineage"
-    override fun generate(reportDir: Path, validated: Validated): List<Command> {
+    override val category: ReportCategory = ReportCategory.BROWSE
+    override fun generate(baseReportDir: Path, validated: Validated): List<Command> {
+        val reportDir = baseReportDir.resolve(category.directory)
         val parents = listOf(Page.tableOfContents)
         val htmlInsideBody = generateHtml(validated)
         val html = ReportHelper.wrapInTopLevelHtml(page.caption, htmlInsideBody, parents)

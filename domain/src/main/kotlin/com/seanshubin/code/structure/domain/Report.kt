@@ -4,5 +4,5 @@ import java.nio.file.Path
 
 interface Report {
     val reportName: String
-    fun generate(reportDir: Path, validated: Validated): List<Command>
-}
+    val category: ReportCategory
+    fun generate(baseReportDir: Path, validated: Validated): List<Command>}

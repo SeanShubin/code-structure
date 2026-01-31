@@ -10,7 +10,9 @@ import java.nio.file.Path
 
 class DirectCycleReport(private val nodeLimitForGraph: Int) : Report {
     override val reportName: String = "direct-cycles"
-    override fun generate(reportDir: Path, validated: Validated): List<Command> {
+    override val category: ReportCategory = ReportCategory.BROWSE
+    override fun generate(baseReportDir: Path, validated: Validated): List<Command> {
+        val reportDir = baseReportDir.resolve(category.directory)
         val parents = listOf(Page.tableOfContents)
         val htmlInsideBody = generateHtml(validated)
         val html = ReportHelper.wrapInTopLevelHtml(Page.inDirectCycle.caption, htmlInsideBody, parents)

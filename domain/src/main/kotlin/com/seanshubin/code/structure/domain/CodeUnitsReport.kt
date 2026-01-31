@@ -9,8 +9,11 @@ import java.nio.file.Path
 
 class CodeUnitsReport : Report {
     override val reportName: String = "code-units"
+    override val category: ReportCategory = ReportCategory.BROWSE
 
-    override fun generate(reportDir: Path, validated: Validated): List<Command> {
+    override fun generate(baseReportDir: Path, validated: Validated): List<Command> {
+        val reportDir = baseReportDir.resolve(category.directory)
+
         val parents = listOf(Page.tableOfContents)
         val path = reportDir.resolve(Page.codeUnits.file)
         val analysis = validated.analysis

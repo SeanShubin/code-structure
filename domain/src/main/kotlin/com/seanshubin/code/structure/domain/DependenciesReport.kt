@@ -8,7 +8,9 @@ import java.nio.file.Path
 
 class DependenciesReport : Report {
     override val reportName: String = "dependencies"
-    override fun generate(reportDir: Path, validated: Validated): List<CreateFileCommand> {
+    override val category: ReportCategory = ReportCategory.BROWSE
+    override fun generate(baseReportDir: Path, validated: Validated): List<CreateFileCommand> {
+        val reportDir = baseReportDir.resolve(category.directory)
         val parents = listOf(Page.tableOfContents)
         val htmlInsideBody = generateHtml(validated.observations)
         val html = ReportHelper.wrapInTopLevelHtml(Page.dependencies.caption, htmlInsideBody, parents)

@@ -5,8 +5,10 @@ import java.nio.file.Path
 
 class QualityMetricsInGroupCycleReport : Report {
     override val reportName: String = "quality-metrics-inGroupCycle"
+    override val category: ReportCategory = ReportCategory.DIFF
 
-    override fun generate(reportDir: Path, validated: Validated): List<Command> {
+    override fun generate(baseReportDir: Path, validated: Validated): List<Command> {
+        val reportDir = baseReportDir.resolve(category.directory)
         val groupCycles = validated.analysis.groupCycles.map { (group, cycleDetail) ->
             GroupCycleDetail(group, cycleDetail.names)
         }

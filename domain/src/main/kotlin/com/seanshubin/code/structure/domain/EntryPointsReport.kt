@@ -9,7 +9,9 @@ import java.nio.file.Path
 
 class EntryPointsReport : Report {
     override val reportName: String = "entry-points"
-    override fun generate(reportDir: Path, validated: Validated): List<Command> {
+    override val category: ReportCategory = ReportCategory.BROWSE
+    override fun generate(baseReportDir: Path, validated: Validated): List<Command> {
+        val reportDir = baseReportDir.resolve(category.directory)
         val path = reportDir.resolve(Page.entryPoints.file)
         val parents = listOf(Page.tableOfContents)
         val content = createContent(validated.analysis.global)

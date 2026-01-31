@@ -5,7 +5,9 @@ import java.nio.file.Path
 
 class GraphReport(private val nodeLimitForGraph: Int) : Report {
     override val reportName: String = "graph"
-    override fun generate(reportDir: Path, validated: Validated): List<Command> {
+    override val category: ReportCategory = ReportCategory.BROWSE
+    override fun generate(baseReportDir: Path, validated: Validated): List<Command> {
+        val reportDir = baseReportDir.resolve(category.directory)
         val parents = listOf(Page.tableOfContents)
         val analysis = validated.analysis
         val nodes = analysis.global.names.map(::toDotNode)
