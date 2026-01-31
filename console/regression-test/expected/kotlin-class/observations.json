@@ -1,5 +1,5 @@
 {
-  "inputDir" : "src/test/resources/samples/kotlin-sample",
+  "inputDir" : "src/test/resources/testdata/kotlin-sample",
   "sourcePrefix" : "https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/",
   "sourceFiles" : [
     "domain/src/main/kotlin/com/seanshubin/code/structure/sample/kotlin/domain/ClassE.kt",

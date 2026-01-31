@@ -8,13 +8,8 @@
     "exclude" : [ ]
   },
   "binaryFileRegexPatterns" : {
-    "include" : [
-      ".*/target/.*\\.class"
-    ],
-    "exclude" : [
-      ".*/samples/.*",
-      ".*/generated/.*"
-    ]
+    "include" : [ ".*/target/.*\\.class" ],
+    "exclude" : [ ".*/testdata/.*", ".*/generated/.*" ]
   },
   "countAsErrors" : {
     "inDirectCycle" : true,
