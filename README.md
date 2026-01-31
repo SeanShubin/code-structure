@@ -18,7 +18,12 @@ class Bar {
     var foo: Foo? = null
 }
 ```
-In practice this means that cyclic data structures are ok, so long as the logic responsibilities only flow in one direction. 
+
+In practice this means that cyclic data structures are ok, so long as the logic responsibilities only flow in one
+direction.
+
+If AI Assistants are having trouble keeping these metrics low, have them look at the [naming](docs/naming.md) document
+in this project, they are usually able to infer the concept from there.
 
 ## Read before building
 As the code structure project runs on itself,
