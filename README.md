@@ -240,6 +240,7 @@ Default is "code-structure", which will result in a configuration file named "co
 ## Maven Plugin Configuration
 
 Will run during the "verify" phase of the [maven lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)
+`<inherited>false</inherited>` ensures the plugin only runs at the parent level, not on each module.
 
 ```xml
 <project>
@@ -249,11 +250,13 @@ Will run during the "verify" phase of the [maven lifecycle](https://maven.apache
                 <groupId>com.seanshubin.code.structure</groupId>
                 <artifactId>code-structure-maven</artifactId>
                 <version>1.1.0</version>
+                <inherited>false</inherited>
                 <executions>
                     <execution>
                         <goals>
                             <goal>analyze</goal>
                         </goals>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
                 <configuration>
