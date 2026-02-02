@@ -1,6 +1,5 @@
 package com.seanshubin.code.structure.domain
 
-import java.nio.file.Path
 import java.time.Clock
 import java.time.Duration
 
@@ -12,15 +11,12 @@ class Runner(
     private val reportGenerator: ReportGenerator,
     private val commandRunner: CommandRunner,
     private val timeTakenEvent: (Duration) -> Unit,
-    private val configFile: Path,
-    private val configFileEvent: (Path) -> Unit,
     private val summaryEvent: (Summary) -> Unit,
     private val timer: Timer,
     private val exitCodeHolder: ErrorMessageHolder
 ) : Runnable {
     private val reportName: String = "runner"
     override fun run() {
-        configFileEvent(configFile)
         val startTime = clock.instant()
         val validated = timer.monitor(reportName, "all before final report") {
             val observations = timer.monitor(reportName, "observations") { observer.makeObservations() }

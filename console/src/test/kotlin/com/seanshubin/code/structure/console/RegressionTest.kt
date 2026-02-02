@@ -1,5 +1,8 @@
 package com.seanshubin.code.structure.console
 
+import com.seanshubin.code.structure.contract.delegate.FilesDelegate
+import com.seanshubin.code.structure.exec.ExecImpl
+import com.seanshubin.code.structure.injection.Bootstrap
 import com.seanshubin.code.structure.injection.Dependencies
 import com.seanshubin.code.structure.injection.Integrations
 import java.nio.file.Files
@@ -19,9 +22,12 @@ class RegressionTest {
         val regressionIntegrations = object : Integrations {
             override val clock: Clock = RememberingClock(paths.memoryDir, realClock)
             override val emitLine: (String) -> Unit = emitLine
-            override val configBaseName: String = paths.configName
+            override val files = FilesDelegate
+            override val exec = ExecImpl()
         }
-        val dependencies = Dependencies(regressionIntegrations)
+        val bootstrap = Bootstrap(regressionIntegrations, paths.configName)
+        val configuration = bootstrap.loadConfiguration()
+        val dependencies = Dependencies(regressionIntegrations, configuration)
 
         // when
         dependencies.runner.run()
@@ -42,9 +48,12 @@ class RegressionTest {
         val regressionIntegrations = object : Integrations {
             override val clock: Clock = RememberingClock(paths.memoryDir, realClock)
             override val emitLine: (String) -> Unit = emitLine
-            override val configBaseName: String = paths.configName
+            override val files = FilesDelegate
+            override val exec = ExecImpl()
         }
-        val dependencies = Dependencies(regressionIntegrations)
+        val bootstrap = Bootstrap(regressionIntegrations, paths.configName)
+        val configuration = bootstrap.loadConfiguration()
+        val dependencies = Dependencies(regressionIntegrations, configuration)
 
         // when
         dependencies.runner.run()
@@ -65,9 +74,12 @@ class RegressionTest {
         val regressionIntegrations = object : Integrations {
             override val clock: Clock = RememberingClock(paths.memoryDir, realClock)
             override val emitLine: (String) -> Unit = emitLine
-            override val configBaseName: String = paths.configName
+            override val files = FilesDelegate
+            override val exec = ExecImpl()
         }
-        val dependencies = Dependencies(regressionIntegrations)
+        val bootstrap = Bootstrap(regressionIntegrations, paths.configName)
+        val configuration = bootstrap.loadConfiguration()
+        val dependencies = Dependencies(regressionIntegrations, configuration)
 
         // when
         dependencies.runner.run()

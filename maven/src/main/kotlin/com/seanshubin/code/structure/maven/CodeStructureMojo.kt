@@ -1,5 +1,8 @@
 package com.seanshubin.code.structure.maven
 
+import com.seanshubin.code.structure.contract.delegate.FilesDelegate
+import com.seanshubin.code.structure.exec.ExecImpl
+import com.seanshubin.code.structure.injection.Bootstrap
 import com.seanshubin.code.structure.injection.Dependencies
 import com.seanshubin.code.structure.injection.Integrations
 import org.apache.maven.plugin.AbstractMojo
@@ -16,11 +19,14 @@ class CodeStructureMojo : AbstractMojo() {
     override fun execute() {
         val nonNullConfigBaseName = configBaseName ?: "code-structure"
         val integrations = object : Integrations {
-            override val clock: Clock = Clock.systemUTC()
+            override val clock = Clock.systemUTC()
             override val emitLine: (String) -> Unit = log::info
-            override val configBaseName: String = nonNullConfigBaseName
+            override val files = FilesDelegate
+            override val exec = ExecImpl()
         }
-        val dependencies = Dependencies(integrations)
+        val bootstrap = Bootstrap(integrations, nonNullConfigBaseName)
+        val configuration = bootstrap.loadConfiguration()
+        val dependencies = Dependencies(integrations, configuration)
         dependencies.runner.run()
         val errorMessage = dependencies.errorMessageHolder.errorMessage
         if (errorMessage != null) {

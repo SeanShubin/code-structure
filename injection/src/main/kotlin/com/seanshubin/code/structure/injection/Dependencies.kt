@@ -4,24 +4,13 @@ import com.seanshubin.code.structure.beamformat.BeamParser
 import com.seanshubin.code.structure.beamformat.BeamParserImpl
 import com.seanshubin.code.structure.clojuresyntax.ClojureParser
 import com.seanshubin.code.structure.clojuresyntax.ClojureParserImpl
-import com.seanshubin.code.structure.config.JsonFileKeyValueStore
-import com.seanshubin.code.structure.config.KeyValueStore
-import com.seanshubin.code.structure.config.KeyValueStoreWithDocumentation
-import com.seanshubin.code.structure.config.KeyValueStoreWithDocumentationDelegate
-import com.seanshubin.code.structure.config.TypeUtil.coerceToBoolean
-import com.seanshubin.code.structure.config.TypeUtil.coerceToInt
-import com.seanshubin.code.structure.config.TypeUtil.coerceToListOfString
-import com.seanshubin.code.structure.config.TypeUtil.coerceToPath
-import com.seanshubin.code.structure.config.TypeUtil.coerceToString
 import com.seanshubin.code.structure.contract.delegate.FilesContract
-import com.seanshubin.code.structure.contract.delegate.FilesDelegate
 import com.seanshubin.code.structure.cycle.CycleAlgorithm
 import com.seanshubin.code.structure.cycle.CycleAlgorithmTarjan
 import com.seanshubin.code.structure.domain.*
 import com.seanshubin.code.structure.elixirsyntax.ElixirParser
 import com.seanshubin.code.structure.elixirsyntax.ElixirParserImpl
 import com.seanshubin.code.structure.exec.Exec
-import com.seanshubin.code.structure.exec.ExecImpl
 import com.seanshubin.code.structure.filefinder.FileFinder
 import com.seanshubin.code.structure.filefinder.FileFinderImpl
 import com.seanshubin.code.structure.filefinder.RegexFileMatcher
@@ -41,85 +30,34 @@ import com.seanshubin.code.structure.typescriptsyntax.TypeScriptRelationParserIm
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
-import java.nio.file.Paths
 import java.time.Clock
 import java.time.Duration
 
-class Dependencies(integrations: Integrations) {
+class Dependencies(
+    integrations: Integrations,
+    config: Configuration
+) {
     private val charset: Charset = StandardCharsets.UTF_8
-    private val configBaseName: String = integrations.configBaseName
-    private val configFile = Paths.get("$configBaseName-config.json")
-    private val configDocumentationFile = Paths.get("$configBaseName-documentation.json")
-    private val files: FilesContract = FilesDelegate
-    private val keyValueStore: KeyValueStore = JsonFileKeyValueStore(configFile, files)
-    private val documentationKeyValueStore: KeyValueStore = JsonFileKeyValueStore(configDocumentationFile, files)
-    private val config: KeyValueStoreWithDocumentation =
-        KeyValueStoreWithDocumentationDelegate(keyValueStore, documentationKeyValueStore)
+    private val files: FilesContract = integrations.files
     private val clock: Clock = integrations.clock
-    private val countAsErrors: CountAsErrors = CountAsErrors(
-        inDirectCycle =
-            config.load(listOf("countAsErrors", "inDirectCycle"), true, ConfigDocumentation.inDirectCycle)
-                .coerceToBoolean(),
-        inGroupCycle =
-            config.load(listOf("countAsErrors", "inGroupCycle"), true, ConfigDocumentation.inGroupCycle)
-                .coerceToBoolean(),
-        ancestorDependsOnDescendant =
-            config.load(
-                listOf("countAsErrors", "ancestorDependsOnDescendant"),
-                true,
-                ConfigDocumentation.ancestorDependsOnDescendant
-            ).coerceToBoolean(),
-        descendantDependsOnAncestor =
-            config.load(
-                listOf("countAsErrors", "descendantDependsOnAncestor"),
-                true,
-                ConfigDocumentation.descendantDependsOnAncestor
-            ).coerceToBoolean(),
-    )
-    private val maximumAllowedErrorCount: Int =
-        config.load(listOf("maximumAllowedErrorCount"), 0, ConfigDocumentation.maximumAllowedErrorCount).coerceToInt()
-    private val inputDir = config.load(listOf("inputDir"), ".", ConfigDocumentation.inputDir).coerceToPath()
-    private val outputDir =
-        config.load(listOf("outputDir"), "generated/code-structure", ConfigDocumentation.outputDir).coerceToPath()
-    private val useObservationsCache =
-        config.load(listOf("useObservationsCache"), false, ConfigDocumentation.useObservationsCache).coerceToBoolean()
-    private val includeJvmDynamicInvocations =
-        config.load(listOf("includeJvmDynamicInvocations"), false, ConfigDocumentation.includeJvmDynamicInvocations)
-            .coerceToBoolean()
-    private val sourcePrefix =
-        config.load(listOf("sourcePrefix"), "prefix for link to source code", ConfigDocumentation.sourcePrefix)
-            .coerceToString()
-    private val sourceFileIncludeRegexPatterns: List<String> =
-        config.load(
-            listOf("sourceFileRegexPatterns", "include"),
-            emptyList<String>(),
-            ConfigDocumentation.sourceFileRegexPatternsInclude
-        ).coerceToListOfString()
-    private val sourceFileExcludeRegexPatterns: List<String> =
-        config.load(
-            listOf("sourceFileRegexPatterns", "exclude"),
-            emptyList<String>(),
-            ConfigDocumentation.sourceFileRegexPatternsExclude
-        ).coerceToListOfString()
+    private val exec: Exec = integrations.exec
+    private val countAsErrors: CountAsErrors = config.countAsErrors
+    private val maximumAllowedErrorCount: Int = config.maximumAllowedErrorCount
+    private val inputDir = config.inputDir
+    private val outputDir = config.outputDir
+    private val useObservationsCache = config.useObservationsCache
+    private val includeJvmDynamicInvocations = config.includeJvmDynamicInvocations
+    private val sourcePrefix = config.sourcePrefix
+    private val sourceFileIncludeRegexPatterns: List<String> = config.sourceFileIncludeRegexPatterns
+    private val sourceFileExcludeRegexPatterns: List<String> = config.sourceFileExcludeRegexPatterns
     private val isSourceFile: (Path) -> Boolean = RegexFileMatcher(
         inputDir,
         sourceFileIncludeRegexPatterns,
         sourceFileExcludeRegexPatterns
     )
-    private val nodeLimitForGraph: Int =
-        config.load(listOf("nodeLimitForGraph"), 100, ConfigDocumentation.nodeLimitForGraph).coerceToInt()
-    private val binaryFileIncludeRegexPatterns: List<String> =
-        config.load(
-            listOf("binaryFileRegexPatterns", "include"),
-            emptyList<String>(),
-            ConfigDocumentation.binaryFileRegexPatternsInclude
-        ).coerceToListOfString()
-    private val binaryFileExcludeRegexPatterns: List<String> =
-        config.load(
-            listOf("binaryFileRegexPatterns", "exclude"),
-            emptyList<String>(),
-            ConfigDocumentation.binaryFileRegexPatternsExclude
-        ).coerceToListOfString()
+    private val nodeLimitForGraph: Int = config.nodeLimitForGraph
+    private val binaryFileIncludeRegexPatterns: List<String> = config.binaryFileIncludeRegexPatterns
+    private val binaryFileExcludeRegexPatterns: List<String> = config.binaryFileExcludeRegexPatterns
     private val isBinaryFile: (Path) -> Boolean = RegexFileMatcher(
         inputDir,
         binaryFileIncludeRegexPatterns,
@@ -238,10 +176,8 @@ class Dependencies(integrations: Integrations) {
         timingReport
     )
     private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, finalReports, outputDir, timer)
-    private val exec: Exec = ExecImpl()
     private val environment: Environment = EnvironmentImpl(files, outputDir, exec)
     private val commandRunner: CommandRunner = CommandRunnerImpl(timer, environment)
-    private val configFileEvent: (Path) -> Unit = notifications::configFileEvent
     private val fullAppTimeTakenEvent: (Duration) -> Unit = notifications::fullAppTimeTakenEvent
     private val summaryEvent: (Summary) -> Unit = notifications::summaryEvent
     val errorMessageHolder: ErrorMessageHolder = ErrorMessageHolderImpl()
@@ -253,8 +189,6 @@ class Dependencies(integrations: Integrations) {
         reportGenerator,
         commandRunner,
         fullAppTimeTakenEvent,
-        configFile,
-        configFileEvent,
         summaryEvent,
         timer,
         errorMessageHolder
