@@ -5,7 +5,7 @@
     <dependencies>
         <dependency>
             <groupId>com.seanshubin.code.structure</groupId>
-            <artifactId>code-structure-domain</artifactId>
+            <artifactId>code-structure-pipeline</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

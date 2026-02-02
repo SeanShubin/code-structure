@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.injection
 
-import com.seanshubin.code.structure.domain.CountAsErrors
+import com.seanshubin.code.structure.appconfig.CountAsErrors
 import java.nio.file.Path
 
 data class Configuration(

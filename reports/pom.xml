@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>code-structure-reports</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-html</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-io</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-dot</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-commands</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-events</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-json</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-durationformat</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+    <parent>
+        <groupId>com.seanshubin.code.structure</groupId>
+        <artifactId>code-structure-parent</artifactId>
+        <version>1.1.1</version>
+    </parent>
+    <name>${project.groupId}:${project.artifactId}</name>
+</project>

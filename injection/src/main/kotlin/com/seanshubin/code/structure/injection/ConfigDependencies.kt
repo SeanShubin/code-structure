@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.injection
 
-import com.seanshubin.code.structure.domain.ErrorMessageHolder
+import com.seanshubin.code.structure.appconfig.ErrorMessageHolder
 
 class ConfigDependencies(
     configBaseName: String,

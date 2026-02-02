@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.injection
 
+import com.seanshubin.code.structure.appconfig.CountAsErrors
 import com.seanshubin.code.structure.config.JsonFileKeyValueStore
 import com.seanshubin.code.structure.config.KeyValueStore
 import com.seanshubin.code.structure.config.KeyValueStoreWithDocumentation
@@ -9,7 +10,6 @@ import com.seanshubin.code.structure.config.TypeUtil.coerceToInt
 import com.seanshubin.code.structure.config.TypeUtil.coerceToListOfString
 import com.seanshubin.code.structure.config.TypeUtil.coerceToPath
 import com.seanshubin.code.structure.config.TypeUtil.coerceToString
-import com.seanshubin.code.structure.domain.CountAsErrors
 import java.nio.file.Paths
 
 class Bootstrap(

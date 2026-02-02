@@ -1,15 +1,21 @@
 package com.seanshubin.code.structure.injection
 
+import com.seanshubin.code.structure.appconfig.*
 import com.seanshubin.code.structure.beamformat.BeamParser
 import com.seanshubin.code.structure.beamformat.BeamParserImpl
 import com.seanshubin.code.structure.clojuresyntax.ClojureParser
 import com.seanshubin.code.structure.clojuresyntax.ClojureParserImpl
+import com.seanshubin.code.structure.commands.CommandRunner
+import com.seanshubin.code.structure.commands.CommandRunnerImpl
 import com.seanshubin.code.structure.contract.delegate.FilesContract
 import com.seanshubin.code.structure.cycle.CycleAlgorithm
 import com.seanshubin.code.structure.cycle.CycleAlgorithmTarjan
-import com.seanshubin.code.structure.domain.*
 import com.seanshubin.code.structure.elixirsyntax.ElixirParser
 import com.seanshubin.code.structure.elixirsyntax.ElixirParserImpl
+import com.seanshubin.code.structure.events.EventTimer
+import com.seanshubin.code.structure.events.Notifications
+import com.seanshubin.code.structure.events.NotificationsImpl
+import com.seanshubin.code.structure.events.Timer
 import com.seanshubin.code.structure.exec.Exec
 import com.seanshubin.code.structure.filefinder.FileFinder
 import com.seanshubin.code.structure.filefinder.FileFinderImpl
@@ -19,8 +25,11 @@ import com.seanshubin.code.structure.javasyntax.JavaParserImpl
 import com.seanshubin.code.structure.jvmformat.*
 import com.seanshubin.code.structure.kotlinsyntax.KotlinParser
 import com.seanshubin.code.structure.kotlinsyntax.KotlinParserImpl
+import com.seanshubin.code.structure.model.Summary
 import com.seanshubin.code.structure.nameparser.NameParser
+import com.seanshubin.code.structure.pipeline.*
 import com.seanshubin.code.structure.relationparser.RelationParser
+import com.seanshubin.code.structure.reports.*
 import com.seanshubin.code.structure.scalasyntax.ScalaParser
 import com.seanshubin.code.structure.scalasyntax.ScalaParserImpl
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptNameParser

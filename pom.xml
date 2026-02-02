@@ -69,7 +69,12 @@
         <module>console</module>
         <module>maven</module>
         <module>injection</module>
-        <module>domain</module>
+        <module>model</module>
+        <module>events</module>
+        <module>appconfig</module>
+        <module>commands</module>
+        <module>reports</module>
+        <module>pipeline</module>
         <module>filefinder</module>
         <module>contract-delegate</module>
         <module>contract-test</module>
