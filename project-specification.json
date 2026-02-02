@@ -70,19 +70,46 @@
       "maven-project",
       "maven-plugin-api",
       "maven-plugin-annotations",
-      "domain"
+      "pipeline"
     ],
     "injection": [
-      "domain"
+      "pipeline"
     ],
-    "domain": [
+    "model": [
+      "nameparser",
+      "relationparser",
+      "collection",
+      "tree"
+    ],
+    "events": [
       "durationformat",
+      "model"
+    ],
+    "appconfig": [
+      "contract-delegate",
+      "exec",
+      "model"
+    ],
+    "commands": [
+      "io",
+      "appconfig",
+      "events"
+    ],
+    "reports": [
+      "model",
+      "html",
+      "io",
+      "dot",
+      "commands",
+      "events",
+      "json",
+      "durationformat"
+    ],
+    "pipeline": [
+      "model",
       "filefinder",
       "config",
       "contract-test",
-      "tree",
-      "html",
-      "io",
       "jvmformat",
       "beamformat",
       "kotlinsyntax",
@@ -92,9 +119,10 @@
       "typescriptsyntax",
       "clojuresyntax",
       "cycle",
-      "dot",
-      "exec",
-      "collection"
+      "reports",
+      "commands",
+      "events",
+      "appconfig"
     ],
     "filefinder": [
       "contract-delegate"
