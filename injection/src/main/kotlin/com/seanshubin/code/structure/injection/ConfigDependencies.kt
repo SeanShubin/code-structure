@@ -7,7 +7,7 @@ class ConfigDependencies(
     integrations: Integrations
 ) {
     private val bootstrap = Bootstrap(integrations, configBaseName)
-    private val configuration = bootstrap.loadConfiguration()
+    private val configuration = bootstrap.configuration
     private val dependencies = Dependencies(integrations, configuration)
     val runner: Runnable = dependencies.runner
     val errorMessageHolder: ErrorMessageHolder = dependencies.errorMessageHolder

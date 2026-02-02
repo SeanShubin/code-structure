@@ -26,7 +26,7 @@ class RegressionTest {
             override val exec = ExecImpl()
         }
         val bootstrap = Bootstrap(regressionIntegrations, paths.configName)
-        val configuration = bootstrap.loadConfiguration()
+        val configuration = bootstrap.configuration
         val dependencies = Dependencies(regressionIntegrations, configuration)
 
         // when
@@ -52,7 +52,7 @@ class RegressionTest {
             override val exec = ExecImpl()
         }
         val bootstrap = Bootstrap(regressionIntegrations, paths.configName)
-        val configuration = bootstrap.loadConfiguration()
+        val configuration = bootstrap.configuration
         val dependencies = Dependencies(regressionIntegrations, configuration)
 
         // when
@@ -78,7 +78,7 @@ class RegressionTest {
             override val exec = ExecImpl()
         }
         val bootstrap = Bootstrap(regressionIntegrations, paths.configName)
-        val configuration = bootstrap.loadConfiguration()
+        val configuration = bootstrap.configuration
         val dependencies = Dependencies(regressionIntegrations, configuration)
 
         // when
