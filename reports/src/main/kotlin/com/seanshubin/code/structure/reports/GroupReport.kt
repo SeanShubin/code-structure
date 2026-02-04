@@ -72,7 +72,7 @@ class GroupReport(
             reasonStrings
         }
         val elementToRow: (Pair<String, String>) -> List<String> = { it.toList() }
-        return HtmlElementUtil.createTable(list, captions, elementToRow, caption)
+        return HtmlElementUtil.createTableWithText(list, captions, elementToRow, caption)
     }
 
     private fun composeParents(groupPath: List<String>): List<Page> {

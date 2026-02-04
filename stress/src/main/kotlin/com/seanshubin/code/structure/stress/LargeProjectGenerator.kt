@@ -13,7 +13,7 @@ class LargeProjectGenerator(
     fun createNames(): List<String> = wordLists().map(::wordsToName)
     fun createRelations(names: List<String>, relationsPerName: Int): List<Pair<String, String>> {
         val size = names.size
-        val maxBackwardsDistance = size / 20
+        val maxBackwardsDistance = maxOf(1, size / 20)
         val backwardsRelationsCount = size / 5
         val totalRelations = relationsPerName * size
         val forwardRelations = (1..totalRelations).map {

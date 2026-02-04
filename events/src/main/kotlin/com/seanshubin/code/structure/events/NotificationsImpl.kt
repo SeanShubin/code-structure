@@ -34,4 +34,10 @@ class NotificationsImpl(private val emitLine: (String) -> Unit) : Notifications 
         }
         emitLine("total: ${summary.errorCount} of ${summary.errorLimit} errors allowed")
     }
+
+    override fun fileMatchedFilterEvent(category: String, type: String, pattern: String, file: Path) {
+    }
+
+    override fun fileUnmatchedFilterEvent(category: String, file: Path) {
+    }
 }

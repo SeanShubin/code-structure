@@ -9,4 +9,6 @@ interface Notifications {
     fun timeTakenEvent(caption: String, timeTaken: Duration)
     fun fullAppTimeTakenEvent(timeTaken: Duration)
     fun summaryEvent(summary: Summary)
+    fun fileMatchedFilterEvent(category: String, type: String, pattern: String, file: Path)
+    fun fileUnmatchedFilterEvent(category: String, file: Path)
 }

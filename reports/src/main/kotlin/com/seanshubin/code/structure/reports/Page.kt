@@ -35,5 +35,6 @@ interface Page {
         val codeUnits = createIdCaption("code-units", "Code Units")
         val timing = createIdCaption("timing", "Timing")
         val groups = createIdCaption("group", "Groups")
+        val filterStatistics = createIdCaption("filter-statistics", "Filter Statistics")
     }
 }

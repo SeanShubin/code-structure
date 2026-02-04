@@ -43,6 +43,11 @@
             <artifactId>code-structure-durationformat</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.seanshubin.code.structure</groupId>
+            <artifactId>code-structure-filefinder</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
     <parent>
         <groupId>com.seanshubin.code.structure</groupId>

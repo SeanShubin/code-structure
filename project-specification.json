@@ -103,7 +103,8 @@
       "commands",
       "events",
       "json",
-      "durationformat"
+      "durationformat",
+      "filefinder"
     ],
     "pipeline": [
       "model",

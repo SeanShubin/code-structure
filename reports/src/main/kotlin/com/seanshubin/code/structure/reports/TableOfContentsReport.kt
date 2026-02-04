@@ -41,6 +41,7 @@ class TableOfContentsReport : Report {
             annotateWithNumber(Page.dependencies, validated.analysis.global.referenceReasons.size),
             Page.graph,
             annotateWithNumber(Page.missingBinaries, validated.observations.missingBinaries.size),
+            Page.filterStatistics,
             Page.timing
         )
         val listElements = bigList(children, ::generateAnchor, BigListClassName.COLUMN_1, caption = null)

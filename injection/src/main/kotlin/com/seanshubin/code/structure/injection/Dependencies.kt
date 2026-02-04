@@ -36,6 +36,9 @@ import com.seanshubin.code.structure.typescriptsyntax.TypeScriptNameParser
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptNameParserImpl
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptRelationParser
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptRelationParserImpl
+import com.seanshubin.code.structure.filefinder.FilterStats
+import com.seanshubin.code.structure.filefinder.FilterStatsImpl
+import com.seanshubin.code.structure.filefinder.RegexFileMatcherWithStats
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
@@ -59,18 +62,23 @@ class Dependencies(
     private val sourcePrefix = config.sourcePrefix
     private val sourceFileIncludeRegexPatterns: List<String> = config.sourceFileIncludeRegexPatterns
     private val sourceFileExcludeRegexPatterns: List<String> = config.sourceFileExcludeRegexPatterns
-    private val isSourceFile: (Path) -> Boolean = RegexFileMatcher(
+    private val filterStats: FilterStats = FilterStatsImpl()
+    private val isSourceFile: (Path) -> Boolean = RegexFileMatcherWithStats(
         inputDir,
         sourceFileIncludeRegexPatterns,
-        sourceFileExcludeRegexPatterns
+        sourceFileExcludeRegexPatterns,
+        filterStats,
+        "source-files"
     )
     private val nodeLimitForGraph: Int = config.nodeLimitForGraph
     private val binaryFileIncludeRegexPatterns: List<String> = config.binaryFileIncludeRegexPatterns
     private val binaryFileExcludeRegexPatterns: List<String> = config.binaryFileExcludeRegexPatterns
-    private val isBinaryFile: (Path) -> Boolean = RegexFileMatcher(
+    private val isBinaryFile: (Path) -> Boolean = RegexFileMatcherWithStats(
         inputDir,
         binaryFileIncludeRegexPatterns,
-        binaryFileExcludeRegexPatterns
+        binaryFileExcludeRegexPatterns,
+        filterStats,
+        "binary-files"
     )
     private val fileFinder: FileFinder = FileFinderImpl(files)
     private val kotlinParser: KotlinParser = KotlinParserImpl(inputDir)
@@ -160,6 +168,31 @@ class Dependencies(
         ) { descendant, ancestor ->
             mapOf("descendant" to descendant, "ancestor" to ancestor)
         }
+    private val filterStatisticsIndexReport: Report = FilterStatisticsIndexReport(filterStats)
+    private val filterStatisticsCategoryReportSourceFiles: Report =
+        FilterStatisticsCategoryReport(filterStats, "source-files")
+    private val filterStatisticsCategoryReportBinaryFiles: Report =
+        FilterStatisticsCategoryReport(filterStats, "binary-files")
+    private val filterStatisticsByFileReportSourceFiles: Report =
+        FilterStatisticsByFileReport(filterStats, "source-files")
+    private val filterStatisticsByPatternReportSourceFiles: Report =
+        FilterStatisticsByPatternReport(filterStats, "source-files")
+    private val filterStatisticsUnmatchedFilesReportSourceFiles: Report =
+        FilterStatisticsUnmatchedFilesReport(filterStats, "source-files")
+    private val filterStatisticsUnusedPatternsReportSourceFiles: Report =
+        FilterStatisticsUnusedPatternsReport(filterStats, "source-files")
+    private val filterStatisticsMultiPatternFilesReportSourceFiles: Report =
+        FilterStatisticsMultiPatternFilesReport(filterStats, "source-files")
+    private val filterStatisticsByFileReportBinaryFiles: Report =
+        FilterStatisticsByFileReport(filterStats, "binary-files")
+    private val filterStatisticsByPatternReportBinaryFiles: Report =
+        FilterStatisticsByPatternReport(filterStats, "binary-files")
+    private val filterStatisticsUnmatchedFilesReportBinaryFiles: Report =
+        FilterStatisticsUnmatchedFilesReport(filterStats, "binary-files")
+    private val filterStatisticsUnusedPatternsReportBinaryFiles: Report =
+        FilterStatisticsUnusedPatternsReport(filterStats, "binary-files")
+    private val filterStatisticsMultiPatternFilesReportBinaryFiles: Report =
+        FilterStatisticsMultiPatternFilesReport(filterStats, "binary-files")
     private val reports: List<Report> = listOf(
         staticContentReport,
         tableOfContentsReport,
@@ -179,7 +212,20 @@ class Dependencies(
         qualityMetricsInDirectCycleReport,
         qualityMetricsInGroupCycleReport,
         qualityMetricsAncestorDependsOnDescendantReport,
-        qualityMetricsDescendantDependsOnAncestorReport
+        qualityMetricsDescendantDependsOnAncestorReport,
+        filterStatisticsIndexReport,
+        filterStatisticsCategoryReportSourceFiles,
+        filterStatisticsCategoryReportBinaryFiles,
+        filterStatisticsByFileReportSourceFiles,
+        filterStatisticsByPatternReportSourceFiles,
+        filterStatisticsUnmatchedFilesReportSourceFiles,
+        filterStatisticsUnusedPatternsReportSourceFiles,
+        filterStatisticsMultiPatternFilesReportSourceFiles,
+        filterStatisticsByFileReportBinaryFiles,
+        filterStatisticsByPatternReportBinaryFiles,
+        filterStatisticsUnmatchedFilesReportBinaryFiles,
+        filterStatisticsUnusedPatternsReportBinaryFiles,
+        filterStatisticsMultiPatternFilesReportBinaryFiles
     )
     private val finalReports: List<Report> = listOf(
         timingReport
