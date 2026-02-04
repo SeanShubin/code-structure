@@ -17,9 +17,7 @@ import com.seanshubin.code.structure.events.Notifications
 import com.seanshubin.code.structure.events.NotificationsImpl
 import com.seanshubin.code.structure.events.Timer
 import com.seanshubin.code.structure.exec.Exec
-import com.seanshubin.code.structure.filefinder.FileFinder
-import com.seanshubin.code.structure.filefinder.FileFinderImpl
-import com.seanshubin.code.structure.filefinder.RegexFileMatcher
+import com.seanshubin.code.structure.filefinder.*
 import com.seanshubin.code.structure.javasyntax.JavaParser
 import com.seanshubin.code.structure.javasyntax.JavaParserImpl
 import com.seanshubin.code.structure.jvmformat.*
@@ -36,9 +34,6 @@ import com.seanshubin.code.structure.typescriptsyntax.TypeScriptNameParser
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptNameParserImpl
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptRelationParser
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptRelationParserImpl
-import com.seanshubin.code.structure.filefinder.FilterStats
-import com.seanshubin.code.structure.filefinder.FilterStatsImpl
-import com.seanshubin.code.structure.filefinder.RegexFileMatcherWithStats
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
@@ -232,7 +227,7 @@ class Dependencies(
     )
     private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, finalReports, outputDir, timer)
     private val environment: Environment = EnvironmentImpl(files, outputDir, exec)
-    private val commandRunner: CommandRunner = CommandRunnerImpl(timer, environment)
+    private val commandRunner: CommandRunner = CommandRunnerImpl(environment)
     private val fullAppTimeTakenEvent: (Duration) -> Unit = notifications::fullAppTimeTakenEvent
     private val summaryEvent: (Summary) -> Unit = notifications::summaryEvent
     val errorMessageHolder: ErrorMessageHolder = ErrorMessageHolderImpl()
