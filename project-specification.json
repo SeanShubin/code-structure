@@ -193,6 +193,5 @@
   },
   "mavenPlugin": [
     "maven"
-  ],
-  "deployableToMavenCentral": true
+  ]
 }
