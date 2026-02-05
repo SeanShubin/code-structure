@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.commands
 
-import com.seanshubin.code.structure.appconfig.Environment
+import com.seanshubin.code.structure.runtime.Environment
 
 class CommandRunnerImpl(
     private val environment: Environment

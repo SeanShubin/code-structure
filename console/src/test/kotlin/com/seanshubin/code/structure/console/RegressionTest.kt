@@ -2,9 +2,9 @@ package com.seanshubin.code.structure.console
 
 import com.seanshubin.code.structure.contract.delegate.FilesDelegate
 import com.seanshubin.code.structure.exec.ExecImpl
-import com.seanshubin.code.structure.injection.Bootstrap
-import com.seanshubin.code.structure.injection.Dependencies
-import com.seanshubin.code.structure.injection.Integrations
+import com.seanshubin.code.structure.composition.Bootstrap
+import com.seanshubin.code.structure.composition.Dependencies
+import com.seanshubin.code.structure.composition.Integrations
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths

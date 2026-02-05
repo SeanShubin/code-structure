@@ -1,8 +1,8 @@
 package com.seanshubin.code.structure.maven
 
-import com.seanshubin.code.structure.injection.ConfigDependencies
-import com.seanshubin.code.structure.injection.Integrations
-import com.seanshubin.code.structure.injection.ProductionIntegrations
+import com.seanshubin.code.structure.composition.ConfigDependencies
+import com.seanshubin.code.structure.composition.Integrations
+import com.seanshubin.code.structure.composition.ProductionIntegrations
 import org.apache.maven.plugin.AbstractMojo
 import org.apache.maven.plugin.MojoFailureException
 import org.apache.maven.plugins.annotations.LifecyclePhase

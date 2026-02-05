@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.pipeline
 
-import com.seanshubin.code.structure.appconfig.CountAsErrors
+import com.seanshubin.code.structure.runtime.CountAsErrors
 import com.seanshubin.code.structure.collection.ComparatorUtil.pairComparator
 import com.seanshubin.code.structure.collection.ListUtil
 import com.seanshubin.code.structure.collection.MapUtil

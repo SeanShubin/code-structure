@@ -63,16 +63,17 @@
   "versionOverrides": [],
   "modules": {
     "console": [
-      "injection"
+      "composition"
     ],
     "maven": [
-      "injection",
+      "composition",
       "maven-project",
       "maven-plugin-api",
       "maven-plugin-annotations",
       "pipeline"
     ],
-    "injection": [
+    "composition": [
+      "config",
       "pipeline"
     ],
     "model": [
@@ -85,14 +86,14 @@
       "durationformat",
       "model"
     ],
-    "appconfig": [
+    "runtime": [
       "contract-delegate",
       "exec",
       "model"
     ],
     "commands": [
       "io",
-      "appconfig",
+      "runtime",
       "events"
     ],
     "reports": [
@@ -123,7 +124,7 @@
       "reports",
       "commands",
       "events",
-      "appconfig"
+      "runtime"
     ],
     "filefinder": [
       "contract-delegate"

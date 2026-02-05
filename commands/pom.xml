@@ -10,7 +10,7 @@
         </dependency>
         <dependency>
             <groupId>com.seanshubin.code.structure</groupId>
-            <artifactId>code-structure-appconfig</artifactId>
+            <artifactId>code-structure-runtime</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

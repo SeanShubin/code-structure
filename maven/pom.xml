@@ -6,7 +6,7 @@
     <dependencies>
         <dependency>
             <groupId>com.seanshubin.code.structure</groupId>
-            <artifactId>code-structure-injection</artifactId>
+            <artifactId>code-structure-composition</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

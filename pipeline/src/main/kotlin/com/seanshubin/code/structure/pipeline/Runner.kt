@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.pipeline
 
-import com.seanshubin.code.structure.appconfig.ErrorMessageHolder
+import com.seanshubin.code.structure.runtime.ErrorMessageHolder
 import com.seanshubin.code.structure.commands.CommandRunner
 import com.seanshubin.code.structure.events.Timer
 import com.seanshubin.code.structure.model.Summary

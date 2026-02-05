@@ -1,8 +1,8 @@
 package com.seanshubin.code.structure.console
 
-import com.seanshubin.code.structure.injection.ArgsDependencies
-import com.seanshubin.code.structure.injection.Integrations
-import com.seanshubin.code.structure.injection.ProductionIntegrations
+import com.seanshubin.code.structure.composition.ArgsDependencies
+import com.seanshubin.code.structure.composition.Integrations
+import com.seanshubin.code.structure.composition.ProductionIntegrations
 import kotlin.system.exitProcess
 
 object EntryPoint {
