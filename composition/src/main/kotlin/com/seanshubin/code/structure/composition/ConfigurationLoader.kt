@@ -1,6 +1,5 @@
 package com.seanshubin.code.structure.composition
 
-import com.seanshubin.code.structure.runtime.CountAsErrors
 import com.seanshubin.code.structure.config.JsonFileKeyValueStore
 import com.seanshubin.code.structure.config.KeyValueStore
 import com.seanshubin.code.structure.config.KeyValueStoreWithDocumentation
@@ -10,6 +9,7 @@ import com.seanshubin.code.structure.config.TypeUtil.coerceToInt
 import com.seanshubin.code.structure.config.TypeUtil.coerceToListOfString
 import com.seanshubin.code.structure.config.TypeUtil.coerceToPath
 import com.seanshubin.code.structure.config.TypeUtil.coerceToString
+import com.seanshubin.code.structure.runtime.CountAsErrors
 import java.nio.file.Paths
 
 class ConfigurationLoader(
@@ -24,6 +24,23 @@ class ConfigurationLoader(
             JsonFileKeyValueStore(configDocumentationFile, integrations.files)
         val config: KeyValueStoreWithDocumentation =
             KeyValueStoreWithDocumentationDelegate(keyValueStore, documentationKeyValueStore)
+
+        // Initialize _documentation metadata
+        config.load(
+            listOf("_documentation", "description"),
+            "Analyzes dependency structure of source code",
+            ConfigDocumentation.documentationDescription
+        )
+        config.load(
+            listOf("_documentation", "readme"),
+            "https://github.com/SeanShubin/code-structure/blob/master/README.md",
+            ConfigDocumentation.documentationReadme
+        )
+        config.load(
+            listOf("_documentation", "configHelp"),
+            "$configBaseName-documentation.json",
+            ConfigDocumentation.documentationConfigHelp
+        )
 
         val countAsErrors = CountAsErrors(
             inDirectCycle =
