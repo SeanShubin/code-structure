@@ -1,33 +1,33 @@
 {
-  "inputDir": "src/test/resources/testdata/kotlin-sample",
-  "outputDir": "target/regression-test/kotlin-jar",
-  "localDepth": 2,
-  "sourcePrefix": "https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/",
-  "sourceFileRegexPatterns": {
-    "include": [
+  "inputDir" : "src/test/resources/testdata/kotlin-sample",
+  "outputDir" : "target/regression-test/kotlin-jar",
+  "localDepth" : 2,
+  "sourcePrefix" : "https://github.com/SeanShubin/code-structure-sample-kotlin/blob/master/",
+  "sourceFileRegexPatterns" : {
+    "include" : [
       ".*\\.kt$"
     ],
-    "exclude": []
+    "exclude" : [ ]
   },
-  "binaryFileRegexPatterns": {
-    "include": [
+  "binaryFileRegexPatterns" : {
+    "include" : [
       "console/target/code-structure-sample-kotlin-console.jar$"
     ],
-    "exclude": []
+    "exclude" : [ ]
   },
-  "nodeLimitForGraph": 50,
-  "countAsErrors": {
-    "inDirectCycle": true,
-    "inGroupCycle": true,
-    "ancestorDependsOnDescendant": true,
-    "descendantDependsOnAncestor": true
+  "nodeLimitForGraph" : 50,
+  "countAsErrors" : {
+    "inDirectCycle" : true,
+    "inGroupCycle" : true,
+    "ancestorDependsOnDescendant" : true,
+    "descendantDependsOnAncestor" : true
   },
-  "useObservationsCache": false,
-  "maximumAllowedErrorCount": 19,
-  "includeJvmDynamicInvocations": false,
-  "documentation": {
-    "countAsErrors": {
-      "inDirectCycle": [
+  "useObservationsCache" : false,
+  "maximumAllowedErrorCount" : 19,
+  "includeJvmDynamicInvocations" : false,
+  "documentation" : {
+    "countAsErrors" : {
+      "inDirectCycle" : [
         "path: countAsErrors.inDirectCycle",
         "default value: true",
         "default value type: Boolean",
@@ -35,14 +35,14 @@
         "Direct cycles typically require changes in logic to fix, so they are riskier than the other metrics",
         "Set this to false if you want to focus on metrics that are easier to fix first"
       ],
-      "inGroupCycle": [
+      "inGroupCycle" : [
         "path: countAsErrors.inGroupCycle",
         "default value: true",
         "default value type: Boolean",
         "Whether to include the number of group cycles in the error count",
         "Groups are packages in java, modules in elixir"
       ],
-      "ancestorDependsOnDescendant": [
+      "ancestorDependsOnDescendant" : [
         "path: countAsErrors.ancestorDependsOnDescendant",
         "default value: true",
         "default value type: Boolean",
@@ -50,7 +50,7 @@
         "Dependencies between super-categories and sub-categories indicate that files in the super-category weren't placed in a properly named sub-category",
         "Instead, organize your directory structure such that each directory either only contains other directories following the same rules, or only contains files"
       ],
-      "descendantDependsOnAncestor": [
+      "descendantDependsOnAncestor" : [
         "path: countAsErrors.descendantDependsOnAncestor",
         "default value: true",
         "default value type: Boolean",
@@ -59,32 +59,32 @@
         "Instead, organize your directory structure such that each directory either only contains other directories following the same rules, or only contains files"
       ]
     },
-    "maximumAllowedErrorCount": [
+    "maximumAllowedErrorCount" : [
       "path: maximumAllowedErrorCount",
       "default value: 0",
       "default value type: Integer",
       "if the number of errors exceeds this number, the build will fail"
     ],
-    "inputDir": [
+    "inputDir" : [
       "path: inputDir",
       "default value: .",
       "default value type: String",
       "the directory from which to start scanning"
     ],
-    "outputDir": [
+    "outputDir" : [
       "path: outputDir",
       "default value: generated/code-structure",
       "default value type: String",
       "the directory to place the report"
     ],
-    "useObservationsCache": [
+    "useObservationsCache" : [
       "path: useObservationsCache",
       "default value: false",
       "default value type: Boolean",
       "if the observations file exists, use that instead of scanning the sources and binaries",
       "this is useful if you want to run 'what if' scenarios by manually changing the observations file"
     ],
-    "includeJvmDynamicInvocations": [
+    "includeJvmDynamicInvocations" : [
       "path: includeJvmDynamicInvocations",
       "default value: false",
       "default value type: Boolean",
@@ -92,14 +92,14 @@
       "However, the class name will still show up as a string, so we can get it as a string in the constant pool (CONSTANT_Utf8 - 1)",
       "Reading the string constants instead of class constants will also catch instances of Class.forName, but only if the completed string exists in the constant pool, it will not be able to detect it in cases where the string is constructed at runtime."
     ],
-    "sourcePrefix": [
+    "sourcePrefix" : [
       "path: sourcePrefix",
       "default value: prefix for link to source code",
       "default value type: String",
       "pre-pended to links in the report, so you can navigate directly to the source code from the report"
     ],
-    "sourceFileRegexPatterns": {
-      "include": [
+    "sourceFileRegexPatterns" : {
+      "include" : [
         "path: sourceFileRegexPatterns.include",
         "default value: []",
         "default value type: EmptyList",
@@ -108,7 +108,7 @@
         "list of regular expression patterns to include",
         "to be included, a file must match at least one include pattern, without matching any exclude patterns"
       ],
-      "exclude": [
+      "exclude" : [
         "path: sourceFileRegexPatterns.exclude",
         "default value: []",
         "default value type: EmptyList",
@@ -119,15 +119,15 @@
         "to be included, a file must match at least one include pattern, without matching any exclude patterns"
       ]
     },
-    "nodeLimitForGraph": [
+    "nodeLimitForGraph" : [
       "path: nodeLimitForGraph",
       "default value: 50",
       "default value type: Integer",
       "the higher the number of files, the longer the graph takes to generate and the more useless it is",
       " if this limit is exceeded, the graph is not generated"
     ],
-    "binaryFileRegexPatterns": {
-      "include": [
+    "binaryFileRegexPatterns" : {
+      "include" : [
         "path: binaryFileRegexPatterns.include",
         "default value: []",
         "default value type: EmptyList",
@@ -137,7 +137,7 @@
         "list of regular expression patterns to include",
         "to be included, a file must match at least one include pattern, without matching any exclude patterns"
       ],
-      "exclude": [
+      "exclude" : [
         "path: binaryFileRegexPatterns.exclude",
         "default value: []",
         "default value type: EmptyList",
@@ -148,5 +148,10 @@
         "to be included, a file must match at least one include pattern, without matching any exclude patterns"
       ]
     }
+  },
+  "_documentation" : {
+    "description" : "Analyzes dependency structure of source code",
+    "readme" : "https://github.com/SeanShubin/code-structure/blob/master/README.md",
+    "configHelp" : "regression-test-kotlin-jar-documentation.json"
   }
 }
