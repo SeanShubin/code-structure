@@ -8,10 +8,14 @@ import kotlin.system.exitProcess
 object EntryPoint {
     @JvmStatic
     fun main(args: Array<String>) {
+        val exitCode = execute(args)
+        exitProcess(exitCode)
+    }
+
+    fun execute(args: Array<String>): Int {
         val integrations: Integrations = ProductionIntegrations
         val argsDependencies = ArgsDependencies(args, integrations)
         argsDependencies.runner.run()
-        val exitCode = if (argsDependencies.errorMessageHolder.errorMessage == null) 0 else 1
-        exitProcess(exitCode)
+        return if (argsDependencies.errorMessageHolder.errorMessage == null) 0 else 1
     }
 }
