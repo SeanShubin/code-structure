@@ -25,222 +25,121 @@ direction.
 If AI Assistants are having trouble keeping these metrics low, have them look at the [naming](docs/naming.md) document
 in this project, they are usually able to infer the concept from there.
 
-## Read before building
-As the code structure project runs on itself,
-you will need to make sure the build version does not match the plugin version.
-The best way to do this is to keep the plugin version pointed to the latest version in maven central, and bump the build version locally after each deploy to maven central.
+## Prerequisites
 
-## Tips
-- In practice, you can fix every problem this tool detects except for direct cycles without changing any logic, you just have to move files around to organize your code in a more internally consistent manner.
-- I usually start by placing everything in the same package, and only split into subpackages when the package gets too large.  However, I don't do this split half way, everything gets a child package or nothing does, that way, every subpackage has a name.
+### Java
 
-## Getting started
+This project requires Java 17 (LTS). We recommend using [asdf](https://asdf-vm.com/) for managing Java versions.
 
-- Check the "Prerequisites" section
-- Install, either by building from source or fetching it from a maven repo url
-  - Build from source `./scripts/clean-install-skip-tests.sh`
-  - Fetch from a repo at MAVEN_SNAPSHOT_URL `./scripts/fetch-from-maven-repo-url.sh` 
-- Run on your project with no parameters, this will create the default configuration file
-    -
-    `java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.1.0/code-structure-console-1.1.0.jar`
-  - If you need multiple configuration files, specify the base name of the configuration file as the first parameter
-- Add regular expressions to the sourceFileRegexPatterns sections in the default configuration file so that all of your sources are included (see examples)
-  - Run the application again
-- Inspect the "Sources without corresponding Binaries" section of the generated report
-  - Add regular expressions to the binaryFileRegexPatterns section so that all of your source files have corresponding binaries
-  - Run the application again
-- If your source language is Clojure, set includeJvmDynamicInvocations to true
+**Install asdf and Java plugin:**
 
-## Command Line Arguments
-- one argument, the prefix for the config file, default is `code-structure`
-- this causes it to use `code-structure-config.json` as the main configuration file
-
-## Configuration Explained
-
-Any missing elements in the configuration will be generated with default values.
-Here is an example generated from an earlier version of this project running on itself.
-
-```json
-{
-  "inputDir" : ".",
-  "outputDir" : "generated/code-structure",
-  "nodeLimitForGraph" : 100,
-  "sourcePrefix" : "https://github.com/SeanShubin/code-structure/blob/master/",
-  "sourceFileRegexPatterns" : {
-    "include" : [
-      ".*/src/main/kotlin/.*\\.kt"
-    ],
-    "exclude" : [ ]
-  },
-  "binaryFileRegexPatterns" : {
-    "include" : [
-      ".*/target/.*\\.class"
-    ],
-    "exclude" : [
-      ".*/samples/.*"
-    ]
-  },
-  "countAsErrors" : {
-    "inDirectCycle" : true,
-    "inGroupCycle" : true,
-    "ancestorDependsOnDescendant" : true,
-    "descendantDependsOnAncestor" : true
-  },
-  "maximumAllowedErrorCount" : 0,
-  "useObservationsCache" : false,
-  "includeJvmDynamicInvocations" : false
-}
-```
-A companion configuration documentation file is also generated, here is an example:
-```json
-{
-  "countAsErrors" : {
-    "inDirectCycle" : [
-      "path: countAsErrors.inDirectCycle",
-      "default value: true",
-      "default value type: Boolean",
-      "Whether to include the number of code units in a direct cycle in the error count",
-      "Direct cycles typically require changes in logic to fix, so they are riskier than the other metrics",
-      "Set this to false if you want to focus on metrics that are easier to fix first"
-    ],
-    "inGroupCycle" : [
-      "path: countAsErrors.inGroupCycle",
-      "default value: true",
-      "default value type: Boolean",
-      "Whether to include the number of group cycles in the error count",
-      "Groups are packages in java, modules in elixir"
-    ],
-    "ancestorDependsOnDescendant" : [
-      "path: countAsErrors.ancestorDependsOnDescendant",
-      "default value: true",
-      "default value type: Boolean",
-      "Whether to include the number cases where an ancestor depends on a descendant in error count",
-      "Dependencies between super-categories and sub-categories indicate that files in the super-category weren't placed in a properly named sub-category",
-      "Instead, organize your directory structure such that each directory either only contains other directories following the same rules, or only contains files"
-    ],
-    "descendantDependsOnAncestor" : [
-      "path: countAsErrors.descendantDependsOnAncestor",
-      "default value: true",
-      "default value type: Boolean",
-      "Whether to include the number cases where a descendant depends on a ancestor in error count",
-      "Dependencies between super-categories and sub-categories indicate that files in the super-category weren't placed in a properly named sub-category",
-      "Instead, organize your directory structure such that each directory either only contains other directories following the same rules, or only contains files"
-    ]
-  },
-  "maximumAllowedErrorCount" : [
-    "path: maximumAllowedErrorCount",
-    "default value: 0",
-    "default value type: Integer",
-    "if the number of errors exceeds this number, the build will fail"
-  ],
-  "inputDir" : [
-    "path: inputDir",
-    "default value: .",
-    "default value type: String",
-    "the directory from which to start scanning"
-  ],
-  "outputDir" : [
-    "path: outputDir",
-    "default value: generated/code-structure",
-    "default value type: String",
-    "the directory to place the report"
-  ],
-  "useObservationsCache" : [
-    "path: useObservationsCache",
-    "default value: false",
-    "default value type: Boolean",
-    "if the observations file exists, use that instead of scanning the sources and binaries",
-    "this is useful if you want to run 'what if' scenarios by manually changing the observations file"
-  ],
-  "includeJvmDynamicInvocations" : [
-    "path: includeJvmDynamicInvocations",
-    "default value: false",
-    "default value type: Boolean",
-    "Clojure invokes methods dynamically, so the class dependency won't show up as a class in the constant pool (CONSTANT_Class - 7)",
-    "However, the class name will still show up as a string, so we can get it as a string in the constant pool (CONSTANT_Utf8 - 1)",
-    "Reading the string constants instead of class constants will also catch instances of Class.forName, but only if the completed string exists in the constant pool, it will not be able to detect it in cases where the string is constructed at runtime."
-  ],
-  "sourcePrefix" : [
-    "path: sourcePrefix",
-    "default value: prefix for link to source code",
-    "default value type: String",
-    "pre-pended to links in the report, so you can navigate directly to the source code from the report"
-  ],
-  "sourceFileRegexPatterns" : {
-    "include" : [
-      "path: sourceFileRegexPatterns.include",
-      "default value: []",
-      "default value type: EmptyList",
-      "what file names constitute a source file, relative to the 'inputDir' configuration item",
-      "used to determine names",
-      "list of regular expression patterns to include",
-      "to be included, a file must match at least one include pattern, without matching any exclude patterns"
-    ],
-    "exclude" : [
-      "path: sourceFileRegexPatterns.exclude",
-      "default value: []",
-      "default value type: EmptyList",
-      "what file names constitute a source file, relative to the 'inputDir' configuration item",
-      "used to determine names",
-      "list of regular expression patterns to exclude",
-      "list of regular expression patterns to include",
-      "to be included, a file must match at least one include pattern, without matching any exclude patterns"
-    ]
-  },
-  "nodeLimitForGraph" : [
-    "path: nodeLimitForGraph",
-    "default value: 100",
-    "default value type: Integer",
-    "the higher the number of files, the longer the graph takes to generate and the more useless it is",
-    " if this limit is exceeded, the graph is not generated"
-  ],
-  "binaryFileRegexPatterns" : {
-    "include" : [
-      "path: binaryFileRegexPatterns.include",
-      "default value: []",
-      "default value type: EmptyList",
-      "what file name constitutes a binary file, relative to the 'inputDir' configuration item",
-      "used to determine dependency relationships between names",
-      "list of regular expression patterns to include",
-      "list of regular expression patterns to include",
-      "to be included, a file must match at least one include pattern, without matching any exclude patterns"
-    ],
-    "exclude" : [
-      "path: binaryFileRegexPatterns.exclude",
-      "default value: []",
-      "default value type: EmptyList",
-      "what file name constitutes a binary file, relative to the 'inputDir' configuration item",
-      "used to determine dependency relationships between names",
-      "list of regular expression patterns to exclude",
-      "list of regular expression patterns to include",
-      "to be included, a file must match at least one include pattern, without matching any exclude patterns"
-    ]
-  }
-}
+```bash
+# Install asdf (see https://asdf-vm.com/guide/getting-started.html)
+# Then add the Java plugin
+asdf plugin add java
 ```
 
-## Command Line
+**Install Java 17:**
 
-Fetch the artifact to your local maven repository
+```bash
+asdf install java corretto-17.0.15.6.1
 ```
+
+**Project uses `.tool-versions`:**
+
+This project includes a `.tool-versions` file that automatically selects Java 17 when you're in the code-structure
+directory:
+
+```
+java corretto-17.0.15.6.1
+```
+
+Verify it's working:
+
+```bash
+cd /path/to/code-structure
+java -version
+# Should show: openjdk version "17.0.15"
+```
+
+### Maven
+
+[Maven]( https://maven.apache.org/ ) 3.9.9 or later
+
+```bash
+mvn -version
+Apache Maven 3.9.9 (8e8579a9e76f7d015ee5ec7bfcdc97d260186937)
+```
+
+### Graphviz
+
+[graphviz]( https://graphviz.org/ ) for generating dependency graphs
+
+```bash
+dot --version
+dot - graphviz version 12.2.1 (20241206.2353)
+```
+
+## Installation
+
+### Building from Source
+
+```bash
+mvn clean install -DskipTests
+```
+
+This installs:
+
+- `com.seanshubin.code.structure:code-structure-console:1.1.1` - Standalone JAR
+- `com.seanshubin.code.structure:code-structure-maven:1.1.1` - Maven plugin
+- `com.seanshubin.code.structure:code-structure-gradle-plugin:1.1.1` - Gradle plugin
+
+### Fetching from Maven Central
+
+```bash
 mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get \
     -DrepoUrl=https://repo1.maven.org/maven2 \
-    -Dartifact=com.seanshubin.code.structure:code-structure-console:1.1.0
+    -Dartifact=com.seanshubin.code.structure:code-structure-console:1.1.1
 ```
 
+**Published artifacts:**
 
-Run the code structure application
+- Maven Central: https://central.sonatype.com/search?q=com.seanshubin.code.structure
+- Gradle Plugin Portal: https://plugins.gradle.org/plugin/com.seanshubin.code.structure
+
+## Usage
+
+### Command Line
+
+**Run the application:**
+
+```bash
+java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.1.1/code-structure-console-1.1.1.jar
 ```
-java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.1.0/code-structure-console-1.1.0.jar
-```
 
-First parameter is the base name for your configuration file.
-Default is "code-structure", which will result in a configuration file named "code-structure-config.json"
+**Where it's published:**
 
-## Maven Plugin Configuration
+- Maven Central: `com.seanshubin.code.structure:code-structure-console:1.1.1`
 
-Will run during the "verify" phase of the [maven lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)
-`<inherited>false</inherited>` ensures the plugin only runs at the parent level, not on each module.
+**Command line arguments:**
+
+- First argument (optional): prefix for config file, default is `code-structure`
+- This uses `code-structure-config.json` as the main configuration file
+- Example: `java -jar code-structure-console-1.1.1.jar my-config` uses `my-config-config.json`
+
+**Getting started:**
+
+1. Run with no parameters to create default configuration file
+2. Add regular expressions to `sourceFileRegexPatterns` to include your sources
+3. Run again
+4. Inspect "Sources without corresponding Binaries" section
+5. Add regular expressions to `binaryFileRegexPatterns` so all sources have corresponding binaries
+6. Run again
+7. If your source language is Clojure, set `includeJvmDynamicInvocations` to `true`
+
+### Maven Plugin
+
+Add to your `pom.xml`:
 
 ```xml
 <project>
@@ -249,7 +148,7 @@ Will run during the "verify" phase of the [maven lifecycle](https://maven.apache
             <plugin>
                 <groupId>com.seanshubin.code.structure</groupId>
                 <artifactId>code-structure-maven</artifactId>
-                <version>1.1.0</version>
+                <version>1.1.1</version>
                 <inherited>false</inherited>
                 <executions>
                     <execution>
@@ -268,10 +167,122 @@ Will run during the "verify" phase of the [maven lifecycle](https://maven.apache
 </project>
 ```
 
-Once the plugin is installed, you can run it manually
-`mvn code-structure:analyze`
+**Where it's published:**
 
-## Why these metrics fail the build
+- Maven Central: `com.seanshubin.code.structure:code-structure-maven:1.1.1`
+
+**Notes:**
+
+- Runs during the "verify" phase of
+  the [maven lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)
+- `<inherited>false</inherited>` ensures the plugin only runs at the parent level, not on each module
+- Run manually: `mvn code-structure:analyze`
+
+### Gradle Plugin
+
+**Add to your `build.gradle.kts`:**
+
+```kotlin
+plugins {
+    id("com.seanshubin.code.structure") version "1.1.1"
+}
+
+codeStructure {
+    configFile.set("code-structure-config.json")  // Optional, this is the default
+}
+```
+
+**Run the analysis:**
+
+```bash
+./gradlew analyzeCodeStructure
+```
+
+**Where it's published:**
+
+- Gradle Plugin Portal: https://plugins.gradle.org/plugin/com.seanshubin.code.structure
+- Maven Central: `com.seanshubin.code.structure:code-structure-gradle-plugin:1.1.1`
+
+**Notes:**
+
+- The Gradle plugin is a thin wrapper that invokes the same CLI entry point as the command line and Maven plugin
+- See [gradle-plugin/README.md](gradle-plugin/README.md) for more details
+
+**Building from source (developers only):**
+
+```bash
+cd gradle-plugin
+./gradlew publishToMavenLocal
+```
+
+## Configuration
+
+### Configuration File Format
+
+Any missing elements in the configuration will be generated with default values.
+Here is an example generated from an earlier version of this project running on itself.
+
+```json
+{
+  "inputDir": ".",
+  "outputDir": "generated/code-structure",
+  "nodeLimitForGraph": 100,
+  "sourcePrefix": "https://github.com/SeanShubin/code-structure/blob/master/",
+  "sourceFileRegexPatterns": {
+    "include": [
+      ".*/src/main/kotlin/.*\\.kt"
+    ],
+    "exclude": []
+  },
+  "binaryFileRegexPatterns": {
+    "include": [
+      ".*/target/.*\\.class"
+    ],
+    "exclude": [
+      ".*/samples/.*"
+    ]
+  },
+  "countAsErrors": {
+    "inDirectCycle": true,
+    "inGroupCycle": true,
+    "ancestorDependsOnDescendant": true,
+    "descendantDependsOnAncestor": true
+  },
+  "maximumAllowedErrorCount": 0,
+  "useObservationsCache": false,
+  "includeJvmDynamicInvocations": false
+}
+```
+
+### Configuration Documentation
+
+A companion configuration documentation file is also generated. Key settings:
+
+**countAsErrors**
+
+- `inDirectCycle`: Whether to include code units in a direct cycle in the error count. Direct cycles typically require
+  changes in logic to fix.
+- `inGroupCycle`: Whether to include group cycles (packages in Java, modules in Elixir) in the error count.
+- `ancestorDependsOnDescendant`: Whether to count cases where an ancestor depends on a descendant. Indicates files
+  weren't placed in properly named sub-categories.
+- `descendantDependsOnAncestor`: Whether to count cases where a descendant depends on an ancestor. Indicates files
+  weren't placed in properly named sub-categories.
+
+**Other settings**
+
+- `maximumAllowedErrorCount`: If errors exceed this number, the build fails. Default is 0.
+- `inputDir`: Directory from which to start scanning. Default is `.`
+- `outputDir`: Directory to place the report. Default is `generated/code-structure`
+- `useObservationsCache`: If true, use existing observations file instead of scanning. Useful for "what if" scenarios.
+- `includeJvmDynamicInvocations`: Set to true for Clojure. Catches dynamic method invocations and `Class.forName` calls.
+- `sourcePrefix`: Pre-pended to links in the report for navigating to source code.
+- `nodeLimitForGraph`: If exceeded, graph is not generated. Default is 100.
+
+See complete documentation in the auto-generated `code-structure-documentation.json` file.
+
+## Design Decisions
+
+### Why These Metrics Fail the Build
 
 Although these metrics may seem arbitrary if you are not used to them, they exist for very good reasons. Your first
 instinct may be to think "well that doesn't matter", but that is exactly the problem, you are not used to thinking about
@@ -279,62 +290,47 @@ these things because you didn't have the proper tooling to keep track of these t
 strictly applies these rules, even if you don't understand the rules at first, you will come to understand them once you
 see how your code is affected by diligently following these rules.
 
-See a more thorough description in the
-[naming](/docs/naming.md) document
+See a more thorough description in the [naming](/docs/naming.md) document.
 
-## Why check the quantity of errors rather than checking the errors individually
+### Why Check Quantity of Errors Rather Than Individual Errors
+
 In a similar project I recorded the individual errors rather than the quantity of errors.
 
-In practice, I found the following disadvantages.
-
+In practice, I found the following disadvantages:
 - (minor) the error list would have to be updated for refactorings that moved code around without making anything worse
 - (major) users got used to updating the error list even when the code was worse off, as there was no easy way for others to tell the difference between code getting better or worse
 
-The solution here is to maintain an error count rather than an error list, with the following effects.
-
+The solution here is to maintain an error count rather than an error list, with the following effects:
 - (minor) no need to maintain a list of errors
 - (minor) no need to update anything when just moving code around
-- (major) anyone who makes the problem worse has to increase the maximumAllowedErrorCount, advertising their shame in version control for all eternity 
+- (major) anyone who makes the problem worse has to increase the maximumAllowedErrorCount, advertising their shame in
+  version control for all eternity
 
-Recommended policy that a unit of work is not considered done until one of 3 situations are true
+**Recommended policy:** A unit of work is not considered done until one of 3 situations are true:
 
-- error count goes up
-  - An error metric has been introduced that was not there before, such as this application.  While the error count has gone up the errors have not, they were always there, just not detected
-- error count goes down
-  - An error has been fixed such that the error count has gone down by at least one 
-- error count is zero
-  - There are no unfixed errors, and there are no other available metrics to add
+- **Error count goes up**: An error metric has been introduced that was not there before. While the error count has gone
+  up the errors have not, they were always there, just not detected.
+- **Error count goes down**: An error has been fixed such that the error count has gone down by at least one.
+- **Error count is zero**: There are no unfixed errors, and there are no other available metrics to add.
 
-## Prerequisites
+## Development
 
-Tested with versions
+### Read Before Building
 
-[Java]( https://aws.amazon.com/corretto )
-```
-java -version
-openjdk version "21.0.6" 2025-01-21 LTS
-OpenJDK Runtime Environment Corretto-21.0.6.7.1 (build 21.0.6+7-LTS)
-OpenJDK 64-Bit Server VM Corretto-21.0.6.7.1 (build 21.0.6+7-LTS, mixed mode, sharing)
-```
+As the code structure project runs on itself, you will need to make sure the build version does not match the plugin
+version.
+The best way to do this is to keep the plugin version pointed to the latest version in maven central, and bump the build
+version locally after each deploy to maven central.
 
-[Maven]( https://maven.apache.org/ )
+### Tips
 
-```
-mvn -version
-Apache Maven 3.9.9 (8e8579a9e76f7d015ee5ec7bfcdc97d260186937)
-Maven home: /opt/homebrew/Cellar/maven/3.9.9/libexec
-Java version: 23.0.2, vendor: Homebrew, runtime: /opt/homebrew/Cellar/openjdk/23.0.2/libexec/openjdk.jdk/Contents/Home
-Default locale: en_US, platform encoding: UTF-8
-OS name: "mac os x", version: "15.3.2", arch: "aarch64", family: "mac"
-```
+- In practice, you can fix every problem this tool detects except for direct cycles without changing any logic, you just
+  have to move files around to organize your code in a more internally consistent manner.
+- I usually start by placing everything in the same package, and only split into subpackages when the package gets too
+  large. However, I don't do this split half way, everything gets a child package or nothing does, that way, every
+  subpackage has a name.
 
-[graphviz]( https://graphviz.org/ )
-```
-dot --version
-dot - graphviz version 12.2.1 (20241206.2353)
-```
-
-## Scripts
+### Scripts
 
 ```shell
 ./scripts/clean.sh
@@ -343,5 +339,43 @@ dot - graphviz version 12.2.1 (20241206.2353)
 ./scripts/run.sh
 ```
 
-## Publishing to maven
-- https://central.sonatype.com/publishing/deployments
+### Publishing
+
+**Maven modules and Gradle plugin:**
+
+```bash
+mvn deploy -Pstage
+```
+
+This publishes:
+
+- All Maven modules to Maven Central (via Central Portal)
+- Gradle plugin to Maven Central
+- Gradle plugin to Gradle Plugin Portal
+
+**Required environment variables:**
+
+```bash
+# Maven Central Portal (new way - not OSSRH)
+export CENTRAL_USERNAME="your-central-token-username"
+export CENTRAL_PASSWORD="your-central-token-password"
+
+# Gradle Plugin Portal
+export GRADLE_PUBLISH_KEY="your-gradle-api-key"
+export GRADLE_PUBLISH_SECRET="your-gradle-api-secret"
+
+# GPG Signing (used by both Maven and Gradle)
+export MAVEN_GPG_PASSPHRASE="your-gpg-passphrase"
+```
+
+**Setup credentials:** See [gradle-plugin/PUBLISHING.md](gradle-plugin/PUBLISHING.md) for detailed instructions on:
+
+- Getting Maven Central Portal credentials (not OSSRH)
+- Getting Gradle Plugin Portal API keys
+- Setting up GPG signing keys
+- Configuring environment variables
+
+**Additional resources:**
+
+- Maven Central Portal: https://central.sonatype.com/
+- Gradle Plugin Portal: https://plugins.gradle.org/docs/submit

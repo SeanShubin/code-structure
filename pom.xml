@@ -102,6 +102,7 @@
         <module>cycle</module>
         <module>exec</module>
         <module>stress</module>
+        <module>gradle-plugin</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

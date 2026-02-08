@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.seanshubin.code.structure</groupId>
+        <artifactId>code-structure-parent</artifactId>
+        <version>1.1.1</version>
+    </parent>
+
+    <artifactId>code-structure-gradle-plugin</artifactId>
+    <packaging>pom</packaging>
+    <name>com.seanshubin.code.structure:code-structure-gradle-plugin</name>
+    <description>Gradle plugin for code structure analysis</description>
+
+    <build>
+        <plugins>
+            <!-- Skip Kotlin compilation - Gradle handles this -->
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <!-- Build during Maven compile -->
+                    <execution>
+                        <id>gradle-build</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${basedir}/gradlew</executable>
+                            <arguments>
+                                <argument>build</argument>
+                                <argument>--no-daemon</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- Publish to Maven Local during install -->
+                    <execution>
+                        <id>gradle-publish-local</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${basedir}/gradlew</executable>
+                            <arguments>
+                                <argument>publishToMavenLocal</argument>
+                                <argument>--no-daemon</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- Publish to Maven Central and Gradle Plugin Portal during deploy -->
+                    <execution>
+                        <id>gradle-publish-all</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${basedir}/gradlew</executable>
+                            <arguments>
+                                <argument>publishAllPublicationsToCentralRepository</argument>
+                                <argument>publishPlugins</argument>
+                                <argument>--no-daemon</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Skip default Maven install/deploy since Gradle handles it -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
