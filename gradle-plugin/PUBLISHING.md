@@ -45,7 +45,9 @@ gpg --keyserver keyserver.ubuntu.com --send-keys YOUR_KEY_ID
 
 ## Configuration
 
-### Option 1: Environment Variables (Recommended for CI/CD)
+### Option 1: Environment Variables
+
+Use environment variables when credentials should not persist to disk (CI/CD pipelines, shared build servers):
 
 ```bash
 export CENTRAL_USERNAME="your-central-token-username"
@@ -58,7 +60,9 @@ export MAVEN_GPG_PASSPHRASE="your-gpg-passphrase"
 **Note:** The GPG key ID is configured in `build.gradle.kts`. If you need to use a different key, update the
 `signing.gnupg.keyName` value in that file.
 
-### Option 2: gradle.properties (Recommended for Local Development)
+### Option 2: gradle.properties
+
+Use property files when you want credentials to persist across shell sessions (local development):
 
 Create/edit `~/.gradle/gradle.properties`:
 
@@ -92,12 +96,12 @@ signing.gnupg.passphrase=your-gpg-passphrase
 
 ## Publishing
 
-### From Maven (Recommended)
+### From Maven
 
-From the root of code-structure project:
+Use Maven to publish everything in one command (all Maven modules + Gradle plugin):
 
 ```bash
-# Publish everything including Gradle plugin
+# From the root of code-structure project
 mvn deploy -Pstage
 ```
 
@@ -110,9 +114,11 @@ This will:
 
 ### From Gradle Directly
 
-From the gradle-plugin directory:
+Use Gradle when you only want to publish the Gradle plugin without rebuilding Maven modules:
 
 ```bash
+# From the gradle-plugin directory
+
 # Publish to both Maven Central and Gradle Plugin Portal
 ./gradlew publishAllPublicationsToCentralRepository publishPlugins
 

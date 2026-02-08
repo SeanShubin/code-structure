@@ -29,7 +29,8 @@ in this project, they are usually able to infer the concept from there.
 
 ### Java
 
-This project requires Java 17 (LTS). We recommend using [asdf](https://asdf-vm.com/) for managing Java versions.
+This project requires Java 17 (LTS). [asdf](https://asdf-vm.com/) works well for managing Java versions because it
+automatically reads the `.tool-versions` file in this project.
 
 **Install asdf and Java plugin:**
 
@@ -306,7 +307,7 @@ The solution here is to maintain an error count rather than an error list, with 
 - (major) anyone who makes the problem worse has to increase the maximumAllowedErrorCount, advertising their shame in
   version control for all eternity
 
-**Recommended policy:** A unit of work is not considered done until one of 3 situations are true:
+**Policy to maintain improving quality:** A unit of work is not considered done until one of 3 situations are true:
 
 - **Error count goes up**: An error metric has been introduced that was not there before. While the error count has gone
   up the errors have not, they were always there, just not detected.
@@ -317,10 +318,11 @@ The solution here is to maintain an error count rather than an error list, with 
 
 ### Read Before Building
 
-As the code structure project runs on itself, you will need to make sure the build version does not match the plugin
-version.
-The best way to do this is to keep the plugin version pointed to the latest version in maven central, and bump the build
-version locally after each deploy to maven central.
+The code-structure project uses its own code-structure Maven plugin to analyze itself. The build version must not match
+the plugin version, or Maven will try to use the partially-built plugin instead of a stable published version.
+
+To avoid this problem: configure the pom.xml to use the latest published version from Maven Central for the plugin, and
+keep the build version ahead of the published version (bump it locally after each deploy).
 
 ### Tips
 
