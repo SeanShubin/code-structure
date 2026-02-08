@@ -8,6 +8,6 @@ abstract class CodeStructureExtension {
     abstract val configFile: Property<String>
 
     init {
-        configFile.convention("code-structure-config.json")
+        configFile.convention("code-structure")
     }
 }
