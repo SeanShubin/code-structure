@@ -1,6 +1,5 @@
 package com.seanshubin.code.structure.composition
 
-import com.seanshubin.code.structure.runtime.*
 import com.seanshubin.code.structure.beamformat.BeamParser
 import com.seanshubin.code.structure.beamformat.BeamParserImpl
 import com.seanshubin.code.structure.clojuresyntax.ClojureParser
@@ -28,6 +27,7 @@ import com.seanshubin.code.structure.nameparser.NameParser
 import com.seanshubin.code.structure.pipeline.*
 import com.seanshubin.code.structure.relationparser.RelationParser
 import com.seanshubin.code.structure.reports.*
+import com.seanshubin.code.structure.runtime.*
 import com.seanshubin.code.structure.scalasyntax.ScalaParser
 import com.seanshubin.code.structure.scalasyntax.ScalaParserImpl
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptNameParser
@@ -130,7 +130,7 @@ class Dependencies(
     private val validator: Validator = ValidatorImpl()
     private val staticContentReport: Report = StaticContentReport()
     private val sourcesReport: Report = SourcesReport()
-    private val tableOfContentsReport: Report = TableOfContentsReport()
+    private val tableOfContentsReport: Report = TableOfContentsReport(nodeLimitForGraph)
     private val binariesReport: Report = BinariesReport()
     private val missingBinariesReport: Report = MissingBinariesReport()
     private val dependenciesReport: Report = DependenciesReport()

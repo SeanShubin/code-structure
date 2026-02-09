@@ -39,7 +39,8 @@ object ReportHelper {
         references: List<Pair<String, String>>,
         cycles: List<List<String>>,
         parents: List<Page>,
-        belowGraph: List<HtmlElement> = emptyList()
+        belowGraph: List<HtmlElement> = emptyList(),
+        title: String = baseName
     ): List<Command> {
         return if (nodes.size > nodeLimitForGraph) {
             graphCommandsExceedsNodeLimit(
@@ -50,7 +51,8 @@ object ReportHelper {
                 nodeLimitForGraph,
                 references,
                 cycles,
-                parents
+                parents,
+                title
             )
         } else {
             graphCommandsWithinNodeLimit(
@@ -61,7 +63,8 @@ object ReportHelper {
                 references,
                 cycles,
                 parents,
-                belowGraph
+                belowGraph,
+                title
             )
         }
     }
@@ -74,7 +77,8 @@ object ReportHelper {
         references: List<Pair<String, String>>,
         cycles: List<List<String>>,
         parents: List<Page>,
-        belowGraph: List<HtmlElement> = emptyList()
+        belowGraph: List<HtmlElement> = emptyList(),
+        title: String
     ): List<Command> {
         val dotSourcePath = reportDir.resolve("$baseName.txt")
         val svgPath = reportDir.resolve("$baseName.svg")
@@ -85,7 +89,7 @@ object ReportHelper {
         val generateSvg = GenerateSvgCommand(reportName, dotSourcePath, svgPath)
         val substitutionTag = "---replace--with--$baseName.svg---"
         val htmlContent = htmlContent(substitutionTag, belowGraph)
-        val htmlElement = wrapInTopLevelHtml(baseName, htmlContent, parents)
+        val htmlElement = wrapInTopLevelHtml(title, htmlContent, parents)
         val htmlLines = htmlElement.toLines()
         val createHtml = CreateFileCommand(reportName, htmlTemplatePath, htmlLines)
         val replaceCommand = SubstituteFromFileCommand(reportName, htmlTemplatePath, substitutionTag, svgPath, htmlPath)
@@ -101,6 +105,7 @@ object ReportHelper {
         references: List<Pair<String, String>>,
         cycles: List<List<String>>,
         parents: List<Page>,
+        title: String
     ): List<Command> {
         val dotSourcePath = reportDir.resolve("$baseName.txt")
         val htmlTemplatePath = reportDir.resolve("$baseName.html")
@@ -109,7 +114,7 @@ object ReportHelper {
         val message = "Too many nodes for graph $baseName, limit is $nodeLimitForGraph, have ${nodes.size}"
         val paragraphText = HtmlElement.Text(message)
         val htmlContent = listOf(HtmlElement.Tag("p", paragraphText))
-        val htmlElement = wrapInTopLevelHtml(baseName, htmlContent, parents)
+        val htmlElement = wrapInTopLevelHtml(title, htmlContent, parents)
         val htmlLines = htmlElement.toLines()
         val createHtml = CreateFileCommand(reportName, htmlTemplatePath, htmlLines)
         return listOf(createDotSource, createHtml)
