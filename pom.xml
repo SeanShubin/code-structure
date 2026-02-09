@@ -231,10 +231,10 @@
                         <version>2.1.0</version>
                         <executions>
                             <execution>
-                                <id>generate-dokka-javadoc</id>
+                                <id>generate-dokka-javadoc-jar</id>
                                 <phase>package</phase>
                                 <goals>
-                                    <goal>javadoc</goal>
+                                    <goal>javadocJar</goal>
                                 </goals>
                             </execution>
                         </executions>
