@@ -78,34 +78,38 @@ publishing {
         }
     }
 
-    repositories {
-        maven {
-            name = "central"
-            url = uri("https://central.sonatype.com/api/v1/publisher/upload")
-            credentials {
-                username = project.findProperty("centralUsername")?.toString()
-                    ?: System.getenv("CENTRAL_USERNAME")
-                password = project.findProperty("centralPassword")?.toString()
-                    ?: System.getenv("CENTRAL_PASSWORD")
-            }
-        }
-    }
+    // Note: Gradle plugins are published to Gradle Plugin Portal, not Maven Central
+    // Maven Central publishing is optional and not needed for plugin consumption
+    // repositories {
+    //     maven {
+    //         name = "central"
+    //         url = uri("https://central.sonatype.com/api/v1/publisher/upload")
+    //         credentials {
+    //             username = project.findProperty("centralUsername")?.toString()
+    //                 ?: System.getenv("CENTRAL_USERNAME")
+    //             password = project.findProperty("centralPassword")?.toString()
+    //                 ?: System.getenv("CENTRAL_PASSWORD")
+    //         }
+    //     }
+    // }
 }
 
-signing {
-    // Use the same GPG passphrase environment variable as Maven
-    val signingPassword = System.getenv("MAVEN_GPG_PASSPHRASE")
-    if (signingPassword != null) {
-        // Configure GPG to use the passphrase from environment
-        extra["signing.gnupg.executable"] = "gpg"
-        extra["signing.gnupg.useLegacyGpg"] = "false"
-        extra["signing.gnupg.keyName"] = "FF6963DA7AF0C98BB46BD32E1AF18E39B486EEDE"
-        extra["signing.gnupg.passphrase"] = signingPassword
-        useGpgCmd()
-    }
-    sign(publishing.publications)
-}
-
-tasks.withType<Sign>().configureEach {
-    onlyIf { gradle.taskGraph.hasTask("publish") || gradle.taskGraph.hasTask("publishPlugins") }
-}
+// Signing not needed for Gradle Plugin Portal (they sign on their end)
+// Only needed if publishing to Maven Central
+// signing {
+//     // Use the same GPG passphrase environment variable as Maven
+//     val signingPassword = System.getenv("MAVEN_GPG_PASSPHRASE")
+//     if (signingPassword != null) {
+//         // Configure GPG to use the passphrase from environment
+//         extra["signing.gnupg.executable"] = "gpg"
+//         extra["signing.gnupg.useLegacyGpg"] = "false"
+//         extra["signing.gnupg.keyName"] = "FF6963DA7AF0C98BB46BD32E1AF18E39B486EEDE"
+//         extra["signing.gnupg.passphrase"] = signingPassword
+//         useGpgCmd()
+//     }
+//     sign(publishing.publications)
+// }
+//
+// tasks.withType<Sign>().configureEach {
+//     onlyIf { gradle.taskGraph.hasTask("publish") || gradle.taskGraph.hasTask("publishPlugins") }
+// }

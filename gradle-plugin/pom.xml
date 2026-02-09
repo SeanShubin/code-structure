@@ -71,9 +71,9 @@
                         </configuration>
                     </execution>
 
-                    <!-- Publish to Maven Central and Gradle Plugin Portal during deploy -->
+                    <!-- Publish to Gradle Plugin Portal during deploy -->
                     <execution>
-                        <id>gradle-publish-all</id>
+                        <id>gradle-publish-plugins</id>
                         <phase>deploy</phase>
                         <goals>
                             <goal>exec</goal>
@@ -81,7 +81,6 @@
                         <configuration>
                             <executable>${basedir}/gradlew</executable>
                             <arguments>
-                                <argument>publishAllPublicationsToCentralRepository</argument>
                                 <argument>publishPlugins</argument>
                                 <argument>--no-daemon</argument>
                             </arguments>
