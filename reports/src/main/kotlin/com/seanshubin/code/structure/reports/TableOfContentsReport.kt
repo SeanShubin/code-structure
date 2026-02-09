@@ -3,6 +3,7 @@ package com.seanshubin.code.structure.reports
 import com.seanshubin.code.structure.commands.Command
 import com.seanshubin.code.structure.commands.CreateFileCommand
 import com.seanshubin.code.structure.dot.DotNode
+import com.seanshubin.code.structure.filefinder.FilterStats
 import com.seanshubin.code.structure.html.BigListClassName
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
@@ -14,7 +15,8 @@ import com.seanshubin.code.structure.model.Validated
 import java.nio.file.Path
 
 class TableOfContentsReport(
-    private val nodeLimitForGraph: Int
+    private val nodeLimitForGraph: Int,
+    private val filterStats: FilterStats
 ) : Report {
     override val reportName: String = "table-of-contents"
     override val category: ReportCategory = ReportCategory.BROWSE
@@ -47,7 +49,7 @@ class TableOfContentsReport(
             annotateWithNumber(Page.dependencies, validated.analysis.global.referenceReasons.size),
             Page.graph,
             annotateWithNumber(Page.missingBinaries, validated.observations.missingBinaries.size),
-            Page.filterStatistics,
+            annotateWithNumber(Page.filterStatistics, filterStats.getAllCategories().size),
             Page.timing
         )
         val listElements = bigList(children, ::generateAnchor, BigListClassName.COLUMN_1, caption = null)

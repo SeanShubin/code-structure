@@ -130,7 +130,7 @@ class Dependencies(
     private val validator: Validator = ValidatorImpl()
     private val staticContentReport: Report = StaticContentReport()
     private val sourcesReport: Report = SourcesReport()
-    private val tableOfContentsReport: Report = TableOfContentsReport(nodeLimitForGraph)
+    private val tableOfContentsReport: Report = TableOfContentsReport(nodeLimitForGraph, filterStats)
     private val binariesReport: Report = BinariesReport()
     private val missingBinariesReport: Report = MissingBinariesReport()
     private val dependenciesReport: Report = DependenciesReport()
