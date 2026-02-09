@@ -93,24 +93,9 @@
                         </configuration>
                     </execution>
 
-                    <!-- Publish to Gradle Plugin Portal during deploy -->
-                    <!-- Note: Disabled after initial publish - Gradle Plugin Portal does not allow republishing same version -->
-                    <!--
-                    <execution>
-                        <id>gradle-publish-plugins</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>${basedir}/gradlew</executable>
-                            <arguments>
-                                <argument>publishPlugins</argument>
-                                <argument>--no-daemon</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    -->
+                    <!-- Note: Gradle Plugin Portal publishing removed after initial publish -->
+                    <!-- Gradle Plugin Portal does not allow republishing same version -->
+                    <!-- To publish a new version, add back the gradle-publish-plugins execution -->
                 </executions>
             </plugin>
 
