@@ -15,6 +15,28 @@
     <packaging>pom</packaging>
     <name>com.seanshubin.code.structure:code-structure-gradle-plugin</name>
     <description>Gradle plugin for code structure analysis</description>
+    <url>https://github.com/SeanShubin/code-structure</url>
+
+    <licenses>
+        <license>
+            <name>Unlicense</name>
+            <url>http://unlicense.org/</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Sean Shubin</name>
+            <organization>Sean Shubin</organization>
+            <organizationUrl>http://seanshubin.com/</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>git@github.com:SeanShubin/code-structure.git</connection>
+        <developerConnection>git@github.com:SeanShubin/code-structure.git</developerConnection>
+        <url>https://github.com/SeanShubin/code-structure</url>
+    </scm>
 
     <build>
         <plugins>
@@ -72,6 +94,8 @@
                     </execution>
 
                     <!-- Publish to Gradle Plugin Portal during deploy -->
+                    <!-- Note: Disabled after initial publish - Gradle Plugin Portal does not allow republishing same version -->
+                    <!--
                     <execution>
                         <id>gradle-publish-plugins</id>
                         <phase>deploy</phase>
@@ -86,6 +110,7 @@
                             </arguments>
                         </configuration>
                     </execution>
+                    -->
                 </executions>
             </plugin>
 
@@ -103,6 +128,17 @@
                 <configuration>
                     <skip>true</skip>
                 </configuration>
+            </plugin>
+            <!-- Skip Maven Central publishing - this module only publishes to Gradle Plugin Portal -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>injected-central-publishing</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
