@@ -1,1 +1,1 @@
-rootProject.name = "code-structure-gradle-plugin"
+rootProject.name = "com-seanshubin-code-structure-gradle-plugin"

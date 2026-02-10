@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.seanshubin.code.structure"
-version = "1.1.1"
+version = "1.1.2"
 
 repositories {
     mavenCentral()
@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.seanshubin.code.structure:code-structure-console:1.1.1")
+    implementation("com.seanshubin.code.structure:code-structure-console:1.1.2")
 }
 
 gradlePlugin {
@@ -22,7 +22,7 @@ gradlePlugin {
     vcsUrl.set("https://github.com/SeanShubin/code-structure.git")
 
     plugins {
-        create("codeStructure") {
+        create("gradlePlugin") {
             id = "com.seanshubin.code.structure"
             implementationClass = "com.seanshubin.code.structure.gradle.CodeStructurePlugin"
             displayName = "Code Structure Plugin"
@@ -50,8 +50,8 @@ publishing {
             artifactId = "code-structure-gradle-plugin"
 
             pom {
-                name.set("Code Structure Gradle Plugin")
-                description.set("Gradle plugin for code structure analysis")
+                name.set("Com Seanshubin Code Structure Gradle Plugin")
+                description.set("Analyzes code structure and generates dependency reports to detect cycles, vertical dependencies, and maintain architectural consistency")
                 url.set("https://github.com/SeanShubin/code-structure")
 
                 licenses {
@@ -69,8 +69,8 @@ publishing {
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com/SeanShubin/code-structure.git")
-                    developerConnection.set("scm:git:ssh://github.com/SeanShubin/code-structure.git")
+                    connection.set("scm:git:https://github.com/SeanShubin/code-structure.git")
+                    developerConnection.set("scm:git:https://github.com/SeanShubin/code-structure.git")
                     url.set("https://github.com/SeanShubin/code-structure")
                 }
             }

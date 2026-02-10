@@ -15,6 +15,6 @@ local-config
 .DS_Store
 dependency-reduced-pom.xml
 
-# Gradle plugin specific
-gradle-plugin/.gradle
-gradle-plugin/build
+# Gradle
+**/.gradle
+**/build

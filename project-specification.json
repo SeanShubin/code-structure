@@ -8,7 +8,7 @@
     "structure"
   ],
   "description": "Dependency Structure For Code",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "language": "kotlin",
   "developer": {
     "name": "Sean Shubin",
@@ -186,7 +186,8 @@
     "exec": [],
     "stress": [
       "durationformat"
-    ]
+    ],
+    "gradle-plugin": []
   },
   "javaVersion": "17",
   "entryPoints": {
@@ -195,5 +196,23 @@
   },
   "mavenPlugin": [
     "maven"
+  ],
+  "gradlePlugin": [
+    {
+      "module": "gradle-plugin",
+      "pluginId": "com.seanshubin.code.structure",
+      "implementationClass": "com.seanshubin.code.structure.gradle.CodeStructurePlugin",
+      "displayName": "Code Structure Plugin",
+      "description": "Analyzes code structure and generates dependency reports to detect cycles, vertical dependencies, and maintain architectural consistency",
+      "tags": [
+        "code-quality",
+        "architecture",
+        "dependencies",
+        "static-analysis"
+      ],
+      "dependsOn": [
+        "console"
+      ]
+    }
   ]
 }

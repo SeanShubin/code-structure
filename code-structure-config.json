@@ -19,5 +19,10 @@
   },
   "maximumAllowedErrorCount" : 0,
   "useObservationsCache" : false,
-  "includeJvmDynamicInvocations" : false
+  "includeJvmDynamicInvocations": false,
+  "_documentation": {
+    "description": "Analyzes dependency structure of source code",
+    "readme": "https://github.com/SeanShubin/code-structure/blob/master/README.md",
+    "configHelp": "code-structure-documentation.json"
+  }
 }

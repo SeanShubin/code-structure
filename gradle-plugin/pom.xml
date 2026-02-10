@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    <artifactId>code-structure-gradle-plugin</artifactId>
     <parent>
         <groupId>com.seanshubin.code.structure</groupId>
         <artifactId>code-structure-parent</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2</version>
     </parent>
-
-    <artifactId>code-structure-gradle-plugin</artifactId>
     <packaging>pom</packaging>
-    <name>com.seanshubin.code.structure:code-structure-gradle-plugin</name>
-    <description>Gradle plugin for code structure analysis</description>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Dependency Structure For Code</description>
     <url>https://github.com/SeanShubin/code-structure</url>
-
     <licenses>
         <license>
             <name>Unlicense</name>
             <url>http://unlicense.org/</url>
         </license>
     </licenses>
-
     <developers>
         <developer>
             <name>Sean Shubin</name>
@@ -31,16 +25,13 @@
             <organizationUrl>http://seanshubin.com/</organizationUrl>
         </developer>
     </developers>
-
     <scm>
         <connection>git@github.com:SeanShubin/code-structure.git</connection>
         <developerConnection>git@github.com:SeanShubin/code-structure.git</developerConnection>
         <url>https://github.com/SeanShubin/code-structure</url>
     </scm>
-
     <build>
         <plugins>
-            <!-- Skip Kotlin compilation - Gradle handles this -->
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
@@ -55,13 +46,11 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.6.3</version>
                 <executions>
-                    <!-- Build during Maven compile -->
                     <execution>
                         <id>gradle-build</id>
                         <phase>compile</phase>
@@ -76,8 +65,6 @@
                             </arguments>
                         </configuration>
                     </execution>
-
-                    <!-- Publish to Maven Local during install -->
                     <execution>
                         <id>gradle-publish-local</id>
                         <phase>install</phase>
@@ -92,14 +79,8 @@
                             </arguments>
                         </configuration>
                     </execution>
-
-                    <!-- Note: Gradle Plugin Portal publishing removed after initial publish -->
-                    <!-- Gradle Plugin Portal does not allow republishing same version -->
-                    <!-- To publish a new version, add back the gradle-publish-plugins execution -->
                 </executions>
             </plugin>
-
-            <!-- Skip default Maven install/deploy since Gradle handles it -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
@@ -114,7 +95,6 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-            <!-- Skip Maven Central publishing - this module only publishes to Gradle Plugin Portal -->
             <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
