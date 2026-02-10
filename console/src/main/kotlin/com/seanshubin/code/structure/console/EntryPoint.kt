@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.console
 
+import com.seanshubin.code.structure.composition.ApplicationDependencies
 import com.seanshubin.code.structure.composition.BootstrapDependencies
 import com.seanshubin.code.structure.composition.Integrations
 import com.seanshubin.code.structure.composition.ProductionIntegrations
@@ -14,8 +15,13 @@ object EntryPoint {
 
     fun execute(args: Array<String>): Int {
         val integrations: Integrations = ProductionIntegrations(args)
-        val bootstrap = BootstrapDependencies(integrations)
-        bootstrap.runner.run()
-        return if (bootstrap.errorMessageHolder.errorMessage == null) 0 else 1
+
+        val bootstrapDeps = BootstrapDependencies(integrations)
+        val configuration = bootstrapDeps.bootstrap.loadConfiguration()
+
+        val appDeps = ApplicationDependencies(integrations, configuration)
+        appDeps.runner.run()
+
+        return if (appDeps.errorMessageHolder.errorMessage == null) 0 else 1
     }
 }

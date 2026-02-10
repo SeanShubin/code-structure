@@ -1,7 +1,7 @@
 package com.seanshubin.code.structure.console
 
 import com.seanshubin.code.structure.composition.ApplicationDependencies
-import com.seanshubin.code.structure.composition.Bootstrap
+import com.seanshubin.code.structure.composition.BootstrapDependencies
 import com.seanshubin.code.structure.composition.Integrations
 import com.seanshubin.code.structure.contract.delegate.FilesDelegate
 import com.seanshubin.code.structure.exec.ExecImpl
@@ -26,18 +26,20 @@ class RegressionTest {
             override val files = FilesDelegate
             override val exec = ExecImpl()
         }
-        val bootstrap = Bootstrap(regressionIntegrations, paths.configName)
-        val configuration = bootstrap.configuration
-        val applicationDependencies = ApplicationDependencies(regressionIntegrations, configuration)
+
+        val bootstrapDeps = BootstrapDependencies(regressionIntegrations)
+        val configuration = bootstrapDeps.bootstrap.loadConfiguration(paths.configName)
+
+        val appDeps = ApplicationDependencies(regressionIntegrations, configuration)
 
         // when
-        applicationDependencies.runner.run()
+        appDeps.runner.run()
 
         // then
         seedExpectationIfNecessary(paths.expectedDir, paths.actualDir)
         val validationSummary = validateDirectoriesEqual(paths.expectedDir, paths.actualDir)
         assertEquals(0, validationSummary.regressionCount(), validationSummary.regressionString())
-        assertEquals(null, applicationDependencies.errorMessageHolder.errorMessage)
+        assertEquals(null, appDeps.errorMessageHolder.errorMessage)
     }
 
     @Test
@@ -53,18 +55,20 @@ class RegressionTest {
             override val files = FilesDelegate
             override val exec = ExecImpl()
         }
-        val bootstrap = Bootstrap(regressionIntegrations, paths.configName)
-        val configuration = bootstrap.configuration
-        val applicationDependencies = ApplicationDependencies(regressionIntegrations, configuration)
+
+        val bootstrapDeps = BootstrapDependencies(regressionIntegrations)
+        val configuration = bootstrapDeps.bootstrap.loadConfiguration(paths.configName)
+
+        val appDeps = ApplicationDependencies(regressionIntegrations, configuration)
 
         // when
-        applicationDependencies.runner.run()
+        appDeps.runner.run()
 
         // then
         seedExpectationIfNecessary(paths.expectedDir, paths.actualDir)
         val validationSummary = validateDirectoriesEqual(paths.expectedDir, paths.actualDir)
         assertEquals(0, validationSummary.regressionCount(), validationSummary.regressionString())
-        assertEquals(null, applicationDependencies.errorMessageHolder.errorMessage)
+        assertEquals(null, appDeps.errorMessageHolder.errorMessage)
     }
 
     @Test
@@ -80,18 +84,20 @@ class RegressionTest {
             override val files = FilesDelegate
             override val exec = ExecImpl()
         }
-        val bootstrap = Bootstrap(regressionIntegrations, paths.configName)
-        val configuration = bootstrap.configuration
-        val applicationDependencies = ApplicationDependencies(regressionIntegrations, configuration)
+
+        val bootstrapDeps = BootstrapDependencies(regressionIntegrations)
+        val configuration = bootstrapDeps.bootstrap.loadConfiguration(paths.configName)
+
+        val appDeps = ApplicationDependencies(regressionIntegrations, configuration)
 
         // when
-        applicationDependencies.runner.run()
+        appDeps.runner.run()
 
         // then
         seedExpectationIfNecessary(paths.expectedDir, paths.actualDir)
         val validationSummary = validateDirectoriesEqual(paths.expectedDir, paths.actualDir)
         assertEquals(0, validationSummary.regressionCount(), validationSummary.regressionString())
-        assertEquals(null, applicationDependencies.errorMessageHolder.errorMessage)
+        assertEquals(null, appDeps.errorMessageHolder.errorMessage)
     }
 
     class TestPaths(private val name: String) {
