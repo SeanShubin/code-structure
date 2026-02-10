@@ -121,22 +121,22 @@
       "to be included, a file must match at least one include pattern, without matching any exclude patterns"
     ]
   },
-  "_documentation": {
-    "description": [
+  "_documentation" : {
+    "description" : [
       "path: _documentation.description",
       "default value: Analyzes dependency structure of source code",
       "default value type: String",
       "Brief description of what this tool does",
       "Helps AI assistants and developers understand the purpose of the application"
     ],
-    "readme": [
+    "readme" : [
       "path: _documentation.readme",
       "default value: https://github.com/SeanShubin/code-structure/blob/master/README.md",
       "default value type: String",
       "Link to the README file for detailed documentation",
       "Should be a URL to the project's README on GitHub or similar"
     ],
-    "configHelp": [
+    "configHelp" : [
       "path: _documentation.configHelp",
       "default value: code-structure-documentation.json",
       "default value type: String",
