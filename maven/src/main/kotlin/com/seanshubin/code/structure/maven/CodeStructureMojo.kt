@@ -1,6 +1,7 @@
 package com.seanshubin.code.structure.maven
 
-import com.seanshubin.code.structure.composition.ConfigDependencies
+import com.seanshubin.code.structure.composition.ApplicationDependencies
+import com.seanshubin.code.structure.composition.Bootstrap
 import com.seanshubin.code.structure.composition.Integrations
 import com.seanshubin.code.structure.composition.ProductionIntegrations
 import org.apache.maven.plugin.AbstractMojo
@@ -15,12 +16,15 @@ class CodeStructureMojo : AbstractMojo() {
     var configBaseName: String? = null
     override fun execute() {
         val nonNullConfigBaseName = configBaseName ?: "code-structure"
-        val integrations = object : Integrations by ProductionIntegrations {
+        val productionIntegrations = ProductionIntegrations(emptyArray())
+        val integrations = object : Integrations by productionIntegrations {
             override val emitLine: (String) -> Unit = log::info
         }
-        val configDependencies = ConfigDependencies(nonNullConfigBaseName, integrations)
-        configDependencies.runner.run()
-        val errorMessage = configDependencies.errorMessageHolder.errorMessage
+        val bootstrap = Bootstrap(integrations, nonNullConfigBaseName)
+        val configuration = bootstrap.configuration
+        val applicationDependencies = ApplicationDependencies(integrations, configuration)
+        applicationDependencies.runner.run()
+        val errorMessage = applicationDependencies.errorMessageHolder.errorMessage
         if (errorMessage != null) {
             throw MojoFailureException(errorMessage)
         }

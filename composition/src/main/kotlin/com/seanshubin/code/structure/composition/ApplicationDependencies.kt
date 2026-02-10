@@ -40,7 +40,7 @@ import java.nio.file.Path
 import java.time.Clock
 import java.time.Duration
 
-class Dependencies(
+class ApplicationDependencies(
     integrations: Integrations,
     config: Configuration
 ) {
