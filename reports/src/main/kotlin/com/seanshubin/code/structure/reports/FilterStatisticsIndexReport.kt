@@ -5,7 +5,7 @@ import com.seanshubin.code.structure.commands.CreateFileCommand
 import com.seanshubin.code.structure.filefinder.FilterStats
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElement.Text
-import com.seanshubin.code.structure.html.HtmlElementUtil
+import com.seanshubin.code.structure.html.HtmlUtil
 import com.seanshubin.code.structure.model.Validated
 import java.nio.file.Path
 
@@ -42,7 +42,7 @@ class FilterStatisticsIndexReport(
 
         val captions = listOf("Category", "Total Files", "Matched", "Unmatched", "Details")
 
-        return HtmlElementUtil.createTableWithElements(
+        return HtmlUtil.createTableWithElements(
             list = tableData,
             captions = captions,
             elementToRow = { row ->
@@ -51,7 +51,7 @@ class FilterStatisticsIndexReport(
                     Text(row.totalFiles.toString()),
                     Text(row.matchedCount.toString()),
                     Text(row.unmatchedCount.toString()),
-                    HtmlElementUtil.anchor("View Details", "filter-statistics-${row.category}.html")
+                    HtmlUtil.anchor("View Details", "filter-statistics-${row.category}.html")
                 )
             },
             caption = "Filter Statistics by Category"

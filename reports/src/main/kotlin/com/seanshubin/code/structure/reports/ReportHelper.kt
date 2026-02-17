@@ -7,7 +7,7 @@ import com.seanshubin.code.structure.commands.SubstituteFromFileCommand
 import com.seanshubin.code.structure.dot.DotFormat
 import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
-import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
+import com.seanshubin.code.structure.html.HtmlUtil.anchor
 import com.seanshubin.code.structure.model.CodeUnit
 import java.nio.file.Path
 

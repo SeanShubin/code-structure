@@ -2,9 +2,8 @@ package com.seanshubin.code.structure.reports
 
 import com.seanshubin.code.structure.commands.Command
 import com.seanshubin.code.structure.commands.CreateFileCommand
-import com.seanshubin.code.structure.html.BigListClassName
 import com.seanshubin.code.structure.html.HtmlElement
-import com.seanshubin.code.structure.html.HtmlElementUtil.bigList
+import com.seanshubin.code.structure.reports.ReportHtmlUtil.bigList
 import com.seanshubin.code.structure.model.Lineage
 import com.seanshubin.code.structure.model.Validated
 import java.nio.file.Path

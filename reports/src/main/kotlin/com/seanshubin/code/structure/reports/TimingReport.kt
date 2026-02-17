@@ -7,7 +7,7 @@ import com.seanshubin.code.structure.events.Timer
 import com.seanshubin.code.structure.events.TimingEvent
 import com.seanshubin.code.structure.events.TimingSummary
 import com.seanshubin.code.structure.html.HtmlElement
-import com.seanshubin.code.structure.html.HtmlElementUtil
+import com.seanshubin.code.structure.html.HtmlUtil
 import com.seanshubin.code.structure.model.Validated
 import java.nio.file.Path
 import java.time.Duration
@@ -28,9 +28,9 @@ class TimingReport(private val timer: Timer) : Report {
     private fun createContent(): List<HtmlElement> {
         val events = timer.events()
         val summaries = timer.summaries().sortedByDescending { it.total }
-        val eventTable = HtmlElementUtil.createTableWithText(events, timingEventCaptions, ::timingEventToRow, "event")
+        val eventTable = HtmlUtil.createTableWithText(events, timingEventCaptions, ::timingEventToRow, "event")
         val summaryTable =
-            HtmlElementUtil.createTableWithText(summaries, timingSummaryCaptions, ::timingSummaryToRow, caption = null)
+            HtmlUtil.createTableWithText(summaries, timingSummaryCaptions, ::timingSummaryToRow, caption = null)
         return summaryTable + eventTable
     }
 

@@ -2,10 +2,9 @@ package com.seanshubin.code.structure.reports
 
 import com.seanshubin.code.structure.commands.Command
 import com.seanshubin.code.structure.commands.CreateFileCommand
-import com.seanshubin.code.structure.html.BigListClassName
 import com.seanshubin.code.structure.html.HtmlElement
-import com.seanshubin.code.structure.html.HtmlElementUtil
-import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
+import com.seanshubin.code.structure.html.HtmlUtil.anchor
+import com.seanshubin.code.structure.reports.ReportHtmlUtil.bigList
 import com.seanshubin.code.structure.model.CodeUnit.Companion.toCodeUnit
 import com.seanshubin.code.structure.model.ScopedAnalysis
 import com.seanshubin.code.structure.model.Validated
@@ -27,7 +26,7 @@ class EntryPointsReport : Report {
     private fun createContent(analysis: ScopedAnalysis): List<HtmlElement> {
         val entryPoints = analysis.entryPoints
         val listElements =
-            HtmlElementUtil.bigList(entryPoints, ::nameToElement, BigListClassName.COLUMN_1, "entry point")
+            bigList(entryPoints, ::nameToElement, BigListClassName.COLUMN_1, "entry point")
         return listElements
     }
 

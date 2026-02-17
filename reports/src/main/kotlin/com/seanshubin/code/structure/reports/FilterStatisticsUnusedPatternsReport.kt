@@ -3,7 +3,7 @@ package com.seanshubin.code.structure.reports
 import com.seanshubin.code.structure.commands.Command
 import com.seanshubin.code.structure.commands.CreateFileCommand
 import com.seanshubin.code.structure.filefinder.FilterStats
-import com.seanshubin.code.structure.html.HtmlElementUtil
+import com.seanshubin.code.structure.html.HtmlUtil
 import com.seanshubin.code.structure.model.Validated
 import java.nio.file.Path
 
@@ -26,7 +26,7 @@ class FilterStatisticsUnusedPatternsReport(
 
         val captions = listOf("Type", "Pattern")
 
-        val htmlInsideBody = HtmlElementUtil.createTableWithText(
+        val htmlInsideBody = HtmlUtil.createTableWithText(
             list = tableRows,
             captions = captions,
             elementToRow = { row ->

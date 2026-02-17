@@ -1,4 +1,4 @@
-package com.seanshubin.code.structure.html
+package com.seanshubin.code.structure.reports
 
 enum class BigListClassName(
     val htmlClassName: String

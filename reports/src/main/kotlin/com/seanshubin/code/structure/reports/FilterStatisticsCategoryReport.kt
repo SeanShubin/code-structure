@@ -6,7 +6,7 @@ import com.seanshubin.code.structure.filefinder.FilterStats
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElement.Tag
 import com.seanshubin.code.structure.html.HtmlElement.Text
-import com.seanshubin.code.structure.html.HtmlElementUtil
+import com.seanshubin.code.structure.html.HtmlUtil
 import com.seanshubin.code.structure.model.Validated
 import java.nio.file.Path
 
@@ -60,7 +60,7 @@ class FilterStatisticsCategoryReport(
             val titleWithCount = if (count == 0) sectionTitle else "$sectionTitle ($count)"
             Tag(
                 "div", listOf(
-                    HtmlElementUtil.anchor(titleWithCount, "filter-statistics-$categoryName-$sectionId.html")
+                    HtmlUtil.anchor(titleWithCount, "filter-statistics-$categoryName-$sectionId.html")
                 )
             )
         }

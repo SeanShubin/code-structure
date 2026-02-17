@@ -4,7 +4,7 @@ import com.seanshubin.code.structure.commands.CreateFileCommand
 import com.seanshubin.code.structure.html.HtmlElement
 import com.seanshubin.code.structure.html.HtmlElement.Tag
 import com.seanshubin.code.structure.html.HtmlElement.Text
-import com.seanshubin.code.structure.html.HtmlElementUtil.anchor
+import com.seanshubin.code.structure.html.HtmlUtil.anchor
 import com.seanshubin.code.structure.model.Observations
 import com.seanshubin.code.structure.model.Validated
 import com.seanshubin.code.structure.nameparser.NameDetail

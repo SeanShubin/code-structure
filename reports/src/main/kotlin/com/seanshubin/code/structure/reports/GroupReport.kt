@@ -3,7 +3,7 @@ package com.seanshubin.code.structure.reports
 import com.seanshubin.code.structure.commands.Command
 import com.seanshubin.code.structure.dot.DotNode
 import com.seanshubin.code.structure.html.HtmlElement
-import com.seanshubin.code.structure.html.HtmlElementUtil
+import com.seanshubin.code.structure.html.HtmlUtil
 import com.seanshubin.code.structure.model.Analysis
 import com.seanshubin.code.structure.model.CodeUnit
 import com.seanshubin.code.structure.model.ScopedAnalysis
@@ -72,7 +72,7 @@ class GroupReport(
             reasonStrings
         }
         val elementToRow: (Pair<String, String>) -> List<String> = { it.toList() }
-        return HtmlElementUtil.createTableWithText(list, captions, elementToRow, caption)
+        return HtmlUtil.createTableWithText(list, captions, elementToRow, caption)
     }
 
     private fun composeParents(groupPath: List<String>): List<Page> {
