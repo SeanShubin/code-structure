@@ -2,7 +2,7 @@ package com.seanshubin.code.structure.reports
 
 import com.seanshubin.code.structure.commands.Command
 import com.seanshubin.code.structure.commands.CreateFileCommand
-import com.seanshubin.code.structure.durationformat.DurationFormat
+import com.seanshubin.code.structure.duration.format.DurationFormat
 import com.seanshubin.code.structure.events.Timer
 import com.seanshubin.code.structure.events.TimingEvent
 import com.seanshubin.code.structure.events.TimingSummary

@@ -1,4 +1,12 @@
-package com.seanshubin.code.structure.durationformat
+package com.seanshubin.code.structure.duration.format
+
+//
+// This file was imported from: ../kotlin-reusable
+// Module: duration-format
+//
+// Before editing this file, consider whether updating the source project
+// and re-importing would be a better approach.
+//
 
 class DurationFormat(private val scales: List<Scale>, val padded: Boolean) {
     fun parse(s: String): Long {
@@ -103,6 +111,16 @@ class DurationFormat(private val scales: List<Scale>, val padded: Boolean) {
             hourScale,
             dayScale
         )
+        val byteScale = Scale(1024, "byte", "bytes", 4)
+        val kilobyteScale = Scale(1024, "kilobyte", "kilobytes", 4)
+        val megabyteScale = Scale(1024, "megabyte", "megabytes", 4)
+        val gigabyteScale = Scale(1024, "gigabyte", "gigabytes", 4)
+        private val byteScales = listOf(
+            byteScale,
+            kilobyteScale,
+            megabyteScale,
+            gigabyteScale
+        )
         private val millisecondScales = listOf(millisecondScale) + secondScales
         private val nanosecondScales =
             listOf(nanosecondScale, microsecondScale) + millisecondScales
@@ -132,5 +150,6 @@ class DurationFormat(private val scales: List<Scale>, val padded: Boolean) {
         val millisecondsPadded = DurationFormat(millisecondScales, padded = true)
         val nanoseconds = DurationFormat(nanosecondScales, padded = false)
         val nanosecondsPadded = DurationFormat(nanosecondScales, padded = true)
+        val bytes = DurationFormat(byteScales, padded=false)
     }
 }

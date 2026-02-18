@@ -1,8 +1,16 @@
-package com.seanshubin.code.structure.durationformat
+package com.seanshubin.code.structure.duration.format
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.fail
+
+//
+// This file was imported from: ../kotlin-reusable
+// Module: duration-format
+//
+// Before editing this file, consider whether updating the source project
+// and re-importing would be a better approach.
+//
 
 class DurationFormatTest {
     @Test

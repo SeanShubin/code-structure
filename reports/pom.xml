@@ -40,7 +40,7 @@
         </dependency>
         <dependency>
             <groupId>com.seanshubin.code.structure</groupId>
-            <artifactId>code-structure-durationformat</artifactId>
+            <artifactId>code-structure-duration-format</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

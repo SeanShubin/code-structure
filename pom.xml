@@ -97,7 +97,7 @@
         <module>collection</module>
         <module>dot</module>
         <module>log</module>
-        <module>durationformat</module>
+        <module>duration-format</module>
         <module>tree</module>
         <module>cycle</module>
         <module>exec</module>

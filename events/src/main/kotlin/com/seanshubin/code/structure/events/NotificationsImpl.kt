@@ -1,6 +1,6 @@
 package com.seanshubin.code.structure.events
 
-import com.seanshubin.code.structure.durationformat.DurationFormat
+import com.seanshubin.code.structure.duration.format.DurationFormat
 import com.seanshubin.code.structure.model.ErrorType
 import com.seanshubin.code.structure.model.Summary
 import java.nio.file.Path

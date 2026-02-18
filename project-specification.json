@@ -83,7 +83,7 @@
       "tree"
     ],
     "events": [
-      "durationformat",
+      "duration-format",
       "model"
     ],
     "runtime": [
@@ -104,7 +104,7 @@
       "commands",
       "events",
       "json",
-      "durationformat",
+      "duration-format",
       "filefinder"
     ],
     "pipeline": [
@@ -180,12 +180,12 @@
     "collection": [],
     "dot": [],
     "log": [],
-    "durationformat": [],
+    "duration-format": [],
     "tree": [],
     "cycle": [],
     "exec": [],
     "stress": [
-      "durationformat"
+      "duration-format"
     ],
     "gradle-plugin": []
   },
@@ -198,7 +198,8 @@
     {
       "sourceProjectPath": "../kotlin-reusable",
       "moduleMapping": {
-        "html": "html"
+        "html": "html",
+        "duration-format": "duration-format"
       }
     }
   ],
