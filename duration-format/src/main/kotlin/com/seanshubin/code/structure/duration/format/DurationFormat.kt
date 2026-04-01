@@ -150,6 +150,6 @@ class DurationFormat(private val scales: List<Scale>, val padded: Boolean) {
         val millisecondsPadded = DurationFormat(millisecondScales, padded = true)
         val nanoseconds = DurationFormat(nanosecondScales, padded = false)
         val nanosecondsPadded = DurationFormat(nanosecondScales, padded = true)
-        val bytes = DurationFormat(byteScales, padded=false)
+        val bytes = DurationFormat(byteScales, padded = false)
     }
 }
