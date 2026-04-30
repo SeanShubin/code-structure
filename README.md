@@ -78,7 +78,7 @@ Apache Maven 3.9.9 (8e8579a9e76f7d015ee5ec7bfcdc97d260186937)
 
 ```bash
 dot --version
-dot - graphviz version 12.2.1 (20241206.2353)
+dot - graphviz version 14.1.5 (20260411.2331)
 ```
 
 ## Installation
