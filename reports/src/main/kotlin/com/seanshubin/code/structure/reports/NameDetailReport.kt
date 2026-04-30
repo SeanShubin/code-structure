@@ -6,6 +6,7 @@ import com.seanshubin.code.structure.html.HtmlElement.Tag
 import com.seanshubin.code.structure.html.HtmlElement.Text
 import com.seanshubin.code.structure.html.HtmlUtil.anchor
 import com.seanshubin.code.structure.model.Observations
+import com.seanshubin.code.structure.model.SourceLink
 import com.seanshubin.code.structure.model.Validated
 import com.seanshubin.code.structure.nameparser.NameDetail
 import java.nio.file.Path
@@ -63,9 +64,8 @@ abstract class NameDetailReport : Report {
     }
 
     private fun tdLink(sourcePrefix: String, path: Path): HtmlElement {
-        val sourceName = path.toString().replace('\\', '/')
-        val sourceLink = sourcePrefix + sourceName
-        val anchor = anchor(sourceName, sourceLink)
+        val sourceLink = SourceLink.of(sourcePrefix, path)
+        val anchor = anchor(sourceLink.displayName, sourceLink.href)
         val td = Tag("td", anchor)
         return td
     }

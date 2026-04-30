@@ -12,7 +12,7 @@ data class CodeUnit(val parts: List<String>) {
         val qualifiedName = toName()
         val sources = sourceByName.getValue(qualifiedName)
         return when (sources.size) {
-            1 -> sourcePrefix + sources[0].toString().replace('\\', '/')
+            1 -> SourceLink.of(sourcePrefix, sources[0]).href
             0 -> throw RuntimeException("No source found for $qualifiedName")
             else -> null
         }
