@@ -2,6 +2,7 @@ package com.seanshubin.code.structure.typescriptsyntax
 
 import com.seanshubin.code.structure.contract.test.FilesContractUnsupportedOperation
 import com.seanshubin.code.structure.relationparser.RelationDetail
+import com.seanshubin.code.structure.relationparser.SourceLocation
 import org.junit.Test
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
@@ -21,8 +22,7 @@ class TypeScriptRelationParserImplTest {
         val actual = tester.typeScriptRelationParser.parseDependencies(path, names)
         val expected = listOf(
             RelationDetail(
-                path,
-                "",
+                SourceLocation.StandaloneFile(path),
                 "App",
                 listOf("components.a.MyComponent")
             )
@@ -41,8 +41,7 @@ class TypeScriptRelationParserImplTest {
         val actual = tester.typeScriptRelationParser.parseDependencies(path, names)
         val expected = listOf(
             RelationDetail(
-                path,
-                "",
+                SourceLocation.StandaloneFile(path),
                 "components.a.FirstComponent",
                 listOf("components.b.SecondComponent")
             )

@@ -2,6 +2,7 @@ package com.seanshubin.code.structure.typescriptsyntax
 
 import com.seanshubin.code.structure.contract.delegate.FilesContract
 import com.seanshubin.code.structure.relationparser.RelationDetail
+import com.seanshubin.code.structure.relationparser.SourceLocation
 import com.seanshubin.code.structure.typescriptsyntax.TypeScriptRules.toModuleName
 import java.nio.charset.Charset
 import java.nio.file.Path
@@ -16,9 +17,8 @@ class TypeScriptRelationParserImpl(
         val dependencies = allDependencies.filter { dependency ->
             names.contains(dependency)
         }
-        val pathInFile = ""
         val name = path.toModuleName()
-        return listOf(RelationDetail(path, pathInFile, name, dependencies))
+        return listOf(RelationDetail(SourceLocation.StandaloneFile(path), name, dependencies))
     }
 
     private fun getText(path: Path): String {

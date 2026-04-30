@@ -1,17 +1,15 @@
 package com.seanshubin.code.structure.relationparser
 
-import java.nio.file.Path
-
 data class RelationDetail(
-    val file: Path,
-    val pathInFile: String,
+    val source: SourceLocation,
     val name: String,
     val dependencyNames: List<String>
 ) : Comparable<RelationDetail> {
-    val location: String = if (pathInFile == "") {
-        file.toString().replace('\\', '/')
-    } else {
-        "${file.toString().replace('\\', '/')}!$pathInFile"
+    val location: String = when (source) {
+        is SourceLocation.StandaloneFile ->
+            source.file.toString().replace('\\', '/')
+        is SourceLocation.ZipEntry ->
+            "${source.zipFile.toString().replace('\\', '/')}!${source.entryPath}"
     }
 
     override fun compareTo(other: RelationDetail): Int =

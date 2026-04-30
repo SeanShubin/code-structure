@@ -1,6 +1,7 @@
 package com.seanshubin.code.structure.jvmformat
 
 import com.seanshubin.code.structure.relationparser.RelationDetail
+import com.seanshubin.code.structure.relationparser.SourceLocation
 import java.nio.file.Path
 
 class ClassParserImpl(
@@ -39,7 +40,12 @@ class ClassParserImpl(
         }.filterNot {
             it == name
         }
-        return RelationDetail(file, pathInFile, name, filteredDependencyNames)
+        val source = if (pathInFile.isEmpty()) {
+            SourceLocation.StandaloneFile(file)
+        } else {
+            SourceLocation.ZipEntry(file, pathInFile)
+        }
+        return RelationDetail(source, name, filteredDependencyNames)
     }
 
     private fun String.formatClassName(): String {

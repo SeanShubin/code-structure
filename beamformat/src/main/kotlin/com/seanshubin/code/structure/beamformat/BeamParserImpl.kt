@@ -2,6 +2,7 @@ package com.seanshubin.code.structure.beamformat
 
 import com.seanshubin.code.structure.contract.delegate.FilesContract
 import com.seanshubin.code.structure.relationparser.RelationDetail
+import com.seanshubin.code.structure.relationparser.SourceLocation
 import java.io.ByteArrayInputStream
 import java.io.InputStream
 import java.nio.file.Path
@@ -67,8 +68,7 @@ class BeamParserImpl(
         val dependencyNames = imports.map {
             atoms[it.moduleIndex - 1]
         }.distinct().filterNot { it == name }
-        val pathInFile = ""
-        return RelationDetail(path, pathInFile, name, dependencyNames)
+        return RelationDetail(SourceLocation.StandaloneFile(path), name, dependencyNames)
     }
 
     companion object {
