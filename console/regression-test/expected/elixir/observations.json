@@ -133,129 +133,129 @@
   ],
   "binaries" : [
     {
-      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.ModuleE.beam",
-      "pathInFile" : "",
+      "source" : {
+        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.ModuleE.beam"
+      },
       "name" : "ModuleE",
-      "dependencyNames" : [ ],
-      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.ModuleE.beam"
+      "dependencyNames" : [ ]
     },
     {
-      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.ModuleP.beam",
-      "pathInFile" : "",
+      "source" : {
+        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.ModuleP.beam"
+      },
       "name" : "ModuleP",
       "dependencyNames" : [
         "PathP.ModuleQ"
-      ],
-      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.ModuleP.beam"
+      ]
     },
     {
-      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathA.ModuleB.beam",
-      "pathInFile" : "",
+      "source" : {
+        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathA.ModuleB.beam"
+      },
       "name" : "PathA.ModuleB",
       "dependencyNames" : [
         "PathC.ModuleD"
-      ],
-      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathA.ModuleB.beam"
+      ]
     },
     {
-      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathC.ModuleD.beam",
-      "pathInFile" : "",
+      "source" : {
+        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathC.ModuleD.beam"
+      },
       "name" : "PathC.ModuleD",
       "dependencyNames" : [
         "PathE.PathF.ModuleL"
-      ],
-      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathC.ModuleD.beam"
+      ]
     },
     {
-      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleK.beam",
-      "pathInFile" : "",
+      "source" : {
+        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleK.beam"
+      },
       "name" : "PathE.PathF.ModuleK",
       "dependencyNames" : [
         "PathE.PathF.ModuleL"
-      ],
-      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleK.beam"
+      ]
     },
     {
-      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleL.beam",
-      "pathInFile" : "",
+      "source" : {
+        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleL.beam"
+      },
       "name" : "PathE.PathF.ModuleL",
       "dependencyNames" : [
         "PathE.PathF.ModuleM"
-      ],
-      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleL.beam"
+      ]
     },
     {
-      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleM.beam",
-      "pathInFile" : "",
+      "source" : {
+        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleM.beam"
+      },
       "name" : "PathE.PathF.ModuleM",
       "dependencyNames" : [
         "PathE.PathF.ModuleN",
         "ModuleE"
-      ],
-      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleM.beam"
+      ]
     },
     {
-      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleN.beam",
-      "pathInFile" : "",
+      "source" : {
+        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleN.beam"
+      },
       "name" : "PathE.PathF.ModuleN",
       "dependencyNames" : [
         "PathE.PathF.ModuleL",
         "PathE.PathF.ModuleO",
         "PathG.ModuleH"
-      ],
-      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleN.beam"
+      ]
     },
     {
-      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleO.beam",
-      "pathInFile" : "",
+      "source" : {
+        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleO.beam"
+      },
       "name" : "PathE.PathF.ModuleO",
-      "dependencyNames" : [ ],
-      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleO.beam"
+      "dependencyNames" : [ ]
     },
     {
-      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathG.ModuleH.beam",
-      "pathInFile" : "",
+      "source" : {
+        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathG.ModuleH.beam"
+      },
       "name" : "PathG.ModuleH",
       "dependencyNames" : [
         "PathC.ModuleD",
         "PathI.ModuleJ"
-      ],
-      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathG.ModuleH.beam"
+      ]
     },
     {
-      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathI.ModuleJ.beam",
-      "pathInFile" : "",
+      "source" : {
+        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathI.ModuleJ.beam"
+      },
       "name" : "PathI.ModuleJ",
       "dependencyNames" : [
         "PathP.ModuleQ"
-      ],
-      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathI.ModuleJ.beam"
+      ]
     },
     {
-      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathP.ModuleQ.beam",
-      "pathInFile" : "",
+      "source" : {
+        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathP.ModuleQ.beam"
+      },
       "name" : "PathP.ModuleQ",
       "dependencyNames" : [
         "PathR.ModuleS"
-      ],
-      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathP.ModuleQ.beam"
+      ]
     },
     {
-      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathR.ModuleS.beam",
-      "pathInFile" : "",
+      "source" : {
+        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathR.ModuleS.beam"
+      },
       "name" : "PathR.ModuleS",
       "dependencyNames" : [
         "PathI.ModuleJ",
         "PathT.ModuleU"
-      ],
-      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathR.ModuleS.beam"
+      ]
     },
     {
-      "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathT.ModuleU.beam",
-      "pathInFile" : "",
+      "source" : {
+        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathT.ModuleU.beam"
+      },
       "name" : "PathT.ModuleU",
-      "dependencyNames" : [ ],
-      "location" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathT.ModuleU.beam"
+      "dependencyNames" : [ ]
     }
   ],
   "missingBinaries" : [ ]

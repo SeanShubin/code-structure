@@ -133,129 +133,143 @@
   ],
   "binaries" : [
     {
-      "file" : "console/target/code-structure-sample-kotlin-console.jar",
-      "pathInFile" : "com/seanshubin/code/structure/sample/kotlin/domain/ClassE.class",
+      "source" : {
+        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/ClassE.class"
+      },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.ClassE",
-      "dependencyNames" : [ ],
-      "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/ClassE.class"
+      "dependencyNames" : [ ]
     },
     {
-      "file" : "console/target/code-structure-sample-kotlin-console.jar",
-      "pathInFile" : "com/seanshubin/code/structure/sample/kotlin/domain/ClassP.class",
+      "source" : {
+        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/ClassP.class"
+      },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.ClassP",
       "dependencyNames" : [
         "com.seanshubin.code.structure.sample.kotlin.domain.packagep.ClassQ"
-      ],
-      "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/ClassP.class"
+      ]
     },
     {
-      "file" : "console/target/code-structure-sample-kotlin-console.jar",
-      "pathInFile" : "com/seanshubin/code/structure/sample/kotlin/domain/packagea/ClassB.class",
+      "source" : {
+        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagea/ClassB.class"
+      },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagea.ClassB",
       "dependencyNames" : [
         "com.seanshubin.code.structure.sample.kotlin.domain.packagec.ClassD"
-      ],
-      "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/packagea/ClassB.class"
+      ]
     },
     {
-      "file" : "console/target/code-structure-sample-kotlin-console.jar",
-      "pathInFile" : "com/seanshubin/code/structure/sample/kotlin/domain/packagec/ClassD.class",
+      "source" : {
+        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagec/ClassD.class"
+      },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagec.ClassD",
       "dependencyNames" : [
         "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassL"
-      ],
-      "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/packagec/ClassD.class"
+      ]
     },
     {
-      "file" : "console/target/code-structure-sample-kotlin-console.jar",
-      "pathInFile" : "com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassK.class",
+      "source" : {
+        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassK.class"
+      },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassK",
       "dependencyNames" : [
         "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassL"
-      ],
-      "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassK.class"
+      ]
     },
     {
-      "file" : "console/target/code-structure-sample-kotlin-console.jar",
-      "pathInFile" : "com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassL.class",
+      "source" : {
+        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassL.class"
+      },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassL",
       "dependencyNames" : [
         "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassM"
-      ],
-      "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassL.class"
+      ]
     },
     {
-      "file" : "console/target/code-structure-sample-kotlin-console.jar",
-      "pathInFile" : "com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassM.class",
+      "source" : {
+        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassM.class"
+      },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassM",
       "dependencyNames" : [
         "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassN",
         "com.seanshubin.code.structure.sample.kotlin.domain.ClassE"
-      ],
-      "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassM.class"
+      ]
     },
     {
-      "file" : "console/target/code-structure-sample-kotlin-console.jar",
-      "pathInFile" : "com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassN.class",
+      "source" : {
+        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassN.class"
+      },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassN",
       "dependencyNames" : [
         "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassL",
         "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassO",
         "com.seanshubin.code.structure.sample.kotlin.domain.packageg.ClassH"
-      ],
-      "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassN.class"
+      ]
     },
     {
-      "file" : "console/target/code-structure-sample-kotlin-console.jar",
-      "pathInFile" : "com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassO.class",
+      "source" : {
+        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassO.class"
+      },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassO",
-      "dependencyNames" : [ ],
-      "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassO.class"
+      "dependencyNames" : [ ]
     },
     {
-      "file" : "console/target/code-structure-sample-kotlin-console.jar",
-      "pathInFile" : "com/seanshubin/code/structure/sample/kotlin/domain/packageg/ClassH.class",
+      "source" : {
+        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packageg/ClassH.class"
+      },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packageg.ClassH",
       "dependencyNames" : [
         "com.seanshubin.code.structure.sample.kotlin.domain.packagec.ClassD",
         "com.seanshubin.code.structure.sample.kotlin.domain.packagei.ClassJ"
-      ],
-      "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/packageg/ClassH.class"
+      ]
     },
     {
-      "file" : "console/target/code-structure-sample-kotlin-console.jar",
-      "pathInFile" : "com/seanshubin/code/structure/sample/kotlin/domain/packagei/ClassJ.class",
+      "source" : {
+        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagei/ClassJ.class"
+      },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagei.ClassJ",
       "dependencyNames" : [
         "com.seanshubin.code.structure.sample.kotlin.domain.packagep.ClassQ"
-      ],
-      "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/packagei/ClassJ.class"
+      ]
     },
     {
-      "file" : "console/target/code-structure-sample-kotlin-console.jar",
-      "pathInFile" : "com/seanshubin/code/structure/sample/kotlin/domain/packagep/ClassQ.class",
+      "source" : {
+        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagep/ClassQ.class"
+      },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagep.ClassQ",
       "dependencyNames" : [
         "com.seanshubin.code.structure.sample.kotlin.domain.packager.ClassS"
-      ],
-      "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/packagep/ClassQ.class"
+      ]
     },
     {
-      "file" : "console/target/code-structure-sample-kotlin-console.jar",
-      "pathInFile" : "com/seanshubin/code/structure/sample/kotlin/domain/packager/ClassS.class",
+      "source" : {
+        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packager/ClassS.class"
+      },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packager.ClassS",
       "dependencyNames" : [
         "com.seanshubin.code.structure.sample.kotlin.domain.packagei.ClassJ",
         "com.seanshubin.code.structure.sample.kotlin.domain.packaget.ClassU"
-      ],
-      "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/packager/ClassS.class"
+      ]
     },
     {
-      "file" : "console/target/code-structure-sample-kotlin-console.jar",
-      "pathInFile" : "com/seanshubin/code/structure/sample/kotlin/domain/packaget/ClassU.class",
+      "source" : {
+        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packaget/ClassU.class"
+      },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packaget.ClassU",
-      "dependencyNames" : [ ],
-      "location" : "console/target/code-structure-sample-kotlin-console.jar!com/seanshubin/code/structure/sample/kotlin/domain/packaget/ClassU.class"
+      "dependencyNames" : [ ]
     }
   ],
   "missingBinaries" : [ ]
