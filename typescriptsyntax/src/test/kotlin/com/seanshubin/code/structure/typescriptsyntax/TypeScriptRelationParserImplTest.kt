@@ -61,7 +61,7 @@ class TypeScriptRelationParserImplTest {
 
     class FilesStub(val contentAtPath: Map<String, String>) : FilesContractUnsupportedOperation {
         override fun readString(path: Path, cs: Charset): String {
-            return contentAtPath.getValue(path.toString())
+            return contentAtPath.getValue(path.toString().replace('\\', '/'))
         }
     }
 }

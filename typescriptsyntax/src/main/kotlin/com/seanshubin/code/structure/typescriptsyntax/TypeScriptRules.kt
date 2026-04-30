@@ -4,13 +4,15 @@ import java.nio.file.Path
 
 object TypeScriptRules {
     fun Path.toModuleName(): String =
-        normalize().toString().toModuleName()
+        normalize().toString().normalizeSeparators().toModuleName()
 
     fun String.toModuleName(path: Path): String =
         path.parent.resolve(this).toModuleName()
 
     private fun String.toModuleName(): String =
         removeSrcPrefix().removeSuffix().replaceSlashesWithDots()
+
+    private fun String.normalizeSeparators(): String = replace('\\', '/')
 
     private val srcPrefix = "src/"
     private fun String.removeSrcPrefix(): String = removeExistingPrefix(srcPrefix)

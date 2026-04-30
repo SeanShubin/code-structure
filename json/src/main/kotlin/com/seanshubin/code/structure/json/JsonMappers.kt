@@ -24,7 +24,7 @@ object JsonMappers {
     init {
         val pathSerializer = object : JsonSerializer<Path>() {
             override fun serialize(value: Path, gen: JsonGenerator, serializers: SerializerProvider) {
-                gen.writeString(value.toString())
+                gen.writeString(value.toString().replace('\\', '/'))
             }
         }
         val pathSerializerModule = SimpleModule().addSerializer(

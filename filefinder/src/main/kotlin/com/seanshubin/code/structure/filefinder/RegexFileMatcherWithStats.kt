@@ -19,16 +19,16 @@ class RegexFileMatcherWithStats(
 
     override fun invoke(path: Path): Boolean {
         val relativePath = relativeToDir.relativize(path)
-        val relativeString = relativePath.toString().removePrefix("./")
+        val relativeString = relativePath.toString().replace('\\', '/').removePrefix("./")
 
         val matchingIncludePattern = findMatchingPattern(relativeString, includeRegexList, includePatterns)
         val matchingExcludePattern = findMatchingPattern(relativeString, excludeRegexList, excludePatterns)
 
         if (matchingIncludePattern != null) {
-            stats.recordMatch(category, "include", matchingIncludePattern, path)
+            stats.recordMatch(category, "include", matchingIncludePattern, relativeString)
         }
         if (matchingExcludePattern != null) {
-            stats.recordMatch(category, "exclude", matchingExcludePattern, path)
+            stats.recordMatch(category, "exclude", matchingExcludePattern, relativeString)
         }
 
         val isIncluded = matchingIncludePattern != null
@@ -36,7 +36,7 @@ class RegexFileMatcherWithStats(
         val result = isIncluded && !isExcluded
 
         if (!isIncluded && !isExcluded) {
-            stats.recordUnmatch(category, path)
+            stats.recordUnmatch(category, relativeString)
         }
 
         return result

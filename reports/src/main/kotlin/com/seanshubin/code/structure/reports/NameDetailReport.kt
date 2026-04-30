@@ -63,7 +63,7 @@ abstract class NameDetailReport : Report {
     }
 
     private fun tdLink(sourcePrefix: String, path: Path): HtmlElement {
-        val sourceName = path.toString()
+        val sourceName = path.toString().replace('\\', '/')
         val sourceLink = sourcePrefix + sourceName
         val anchor = anchor(sourceName, sourceLink)
         val td = Tag("td", anchor)

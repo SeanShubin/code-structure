@@ -11,20 +11,20 @@ class RegexFileMatcher(
     private val includeRegexList = includeRegexPatterns.map(Pattern::compile)
     private val excludeRegexList = excludeRegexPatterns.map(Pattern::compile)
     override fun invoke(path: Path): Boolean {
-        val relativePath = relativeToDir.relativize(path)
+        val relativePath = relativeToDir.relativize(path).toString().replace('\\', '/')
         return isIncluded(relativePath) && !isExcluded(relativePath)
     }
 
-    private fun isIncluded(file: Path): Boolean {
+    private fun isIncluded(file: String): Boolean {
         val result = includeRegexList.any {
-            it.matcher(file.toString()).matches()
+            it.matcher(file).matches()
         }
         return result
     }
 
-    private fun isExcluded(file: Path): Boolean {
+    private fun isExcluded(file: String): Boolean {
         val result = excludeRegexList.any {
-            it.matcher(file.toString()).matches()
+            it.matcher(file).matches()
         }
         return result
     }

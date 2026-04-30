@@ -21,7 +21,7 @@ class FilterStatisticsByPatternReport(
         val patternToFiles = matchedEvents
             .groupBy { "${it.type}: ${it.pattern}" }
             .mapValues { (_, events) ->
-                events.map { it.file.toString() }.distinct().sorted()
+                events.map { it.file }.distinct().sorted()
             }
             .toSortedMap()
 

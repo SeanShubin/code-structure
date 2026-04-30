@@ -9,9 +9,9 @@ data class RelationDetail(
     val dependencyNames: List<String>
 ) : Comparable<RelationDetail> {
     val location: String = if (pathInFile == "") {
-        file.toString()
+        file.toString().replace('\\', '/')
     } else {
-        "$file!$pathInFile"
+        "${file.toString().replace('\\', '/')}!$pathInFile"
     }
 
     override fun compareTo(other: RelationDetail): Int =
