@@ -1,5 +1,6 @@
 package com.seanshubin.code.structure.filefinder
 
+import java.nio.file.Path
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentLinkedQueue
 
@@ -9,11 +10,11 @@ class FilterStatsImpl : FilterStats {
     private val registeredIncludePatterns = ConcurrentHashMap<String, List<String>>()
     private val registeredExcludePatterns = ConcurrentHashMap<String, List<String>>()
 
-    override fun recordMatch(category: String, type: String, pattern: String, file: String) {
+    override fun recordMatch(category: String, type: String, pattern: String, file: Path) {
         matchedEvents.add(MatchedFilterEvent(category, type, pattern, file))
     }
 
-    override fun recordUnmatch(category: String, file: String) {
+    override fun recordUnmatch(category: String, file: Path) {
         unmatchedEvents.add(UnmatchedFilterEvent(category, file))
     }
 

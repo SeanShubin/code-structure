@@ -25,10 +25,10 @@ class RegexFileMatcherWithStats(
         val matchingExcludePattern = findMatchingPattern(relativeString, excludeRegexList, excludePatterns)
 
         if (matchingIncludePattern != null) {
-            stats.recordMatch(category, "include", matchingIncludePattern, relativeString)
+            stats.recordMatch(category, "include", matchingIncludePattern, relativePath)
         }
         if (matchingExcludePattern != null) {
-            stats.recordMatch(category, "exclude", matchingExcludePattern, relativeString)
+            stats.recordMatch(category, "exclude", matchingExcludePattern, relativePath)
         }
 
         val isIncluded = matchingIncludePattern != null
@@ -36,7 +36,7 @@ class RegexFileMatcherWithStats(
         val result = isIncluded && !isExcluded
 
         if (!isIncluded && !isExcluded) {
-            stats.recordUnmatch(category, relativeString)
+            stats.recordUnmatch(category, relativePath)
         }
 
         return result

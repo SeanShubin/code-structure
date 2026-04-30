@@ -24,12 +24,12 @@ class FilterStatisticsMultiPatternFilesReport(
                 events.map { "${it.type}: ${it.pattern}" }.distinct().sorted()
             }
             .filter { (_, patterns) -> patterns.size > 1 }
-            .toSortedMap()
+            .toSortedMap(compareBy { it.toDisplayString() })
 
         val tableRows = fileToPatterns.flatMap { (file, patterns) ->
             patterns.mapIndexed { index, pattern ->
                 if (index == 0) {
-                    FilePatternRow(file, pattern)
+                    FilePatternRow(file.toDisplayString(), pattern)
                 } else {
                     FilePatternRow("", pattern)
                 }

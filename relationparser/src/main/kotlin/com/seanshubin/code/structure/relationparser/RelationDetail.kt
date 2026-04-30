@@ -5,13 +5,6 @@ data class RelationDetail(
     val name: String,
     val dependencyNames: List<String>
 ) : Comparable<RelationDetail> {
-    val location: String = when (source) {
-        is SourceLocation.StandaloneFile ->
-            source.file.toString().replace('\\', '/')
-        is SourceLocation.ZipEntry ->
-            "${source.zipFile.toString().replace('\\', '/')}!${source.entryPath}"
-    }
-
     override fun compareTo(other: RelationDetail): Int =
         this.name.compareTo(other.name)
 

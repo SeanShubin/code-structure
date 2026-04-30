@@ -1,22 +1,12 @@
 package com.seanshubin.code.structure.model
 
 import com.seanshubin.code.structure.collection.ListUtil.startsWith
-import java.nio.file.Path
 
 data class CodeUnit(val parts: List<String>) {
     fun parent(): CodeUnit = CodeUnit(parts.dropLast(1))
     fun resolve(part: String): CodeUnit = CodeUnit(parts + part)
     fun toName(): String = parts.joinToString(".")
     fun toUriName(prefix: String, suffix: String): String = id(prefix) + suffix
-    fun toSourceLink(sourcePrefix: String, sourceByName: Map<String, List<Path>>): String? {
-        val qualifiedName = toName()
-        val sources = sourceByName.getValue(qualifiedName)
-        return when (sources.size) {
-            1 -> SourceLink.of(sourcePrefix, sources[0]).href
-            0 -> throw RuntimeException("No source found for $qualifiedName")
-            else -> null
-        }
-    }
 
     fun caption(prefix: String): String = (listOf(prefix) + toNameAsList()).joinToString(" ")
     fun id(prefix: String): String = (listOf(prefix) + parts).joinToString("-")

@@ -66,7 +66,7 @@ class BinariesReport : Report {
     private fun binaryCellsWithoutDependencies(binary: RelationDetail): List<HtmlElement> {
         return listOf(
             binaryCell(binary.name),
-            binaryCell(binary.location),
+            binaryCell(binary.source.toDisplayString()),
         )
     }
 

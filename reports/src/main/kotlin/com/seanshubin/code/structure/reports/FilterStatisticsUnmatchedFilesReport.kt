@@ -19,7 +19,7 @@ class FilterStatisticsUnmatchedFilesReport(
         val unmatchedEvents = filterStats.getUnmatchedEvents(categoryName)
 
         val files = unmatchedEvents
-            .map { it.file }
+            .map { it.file.toDisplayString() }
             .distinct()
             .sorted()
 
