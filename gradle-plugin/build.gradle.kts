@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.seanshubin.code.structure:code-structure-console:1.1.2")
+    implementation("com.seanshubin.code.structure:code-structure-console:1.1.3")
 }
 
 gradlePlugin {
