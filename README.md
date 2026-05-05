@@ -91,16 +91,16 @@ mvn clean install -DskipTests
 
 This installs:
 
-- `com.seanshubin.code.structure:code-structure-console:1.1.1` - Standalone JAR
-- `com.seanshubin.code.structure:code-structure-maven:1.1.1` - Maven plugin
-- `com.seanshubin.code.structure:code-structure-gradle-plugin:1.1.1` - Gradle plugin
+- `com.seanshubin.code.structure:code-structure-console:1.1.3` - Standalone JAR
+- `com.seanshubin.code.structure:code-structure-maven:1.1.3` - Maven plugin
+- `com.seanshubin.code.structure:code-structure-gradle-plugin:1.1.3` - Gradle plugin
 
 ### Fetching from Maven Central
 
 ```bash
 mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get \
     -DrepoUrl=https://repo1.maven.org/maven2 \
-    -Dartifact=com.seanshubin.code.structure:code-structure-console:1.1.1
+    -Dartifact=com.seanshubin.code.structure:code-structure-console:1.1.3
 ```
 
 **Published artifacts:**
@@ -115,18 +115,18 @@ mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get \
 **Run the application:**
 
 ```bash
-java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.1.1/code-structure-console-1.1.1.jar
+java -jar $HOME/.m2/repository/com/seanshubin/code/structure/code-structure-console/1.1.3/code-structure-console-1.1.3.jar
 ```
 
 **Where it's published:**
 
-- Maven Central: `com.seanshubin.code.structure:code-structure-console:1.1.1`
+- Maven Central: `com.seanshubin.code.structure:code-structure-console:1.1.3`
 
 **Command line arguments:**
 
 - First argument (optional): prefix for config file, default is `code-structure`
 - This uses `code-structure-config.json` as the main configuration file
-- Example: `java -jar code-structure-console-1.1.1.jar my-config` uses `my-config-config.json`
+- Example: `java -jar code-structure-console-1.1.3.jar my-config` uses `my-config-config.json`
 
 **Getting started:**
 
@@ -149,7 +149,7 @@ Add to your `pom.xml`:
             <plugin>
                 <groupId>com.seanshubin.code.structure</groupId>
                 <artifactId>code-structure-maven</artifactId>
-                <version>1.1.1</version>
+                <version>1.1.3</version>
                 <inherited>false</inherited>
                 <executions>
                     <execution>
@@ -170,7 +170,7 @@ Add to your `pom.xml`:
 
 **Where it's published:**
 
-- Maven Central: `com.seanshubin.code.structure:code-structure-maven:1.1.1`
+- Maven Central: `com.seanshubin.code.structure:code-structure-maven:1.1.3`
 
 **Notes:**
 
@@ -185,7 +185,7 @@ Add to your `pom.xml`:
 
 ```kotlin
 plugins {
-    id("com.seanshubin.code.structure") version "1.1.1"
+    id("com.seanshubin.code.structure") version "1.1.3"
 }
 
 codeStructure {
@@ -202,7 +202,7 @@ codeStructure {
 **Where it's published:**
 
 - Gradle Plugin Portal: https://plugins.gradle.org/plugin/com.seanshubin.code.structure
-- Maven Central: `com.seanshubin.code.structure:code-structure-gradle-plugin:1.1.1`
+- Maven Central: `com.seanshubin.code.structure:code-structure-gradle-plugin:1.1.3`
 
 **Notes:**
 

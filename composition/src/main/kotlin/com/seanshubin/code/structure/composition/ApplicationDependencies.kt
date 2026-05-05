@@ -16,7 +16,12 @@ import com.seanshubin.code.structure.events.Notifications
 import com.seanshubin.code.structure.events.NotificationsImpl
 import com.seanshubin.code.structure.events.Timer
 import com.seanshubin.code.structure.exec.Exec
-import com.seanshubin.code.structure.filefinder.*
+import com.seanshubin.code.structure.filefinder.FilterStats
+import com.seanshubin.code.structure.filefinder.FilterStatsImpl
+import com.seanshubin.code.structure.fileselection.FileChooser
+import com.seanshubin.code.structure.fileselection.FileChooserImpl
+import com.seanshubin.code.structure.fileselection.FileSelection
+import com.seanshubin.code.structure.fileselection.FileSelectionNotify
 import com.seanshubin.code.structure.javasyntax.JavaParser
 import com.seanshubin.code.structure.javasyntax.JavaParserImpl
 import com.seanshubin.code.structure.jvmformat.*
@@ -58,24 +63,35 @@ class ApplicationDependencies(
     private val sourceFileIncludeRegexPatterns: List<String> = config.sourceFileIncludeRegexPatterns
     private val sourceFileExcludeRegexPatterns: List<String> = config.sourceFileExcludeRegexPatterns
     private val filterStats: FilterStats = FilterStatsImpl()
-    private val isSourceFile: (Path) -> Boolean = RegexFileMatcherWithStats(
-        inputDir,
-        sourceFileIncludeRegexPatterns,
-        sourceFileExcludeRegexPatterns,
-        filterStats,
-        "source-files"
-    )
+    private val sourceFileSelection = FileSelection(inputDir, sourceFileIncludeRegexPatterns, sourceFileExcludeRegexPatterns)
+    private val sourceNotify = object : FileSelectionNotify {
+        override fun onInclude(path: String, pattern: String) =
+            filterStats.recordMatch("source-files", "include", pattern, Path.of(path))
+        override fun onExclude(path: String, pattern: String) =
+            filterStats.recordMatch("source-files", "exclude", pattern, Path.of(path))
+        override fun onUnmatched(path: String) =
+            filterStats.recordUnmatch("source-files", Path.of(path))
+        override fun onSkipDirectory(path: String, pattern: String) = Unit
+    }
+    private val sourceFileChooser: FileChooser = FileChooserImpl(files, sourceNotify)
     private val nodeLimitForGraph: Int = config.nodeLimitForGraph
     private val binaryFileIncludeRegexPatterns: List<String> = config.binaryFileIncludeRegexPatterns
     private val binaryFileExcludeRegexPatterns: List<String> = config.binaryFileExcludeRegexPatterns
-    private val isBinaryFile: (Path) -> Boolean = RegexFileMatcherWithStats(
-        inputDir,
-        binaryFileIncludeRegexPatterns,
-        binaryFileExcludeRegexPatterns,
-        filterStats,
-        "binary-files"
-    )
-    private val fileFinder: FileFinder = FileFinderImpl(files)
+    private val binaryFileSelection = FileSelection(inputDir, binaryFileIncludeRegexPatterns, binaryFileExcludeRegexPatterns)
+    private val binaryNotify = object : FileSelectionNotify {
+        override fun onInclude(path: String, pattern: String) =
+            filterStats.recordMatch("binary-files", "include", pattern, Path.of(path))
+        override fun onExclude(path: String, pattern: String) =
+            filterStats.recordMatch("binary-files", "exclude", pattern, Path.of(path))
+        override fun onUnmatched(path: String) =
+            filterStats.recordUnmatch("binary-files", Path.of(path))
+        override fun onSkipDirectory(path: String, pattern: String) = Unit
+    }
+    private val binaryFileChooser: FileChooser = FileChooserImpl(files, binaryNotify)
+    init {
+        filterStats.registerPatterns("source-files", sourceFileIncludeRegexPatterns, sourceFileExcludeRegexPatterns)
+        filterStats.registerPatterns("binary-files", binaryFileIncludeRegexPatterns, binaryFileExcludeRegexPatterns)
+    }
     private val kotlinParser: KotlinParser = KotlinParserImpl(inputDir)
     private val elixirParser: ElixirParser = ElixirParserImpl(inputDir)
     private val scalaParser: ScalaParser = ScalaParserImpl(inputDir)
@@ -112,9 +128,10 @@ class ApplicationDependencies(
     private val observer: Observer = ObserverImpl(
         inputDir,
         sourcePrefix,
-        isSourceFile,
-        isBinaryFile,
-        fileFinder,
+        sourceFileChooser,
+        sourceFileSelection,
+        binaryFileChooser,
+        binaryFileSelection,
         nameParser,
         relationParser,
         files,

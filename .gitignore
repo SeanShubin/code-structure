@@ -8,14 +8,12 @@
 cdk.out
 generated
 downloaded
-secrets
-local-config
+/secrets/
+/local/
 *~
 *#
 .#*
 .DS_Store
 dependency-reduced-pom.xml
-
-# Gradle
 **/.gradle
 **/build

@@ -2,7 +2,8 @@ package com.seanshubin.code.structure.pipeline
 
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.seanshubin.code.structure.contract.delegate.FilesContract
-import com.seanshubin.code.structure.filefinder.FileFinder
+import com.seanshubin.code.structure.fileselection.FileChooser
+import com.seanshubin.code.structure.fileselection.FileSelection
 import com.seanshubin.code.structure.json.JsonMappers
 import com.seanshubin.code.structure.model.Observations
 import com.seanshubin.code.structure.nameparser.NameDetail
@@ -15,9 +16,10 @@ import java.nio.file.Path
 class ObserverImpl(
     private val inputDir: Path,
     private val sourcePrefix: String,
-    private val isSourceFile: (Path) -> Boolean,
-    private val isBinaryFile: (Path) -> Boolean,
-    private val fileFinder: FileFinder,
+    private val sourceFileChooser: FileChooser,
+    private val sourceFileSelection: FileSelection,
+    private val binaryFileChooser: FileChooser,
+    private val binaryFileSelection: FileSelection,
     private val nameParser: NameParser,
     private val relationParser: RelationParser,
     private val files: FilesContract,
@@ -38,7 +40,7 @@ class ObserverImpl(
     }
 
     private fun makeObservationsFromDisk(): Observations {
-        val absoluteSourceFiles = fileFinder.findFiles(inputDir, isSourceFile).sorted()
+        val absoluteSourceFiles = sourceFileChooser.choose(sourceFileSelection).sorted()
         val relativeSourceFiles = absoluteSourceFiles.map { inputDir.relativize(it) }
         val nameDetailList = absoluteSourceFiles.map { path ->
             val content = files.readString(path, StandardCharsets.UTF_8)
@@ -46,7 +48,7 @@ class ObserverImpl(
             nameDetail
         }
         val names = nameDetailList.flatMap { it.modules }.distinct().sorted()
-        val binaryFiles = fileFinder.findFiles(inputDir, isBinaryFile).sorted()
+        val binaryFiles = binaryFileChooser.choose(binaryFileSelection).sorted()
         val binaryDetailList = binaryFiles.flatMap {
             relationParser.parseDependencies(it, names)
         }.sorted()

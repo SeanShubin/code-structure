@@ -40,7 +40,7 @@ In your project's `build.gradle.kts`:
 
 ```kotlin
 plugins {
-    id("com.seanshubin.code.structure") version "1.1.1"
+    id("com.seanshubin.code.structure") version "1.1.3"
 }
 
 codeStructure {
@@ -81,7 +81,7 @@ The plugin expects a `code-structure-config.json` file at the project root (or s
 
 This plugin is a thin wrapper that:
 
-1. Declares dependency on `com.seanshubin.code.structure:code-structure-console:1.1.1`
+1. Declares dependency on `com.seanshubin.code.structure:code-structure-console:1.1.3`
 2. Provides a Gradle task that invokes the existing CLI entry point
 3. Maps Gradle configuration to code-structure configuration
 

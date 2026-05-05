@@ -1,12 +1,12 @@
 plugins {
-    kotlin("jvm") version "2.3.20"
+    kotlin("jvm") version "2.3.21"
     `java-gradle-plugin`
     `maven-publish`
     id("com.gradle.plugin-publish") version "1.3.0"
 }
 
 group = "com.seanshubin.code.structure"
-version = "1.1.2"
+version = "1.1.3"
 
 repositories {
     mavenCentral()

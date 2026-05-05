@@ -5,28 +5,12 @@
     <parent>
         <groupId>com.seanshubin.code.structure</groupId>
         <artifactId>code-structure-parent</artifactId>
-        <version>1.1.2</version>
+        <version>1.1.3</version>
     </parent>
     <packaging>pom</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Dependency Structure For Code</description>
     <url>https://github.com/SeanShubin/code-structure</url>
-    <properties>
-        <gradle.wrapper>gradlew</gradle.wrapper>
-    </properties>
-    <profiles>
-        <profile>
-            <id>windows</id>
-            <activation>
-                <os>
-                    <family>windows</family>
-                </os>
-            </activation>
-            <properties>
-                <gradle.wrapper>gradlew.bat</gradle.wrapper>
-            </properties>
-        </profile>
-    </profiles>
     <licenses>
         <license>
             <name>Unlicense</name>
@@ -73,7 +57,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${basedir}/${gradle.wrapper}</executable>
+                            <executable>${basedir}/gradlew</executable>
                             <arguments>
                                 <argument>build</argument>
                                 <argument>--no-daemon</argument>
@@ -87,7 +71,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${basedir}/${gradle.wrapper}</executable>
+                            <executable>${basedir}/gradlew</executable>
                             <arguments>
                                 <argument>publishToMavenLocal</argument>
                                 <argument>--no-daemon</argument>

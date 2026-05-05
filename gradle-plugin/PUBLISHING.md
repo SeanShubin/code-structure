@@ -154,7 +154,7 @@ Create a test project with:
 
 ```kotlin
 plugins {
-    id("com.seanshubin.code.structure") version "1.1.1"
+    id("com.seanshubin.code.structure") version "1.1.3"
 }
 ```
 
