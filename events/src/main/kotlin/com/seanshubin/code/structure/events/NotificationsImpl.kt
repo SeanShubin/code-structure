@@ -18,7 +18,7 @@ class NotificationsImpl(private val emitLine: (String) -> Unit) : Notifications 
 
     override fun fullAppTimeTakenEvent(timeTaken: Duration) {
         val formattedTime = DurationFormat.milliseconds.format(timeTaken.toMillis())
-        emitLine("Took $formattedTime")
+        emitLine("Time taken: $formattedTime")
     }
 
     override fun summaryEvent(summary: Summary) {

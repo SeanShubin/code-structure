@@ -189,8 +189,7 @@
     "exec": [],
     "stress": [
       "duration-format"
-    ],
-    "gradle-plugin": []
+    ]
   },
   "javaVersion": "17",
   "entryPoints": {
@@ -209,23 +208,5 @@
   ],
   "mavenPlugin": [
     "maven"
-  ],
-  "gradlePlugin": [
-    {
-      "module": "gradle-plugin",
-      "pluginId": "com.seanshubin.code.structure",
-      "implementationClass": "com.seanshubin.code.structure.gradle.CodeStructurePlugin",
-      "displayName": "Code Structure Plugin",
-      "description": "Analyzes code structure and generates dependency reports to detect cycles, vertical dependencies, and maintain architectural consistency",
-      "tags": [
-        "code-quality",
-        "architecture",
-        "dependencies",
-        "static-analysis"
-      ],
-      "dependsOn": [
-        "console"
-      ]
-    }
   ]
 }

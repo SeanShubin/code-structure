@@ -22,6 +22,12 @@ class Bar {
 In practice this means that cyclic data structures are ok, so long as the logic responsibilities only flow in one
 direction.
 
+## AI Assistants
+We should try to keep reports consistent and aggregatable between these sibling projects that share the same parent directory:
+- code-structure
+- inversion-guard
+- class-conflict
+
 If AI Assistants are having trouble keeping these metrics low, have them look at the [naming](docs/naming.md) document
 in this project, they are usually able to infer the concept from there.
 
@@ -93,7 +99,6 @@ This installs:
 
 - `com.seanshubin.code.structure:code-structure-console:1.1.3` - Standalone JAR
 - `com.seanshubin.code.structure:code-structure-maven:1.1.3` - Maven plugin
-- `com.seanshubin.code.structure:code-structure-gradle-plugin:1.1.3` - Gradle plugin
 
 ### Fetching from Maven Central
 
@@ -106,7 +111,6 @@ mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get \
 **Published artifacts:**
 
 - Maven Central: https://central.sonatype.com/search?q=com.seanshubin.code.structure
-- Gradle Plugin Portal: https://plugins.gradle.org/plugin/com.seanshubin.code.structure
 
 ## Usage
 
@@ -178,43 +182,6 @@ Add to your `pom.xml`:
   the [maven lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)
 - `<inherited>false</inherited>` ensures the plugin only runs at the parent level, not on each module
 - Run manually: `mvn code-structure:analyze`
-
-### Gradle Plugin
-
-**Add to your `build.gradle.kts`:**
-
-```kotlin
-plugins {
-    id("com.seanshubin.code.structure") version "1.1.3"
-}
-
-codeStructure {
-    configFile.set("code-structure-config.json")  // Optional, this is the default
-}
-```
-
-**Run the analysis:**
-
-```bash
-./gradlew analyzeCodeStructure
-```
-
-**Where it's published:**
-
-- Gradle Plugin Portal: https://plugins.gradle.org/plugin/com.seanshubin.code.structure
-- Maven Central: `com.seanshubin.code.structure:code-structure-gradle-plugin:1.1.3`
-
-**Notes:**
-
-- The Gradle plugin is a thin wrapper that invokes the same CLI entry point as the command line and Maven plugin
-- See [gradle-plugin/README.md](gradle-plugin/README.md) for more details
-
-**Building from source (developers only):**
-
-```bash
-cd gradle-plugin
-./gradlew publishToMavenLocal
-```
 
 ## Configuration
 
@@ -343,7 +310,7 @@ keep the build version ahead of the published version (bump it locally after eac
 
 ### Publishing
 
-**Maven modules and Gradle plugin:**
+**Maven modules:**
 
 ```bash
 mvn deploy -Pstage
@@ -352,8 +319,6 @@ mvn deploy -Pstage
 This publishes:
 
 - All Maven modules to Maven Central (via Central Portal)
-- Gradle plugin to Maven Central
-- Gradle plugin to Gradle Plugin Portal
 
 **Required environment variables:**
 
@@ -362,22 +327,10 @@ This publishes:
 export CENTRAL_USERNAME="your-central-token-username"
 export CENTRAL_PASSWORD="your-central-token-password"
 
-# Gradle Plugin Portal
-export GRADLE_PUBLISH_KEY="your-gradle-api-key"
-export GRADLE_PUBLISH_SECRET="your-gradle-api-secret"
-
-# GPG Signing (used by both Maven and Gradle)
+# GPG Signing
 export MAVEN_GPG_PASSPHRASE="your-gpg-passphrase"
 ```
-
-**Setup credentials:** See [gradle-plugin/PUBLISHING.md](gradle-plugin/PUBLISHING.md) for detailed instructions on:
-
-- Getting Maven Central Portal credentials (not OSSRH)
-- Getting Gradle Plugin Portal API keys
-- Setting up GPG signing keys
-- Configuring environment variables
 
 **Additional resources:**
 
 - Maven Central Portal: https://central.sonatype.com/
-- Gradle Plugin Portal: https://plugins.gradle.org/docs/submit
