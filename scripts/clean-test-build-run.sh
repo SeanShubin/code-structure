@@ -8,4 +8,4 @@ time \
 ./scripts/_run.sh
 date
 say "done with clean test build run"
-open -a "Google Chrome" "generated/self/index.html"
+open -a "Google Chrome" "generated/code-structure/browse/index.html"

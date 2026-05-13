@@ -3,4 +3,4 @@
 date
 time ./scripts/_run.sh
 date
-open -a "Google Chrome" generated/self/index.html
+open -a "Google Chrome" generated/code-structure/browse/index.html
