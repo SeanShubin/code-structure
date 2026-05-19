@@ -3,10 +3,9 @@ package com.seanshubin.code.structure.composition
 class Bootstrap(
     private val integrations: Integrations
 ) {
-    private val argsParser = ArgsParser
-
     fun loadConfiguration(): Configuration {
-        val configBaseName = argsParser.parseConfigBaseName(integrations.commandLineArgs)
+        val commandLineArgs = integrations.commandLineArgs
+        val configBaseName = commandLineArgs.firstOrNull() ?: "code-structure"
         val loader = ConfigurationLoader(integrations, configBaseName)
         return loader.load()
     }
