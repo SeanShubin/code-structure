@@ -29,7 +29,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.seanshubin.code.structure.console.EntryPoint</mainClass>
+                            <mainClass>com.seanshubin.code.structure.console.CodeStructureApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

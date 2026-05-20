@@ -6,7 +6,7 @@ import com.seanshubin.code.structure.composition.Integrations
 import com.seanshubin.code.structure.composition.ProductionIntegrations
 import kotlin.system.exitProcess
 
-object EntryPoint {
+object CodeStructureApp {
     @JvmStatic
     fun main(args: Array<String>) {
         val exitCode = execute(args)
