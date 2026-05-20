@@ -5,6 +5,7 @@ import com.seanshubin.code.structure.commands.CommandRunner
 import com.seanshubin.code.structure.events.Timer
 import com.seanshubin.code.structure.model.Summary
 import com.seanshubin.code.structure.reports.ReportGenerator
+import java.nio.file.Path
 import java.time.Clock
 import java.time.Duration
 
@@ -15,10 +16,12 @@ class Runner(
     private val validator: Validator,
     private val reportGenerator: ReportGenerator,
     private val commandRunner: CommandRunner,
+    private val outputDirEvent: (Path) -> Unit,
     private val timeTakenEvent: (Duration) -> Unit,
     private val summaryEvent: (Summary) -> Unit,
     private val timer: Timer,
-    private val exitCodeHolder: ErrorMessageHolder
+    private val exitCodeHolder: ErrorMessageHolder,
+    private val outputDir: Path
 ) : Runnable {
     private val reportName: String = "runner"
     override fun run() {
@@ -42,6 +45,7 @@ class Runner(
         summaryEvent(validated.analysis.summary)
         val endTime = clock.instant()
         val duration = Duration.between(startTime, endTime)
+        outputDirEvent(outputDir)
         timeTakenEvent(duration)
     }
 }

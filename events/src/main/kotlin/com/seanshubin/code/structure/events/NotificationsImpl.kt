@@ -16,6 +16,10 @@ class NotificationsImpl(private val emitLine: (String) -> Unit) : Notifications 
 //        emitLine("$formattedTime: $caption")
     }
 
+    override fun outputDirEvent(outputDir: Path) {
+        emitLine("Output: $outputDir")
+    }
+
     override fun fullAppTimeTakenEvent(timeTaken: Duration) {
         val formattedTime = DurationFormat.milliseconds.format(timeTaken.toMillis())
         emitLine("Time taken: $formattedTime")
@@ -27,12 +31,12 @@ class NotificationsImpl(private val emitLine: (String) -> Unit) : Notifications 
             val count = value.count
             val name = errorType.caption
             if (value.isPartOfTotal) {
-                emitLine("$name: $count")
+                emitLine("$name: $count (counted as errors)")
             } else {
-                emitLine("$name: $count (not part of total)")
+                emitLine("$name: $count")
             }
         }
-        emitLine("total: ${summary.errorCount} of ${summary.errorLimit} errors allowed")
+        emitLine("Total Errors: ${summary.errorCount} of ${summary.errorLimit} errors allowed")
     }
 
     override fun fileMatchedFilterEvent(category: String, type: String, pattern: String, file: Path) {

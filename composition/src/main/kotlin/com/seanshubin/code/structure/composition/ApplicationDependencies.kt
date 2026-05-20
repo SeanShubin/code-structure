@@ -245,6 +245,7 @@ class ApplicationDependencies(
     private val reportGenerator: ReportGenerator = ReportGeneratorImpl(reports, finalReports, outputDir, timer)
     private val environment: Environment = EnvironmentImpl(files, outputDir, exec)
     private val commandRunner: CommandRunner = CommandRunnerImpl(environment)
+    private val outputDirEvent: (Path) -> Unit = notifications::outputDirEvent
     private val fullAppTimeTakenEvent: (Duration) -> Unit = notifications::fullAppTimeTakenEvent
     private val summaryEvent: (Summary) -> Unit = notifications::summaryEvent
     val errorMessageHolder: ErrorMessageHolder = ErrorMessageHolderImpl()
@@ -255,9 +256,11 @@ class ApplicationDependencies(
         validator,
         reportGenerator,
         commandRunner,
+        outputDirEvent,
         fullAppTimeTakenEvent,
         summaryEvent,
         timer,
-        errorMessageHolder
+        errorMessageHolder,
+        outputDir
     )
 }

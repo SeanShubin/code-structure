@@ -7,6 +7,7 @@ import java.time.Duration
 interface Notifications {
     fun configFileEvent(configFile: Path)
     fun timeTakenEvent(caption: String, timeTaken: Duration)
+    fun outputDirEvent(outputDir: Path)
     fun fullAppTimeTakenEvent(timeTaken: Duration)
     fun summaryEvent(summary: Summary)
     fun fileMatchedFilterEvent(category: String, type: String, pattern: String, file: Path)
