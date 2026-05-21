@@ -134,14 +134,14 @@
   "binaries" : [
     {
       "source" : {
-        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.ModuleE.beam"
+        "file" : "ebin/Elixir.ModuleE.beam"
       },
       "name" : "ModuleE",
       "dependencyNames" : [ ]
     },
     {
       "source" : {
-        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.ModuleP.beam"
+        "file" : "ebin/Elixir.ModuleP.beam"
       },
       "name" : "ModuleP",
       "dependencyNames" : [
@@ -150,7 +150,7 @@
     },
     {
       "source" : {
-        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathA.ModuleB.beam"
+        "file" : "ebin/Elixir.PathA.ModuleB.beam"
       },
       "name" : "PathA.ModuleB",
       "dependencyNames" : [
@@ -159,7 +159,7 @@
     },
     {
       "source" : {
-        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathC.ModuleD.beam"
+        "file" : "ebin/Elixir.PathC.ModuleD.beam"
       },
       "name" : "PathC.ModuleD",
       "dependencyNames" : [
@@ -168,7 +168,7 @@
     },
     {
       "source" : {
-        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleK.beam"
+        "file" : "ebin/Elixir.PathE.PathF.ModuleK.beam"
       },
       "name" : "PathE.PathF.ModuleK",
       "dependencyNames" : [
@@ -177,7 +177,7 @@
     },
     {
       "source" : {
-        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleL.beam"
+        "file" : "ebin/Elixir.PathE.PathF.ModuleL.beam"
       },
       "name" : "PathE.PathF.ModuleL",
       "dependencyNames" : [
@@ -186,7 +186,7 @@
     },
     {
       "source" : {
-        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleM.beam"
+        "file" : "ebin/Elixir.PathE.PathF.ModuleM.beam"
       },
       "name" : "PathE.PathF.ModuleM",
       "dependencyNames" : [
@@ -196,7 +196,7 @@
     },
     {
       "source" : {
-        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleN.beam"
+        "file" : "ebin/Elixir.PathE.PathF.ModuleN.beam"
       },
       "name" : "PathE.PathF.ModuleN",
       "dependencyNames" : [
@@ -207,14 +207,14 @@
     },
     {
       "source" : {
-        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathE.PathF.ModuleO.beam"
+        "file" : "ebin/Elixir.PathE.PathF.ModuleO.beam"
       },
       "name" : "PathE.PathF.ModuleO",
       "dependencyNames" : [ ]
     },
     {
       "source" : {
-        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathG.ModuleH.beam"
+        "file" : "ebin/Elixir.PathG.ModuleH.beam"
       },
       "name" : "PathG.ModuleH",
       "dependencyNames" : [
@@ -224,7 +224,7 @@
     },
     {
       "source" : {
-        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathI.ModuleJ.beam"
+        "file" : "ebin/Elixir.PathI.ModuleJ.beam"
       },
       "name" : "PathI.ModuleJ",
       "dependencyNames" : [
@@ -233,7 +233,7 @@
     },
     {
       "source" : {
-        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathP.ModuleQ.beam"
+        "file" : "ebin/Elixir.PathP.ModuleQ.beam"
       },
       "name" : "PathP.ModuleQ",
       "dependencyNames" : [
@@ -242,7 +242,7 @@
     },
     {
       "source" : {
-        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathR.ModuleS.beam"
+        "file" : "ebin/Elixir.PathR.ModuleS.beam"
       },
       "name" : "PathR.ModuleS",
       "dependencyNames" : [
@@ -252,7 +252,7 @@
     },
     {
       "source" : {
-        "file" : "_build/dev/lib/code_structure_sample_elixir/ebin/Elixir.PathT.ModuleU.beam"
+        "file" : "ebin/Elixir.PathT.ModuleU.beam"
       },
       "name" : "PathT.ModuleU",
       "dependencyNames" : [ ]

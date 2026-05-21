@@ -134,14 +134,14 @@
   "binaries" : [
     {
       "source" : {
-        "file" : "domain/target/classes/com/seanshubin/code/structure/sample/kotlin/domain/ClassE.class"
+        "file" : "domain/classes/com/seanshubin/code/structure/sample/kotlin/domain/ClassE.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.ClassE",
       "dependencyNames" : [ ]
     },
     {
       "source" : {
-        "file" : "domain/target/classes/com/seanshubin/code/structure/sample/kotlin/domain/ClassP.class"
+        "file" : "domain/classes/com/seanshubin/code/structure/sample/kotlin/domain/ClassP.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.ClassP",
       "dependencyNames" : [
@@ -150,7 +150,7 @@
     },
     {
       "source" : {
-        "file" : "domain/target/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagea/ClassB.class"
+        "file" : "domain/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagea/ClassB.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagea.ClassB",
       "dependencyNames" : [
@@ -159,7 +159,7 @@
     },
     {
       "source" : {
-        "file" : "domain/target/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagec/ClassD.class"
+        "file" : "domain/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagec/ClassD.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagec.ClassD",
       "dependencyNames" : [
@@ -168,7 +168,7 @@
     },
     {
       "source" : {
-        "file" : "domain/target/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassK.class"
+        "file" : "domain/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassK.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassK",
       "dependencyNames" : [
@@ -177,7 +177,7 @@
     },
     {
       "source" : {
-        "file" : "domain/target/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassL.class"
+        "file" : "domain/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassL.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassL",
       "dependencyNames" : [
@@ -186,7 +186,7 @@
     },
     {
       "source" : {
-        "file" : "domain/target/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassM.class"
+        "file" : "domain/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassM.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassM",
       "dependencyNames" : [
@@ -196,7 +196,7 @@
     },
     {
       "source" : {
-        "file" : "domain/target/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassN.class"
+        "file" : "domain/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassN.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassN",
       "dependencyNames" : [
@@ -207,14 +207,14 @@
     },
     {
       "source" : {
-        "file" : "domain/target/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassO.class"
+        "file" : "domain/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassO.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassO",
       "dependencyNames" : [ ]
     },
     {
       "source" : {
-        "file" : "domain/target/classes/com/seanshubin/code/structure/sample/kotlin/domain/packageg/ClassH.class"
+        "file" : "domain/classes/com/seanshubin/code/structure/sample/kotlin/domain/packageg/ClassH.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packageg.ClassH",
       "dependencyNames" : [
@@ -224,7 +224,7 @@
     },
     {
       "source" : {
-        "file" : "domain/target/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagei/ClassJ.class"
+        "file" : "domain/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagei/ClassJ.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagei.ClassJ",
       "dependencyNames" : [
@@ -233,7 +233,7 @@
     },
     {
       "source" : {
-        "file" : "domain/target/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagep/ClassQ.class"
+        "file" : "domain/classes/com/seanshubin/code/structure/sample/kotlin/domain/packagep/ClassQ.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagep.ClassQ",
       "dependencyNames" : [
@@ -242,7 +242,7 @@
     },
     {
       "source" : {
-        "file" : "domain/target/classes/com/seanshubin/code/structure/sample/kotlin/domain/packager/ClassS.class"
+        "file" : "domain/classes/com/seanshubin/code/structure/sample/kotlin/domain/packager/ClassS.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packager.ClassS",
       "dependencyNames" : [
@@ -252,7 +252,7 @@
     },
     {
       "source" : {
-        "file" : "domain/target/classes/com/seanshubin/code/structure/sample/kotlin/domain/packaget/ClassU.class"
+        "file" : "domain/classes/com/seanshubin/code/structure/sample/kotlin/domain/packaget/ClassU.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packaget.ClassU",
       "dependencyNames" : [ ]

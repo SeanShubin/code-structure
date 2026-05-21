@@ -134,7 +134,7 @@
   "binaries" : [
     {
       "source" : {
-        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "zipFile" : "console/lib/code-structure-sample-kotlin-console.jar",
         "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/ClassE.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.ClassE",
@@ -142,7 +142,7 @@
     },
     {
       "source" : {
-        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "zipFile" : "console/lib/code-structure-sample-kotlin-console.jar",
         "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/ClassP.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.ClassP",
@@ -152,7 +152,7 @@
     },
     {
       "source" : {
-        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "zipFile" : "console/lib/code-structure-sample-kotlin-console.jar",
         "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagea/ClassB.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagea.ClassB",
@@ -162,7 +162,7 @@
     },
     {
       "source" : {
-        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "zipFile" : "console/lib/code-structure-sample-kotlin-console.jar",
         "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagec/ClassD.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagec.ClassD",
@@ -172,7 +172,7 @@
     },
     {
       "source" : {
-        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "zipFile" : "console/lib/code-structure-sample-kotlin-console.jar",
         "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassK.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassK",
@@ -182,7 +182,7 @@
     },
     {
       "source" : {
-        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "zipFile" : "console/lib/code-structure-sample-kotlin-console.jar",
         "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassL.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassL",
@@ -192,7 +192,7 @@
     },
     {
       "source" : {
-        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "zipFile" : "console/lib/code-structure-sample-kotlin-console.jar",
         "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassM.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassM",
@@ -203,7 +203,7 @@
     },
     {
       "source" : {
-        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "zipFile" : "console/lib/code-structure-sample-kotlin-console.jar",
         "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassN.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassN",
@@ -215,7 +215,7 @@
     },
     {
       "source" : {
-        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "zipFile" : "console/lib/code-structure-sample-kotlin-console.jar",
         "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagee/packagef/ClassO.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagee.packagef.ClassO",
@@ -223,7 +223,7 @@
     },
     {
       "source" : {
-        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "zipFile" : "console/lib/code-structure-sample-kotlin-console.jar",
         "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packageg/ClassH.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packageg.ClassH",
@@ -234,7 +234,7 @@
     },
     {
       "source" : {
-        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "zipFile" : "console/lib/code-structure-sample-kotlin-console.jar",
         "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagei/ClassJ.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagei.ClassJ",
@@ -244,7 +244,7 @@
     },
     {
       "source" : {
-        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "zipFile" : "console/lib/code-structure-sample-kotlin-console.jar",
         "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packagep/ClassQ.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packagep.ClassQ",
@@ -254,7 +254,7 @@
     },
     {
       "source" : {
-        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "zipFile" : "console/lib/code-structure-sample-kotlin-console.jar",
         "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packager/ClassS.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packager.ClassS",
@@ -265,7 +265,7 @@
     },
     {
       "source" : {
-        "zipFile" : "console/target/code-structure-sample-kotlin-console.jar",
+        "zipFile" : "console/lib/code-structure-sample-kotlin-console.jar",
         "entryPath" : "com/seanshubin/code/structure/sample/kotlin/domain/packaget/ClassU.class"
       },
       "name" : "com.seanshubin.code.structure.sample.kotlin.domain.packaget.ClassU",

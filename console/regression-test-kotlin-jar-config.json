@@ -11,7 +11,7 @@
   },
   "binaryFileRegexPatterns" : {
     "include" : [
-      "console/target/code-structure-sample-kotlin-console.jar$"
+      "console/lib/code-structure-sample-kotlin-console.jar$"
     ],
     "exclude" : [ ]
   },
