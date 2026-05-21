@@ -27,9 +27,9 @@ object TypeUtil {
     private fun failCoerceMessage(fromValue: Any?, toType: Class<*>): String {
         val fromDescription = when (fromValue) {
             null -> "<null>"
-            else -> "$fromValue of type ${fromValue.javaClass.name}"
+            else -> "$fromValue of type ${fromValue.javaClass.simpleName}"
         }
-        val typeDescription = toType.typeName
+        val typeDescription = toType.simpleName
         return "Unable to convert $fromDescription to $typeDescription"
     }
 

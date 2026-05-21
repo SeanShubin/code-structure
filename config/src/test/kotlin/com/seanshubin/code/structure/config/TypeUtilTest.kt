@@ -21,7 +21,7 @@ class TypeUtilTest {
         val exception = assertThrows(RuntimeException::class.java) {
             1.coerceToPath()
         }
-        assertEquals("Unable to convert 1 of type java.lang.Integer to java.nio.file.Path", exception.message)
+        assertEquals("Unable to convert 1 of type Integer to Path", exception.message)
     }
 
     @Test
