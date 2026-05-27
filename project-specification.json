@@ -208,5 +208,6 @@
   ],
   "mavenPlugin": [
     "maven"
-  ]
+  ],
+  "generateCodeStructure": true
 }
