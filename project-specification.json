@@ -209,5 +209,8 @@
   "mavenPlugin": [
     "maven"
   ],
-  "generateCodeStructure": true
+  "generateCodeStructure": true,
+  "gradlePlugin": [],
+  "exports": [],
+  "publishToMavenCentral": false
 }
