@@ -131,7 +131,7 @@
     ],
     "readme" : [
       "path: _documentation.readme",
-      "default value: https://github.com/SeanShubin/code-structure/blob/master/README.md",
+      "default value: https://<host>/<owner>/code-structure/blob/master/README.md",
       "default value type: String",
       "Link to the README file for detailed documentation",
       "Should be a URL to the project's README on GitHub or similar"

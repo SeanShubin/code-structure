@@ -33,7 +33,7 @@ class ConfigurationLoader(
         )
         config.load(
             listOf("_documentation", "readme"),
-            "https://github.com/SeanShubin/code-structure/blob/master/README.md",
+            "https://<host>/<owner>/code-structure/blob/master/README.md",
             ConfigDocumentation.documentationReadme
         )
         config.load(
